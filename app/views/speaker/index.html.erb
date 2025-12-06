@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="speaker-panel">
+    <h1>Translation Speaker</h1>
+    <p class="subtitle">Speak in Bosnian to broadcast German translations</p>
+
+    <div class="controls">
+      <button id="startRecording" class="btn btn-primary btn-large">
+        <span class="icon">🎤</span>
+        Start Recording
+      </button>
+      <button id="stopRecording" class="btn btn-danger btn-large" style="display: none;">
+        <span class="icon">⏹</span>
+        Stop Recording
+      </button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="info-box">
+      <h3>How it works:</h3>
+      <ol>
+        <li>Click "Start Recording" to begin speaking</li>
+        <li>Speak in Bosnian</li>
+        <li>Listeners on /german will see real-time German translations</li>
+        <li>Click "Stop Recording" when finished</li>
+      </ol>
+    </div>
+
+    <div class="transcription-box" id="transcriptionBox" style="display: none;">
+      <h3>Your Speech (Bosnian):</h3>
+      <div id="transcription"></div>
+    </div>
+  </div>
+</div>
