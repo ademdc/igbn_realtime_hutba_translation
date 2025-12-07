@@ -2,8 +2,7 @@
   "name": "igbd-translations-app",
   "private": true,
   "engines": {
-    "node": "20.9.0",
-    "npm": ">=9.0.0"
+    "node": "20.17.0"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.1",
