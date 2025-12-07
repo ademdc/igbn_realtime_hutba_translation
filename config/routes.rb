@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "speaker#index"
 
+  # Speaker authentication
+  get "speaker/login", to: "speaker#login", as: :speaker_login
+  post "speaker/authenticate", to: "speaker#authenticate", as: :speaker_authenticate
+  delete "speaker/logout", to: "speaker#logout", as: :speaker_logout
+
   # Listener page for German translations
   get "german", to: "listener#german"
 end

@@ -3,6 +3,8 @@ class TranslationChannel < ApplicationCable::Channel
     stream_from "translation_german"
     # Use connection identifier as session ID
     @session_id = connection.connection_identifier
+    # Also subscribe to speaker-specific channel for original transcriptions
+    stream_from "translation_speaker_#{@session_id}"
     Rails.logger.info "TranslationChannel subscribed with session: #{@session_id}"
   end
 

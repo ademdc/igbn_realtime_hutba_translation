@@ -9,8 +9,11 @@ Get the Bosnian → German translation app running in 5 minutes!
 bundle install
 npm install
 
-# 2. Add your Soniox API key to .env
-echo "SONIOX_API_KEY=your_key_here" > .env
+# 2. Add your configuration to .env
+cat > .env << EOF
+SONIOX_API_KEY=your_key_here
+SPEAKER_PIN=123456
+EOF
 
 # 3. Setup database
 rails db:create db:migrate
@@ -24,9 +27,13 @@ bin/dev
 
 ## Usage
 
-1. **Speaker**: Open `http://localhost:3000` and click "Start Recording"
-2. **Listeners**: Open `http://localhost:3000/german` in other tabs/devices
-3. **Speak**: Talk in Bosnian, see German translations appear for listeners!
+1. **Speaker**:
+   - Open `http://localhost:3000`
+   - Enter the 6-digit PIN (default: 123456)
+   - Click "Start Recording" and speak in Bosnian
+2. **Listeners**:
+   - Open `http://localhost:3000/german` in other tabs/devices (no PIN required)
+   - See real-time German translations appear!
 
 ## Files Structure
 

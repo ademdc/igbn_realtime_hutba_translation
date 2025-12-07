@@ -20,15 +20,23 @@ bundle install
 npm install
 ```
 
-### 2. Configure Soniox API Key
+### 2. Configure Environment Variables
 
-Edit `.env` file and add your Soniox API key:
+Edit `.env` file and add your configuration:
 
 ```bash
+# Soniox API Key (required)
 SONIOX_API_KEY=your_actual_soniox_api_key_here
+
+# Speaker PIN Protection (required)
+# 6-digit PIN to access the speaker page
+SPEAKER_PIN=123456
 ```
 
-You can get your API key from [Soniox Console](https://soniox.com/console).
+**Important:**
+- Get your Soniox API key from [Soniox Console](https://soniox.com/console)
+- Change the `SPEAKER_PIN` to your own secure 6-digit number
+- The speaker page (/) is PIN-protected for security
 
 ### 3. Setup Database
 

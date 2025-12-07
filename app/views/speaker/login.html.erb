@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="speaker-panel">
+    <h1>🔒 Speaker Access</h1>
+    <p class="subtitle">Enter the 6-digit PIN to access the speaker page</p>
+
+    <% if flash.now[:alert] || flash[:alert] %>
+      <div class="status status-error" style="animation: shake 0.5s;">
+        <strong>❌ <%= flash.now[:alert] || flash[:alert] %></strong>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div class="status status-info">
+        ✅ <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    <%= form_with url: speaker_authenticate_path, method: :post, class: "pin-form" do |form| %>
+      <div class="form-group">
+        <%= form.label :pin, "PIN Code", class: "form-label" %>
+        <%= form.text_field :pin,
+            maxlength: 6,
+            pattern: "[0-9]{6}",
+            placeholder: "Enter 6-digit PIN",
+            autocomplete: "off",
+            autofocus: true,
+            class: "form-input pin-input #{'input-error' if @pin_error}",
+            required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Unlock", class: "btn btn-primary btn-large" %>
+      </div>
+    <% end %>
+
+    <div class="info-box">
+      <h3>ℹ️ Information:</h3>
+      <ul>
+        <li>The speaker page is PIN-protected for security</li>
+        <li>Ask the administrator for the 6-digit PIN code</li>
+        <li>The PIN is set via the <code>SPEAKER_PIN</code> environment variable</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -40,18 +40,30 @@ if (document.getElementById('translationFeed')) {
         noTranslations.remove()
       }
 
-      // Create translation item
-      const item = document.createElement('div')
-      item.className = 'translation-item'
+      // Get or create continuous text container
+      let textContainer = feed.querySelector('.continuous-text')
+      if (!textContainer) {
+        textContainer = document.createElement('div')
+        textContainer.className = 'continuous-text'
+        feed.appendChild(textContainer)
+      }
 
-      const timestamp = new Date(data.timestamp).toLocaleTimeString()
+      // Create a span for new text with highlight animation
+      const span = document.createElement('span')
+      span.className = 'new-text'
+      span.textContent = data.text
 
-      item.innerHTML = `
-        <div class="translation-text">${this.escapeHtml(data.text)}</div>
-        <div class="translation-time">${timestamp}</div>
-      `
+      // Add space before if not first text
+      if (textContainer.children.length > 0) {
+        textContainer.appendChild(document.createTextNode(' '))
+      }
 
-      feed.appendChild(item)
+      textContainer.appendChild(span)
+
+      // Remove animation class after animation completes
+      setTimeout(() => {
+        span.className = ''
+      }, 3000)
 
       // Auto-scroll to bottom
       feed.scrollTop = feed.scrollHeight

@@ -7,7 +7,6 @@ class SonioxProxyService
 
   @@connections = {}
   @@audio_buffers = {}
-  @@channels = {}
   @@em_thread = nil
 
   class << self
@@ -36,9 +35,6 @@ class SonioxProxyService
     def process_audio(audio_data, session_id, channel = nil)
       connection = get_or_create_connection(session_id)
 
-      # Store channel reference for this session
-      @@channels[session_id] = channel if channel
-
       # Convert array of integers to binary string (16-bit signed little-endian)
       if audio_data.is_a?(Array)
         binary_data = audio_data.pack('s<*')
@@ -63,7 +59,6 @@ class SonioxProxyService
         @@connections[session_id].close
         @@connections.delete(session_id)
         @@audio_buffers.delete(session_id)
-        @@channels.delete(session_id)
       end
     end
 
@@ -130,12 +125,12 @@ class SonioxProxyService
 
               # Send Bosnian original back to speaker
               original_text = extract_original(result)
-              if original_text.present? && @@channels[session_id]
+              if original_text.present?
                 Rails.logger.info "Sending original to speaker: #{original_text}"
-                @@channels[session_id].transmit({
-                  original: original_text,
-                  timestamp: Time.current
-                })
+                ActionCable.server.broadcast(
+                  "translation_speaker_#{session_id}",
+                  { original: original_text, timestamp: Time.current }
+                )
               end
             end
           rescue JSON::ParserError => e
@@ -153,7 +148,6 @@ class SonioxProxyService
           Rails.logger.info "Soniox connection closed for session: #{session_id}"
           @@connections.delete(session_id)
           @@audio_buffers.delete(session_id)
-          @@channels.delete(session_id)
         end
       end
 
