@@ -5003,12 +5003,13 @@
   var translationFeed = document.getElementById("translationFeed");
   if (translationFeed) {
     const language = translationFeed.dataset.language || "german";
-    consumer_default.subscriptions.create(
+    const subscription = consumer_default.subscriptions.create(
       { channel: "TranslationChannel", language },
       {
         connected() {
           console.log(`Connected to TranslationChannel for ${language}`);
           this.updateStatus("Verbunden", true);
+          this.lastReceivedAt = Date.now();
         },
         disconnected() {
           console.log(`Disconnected from TranslationChannel for ${language}`);
@@ -5016,6 +5017,7 @@
         },
         received(data) {
           console.log("Received translation:", data);
+          this.lastReceivedAt = Date.now();
           this.displayTranslation(data);
         },
         updateStatus(status, connected) {
@@ -5059,6 +5061,34 @@
         }
       }
     );
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        console.log("Tab became visible, ensuring connection is active");
+        setTimeout(() => {
+          if (subscription.consumer.connection.isActive()) {
+            console.log("Connection is active after tab switch");
+          } else {
+            console.log("Connection inactive, reconnecting...");
+            subscription.consumer.connection.reopen();
+          }
+        }, 100);
+      }
+    });
+    let wakeLock = null;
+    const requestWakeLock = async () => {
+      try {
+        if ("wakeLock" in navigator) {
+          wakeLock = await navigator.wakeLock.request("screen");
+          console.log("Screen wake lock activated");
+          wakeLock.addEventListener("release", () => {
+            console.log("Screen wake lock released");
+          });
+        }
+      } catch (err) {
+        console.log("Wake lock not supported or failed:", err.message);
+      }
+    };
+    document.addEventListener("click", requestWakeLock, { once: true });
   }
 
   // app/javascript/controllers/speaker_controller.js

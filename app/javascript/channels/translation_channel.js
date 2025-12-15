@@ -5,12 +5,14 @@ const translationFeed = document.getElementById('translationFeed')
 if (translationFeed) {
   const language = translationFeed.dataset.language || 'german'
 
-  consumer.subscriptions.create(
+  const subscription = consumer.subscriptions.create(
     { channel: "TranslationChannel", language: language },
     {
       connected() {
         console.log(`Connected to TranslationChannel for ${language}`)
         this.updateStatus("Verbunden", true)
+        // Clear any stale state when reconnecting
+        this.lastReceivedAt = Date.now()
       },
 
     disconnected() {
@@ -20,6 +22,7 @@ if (translationFeed) {
 
     received(data) {
       console.log("Received translation:", data)
+      this.lastReceivedAt = Date.now()
       this.displayTranslation(data)
     },
 
@@ -80,4 +83,42 @@ if (translationFeed) {
       return div.innerHTML
     }
   })
+
+  // Handle page visibility changes (tab switching)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      console.log('Tab became visible, ensuring connection is active')
+
+      // If disconnected, consumer will auto-reconnect
+      // If connected but not receiving data, force reconnection
+      setTimeout(() => {
+        if (subscription.consumer.connection.isActive()) {
+          console.log('Connection is active after tab switch')
+        } else {
+          console.log('Connection inactive, reconnecting...')
+          subscription.consumer.connection.reopen()
+        }
+      }, 100)
+    }
+  })
+
+  // Keep screen awake on mobile devices to prevent disconnections
+  let wakeLock = null
+  const requestWakeLock = async () => {
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLock = await navigator.wakeLock.request('screen')
+        console.log('Screen wake lock activated')
+
+        wakeLock.addEventListener('release', () => {
+          console.log('Screen wake lock released')
+        })
+      }
+    } catch (err) {
+      console.log('Wake lock not supported or failed:', err.message)
+    }
+  }
+
+  // Request wake lock on user interaction
+  document.addEventListener('click', requestWakeLock, { once: true })
 }
