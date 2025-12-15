@@ -19,7 +19,4 @@ Rails.application.routes.draw do
   # Language-specific listener pages
   get "german", to: "listener#show", defaults: { language: 'german' }
   get "english", to: "listener#show", defaults: { language: 'english' }
-  get "turkish", to: "listener#show", defaults: { language: 'turkish' }
-  get "albanian", to: "listener#show", defaults: { language: 'albanian' }
-  get "arabic", to: "listener#show", defaults: { language: 'arabic' }
 end

@@ -8,10 +8,7 @@ class SonioxProxyService
   # Map language names to Soniox language codes
   LANGUAGE_CODES = {
     'german' => 'de',
-    'english' => 'en',
-    'turkish' => 'tr',
-    'albanian' => 'sq',
-    'arabic' => 'ar'
+    'english' => 'en'
   }.freeze
 
   @@connections = {}
@@ -33,52 +30,72 @@ class SonioxProxyService
       sleep 0.1 until EM.reactor_running?
     end
 
-    def get_or_create_connection(session_id)
+    def get_or_create_connections(session_id)
       start_event_machine
 
-      @@connections[session_id] ||= begin
-        Rails.logger.info "Creating new Soniox connection for session: #{session_id}"
-        @@audio_buffers[session_id] = []
-        connect_to_soniox(session_id)
+      # Create one connection per active language
+      active_langs = get_active_languages_from_redis
+      connections = {}
+
+      active_langs.each do |lang|
+        lang_code = LANGUAGE_CODES[lang]
+        next unless lang_code
+
+        connection_key = "#{session_id}_#{lang}"
+
+        unless @@connections[connection_key]
+          Rails.logger.info "Creating Soniox connection for session: #{session_id}, language: #{lang}"
+          @@audio_buffers[connection_key] = []
+          @@connections[connection_key] = connect_to_soniox(session_id, lang, lang_code)
+        end
+
+        connections[lang] = @@connections[connection_key]
       end
+
+      connections
     end
 
     def process_audio(audio_data, session_id, channel = nil)
-      connection = get_or_create_connection(session_id)
+      connections = get_or_create_connections(session_id)
 
       # Convert array of integers to binary string (16-bit signed little-endian)
       if audio_data.is_a?(Array)
         binary_data = audio_data.pack('s<*')
 
-        EM.next_tick do
-          state = connection&.ready_state
-          if connection && state == Faye::WebSocket::API::OPEN
-            connection.send(binary_data)
-          else
-            # Buffer audio data if connection is not ready yet
-            buffer_size = @@audio_buffers[session_id]&.size || 0
-            Rails.logger.warn "Buffering audio (state: #{state}, buffer: #{buffer_size} chunks)"
-            @@audio_buffers[session_id] ||= []
-            @@audio_buffers[session_id] << binary_data
+        # Send audio to ALL language connections for this session
+        connections.each do |lang, connection|
+          connection_key = "#{session_id}_#{lang}"
+
+          EM.next_tick do
+            state = connection&.ready_state
+            if connection && state == Faye::WebSocket::API::OPEN
+              connection.send(binary_data)
+            else
+              # Buffer audio data if connection is not ready yet
+              buffer_size = @@audio_buffers[connection_key]&.size || 0
+              Rails.logger.warn "Buffering audio for #{lang} (state: #{state}, buffer: #{buffer_size} chunks)"
+              @@audio_buffers[connection_key] ||= []
+              @@audio_buffers[connection_key] << binary_data
+            end
           end
         end
       end
     end
 
     def close_connection(session_id)
-      if @@connections[session_id]
-        @@connections[session_id].close
-        @@connections.delete(session_id)
-        @@audio_buffers.delete(session_id)
+      # Close all language connections for this session
+      @@connections.keys.select { |key| key.start_with?("#{session_id}_") }.each do |connection_key|
+        @@connections[connection_key]&.close
+        @@connections.delete(connection_key)
+        @@audio_buffers.delete(connection_key)
       end
     end
 
     def restart_connection(session_id)
-      if @@connections[session_id]
-        Rails.logger.info "Restarting Soniox connection for session: #{session_id}"
-        @@connections[session_id].close
-        @@connections[session_id] = connect_to_soniox(session_id)
-      end
+      # Restart all language connections for this session
+      Rails.logger.info "Restarting Soniox connections for session: #{session_id}"
+      close_connection(session_id)
+      get_or_create_connections(session_id)
     end
 
     def update_active_languages(languages)
@@ -130,10 +147,11 @@ class SonioxProxyService
 
     private
 
-    def connect_to_soniox(session_id)
+    def connect_to_soniox(session_id, language_name, language_code)
       api_key = ENV['SONIOX_API_KEY']
       raise "SONIOX_API_KEY not configured" unless api_key
 
+      connection_key = "#{session_id}_#{language_name}"
       ws_container = { ws: nil }
 
       EM.next_tick do
@@ -141,43 +159,34 @@ class SonioxProxyService
         ws_container[:ws] = ws
 
         ws.on :open do |event|
-          Rails.logger.info "✓ Connected to Soniox for session: #{session_id}"
+          Rails.logger.info "✓ Connected to Soniox for session: #{session_id}, language: #{language_name}"
 
-          # Get active language codes
-          target_langs = active_language_codes
-
-          # Build configuration for Bosnian to multiple languages
+          # Build configuration for Bosnian to target language
           config = {
             api_key: api_key,
             audio_format: "pcm_s16le",
             sample_rate: 16000,
             num_channels: 1,
             include_nonfinal: true,
-            model: 'stt-rt-v3'
+            model: 'stt-rt-v3',
+            translation: {
+              type: "one_way",
+              target_language: language_code
+            }
           }
 
-          # Only add translation if there are active languages
-          # Note: Soniox only supports ONE target language per connection
-          if target_langs.any?
-            config[:translation] = {
-              type: "one_way",
-              target_language: target_langs.first  # Use first active language
-            }
-            Rails.logger.info "Translating to: #{target_langs.first} (active languages: #{target_langs.inspect})"
-          end
-
           config_json = JSON.generate(config)
-          Rails.logger.info "Sending config: #{config_json}"
+          Rails.logger.info "Sending config for #{language_name}: #{config_json}"
           ws.send(config_json)
-          Rails.logger.info "✓ Sent configuration to Soniox"
+          Rails.logger.info "✓ Sent configuration to Soniox for #{language_name}"
 
           # Flush buffered audio data
-          if @@audio_buffers[session_id]&.any?
-            Rails.logger.info "Flushing #{@@audio_buffers[session_id].size} buffered audio chunks"
-            @@audio_buffers[session_id].each do |binary_data|
+          if @@audio_buffers[connection_key]&.any?
+            Rails.logger.info "Flushing #{@@audio_buffers[connection_key].size} buffered audio chunks for #{language_name}"
+            @@audio_buffers[connection_key].each do |binary_data|
               ws.send(binary_data)
             end
-            @@audio_buffers[session_id].clear
+            @@audio_buffers[connection_key].clear
           end
         end
 
@@ -226,9 +235,9 @@ class SonioxProxyService
         end
 
         ws.on :close do |event|
-          Rails.logger.info "Soniox connection closed for session: #{session_id}"
-          @@connections.delete(session_id)
-          @@audio_buffers.delete(session_id)
+          Rails.logger.info "Soniox connection closed for session: #{session_id}, language: #{language_name}"
+          @@connections.delete(connection_key)
+          @@audio_buffers.delete(connection_key)
         end
       end
 
