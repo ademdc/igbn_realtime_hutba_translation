@@ -12,6 +12,7 @@ export default class SpeakerController {
     this.audioContext = null
     this.channel = null
     this.isRecording = false
+    this.wakeLock = null
 
     this.bindEvents()
   }
@@ -23,6 +24,21 @@ export default class SpeakerController {
 
   async startRecording() {
     try {
+      // Request screen wake lock to prevent phone from sleeping
+      if ('wakeLock' in navigator) {
+        try {
+          this.wakeLock = await navigator.wakeLock.request('screen')
+          console.log('Screen wake lock activated')
+
+          // Handle wake lock release (e.g., when page becomes hidden)
+          this.wakeLock.addEventListener('release', () => {
+            console.log('Screen wake lock released')
+          })
+        } catch (err) {
+          console.warn('Could not activate wake lock:', err)
+        }
+      }
+
       // Request microphone access
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
@@ -90,6 +106,18 @@ export default class SpeakerController {
 
   stopRecording() {
     this.isRecording = false
+
+    // Release wake lock
+    if (this.wakeLock) {
+      this.wakeLock.release()
+        .then(() => {
+          console.log('Screen wake lock released')
+          this.wakeLock = null
+        })
+        .catch(err => {
+          console.warn('Error releasing wake lock:', err)
+        })
+    }
 
     if (this.audioContext) {
       this.audioContext.close()

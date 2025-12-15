@@ -5004,11 +5004,11 @@
     consumer_default.subscriptions.create("TranslationChannel", {
       connected() {
         console.log("Connected to TranslationChannel");
-        this.updateStatus("Verbunden", true);
+        this.updateStatus("Connected", true);
       },
       disconnected() {
         console.log("Disconnected from TranslationChannel");
-        this.updateStatus("Getrennt", false);
+        this.updateStatus("Disconnected", false);
       },
       received(data) {
         console.log("Received translation:", data);
@@ -5068,6 +5068,7 @@
       this.audioContext = null;
       this.channel = null;
       this.isRecording = false;
+      this.wakeLock = null;
       this.bindEvents();
     }
     bindEvents() {
@@ -5076,6 +5077,17 @@
     }
     async startRecording() {
       try {
+        if ("wakeLock" in navigator) {
+          try {
+            this.wakeLock = await navigator.wakeLock.request("screen");
+            console.log("Screen wake lock activated");
+            this.wakeLock.addEventListener("release", () => {
+              console.log("Screen wake lock released");
+            });
+          } catch (err) {
+            console.warn("Could not activate wake lock:", err);
+          }
+        }
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: {
             channelCount: 1,
@@ -5124,6 +5136,14 @@
     }
     stopRecording() {
       this.isRecording = false;
+      if (this.wakeLock) {
+        this.wakeLock.release().then(() => {
+          console.log("Screen wake lock released");
+          this.wakeLock = null;
+        }).catch((err) => {
+          console.warn("Error releasing wake lock:", err);
+        });
+      }
       if (this.audioContext) {
         this.audioContext.close();
         this.audioContext = null;
