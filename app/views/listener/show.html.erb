@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="listener-panel">
+    <div class="language-header">
+      <div>
+        <h1><%= @language_info[:flag] %> <%= @language_info[:name] %></h1>
+        <p class="subtitle">Live-Übersetzung von der Hutba</p>
+      </div>
+      <%= link_to "← Sprache wechseln", listener_path, class: "btn-back" %>
+    </div>
+
+    <div class="status-indicator">
+      <span class="dot" id="statusDot"></span>
+      <span id="connectionStatus">Verbinden...</span>
+    </div>
+
+    <div class="translation-feed" id="translationFeed" data-language="<%= @language %>">
+      <div class="no-translations">
+        Warten auf Übersetzungen...
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.language-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background: #f8f9fa;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-back:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+  color: #333;
+}
+</style>

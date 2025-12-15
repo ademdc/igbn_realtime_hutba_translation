@@ -1,16 +1,21 @@
 import consumer from "./consumer"
 
-// Only subscribe if we're on the German listener page
-if (document.getElementById('translationFeed')) {
-  consumer.subscriptions.create("TranslationChannel", {
-    connected() {
-      console.log("Connected to TranslationChannel")
-      this.updateStatus("Connected", true)
-    },
+// Only subscribe if we're on a listener page
+const translationFeed = document.getElementById('translationFeed')
+if (translationFeed) {
+  const language = translationFeed.dataset.language || 'german'
+
+  consumer.subscriptions.create(
+    { channel: "TranslationChannel", language: language },
+    {
+      connected() {
+        console.log(`Connected to TranslationChannel for ${language}`)
+        this.updateStatus("Verbunden", true)
+      },
 
     disconnected() {
-      console.log("Disconnected from TranslationChannel")
-      this.updateStatus("Disconnected", false)
+      console.log(`Disconnected from TranslationChannel for ${language}`)
+      this.updateStatus("Getrennt", false)
     },
 
     received(data) {

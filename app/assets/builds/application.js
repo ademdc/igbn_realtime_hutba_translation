@@ -5000,60 +5000,65 @@
   var consumer_default = createConsumer3();
 
   // app/javascript/channels/translation_channel.js
-  if (document.getElementById("translationFeed")) {
-    consumer_default.subscriptions.create("TranslationChannel", {
-      connected() {
-        console.log("Connected to TranslationChannel");
-        this.updateStatus("Connected", true);
-      },
-      disconnected() {
-        console.log("Disconnected from TranslationChannel");
-        this.updateStatus("Disconnected", false);
-      },
-      received(data) {
-        console.log("Received translation:", data);
-        this.displayTranslation(data);
-      },
-      updateStatus(status, connected) {
-        const statusText = document.getElementById("connectionStatus");
-        const statusDot = document.getElementById("statusDot");
-        if (statusText) {
-          statusText.textContent = status;
+  var translationFeed = document.getElementById("translationFeed");
+  if (translationFeed) {
+    const language = translationFeed.dataset.language || "german";
+    consumer_default.subscriptions.create(
+      { channel: "TranslationChannel", language },
+      {
+        connected() {
+          console.log(`Connected to TranslationChannel for ${language}`);
+          this.updateStatus("Verbunden", true);
+        },
+        disconnected() {
+          console.log(`Disconnected from TranslationChannel for ${language}`);
+          this.updateStatus("Getrennt", false);
+        },
+        received(data) {
+          console.log("Received translation:", data);
+          this.displayTranslation(data);
+        },
+        updateStatus(status, connected) {
+          const statusText = document.getElementById("connectionStatus");
+          const statusDot = document.getElementById("statusDot");
+          if (statusText) {
+            statusText.textContent = status;
+          }
+          if (statusDot) {
+            statusDot.className = connected ? "dot connected" : "dot";
+          }
+        },
+        displayTranslation(data) {
+          const feed = document.getElementById("translationFeed");
+          const noTranslations = feed.querySelector(".no-translations");
+          if (noTranslations) {
+            noTranslations.remove();
+          }
+          let textContainer = feed.querySelector(".continuous-text");
+          if (!textContainer) {
+            textContainer = document.createElement("div");
+            textContainer.className = "continuous-text";
+            feed.appendChild(textContainer);
+          }
+          const span = document.createElement("span");
+          span.className = "new-text";
+          span.textContent = data.text;
+          if (textContainer.children.length > 0) {
+            textContainer.appendChild(document.createTextNode(" "));
+          }
+          textContainer.appendChild(span);
+          setTimeout(() => {
+            span.className = "";
+          }, 3e3);
+          feed.scrollTop = feed.scrollHeight;
+        },
+        escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text;
+          return div.innerHTML;
         }
-        if (statusDot) {
-          statusDot.className = connected ? "dot connected" : "dot";
-        }
-      },
-      displayTranslation(data) {
-        const feed = document.getElementById("translationFeed");
-        const noTranslations = feed.querySelector(".no-translations");
-        if (noTranslations) {
-          noTranslations.remove();
-        }
-        let textContainer = feed.querySelector(".continuous-text");
-        if (!textContainer) {
-          textContainer = document.createElement("div");
-          textContainer.className = "continuous-text";
-          feed.appendChild(textContainer);
-        }
-        const span = document.createElement("span");
-        span.className = "new-text";
-        span.textContent = data.text;
-        if (textContainer.children.length > 0) {
-          textContainer.appendChild(document.createTextNode(" "));
-        }
-        textContainer.appendChild(span);
-        setTimeout(() => {
-          span.className = "";
-        }, 3e3);
-        feed.scrollTop = feed.scrollHeight;
-      },
-      escapeHtml(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
       }
-    });
+    );
   }
 
   // app/javascript/controllers/speaker_controller.js
@@ -5096,21 +5101,24 @@
             noiseSuppression: true
           }
         });
-        this.channel = consumer_default.subscriptions.create("TranslationChannel", {
-          connected: () => {
-            console.log("Connected to translation channel");
-            this.updateStatus("Connected and recording...", "success");
-          },
-          disconnected: () => {
-            console.log("Disconnected from translation channel");
-          },
-          received: (data) => {
-            if (data.original) {
-              console.log("Received original:", data.original);
-              this.transcriptionDiv.textContent = data.original;
+        this.channel = consumer_default.subscriptions.create(
+          { channel: "TranslationChannel", is_speaker: true },
+          {
+            connected: () => {
+              console.log("Connected to translation channel as speaker");
+              this.updateStatus("Connected and recording...", "success");
+            },
+            disconnected: () => {
+              console.log("Disconnected from translation channel");
+            },
+            received: (data) => {
+              if (data.original) {
+                console.log("Received original:", data.original);
+                this.transcriptionDiv.textContent = data.original;
+              }
             }
           }
-        });
+        );
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16e3 });
         const source = this.audioContext.createMediaStreamSource(stream);
         const processor = this.audioContext.createScriptProcessor(4096, 1, 1);

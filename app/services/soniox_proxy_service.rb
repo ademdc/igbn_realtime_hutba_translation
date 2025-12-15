@@ -5,9 +5,20 @@ require 'eventmachine'
 class SonioxProxyService
   SONIOX_WS_URL = 'wss://stt-rt.soniox.com/transcribe-websocket'
 
+  # Map language names to Soniox language codes
+  LANGUAGE_CODES = {
+    'german' => 'de',
+    'english' => 'en',
+    'turkish' => 'tr',
+    'albanian' => 'sq',
+    'arabic' => 'ar'
+  }.freeze
+
   @@connections = {}
   @@audio_buffers = {}
   @@em_thread = nil
+  @@active_languages = []
+  @@language_mutex = Mutex.new
 
   class << self
     def start_event_machine
@@ -62,6 +73,19 @@ class SonioxProxyService
       end
     end
 
+    def update_active_languages(languages)
+      @@language_mutex.synchronize do
+        @@active_languages = languages
+        Rails.logger.info "Updated active languages: #{@@active_languages.inspect}"
+      end
+    end
+
+    def active_language_codes
+      @@language_mutex.synchronize do
+        @@active_languages.map { |lang| LANGUAGE_CODES[lang] }.compact
+      end
+    end
+
     private
 
     def connect_to_soniox(session_id)
@@ -77,19 +101,26 @@ class SonioxProxyService
         ws.on :open do |event|
           Rails.logger.info "✓ Connected to Soniox for session: #{session_id}"
 
-          # Send configuration for Bosnian to German translation
+          # Get active language codes
+          target_langs = active_language_codes
+
+          # Build configuration for Bosnian to multiple languages
           config = {
             api_key: api_key,
             audio_format: "pcm_s16le",
             sample_rate: 16000,
             num_channels: 1,
             include_nonfinal: true,
-            model: 'stt-rt-v3',
-            translation: {
-              type: "one_way",
-              target_language: "de"
-            }
+            model: 'stt-rt-v3'
           }
+
+          # Only add translation if there are active languages
+          if target_langs.any?
+            config[:translation] = {
+              type: "one_way",
+              target_languages: target_langs
+            }
+          end
 
           config_json = JSON.generate(config)
           Rails.logger.info "Sending config: #{config_json}"
@@ -113,14 +144,20 @@ class SonioxProxyService
 
             # Process tokens if present
             if result['tokens']&.any?
-              # Broadcast German translations to all listeners
-              translation_text = extract_translation(result)
-              if translation_text.present?
-                Rails.logger.info "Broadcasting translation: #{translation_text}"
-                ActionCable.server.broadcast(
-                  "translation_german",
-                  { text: translation_text, timestamp: Time.current }
-                )
+              # Broadcast translations to language-specific channels
+              translations = extract_translations_by_language(result)
+              translations.each do |lang_code, text|
+                if text.present?
+                  # Find the language name from the code
+                  lang_name = LANGUAGE_CODES.key(lang_code)
+                  if lang_name
+                    Rails.logger.info "Broadcasting to #{lang_name}: #{text}"
+                    ActionCable.server.broadcast(
+                      "translation_#{lang_name}",
+                      { text: text, timestamp: Time.current }
+                    )
+                  end
+                end
               end
 
               # Send Bosnian original back to speaker
@@ -163,15 +200,26 @@ class SonioxProxyService
       ws_container[:ws]
     end
 
-    def extract_translation(result)
+    def extract_translations_by_language(result)
       tokens = result['tokens'] || []
+      translations = {}
 
       # Extract translated tokens (only final translations)
       translated_tokens = tokens.select do |token|
         token['translation_status'] == 'translation' && token['is_final'] == true
       end
 
-      translated_tokens.map { |t| t['text'] }.join('')
+      # Group by target language
+      translated_tokens.each do |token|
+        lang_code = token['target_language']
+        if lang_code
+          translations[lang_code] ||= []
+          translations[lang_code] << token['text']
+        end
+      end
+
+      # Join tokens for each language
+      translations.transform_values { |tokens| tokens.join('') }
     end
 
     def extract_original(result)

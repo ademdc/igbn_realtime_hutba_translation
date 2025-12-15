@@ -13,6 +13,13 @@ Rails.application.routes.draw do
   post "speaker/authenticate", to: "speaker#authenticate", as: :speaker_authenticate
   delete "speaker/logout", to: "speaker#logout", as: :speaker_logout
 
-  # Listener page for German translations
-  get "german", to: "listener#german"
+  # Listener language selection
+  get "listener", to: "listener#index", as: :listener
+
+  # Language-specific listener pages
+  get "german", to: "listener#show", defaults: { language: 'german' }
+  get "english", to: "listener#show", defaults: { language: 'english' }
+  get "turkish", to: "listener#show", defaults: { language: 'turkish' }
+  get "albanian", to: "listener#show", defaults: { language: 'albanian' }
+  get "arabic", to: "listener#show", defaults: { language: 'arabic' }
 end

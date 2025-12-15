@@ -49,23 +49,26 @@ export default class SpeakerController {
         }
       })
 
-      // Create subscription to TranslationChannel
-      this.channel = consumer.subscriptions.create("TranslationChannel", {
-        connected: () => {
-          console.log("Connected to translation channel")
-          this.updateStatus("Connected and recording...", "success")
-        },
-        disconnected: () => {
-          console.log("Disconnected from translation channel")
-        },
-        received: (data) => {
-          // Display Bosnian original transcription
-          if (data.original) {
-            console.log("Received original:", data.original)
-            this.transcriptionDiv.textContent = data.original
+      // Create subscription to TranslationChannel as speaker
+      this.channel = consumer.subscriptions.create(
+        { channel: "TranslationChannel", is_speaker: true },
+        {
+          connected: () => {
+            console.log("Connected to translation channel as speaker")
+            this.updateStatus("Connected and recording...", "success")
+          },
+          disconnected: () => {
+            console.log("Disconnected from translation channel")
+          },
+          received: (data) => {
+            // Display Bosnian original transcription
+            if (data.original) {
+              console.log("Received original:", data.original)
+              this.transcriptionDiv.textContent = data.original
+            }
           }
         }
-      })
+      )
 
       // Set up audio context for processing
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 })
