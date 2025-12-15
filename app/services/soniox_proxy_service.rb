@@ -264,7 +264,7 @@ class SonioxProxyService
 
       # Group by target language
       translated_tokens.each do |token|
-        lang_code = token['target_language']
+        lang_code = token['language']
         if lang_code
           translations[lang_code] ||= []
           translations[lang_code] << token['text']
