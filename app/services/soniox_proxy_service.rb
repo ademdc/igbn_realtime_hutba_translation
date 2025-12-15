@@ -73,10 +73,27 @@ class SonioxProxyService
       end
     end
 
+    def restart_connection(session_id)
+      if @@connections[session_id]
+        Rails.logger.info "Restarting Soniox connection for session: #{session_id}"
+        @@connections[session_id].close
+        @@connections[session_id] = connect_to_soniox(session_id)
+      end
+    end
+
     def update_active_languages(languages)
       @@language_mutex.synchronize do
+        old_languages = @@active_languages.dup
         @@active_languages = languages
         Rails.logger.info "Updated active languages: #{@@active_languages.inspect}"
+
+        # If languages changed and there are active connections, restart them
+        if old_languages.sort != @@active_languages.sort && @@connections.any?
+          Rails.logger.info "Active languages changed, restarting Soniox connections..."
+          @@connections.keys.each do |session_id|
+            restart_connection(session_id)
+          end
+        end
       end
     end
 
