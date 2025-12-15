@@ -2,10 +2,9 @@
   <div class="speaker-panel">
     <div class="panel-header">
       <div>
-        <h1>Translation Speaker</h1>
-        <p class="subtitle">Speak in Bosnian to broadcast German translations</p>
+        <h1>Panel za govornika</h1>
+        <p class="subtitle">Govorite na bosanskom da biste emitovali prevode na njemački</p>
       </div>
-      <%= button_to "🚪 Logout", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Are you sure you want to logout?" } %>
     </div>
 
     <div class="controls">
@@ -29,6 +28,7 @@
         <li>Listeners on /german will see real-time German translations</li>
         <li>Click "Stop Recording" when finished</li>
       </ol>
+      <%= button_to "🚪 Logout", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Are you sure you want to logout?" } %>
     </div>
 
     <div class="transcription-box" id="transcriptionBox" style="display: none;">
