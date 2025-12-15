@@ -17,8 +17,8 @@ class SonioxProxyService
   @@connections = {}
   @@audio_buffers = {}
   @@em_thread = nil
-  @@active_languages = []
   @@language_mutex = Mutex.new
+  REDIS_ACTIVE_LANGUAGES_KEY = 'soniox:active_languages'
 
   class << self
     def start_event_machine
@@ -82,25 +82,50 @@ class SonioxProxyService
     end
 
     def update_active_languages(languages)
-      @@language_mutex.synchronize do
-        old_languages = @@active_languages.dup
-        @@active_languages = languages
-        Rails.logger.info "Updated active languages: #{@@active_languages.inspect}"
+      old_languages = get_active_languages_from_redis
 
-        # If languages changed and there are active connections, restart them
-        if old_languages.sort != @@active_languages.sort && @@connections.any?
-          Rails.logger.info "Active languages changed, restarting Soniox connections..."
-          @@connections.keys.each do |session_id|
-            restart_connection(session_id)
-          end
+      # Store in Redis so all processes can see it
+      redis = Redis.new(
+        url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" },
+        ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+      )
+      redis.set(REDIS_ACTIVE_LANGUAGES_KEY, languages.to_json)
+      redis.close
+
+      Rails.logger.info "Updated active languages in Redis: #{languages.inspect}"
+
+      # If languages changed and there are active connections, restart them
+      if old_languages.sort != languages.sort && @@connections.any?
+        Rails.logger.info "Active languages changed, restarting Soniox connections..."
+        @@connections.keys.each do |session_id|
+          restart_connection(session_id)
         end
       end
     end
 
     def active_language_codes
-      @@language_mutex.synchronize do
-        @@active_languages.map { |lang| LANGUAGE_CODES[lang] }.compact
+      languages = get_active_languages_from_redis
+      codes = languages.map { |lang| LANGUAGE_CODES[lang] }.compact
+      Rails.logger.info "Active language codes from Redis: #{codes.inspect} (from languages: #{languages.inspect})"
+      codes
+    end
+
+    def get_active_languages_from_redis
+      redis = Redis.new(
+        url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" },
+        ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+      )
+      languages_json = redis.get(REDIS_ACTIVE_LANGUAGES_KEY)
+      redis.close
+
+      if languages_json
+        JSON.parse(languages_json)
+      else
+        []
       end
+    rescue => e
+      Rails.logger.error "Error reading active languages from Redis: #{e.message}"
+      []
     end
 
     private
