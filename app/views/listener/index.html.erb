@@ -5,7 +5,7 @@
 
     <div class="language-grid">
       <% @languages.each do |key, lang| %>
-        <%= link_to "/#{key}", class: "language-card" do %>
+        <%= link_to "/#{key}", class: "language-card", data: { turbo: false } do %>
           <div class="language-flag"><%= lang[:flag] %></div>
           <div class="language-name"><%= lang[:name] %></div>
         <% end %>
