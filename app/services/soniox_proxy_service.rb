@@ -157,11 +157,13 @@ class SonioxProxyService
           }
 
           # Only add translation if there are active languages
+          # Note: Soniox only supports ONE target language per connection
           if target_langs.any?
             config[:translation] = {
               type: "one_way",
-              target_languages: target_langs
+              target_language: target_langs.first  # Use first active language
             }
+            Rails.logger.info "Translating to: #{target_langs.first} (active languages: #{target_langs.inspect})"
           end
 
           config_json = JSON.generate(config)
