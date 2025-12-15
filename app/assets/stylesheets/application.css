@@ -371,3 +371,28 @@ h1 {
   font-size: 0.9em;
   color: #e83e8c;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .continuous-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .translation-text {
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .speaker-panel,
+  .listener-panel {
+    padding: 20px;
+  }
+}
