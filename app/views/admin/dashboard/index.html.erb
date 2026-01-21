@@ -1,0 +1,145 @@
+<header class="admin-header">
+  <h1>IGBD Translations Admin</h1>
+  <%= button_to "Logout", admin_logout_path, method: :delete, class: "btn btn-logout" %>
+</header>
+
+<div class="admin-container">
+  <% if flash[:notice] %>
+    <div class="status status-info" style="margin-bottom: 20px;">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <!-- Live Stats -->
+  <div class="admin-panel">
+    <h2>Live Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card live">
+        <div class="stat-value"><%= @active_speakers %></div>
+        <div class="stat-label">Active Speakers</div>
+      </div>
+      <div class="stat-card live">
+        <div class="stat-value"><%= @active_listeners %></div>
+        <div class="stat-label">Active Listeners</div>
+        <% if @active_listeners_by_language.any? %>
+          <div class="language-breakdown">
+            <% @active_listeners_by_language.each do |language, count| %>
+              <div class="language-item">
+                <span><%= language.capitalize %></span>
+                <span class="count"><%= count %></span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today's Stats -->
+  <div class="admin-panel">
+    <h2>Today's Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value"><%= @today_sessions %></div>
+        <div class="stat-label">Speaker Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= @today_listeners %></div>
+        <div class="stat-label">Listener Connections</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= @today_speaking_time / 60 %></div>
+        <div class="stat-label">Minutes Speaking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- This Week's Stats -->
+  <div class="admin-panel">
+    <h2>This Week's Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value"><%= @week_sessions %></div>
+        <div class="stat-label">Speaker Sessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value"><%= @week_listeners %></div>
+        <div class="stat-label">Listener Connections</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Speaker Sessions -->
+  <div class="admin-panel">
+    <h2>Recent Speaker Sessions</h2>
+    <% if @recent_speaker_sessions.any? %>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Session ID</th>
+            <th>Started</th>
+            <th>Duration</th>
+            <th>Words</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_speaker_sessions.each do |session| %>
+            <tr>
+              <td><%= session.session_id.truncate(20) %></td>
+              <td><%= session.started_at.strftime("%b %d, %H:%M") %></td>
+              <td><%= session.duration_formatted %></td>
+              <td><%= session.word_count %></td>
+              <td>
+                <% if session.ended_at.nil? %>
+                  <span class="badge badge-active">Active</span>
+                <% else %>
+                  <span class="badge badge-completed">Completed</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="no-data">No speaker sessions recorded yet</div>
+    <% end %>
+  </div>
+
+  <!-- Recent Listener Connections -->
+  <div class="admin-panel">
+    <h2>Recent Listener Connections</h2>
+    <% if @recent_listener_connections.any? %>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Session ID</th>
+            <th>Language</th>
+            <th>Connected</th>
+            <th>Duration</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_listener_connections.each do |connection| %>
+            <tr>
+              <td><%= connection.session_id.truncate(20) %></td>
+              <td><span class="badge badge-language"><%= connection.language %></span></td>
+              <td><%= connection.connected_at.strftime("%b %d, %H:%M") %></td>
+              <td><%= connection.duration_formatted %></td>
+              <td>
+                <% if connection.disconnected_at.nil? %>
+                  <span class="badge badge-active">Active</span>
+                <% else %>
+                  <span class="badge badge-completed">Completed</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="no-data">No listener connections recorded yet</div>
+    <% end %>
+  </div>
+</div>

@@ -10,8 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_21_120748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "listener_connections", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.string "language", null: false
+    t.datetime "connected_at", null: false
+    t.datetime "disconnected_at"
+    t.integer "duration_seconds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["connected_at"], name: "index_listener_connections_on_connected_at"
+    t.index ["language"], name: "index_listener_connections_on_language"
+    t.index ["session_id"], name: "index_listener_connections_on_session_id"
+  end
+
+  create_table "speaker_sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.datetime "started_at", null: false
+    t.datetime "ended_at"
+    t.integer "duration_seconds"
+    t.integer "word_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_speaker_sessions_on_session_id"
+    t.index ["started_at"], name: "index_speaker_sessions_on_started_at"
+  end
 
 end

@@ -10,29 +10,29 @@
     <div class="controls">
       <button id="startRecording" class="btn btn-primary btn-large">
         <span class="icon">🎤</span>
-        Start Recording
+        Pokreni snimanje
       </button>
       <button id="stopRecording" class="btn btn-danger btn-large" style="display: none;">
         <span class="icon">⏹</span>
-        Stop Recording
+        Zaustavi snimanje
       </button>
     </div>
 
     <div id="status" class="status"></div>
 
     <div class="info-box">
-      <h3>How it works:</h3>
+      <h3>Kako funkcionise:</h3>
       <ol>
-        <li>Click "Start Recording" to begin speaking</li>
-        <li>Speak in Bosnian</li>
-        <li>Listeners on /german will see real-time German translations</li>
-        <li>Click "Stop Recording" when finished</li>
+        <li>Kliknite "Pokreni snimanje" da zapocnete govoriti</li>
+        <li>Govorite na bosanskom</li>
+        <li>Slusatelji na /german ce vidjeti prevode na njemacki u realnom vremenu</li>
+        <li>Kliknite "Zaustavi snimanje" kada zavrsite</li>
       </ol>
-      <%= button_to "🚪 Logout", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Are you sure you want to logout?" } %>
+      <%= button_to "🚪 Odjava", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Da li ste sigurni da želite da se odjavite?" } %>
     </div>
 
     <div class="transcription-box" id="transcriptionBox" style="display: none;">
-      <h3>Your Speech (Bosnian):</h3>
+      <h3>Vaš govor (bosanski):</h3>
       <div id="transcription"></div>
     </div>
   </div>

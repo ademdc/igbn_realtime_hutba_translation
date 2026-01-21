@@ -18,7 +18,7 @@ class TranslationChannel < ApplicationCable::Channel
   end
 
   def subscribed
-    @session_id = connection.connection_identifier
+    @session_id = connection.connection_uuid
     @language = params[:language] || 'german'
     @is_speaker = params[:is_speaker] || false
 
@@ -27,6 +27,9 @@ class TranslationChannel < ApplicationCable::Channel
     if @is_speaker
       # Speakers get the original transcription
       stream_from "translation_speaker_#{@session_id}"
+
+      # Track speaker session in database
+      @speaker_session = SpeakerSession.start_session(@session_id)
     else
       # Listeners get translations for their chosen language
       stream_from "translation_#{@language}"
@@ -36,6 +39,9 @@ class TranslationChannel < ApplicationCable::Channel
         @@language_subscribers[@language] << @session_id
         Rails.logger.info "Active languages: #{@@language_subscribers.keys} (#{@@language_subscribers[@language].size} #{@language} listeners)"
       end
+
+      # Track listener connection in database
+      @listener_connection = ListenerConnection.start_connection(@session_id, @language)
 
       # Notify Soniox service of active languages
       SonioxProxyService.update_active_languages(self.class.active_languages)
@@ -47,6 +53,9 @@ class TranslationChannel < ApplicationCable::Channel
       # Close Soniox connection when speaker disconnects
       SonioxProxyService.close_connection(@session_id)
       Rails.logger.info "Closed Soniox connection for session: #{@session_id}"
+
+      # End speaker session in database
+      @speaker_session&.end_session(word_count: @word_count || 0)
     elsif @language
       # Remove listener from tracking
       @@language_mutex.synchronize do
@@ -57,6 +66,9 @@ class TranslationChannel < ApplicationCable::Channel
         @@language_subscribers.delete(@language) if @@language_subscribers[@language].empty?
       end
 
+      # End listener connection in database
+      @listener_connection&.end_connection
+
       # Notify Soniox service of updated active languages
       SonioxProxyService.update_active_languages(self.class.active_languages)
     end
@@ -65,7 +77,7 @@ class TranslationChannel < ApplicationCable::Channel
   def receive(data)
     # Only speakers can send audio data
     if @is_speaker && data['audio']
-      SonioxProxyService.process_audio(data['audio'], @session_id || connection.connection_identifier, self)
+      SonioxProxyService.process_audio(data['audio'], @session_id || connection.connection_uuid, self)
     end
   end
 end

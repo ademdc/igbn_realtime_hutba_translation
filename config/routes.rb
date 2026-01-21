@@ -8,6 +8,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "speaker#index"
 
+  # Admin backoffice
+  namespace :admin do
+    get "login", to: "sessions#new", as: :login
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy", as: :logout
+    get "dashboard", to: "dashboard#index", as: :dashboard
+    root to: redirect("/admin/dashboard")
+  end
+
   # Speaker authentication
   get "speaker/login", to: "speaker#login", as: :speaker_login
   post "speaker/authenticate", to: "speaker#authenticate", as: :speaker_authenticate
