@@ -1,7 +1,7 @@
 class ListenerController < ApplicationController
   SUPPORTED_LANGUAGES = {
     'german' => { name: 'Deutsch', code: 'de', flag: '🇩🇪' },
-    'english' => { name: 'English', code: 'en', flag: '🇬🇧' }
+    # 'english' => { name: 'English', code: 'en', flag: '🇬🇧' }
   }.freeze
 
   def index
