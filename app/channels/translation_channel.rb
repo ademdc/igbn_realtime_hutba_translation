@@ -15,6 +15,24 @@ class TranslationChannel < ApplicationCable::Channel
         @@language_subscribers[language].size
       end
     end
+
+    def listener_stats
+      @@language_mutex.synchronize do
+        stats = {}
+        total = 0
+        @@language_subscribers.each do |lang, subs|
+          count = subs.size
+          stats[lang] = count if count > 0
+          total += count
+        end
+        { total: total, by_language: stats }
+      end
+    end
+
+    def broadcast_listener_stats
+      stats = listener_stats
+      ActionCable.server.broadcast("listener_stats", stats)
+    end
   end
 
   def subscribed
@@ -27,6 +45,11 @@ class TranslationChannel < ApplicationCable::Channel
     if @is_speaker
       # Speakers get the original transcription
       stream_from "translation_speaker_#{@session_id}"
+      # Speakers also get listener stats updates
+      stream_from "listener_stats"
+
+      # Send current listener stats immediately
+      transmit({ listener_stats: self.class.listener_stats })
 
       # Track speaker session in database
       @speaker_session = SpeakerSession.start_session(@session_id)
@@ -45,6 +68,9 @@ class TranslationChannel < ApplicationCable::Channel
 
       # Notify Soniox service of active languages
       SonioxProxyService.update_active_languages(self.class.active_languages)
+
+      # Broadcast updated listener stats to speakers
+      self.class.broadcast_listener_stats
     end
   end
 
@@ -71,6 +97,9 @@ class TranslationChannel < ApplicationCable::Channel
 
       # Notify Soniox service of updated active languages
       SonioxProxyService.update_active_languages(self.class.active_languages)
+
+      # Broadcast updated listener stats to speakers
+      self.class.broadcast_listener_stats
     end
   end
 

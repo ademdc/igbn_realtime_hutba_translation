@@ -7,6 +7,8 @@ export default class SpeakerController {
     this.statusDiv = document.getElementById('status')
     this.transcriptionDiv = document.getElementById('transcription')
     this.transcriptionBox = document.getElementById('transcriptionBox')
+    this.totalListenersEl = document.getElementById('totalListeners')
+    this.statsBreakdownEl = document.getElementById('statsBreakdown')
 
     this.mediaRecorder = null
     this.audioContext = null
@@ -65,6 +67,16 @@ export default class SpeakerController {
             if (data.original) {
               console.log("Received original:", data.original)
               this.transcriptionDiv.textContent = data.original
+            }
+            // Update listener stats
+            if (data.listener_stats) {
+              console.log("Received listener stats:", data.listener_stats)
+              this.updateListenerStats(data.listener_stats)
+            }
+            // Handle stats broadcast (comes with different structure)
+            if (data.total !== undefined && data.by_language !== undefined) {
+              console.log("Received listener stats broadcast:", data)
+              this.updateListenerStats(data)
             }
           }
         }
@@ -155,5 +167,34 @@ export default class SpeakerController {
   updateStatus(message, type) {
     this.statusDiv.textContent = message
     this.statusDiv.className = `status status-${type}`
+  }
+
+  updateListenerStats(stats) {
+    if (this.totalListenersEl) {
+      this.totalListenersEl.textContent = stats.total || 0
+    }
+
+    if (this.statsBreakdownEl) {
+      const byLanguage = stats.by_language || {}
+      const languages = Object.keys(byLanguage)
+
+      if (languages.length === 0) {
+        this.statsBreakdownEl.innerHTML = '<span class="no-listeners">Nema povezanih slusaoca</span>'
+      } else {
+        const languageNames = {
+          'german': 'Njemački',
+          'english': 'Engleski'
+        }
+
+        this.statsBreakdownEl.innerHTML = languages.map(lang => {
+          const displayName = languageNames[lang] || lang
+          const count = byLanguage[lang]
+          return `<div class="language-stat">
+            <span class="lang-name">${displayName}</span>
+            <span class="lang-count">${count}</span>
+          </div>`
+        }).join('')
+      }
+    }
   }
 }

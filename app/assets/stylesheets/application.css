@@ -382,6 +382,78 @@ h1 {
   color: #e83e8c;
 }
 
+/* Listener stats on speaker page */
+.listener-stats {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #dee2e6;
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stats-icon {
+  font-size: 1.5rem;
+}
+
+.stats-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.stats-total {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-left: auto;
+}
+
+.stats-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stats-breakdown .no-listeners {
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.language-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.language-stat .lang-name {
+  color: #555;
+}
+
+.language-stat .lang-count {
+  background: #667eea;
+  color: white;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   .continuous-text {
