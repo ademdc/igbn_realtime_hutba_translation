@@ -456,6 +456,9 @@ h1 {
 
 /* Mobile responsive styles */
 @media (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
   .continuous-text {
     font-size: 1rem;
     line-height: 1.6;
