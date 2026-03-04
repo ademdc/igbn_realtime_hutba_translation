@@ -14,7 +14,7 @@ class SonioxProxyService
   @@connections = {}
   @@audio_buffers = {}
   @@em_thread = nil
-  @@language_mutex = Mutex.new
+  @@connection_mutex = Mutex.new
   REDIS_ACTIVE_LANGUAGES_KEY = 'soniox:active_languages'
 
   class << self
@@ -43,13 +43,16 @@ class SonioxProxyService
 
         connection_key = "#{session_id}_#{lang}"
 
-        unless @@connections[connection_key]
-          Rails.logger.info "Creating Soniox connection for session: #{session_id}, language: #{lang}"
-          @@audio_buffers[connection_key] = []
-          @@connections[connection_key] = connect_to_soniox(session_id, lang, lang_code)
-        end
+        # Use mutex to prevent race conditions when creating connections
+        @@connection_mutex.synchronize do
+          unless @@connections[connection_key]
+            Rails.logger.info "Creating Soniox connection for session: #{session_id}, language: #{lang}"
+            @@audio_buffers[connection_key] = []
+            @@connections[connection_key] = connect_to_soniox(session_id, lang, lang_code)
+          end
 
-        connections[lang] = @@connections[connection_key]
+          connections[lang] = @@connections[connection_key]
+        end
       end
 
       connections
@@ -83,11 +86,13 @@ class SonioxProxyService
     end
 
     def close_connection(session_id)
-      # Close all language connections for this session
-      @@connections.keys.select { |key| key.start_with?("#{session_id}_") }.each do |connection_key|
-        @@connections[connection_key]&.close
-        @@connections.delete(connection_key)
-        @@audio_buffers.delete(connection_key)
+      @@connection_mutex.synchronize do
+        # Close all language connections for this session
+        @@connections.keys.select { |key| key.start_with?("#{session_id}_") }.each do |connection_key|
+          @@connections[connection_key]&.close
+          @@connections.delete(connection_key)
+          @@audio_buffers.delete(connection_key)
+        end
       end
     end
 
@@ -169,6 +174,7 @@ class SonioxProxyService
             num_channels: 1,
             include_nonfinal: true,
             model: 'stt-rt-v3',
+            language: 'bs',  # Source language: Bosnian
             translation: {
               type: "one_way",
               target_language: language_code
