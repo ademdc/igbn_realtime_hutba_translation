@@ -13,6 +13,38 @@ if (translationFeed) {
         this.updateStatus("Verbunden", true)
         // Clear any stale state when reconnecting
         this.lastReceivedAt = Date.now()
+        // Request wake lock to keep screen on
+        this.requestWakeLock()
+      },
+
+      async requestWakeLock() {
+        if (!('wakeLock' in navigator)) {
+          console.log('Wake lock not supported')
+          return
+        }
+
+        try {
+          this.wakeLock = await navigator.wakeLock.request('screen')
+          console.log('Screen wake lock activated')
+
+          this.wakeLock.addEventListener('release', () => {
+            console.log('Screen wake lock released')
+          })
+
+          // Re-request wake lock when page becomes visible again
+          document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible' && !this.wakeLock) {
+              try {
+                this.wakeLock = await navigator.wakeLock.request('screen')
+                console.log('Screen wake lock re-activated')
+              } catch (err) {
+                console.log('Could not re-activate wake lock:', err.message)
+              }
+            }
+          })
+        } catch (err) {
+          console.log('Could not activate wake lock:', err.message)
+        }
       },
 
     disconnected() {
@@ -102,23 +134,4 @@ if (translationFeed) {
     }
   })
 
-  // Keep screen awake on mobile devices to prevent disconnections
-  let wakeLock = null
-  const requestWakeLock = async () => {
-    try {
-      if ('wakeLock' in navigator) {
-        wakeLock = await navigator.wakeLock.request('screen')
-        console.log('Screen wake lock activated')
-
-        wakeLock.addEventListener('release', () => {
-          console.log('Screen wake lock released')
-        })
-      }
-    } catch (err) {
-      console.log('Wake lock not supported or failed:', err.message)
-    }
-  }
-
-  // Request wake lock on user interaction
-  document.addEventListener('click', requestWakeLock, { once: true })
 }
