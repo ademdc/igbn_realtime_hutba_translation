@@ -174,9 +174,10 @@ class SonioxProxyService
             num_channels: 1,
             include_nonfinal: true,
             model: 'stt-rt-v3',
-            language: 'bs',  # Source language: Bosnian
+            language_hints: ['bs', 'hr', 'sr'],  # Bosnian, Croatian, Serbian (similar languages)
             translation: {
               type: "one_way",
+              source_language: 'bs',  # Bosnian
               target_language: language_code
             }
           }
