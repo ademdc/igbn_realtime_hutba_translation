@@ -30,7 +30,12 @@
     </div>
 
     <div id="status" class="status"></div>
-
+    
+    <div class="transcription-box" id="transcriptionBox" style="display: none;">
+      <h3>Vaš govor (bosanski):</h3>
+      <div id="transcription"></div>
+    </div>
+    
     <div class="info-box">
       <h3>Kako funkcionise:</h3>
       <ol>
@@ -40,11 +45,6 @@
         <li>Kliknite "Zaustavi snimanje" kada zavrsite</li>
       </ol>
       <%= button_to "🚪 Odjava", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Da li ste sigurni da želite da se odjavite?" } %>
-    </div>
-
-    <div class="transcription-box" id="transcriptionBox" style="display: none;">
-      <h3>Vaš govor (bosanski):</h3>
-      <div id="transcription"></div>
     </div>
   </div>
 </div>
