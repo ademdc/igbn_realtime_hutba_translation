@@ -12,11 +12,21 @@
 
   <!-- Live Stats -->
   <div class="admin-panel">
-    <h2>Live Statistics</h2>
+    <div class="panel-header-row">
+      <h2>Live Statistics</h2>
+      <div class="reset-buttons">
+        <% if @active_speakers > 0 || @active_listeners > 0 %>
+          <%= button_to "Reset All", admin_reset_all_path, method: :post, class: "btn-reset", data: { confirm: "Reset all active speakers and listeners?" } %>
+        <% end %>
+      </div>
+    </div>
     <div class="stats-grid">
       <div class="stat-card live">
         <div class="stat-value"><%= @active_speakers %></div>
         <div class="stat-label">Active Speakers</div>
+        <% if @active_speakers > 0 %>
+          <%= button_to "Reset", admin_reset_speakers_path, method: :post, class: "btn-reset-small", data: { confirm: "Reset all active speakers?" } %>
+        <% end %>
       </div>
       <div class="stat-card live">
         <div class="stat-value"><%= @active_listeners %></div>
@@ -30,6 +40,9 @@
               </div>
             <% end %>
           </div>
+        <% end %>
+        <% if @active_listeners > 0 %>
+          <%= button_to "Reset", admin_reset_listeners_path, method: :post, class: "btn-reset-small", data: { confirm: "Reset all active listeners?" } %>
         <% end %>
       </div>
     </div>

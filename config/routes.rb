@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy", as: :logout
     get "dashboard", to: "dashboard#index", as: :dashboard
+    post "reset_speakers", to: "dashboard#reset_speakers", as: :reset_speakers
+    post "reset_listeners", to: "dashboard#reset_listeners", as: :reset_listeners
+    post "reset_all", to: "dashboard#reset_all", as: :reset_all
     root to: redirect("/admin/dashboard")
   end
 

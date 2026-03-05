@@ -19,5 +19,25 @@ module Admin
       @recent_speaker_sessions = SpeakerSession.recent.limit(10)
       @recent_listener_connections = ListenerConnection.recent.limit(20)
     end
+
+    def reset_speakers
+      count = SpeakerSession.active.count
+      SpeakerSession.reset_all_active
+      redirect_to admin_dashboard_path, notice: "Reset #{count} active speaker session(s)"
+    end
+
+    def reset_listeners
+      count = ListenerConnection.active.count
+      ListenerConnection.reset_all_active
+      redirect_to admin_dashboard_path, notice: "Reset #{count} active listener connection(s)"
+    end
+
+    def reset_all
+      speakers_count = SpeakerSession.active.count
+      listeners_count = ListenerConnection.active.count
+      SpeakerSession.reset_all_active
+      ListenerConnection.reset_all_active
+      redirect_to admin_dashboard_path, notice: "Reset #{speakers_count} speaker(s) and #{listeners_count} listener(s)"
+    end
   end
 end

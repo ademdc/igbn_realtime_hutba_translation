@@ -37,4 +37,13 @@ class SpeakerSession < ApplicationRecord
       format("%ds", seconds)
     end
   end
+
+  def self.reset_all_active
+    active.find_each do |session|
+      session.update!(
+        ended_at: Time.current,
+        duration_seconds: (Time.current - session.started_at).to_i
+      )
+    end
+  end
 end
