@@ -13,6 +13,8 @@ module IgbdTranslationsApp
     config.hosts << '7cb3beab228d.ngrok-free.app'
     config.hosts << 'igbn-nuernberg-d2981e27b782.herokuapp.com'
     config.hosts << 'hutba.dzamija.net'
+    config.hosts << 'dzuma.dzamija.net'
+    config.hosts << 'hutba.igbd-nuernberg.de'
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
