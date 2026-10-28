@@ -184,7 +184,7 @@ class SonioxProxyService
           }
 
           config_json = JSON.generate(config)
-          Rails.logger.info "Sending config for #{language_code}: #{config_json}"
+          Rails.logger.info "Sending config for #{language_code}: #{config.except(:api_key).to_json}"
           ws.send(config_json)
           Rails.logger.info "✓ Sent configuration to Soniox for #{language_code}"
 
@@ -201,7 +201,6 @@ class SonioxProxyService
         ws.on :message do |event|
           begin
             result = JSON.parse(event.data)
-            Rails.logger.info "Soniox response: #{result.inspect}"
 
             # Process tokens if present
             if result['tokens']&.any?
@@ -209,7 +208,7 @@ class SonioxProxyService
               translations = extract_translations_by_language(result)
               translations.each do |lang_code, text|
                 if text.present? && Language.supported?(lang_code)
-                  Rails.logger.info "Broadcasting to #{lang_code}: #{text}"
+                  # Transcript text is never logged: we promise mosques nothing is stored
                   ActionCable.server.broadcast(
                     TranslationChannel.translation_stream(account_id, lang_code),
                     { text: text, timestamp: Time.current }
@@ -220,7 +219,6 @@ class SonioxProxyService
               # Send Bosnian original back to speaker
               original_text = extract_original(result)
               if original_text.present?
-                Rails.logger.info "Sending original to speaker: #{original_text}"
                 ActionCable.server.broadcast(
                   TranslationChannel.speaker_stream(account_id, session_id),
                   { original: original_text, timestamp: Time.current }
