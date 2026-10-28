@@ -7,6 +7,7 @@ fr:
       team: Équipe
       speaker: Lancer la diffusion
       sign_out: Déconnexion
+      billing: Facturation
     fields:
       email: E-mail
       password: Mot de passe
@@ -67,6 +68,9 @@ fr:
           other: Encore %{count} jours d'essai
         trial_until: Gratuit jusqu'au %{date}
         active: Active
+        payment_due: Paiement dû
+        pay_now: Payer maintenant
+        subscribe: Choisir la formule
       usage:
         title: Diffusion cette semaine
         minutes: "%{used} sur %{limit} min"
@@ -152,6 +156,56 @@ fr:
       terms_html: J'accepte les %{terms} et j'ai lu la politique de %{privacy}.
       terms_link: conditions d'utilisation
       submit: Commencer gratuitement
+    billing:
+      title: Facturation
+      lead: 20 € par mois, payés annuellement à l'avance. Langues supplémentaires 5 € par mois.
+      current: Votre formule
+      status: Statut
+      status_due: Expirée le %{date}
+      status_paid: Payée jusqu'au %{date}
+      languages: Langues
+      languages_value: "%{included} incluses + %{extra} supplémentaires"
+      price: Prix
+      price_value: "%{yearly} par an (%{monthly} par mois)"
+      pay_title: Choisir la formule
+      renew_or_add: Ajouter des langues ou renouveler
+      choose: Que souhaitez-vous payer ?
+      kind_addon: Langues supplémentaires pour les %{months} mois restants (%{price} par mois chacune)
+      kind_renew: Une année de plus, jusqu'au %{date}
+      extra_languages: Langues supplémentaires
+      extra_hint: "%{included} langues sont incluses. Chaque langue supplémentaire coûte %{price} par mois."
+      details: Coordonnées de facturation
+      fields:
+        name: Nom / association
+        address: Adresse
+        phone: Téléphone
+        zip: Code postal
+        city: Ville
+        country: Pays
+      submit: Continuer vers le paiement
+      secure: Vous payez en toute sécurité via Monri. Nous ne voyons jamais vos données de carte.
+      not_configured: Le paiement en ligne n'est pas encore configuré. Veuillez nous contacter.
+      details_missing: Veuillez remplir toutes les coordonnées de facturation.
+      nothing_to_pay: Veuillez choisir au moins une langue supplémentaire.
+      paid: Merci ! Votre paiement a été reçu.
+      unverified: Nous vérifions encore votre paiement. Il sera confirmé dans quelques minutes.
+      history: Paiements
+      date: Date
+      item: Prestation
+      amount: Montant
+      item_subscription: Formule annuelle %{from} – %{to}
+      item_addon:
+        one: "%{count} langue supplémentaire"
+        few: "%{count} langues supplémentaires"
+        many: "%{count} langues supplémentaires"
+        other: "%{count} langues supplémentaires"
+      payment_status:
+        approved: Payé
+        declined: Refusé
+        pending: En attente
+      redirecting: Redirection vers le paiement…
+      redirecting_lead: Vous êtes redirigé vers la page de paiement sécurisée de Monri.
+      continue: Continuer
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -173,6 +227,25 @@ fr:
       body: Votre mosquée %{account} est prête. Vous pouvez utiliser Hutba gratuitement pendant %{days} jours.
       action: Voir l'aperçu
       address: 'Votre adresse : %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Votre essai Hutba se termine demain
+          few: Votre essai Hutba se termine dans %{count} jours
+          many: Votre essai Hutba se termine dans %{count} jours
+          other: Votre essai Hutba se termine dans %{count} jours
+          zero: Votre essai Hutba se termine aujourd'hui
+        body: l'essai gratuit pour %{account} se termine le %{date}. Pour que la diffusion du vendredi continue, choisissez dès maintenant la formule annuelle.
+      renewal:
+        subject:
+          one: Hutba pour %{account} expire demain
+          few: Hutba pour %{account} expire dans %{count} jours
+          many: Hutba pour %{account} expire dans %{count} jours
+          other: Hutba pour %{account} expire dans %{count} jours
+          zero: Hutba pour %{account} expire aujourd'hui
+        body: l'année payée pour %{account} se termine le %{date}. Renouvelez maintenant pour que la diffusion continue sans interruption.
+      action: Payer maintenant
+      price: 'Prix annuel : %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ fr:
         speaker_pin: Code
         country: Pays
         city: Ville
+        billing_name: Nom
+        billing_address: Adresse
+        billing_zip: Code postal
+        billing_city: Ville
+        billing_phone: Téléphone
+        billing_email: E-mail
     errors:
       models:
         account:

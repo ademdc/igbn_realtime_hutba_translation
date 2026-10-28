@@ -25,6 +25,7 @@
           <nav class="app-nav" aria-label="<%= t("app.nav.label") %>">
             <%= link_to t("app.nav.dashboard"), dashboard_path, "aria-current": (current_page?(dashboard_path) ? "page" : nil) %>
             <%= link_to t("app.nav.team"), users_path, "aria-current": (current_page?(users_path) ? "page" : nil) %>
+            <%= link_to t("app.nav.billing"), billing_path, "aria-current": (controller_name == "billing" ? "page" : nil) %>
             <%= link_to t("app.nav.speaker"), root_path %>
           </nav>
         <% end %>

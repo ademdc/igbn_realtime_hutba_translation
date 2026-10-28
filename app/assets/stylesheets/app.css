@@ -461,3 +461,41 @@ body.app {
 .qr-item__language { display: inline-flex; align-items: center; gap: 0.4rem; }
 .panel > .muted + .inline-form,
 .panel > .muted + .errors { margin-top: 1rem; }
+
+/* Billing */
+
+.summary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6rem 2rem;
+  margin: 0;
+}
+.summary dt { color: var(--ink-soft); }
+.summary dd { margin: 0; }
+.text-alert { color: var(--danger); }
+
+.plain-fieldset { margin: 0 0 1.5rem; padding: 0; border: 0; min-width: 0; }
+.panel__subtitle { padding: 0; margin-bottom: 0.75rem; font-weight: 700; font-size: 1.05rem; }
+
+.choice {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+}
+.choice input { margin-top: 0.3rem; accent-color: var(--teal); }
+
+.field--narrow { max-width: 14rem; margin-top: 1rem; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1rem;
+}
+
+@media (max-width: 720px) {
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .summary { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+  .summary dd { margin-bottom: 0.6rem; }
+}

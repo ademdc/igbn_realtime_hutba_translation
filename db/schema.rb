@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_28_160000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_28_180000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,14 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_160000) do
     t.string "country"
     t.string "city"
     t.integer "extra_languages", default: 0, null: false
+    t.datetime "paid_until"
+    t.string "billing_name"
+    t.string "billing_address"
+    t.string "billing_zip"
+    t.string "billing_city"
+    t.string "billing_phone"
+    t.string "billing_email"
+    t.string "last_reminder"
     t.index ["custom_domain"], name: "index_accounts_on_custom_domain", unique: true
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end
@@ -45,6 +53,26 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_160000) do
     t.index ["connected_at"], name: "index_listener_connections_on_connected_at"
     t.index ["language"], name: "index_listener_connections_on_language"
     t.index ["session_id"], name: "index_listener_connections_on_session_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "user_id"
+    t.string "kind", null: false
+    t.string "order_number", null: false
+    t.integer "amount_cents", null: false
+    t.string "currency", default: "EUR", null: false
+    t.string "status", default: "pending", null: false
+    t.integer "extra_languages", default: 0, null: false
+    t.datetime "period_start"
+    t.datetime "period_end"
+    t.datetime "approved_at"
+    t.jsonb "gateway_response", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_payments_on_account_id"
+    t.index ["order_number"], name: "index_payments_on_order_number", unique: true
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "speaker_sessions", force: :cascade do |t|
@@ -79,6 +107,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_160000) do
   end
 
   add_foreign_key "listener_connections", "accounts"
+  add_foreign_key "payments", "accounts"
+  add_foreign_key "payments", "users"
   add_foreign_key "speaker_sessions", "accounts"
   add_foreign_key "users", "accounts"
 end

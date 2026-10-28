@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Monri payment confirmations (any host)
+  post "monri/callback", to: "monri/callbacks#create"
+
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # Marketing site on the apex domain (and www), e.g. hutba.app/de
@@ -43,6 +46,9 @@ Rails.application.routes.draw do
   get "dashboard/qr/:language", to: "qr_codes#show", as: :qr_code,
     constraints: { language: Regexp.union(Language::CODES), format: /svg|png/ }
   get "dashboard/poster", to: "posters#show", as: :poster
+  get "dashboard/billing", to: "billing#show", as: :billing
+  post "dashboard/billing/checkout", to: "billing#checkout", as: :billing_checkout
+  get "dashboard/billing/success", to: "billing#success", as: :billing_success
   resources :users, path: "dashboard/team", only: [:index, :create, :destroy]
 
   # Admin backoffice

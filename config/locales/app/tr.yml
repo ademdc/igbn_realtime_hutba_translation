@@ -7,6 +7,7 @@ tr:
       team: Ekip
       speaker: Yayını başlat
       sign_out: Çıkış
+      billing: Ödeme
     fields:
       email: E-posta
       password: Şifre
@@ -67,6 +68,9 @@ tr:
           other: "%{count} deneme günü kaldı"
         trial_until: "%{date} tarihine kadar ücretsiz"
         active: Aktif
+        payment_due: Ödeme zamanı geldi
+        pay_now: Şimdi öde
+        subscribe: Paket seç
       usage:
         title: Bu haftaki yayın
         minutes: "%{limit} dakikanın %{used} dakikası"
@@ -152,6 +156,56 @@ tr:
       terms_html: "%{terms} kabul ediyorum ve %{privacy} politikasını okudum."
       terms_link: Kullanım koşullarını
       submit: Ücretsiz başla
+    billing:
+      title: Ödeme
+      lead: Aylık 20 €, yıllık peşin ödenir. Ek diller aylık 5 €.
+      current: Paketiniz
+      status: Durum
+      status_due: "%{date} tarihinde sona erdi"
+      status_paid: "%{date} tarihine kadar ödendi"
+      languages: Diller
+      languages_value: "%{included} dahil + %{extra} ek"
+      price: Fiyat
+      price_value: Yıllık %{yearly} (aylık %{monthly})
+      pay_title: Paket seç
+      renew_or_add: Dil ekle veya uzat
+      choose: Neyi ödemek istiyorsunuz?
+      kind_addon: Kalan %{months} ay için ek diller (her biri aylık %{price})
+      kind_renew: "%{date} tarihine kadar bir yıl daha"
+      extra_languages: Ek diller
+      extra_hint: "%{included} dil dahildir. Her ek dil aylık %{price}."
+      details: Fatura bilgileri
+      fields:
+        name: Ad / dernek
+        address: Adres
+        phone: Telefon
+        zip: Posta kodu
+        city: Şehir
+        country: Ülke
+      submit: Ödemeye geç
+      secure: Monri üzerinden güvenle ödersiniz. Kart bilgilerinizi görmeyiz.
+      not_configured: Online ödeme henüz kurulmadı. Lütfen bizimle iletişime geçin.
+      details_missing: Lütfen tüm fatura bilgilerini doldurun.
+      nothing_to_pay: Lütfen en az bir ek dil seçin.
+      paid: Teşekkürler! Ödemeniz alındı.
+      unverified: Ödemenizi hâlâ kontrol ediyoruz. Birkaç dakika içinde onaylanacak.
+      history: Ödemeler
+      date: Tarih
+      item: Kalem
+      amount: Tutar
+      item_subscription: Yıllık paket %{from} – %{to}
+      item_addon:
+        one: "%{count} ek dil"
+        few: "%{count} ek dil"
+        many: "%{count} ek dil"
+        other: "%{count} ek dil"
+      payment_status:
+        approved: Ödendi
+        declined: Reddedildi
+        pending: Bekliyor
+      redirecting: Ödemeye yönlendiriliyor…
+      redirecting_lead: Monri'nin güvenli ödeme sayfasına yönlendiriliyorsunuz.
+      continue: Devam
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -173,6 +227,25 @@ tr:
       body: "%{account} hazır. Hutba'yı %{days} gün ücretsiz kullanabilirsiniz."
       action: Genel bakışa git
       address: 'Adresiniz: %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Hutba deneme süreniz yarın bitiyor
+          few: Hutba deneme süreniz %{count} gün içinde bitiyor
+          many: Hutba deneme süreniz %{count} gün içinde bitiyor
+          other: Hutba deneme süreniz %{count} gün içinde bitiyor
+          zero: Hutba deneme süreniz bugün bitiyor
+        body: "%{account} için ücretsiz deneme süresi %{date} tarihinde bitiyor. Cuma yayınının devam etmesi için şimdi yıllık paketi seçin."
+      renewal:
+        subject:
+          one: "%{account} için Hutba yarın sona eriyor"
+          few: "%{account} için Hutba %{count} gün içinde sona eriyor"
+          many: "%{account} için Hutba %{count} gün içinde sona eriyor"
+          other: "%{account} için Hutba %{count} gün içinde sona eriyor"
+          zero: "%{account} için Hutba bugün sona eriyor"
+        body: "%{account} için ödenen yıl %{date} tarihinde bitiyor. Yayının kesintisiz devam etmesi için şimdi uzatın."
+      action: Şimdi öde
+      price: 'Yıllık fiyat: %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ tr:
         speaker_pin: PIN
         country: Ülke
         city: Şehir
+        billing_name: Ad
+        billing_address: Adres
+        billing_zip: Posta kodu
+        billing_city: Şehir
+        billing_phone: Telefon
+        billing_email: E-posta
     errors:
       models:
         account:

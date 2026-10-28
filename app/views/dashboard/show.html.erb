@@ -17,17 +17,24 @@
 <div class="overview">
   <section class="panel stat" aria-labelledby="plan-title">
     <h2 class="stat__label" id="plan-title"><%= t("app.dashboard.plan.title") %></h2>
-    <% if @account.suspended? %>
+    <% if @account.payment_due? %>
+      <p class="stat__value"><%= t("app.dashboard.plan.payment_due") %></p>
+      <p class="stat__note"><%= link_to t("app.dashboard.plan.pay_now"), billing_path %></p>
+    <% elsif @account.suspended? %>
       <p class="stat__value"><%= t("app.dashboard.plan.suspended") %></p>
       <p class="stat__note"><%= t("app.dashboard.plan.suspended_note") %></p>
     <% elsif @account.trial_expired? %>
       <p class="stat__value"><%= t("app.dashboard.plan.trial_over") %></p>
-      <p class="stat__note"><%= t("app.dashboard.plan.trial_over_note") %></p>
+      <p class="stat__note"><%= t("app.dashboard.plan.trial_over_note") %> <%= link_to t("app.dashboard.plan.pay_now"), billing_path %></p>
     <% elsif @account.status == "trialing" %>
       <p class="stat__value"><%= t("app.dashboard.plan.trial_days", count: @account.trial_days_left) %></p>
       <p class="stat__note"><%= t("app.dashboard.plan.trial_until", date: l(@account.trial_ends_at.to_date, format: :long)) %></p>
+      <p class="stat__note"><%= link_to t("app.dashboard.plan.subscribe"), billing_path %></p>
     <% else %>
       <p class="stat__value"><%= t("app.dashboard.plan.active") %></p>
+      <% if @account.paid_until %>
+        <p class="stat__note"><%= t("app.billing.status_paid", date: l(@account.paid_until.to_date, format: :long)) %></p>
+      <% end %>
     <% end %>
   </section>
 
@@ -76,7 +83,7 @@
       </fieldset>
       <div class="panel__actions">
         <%= form.submit t("app.dashboard.languages.save"), class: "button" %>
-        <p class="muted"><%= t("app.dashboard.languages.more", price: t("marketing.pricing.addon")) %></p>
+        <p class="muted"><%= t("app.dashboard.languages.more", price: t("marketing.pricing.addon")) %> <%= link_to t("app.nav.billing"), billing_path %></p>
       </div>
     <% end %>
   </section>

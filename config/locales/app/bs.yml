@@ -7,6 +7,7 @@ bs:
       team: Tim
       speaker: Pokreni prenos
       sign_out: Odjava
+      billing: Plaćanje
     fields:
       email: E-mail
       password: Lozinka
@@ -67,6 +68,9 @@ bs:
           other: Još %{count} probnih dana
         trial_until: Besplatno do %{date}
         active: Aktivan
+        payment_due: Plaćanje dospjelo
+        pay_now: Plati sada
+        subscribe: Odaberi paket
       usage:
         title: Prenos ove sedmice
         minutes: "%{used} od %{limit} min"
@@ -152,6 +156,56 @@ bs:
       terms_html: Prihvatam %{terms} i pročitao/la sam izjavu o %{privacy}.
       terms_link: uslove korištenja
       submit: Počnite besplatno
+    billing:
+      title: Plaćanje
+      lead: 20 € mjesečno, plaćeno godišnje unaprijed. Dodatni jezici 5 € mjesečno.
+      current: Vaš paket
+      status: Status
+      status_due: Isteklo %{date}
+      status_paid: Plaćeno do %{date}
+      languages: Jezici
+      languages_value: "%{included} uključeno + %{extra} dodatno"
+      price: Cijena
+      price_value: "%{yearly} godišnje (%{monthly} mjesečno)"
+      pay_title: Odaberi paket
+      renew_or_add: Dodaj jezike ili produži
+      choose: Šta želite platiti?
+      kind_addon: Dodatni jezici za preostalih %{months} mjeseci (po %{price} mjesečno)
+      kind_renew: Još jednu godinu, do %{date}
+      extra_languages: Dodatni jezici
+      extra_hint: "%{included} jezika je uključeno. Svaki dodatni košta %{price} mjesečno."
+      details: Podaci za račun
+      fields:
+        name: Ime / udruženje
+        address: Ulica i broj
+        phone: Telefon
+        zip: Poštanski broj
+        city: Grad
+        country: Država
+      submit: Nastavi na plaćanje
+      secure: Plaćate sigurno preko Monrija. Mi ne vidimo podatke vaše kartice.
+      not_configured: Online plaćanje još nije podešeno. Molimo kontaktirajte nas.
+      details_missing: Molimo popunite sve podatke za račun.
+      nothing_to_pay: Molimo odaberite barem jedan dodatni jezik.
+      paid: Hvala! Vaša uplata je primljena.
+      unverified: Još provjeravamo vašu uplatu. Bit će potvrđena za nekoliko minuta.
+      history: Uplate
+      date: Datum
+      item: Stavka
+      amount: Iznos
+      item_subscription: Godišnji paket %{from} – %{to}
+      item_addon:
+        one: "%{count} dodatni jezik"
+        few: "%{count} dodatna jezika"
+        many: "%{count} dodatnih jezika"
+        other: "%{count} dodatnih jezika"
+      payment_status:
+        approved: Plaćeno
+        declined: Odbijeno
+        pending: Na čekanju
+      redirecting: Nastavak na plaćanje…
+      redirecting_lead: Preusmjeravamo vas na sigurnu Monri stranicu za plaćanje.
+      continue: Nastavi
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -173,6 +227,25 @@ bs:
       body: Vaš džemat %{account} je spreman. Hutbu možete koristiti besplatno %{days} dana.
       action: Na pregled
       address: 'Vaša adresa: %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Probni period na Hutbi ističe za %{count} dan
+          few: Probni period na Hutbi ističe za %{count} dana
+          many: Probni period na Hutbi ističe za %{count} dana
+          other: Probni period na Hutbi ističe za %{count} dana
+          zero: Probni period na Hutbi ističe danas
+        body: besplatni probni period za %{account} ističe %{date}. Da bi prenos petkom nastavio raditi, odaberite godišnji paket.
+      renewal:
+        subject:
+          one: Hutba za %{account} ističe za %{count} dan
+          few: Hutba za %{account} ističe za %{count} dana
+          many: Hutba za %{account} ističe za %{count} dana
+          other: Hutba za %{account} ističe za %{count} dana
+          zero: Hutba za %{account} ističe danas
+        body: plaćena godina za %{account} ističe %{date}. Produžite sada da prenos radi bez prekida.
+      action: Plati sada
+      price: 'Godišnja cijena: %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ bs:
         speaker_pin: PIN
         country: Država
         city: Grad
+        billing_name: Ime
+        billing_address: Adresa
+        billing_zip: Poštanski broj
+        billing_city: Grad
+        billing_phone: Telefon
+        billing_email: E-mail
     errors:
       models:
         account:

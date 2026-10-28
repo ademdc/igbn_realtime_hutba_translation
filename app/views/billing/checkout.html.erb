@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <title><%= t("app.billing.redirecting") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <%= render "layouts/fonts" %>
+    <%= stylesheet_link_tag "app" %>
+  </head>
+  <body class="app">
+    <main class="app-main">
+      <div class="auth">
+        <h1 class="page-title"><%= t("app.billing.redirecting") %></h1>
+        <p class="page-lead"><%= t("app.billing.redirecting_lead") %></p>
+        <form action="<%= Monri::Gateway.form_url %>" method="post" id="monri-form" class="auth__form">
+          <% @fields.each do |name, value| %>
+            <input type="hidden" name="<%= name %>" value="<%= value %>">
+          <% end %>
+          <button type="submit" class="button button--block"><%= t("app.billing.continue") %></button>
+        </form>
+      </div>
+    </main>
+    <script>document.getElementById("monri-form").submit()</script>
+  </body>
+</html>

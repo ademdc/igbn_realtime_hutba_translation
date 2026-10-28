@@ -7,6 +7,7 @@ nl:
       team: Team
       speaker: Uitzending starten
       sign_out: Uitloggen
+      billing: Betaling
     fields:
       email: E-mail
       password: Wachtwoord
@@ -67,6 +68,9 @@ nl:
           other: Nog %{count} proefdagen
         trial_until: Gratis tot %{date}
         active: Actief
+        payment_due: Betaling verschuldigd
+        pay_now: Nu betalen
+        subscribe: Abonnement kiezen
       usage:
         title: Uitzenden deze week
         minutes: "%{used} van %{limit} min"
@@ -152,6 +156,56 @@ nl:
       terms_html: Ik ga akkoord met de %{terms} en heb de %{privacy}verklaring gelezen.
       terms_link: gebruiksvoorwaarden
       submit: Gratis starten
+    billing:
+      title: Betaling
+      lead: "€ 20 per maand, jaarlijks vooruit betaald. Extra talen € 5 per maand."
+      current: Uw abonnement
+      status: Status
+      status_due: Verlopen op %{date}
+      status_paid: Betaald tot %{date}
+      languages: Talen
+      languages_value: "%{included} inbegrepen + %{extra} extra"
+      price: Prijs
+      price_value: "%{yearly} per jaar (%{monthly} per maand)"
+      pay_title: Abonnement kiezen
+      renew_or_add: Talen toevoegen of verlengen
+      choose: Waarvoor wilt u betalen?
+      kind_addon: Extra talen voor de resterende %{months} maanden (%{price} per maand per taal)
+      kind_renew: Nog een jaar, tot %{date}
+      extra_languages: Extra talen
+      extra_hint: "%{included} talen zijn inbegrepen. Elke extra taal kost %{price} per maand."
+      details: Factuurgegevens
+      fields:
+        name: Naam / vereniging
+        address: Straat en huisnummer
+        phone: Telefoon
+        zip: Postcode
+        city: Plaats
+        country: Land
+      submit: Verder naar betalen
+      secure: U betaalt veilig via Monri. Wij zien uw kaartgegevens nooit.
+      not_configured: Online betalen is nog niet ingesteld. Neem contact met ons op.
+      details_missing: Vul alle factuurgegevens in.
+      nothing_to_pay: Kies minstens één extra taal.
+      paid: Bedankt! Uw betaling is ontvangen.
+      unverified: We controleren uw betaling nog. Binnen enkele minuten wordt die bevestigd.
+      history: Betalingen
+      date: Datum
+      item: Omschrijving
+      amount: Bedrag
+      item_subscription: Jaarabonnement %{from} – %{to}
+      item_addon:
+        one: "%{count} extra taal"
+        few: "%{count} extra talen"
+        many: "%{count} extra talen"
+        other: "%{count} extra talen"
+      payment_status:
+        approved: Betaald
+        declined: Geweigerd
+        pending: Open
+      redirecting: Door naar betalen…
+      redirecting_lead: U wordt doorgestuurd naar de beveiligde betaalpagina van Monri.
+      continue: Verder
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -173,6 +227,25 @@ nl:
       body: Uw moskee %{account} is klaar. U kunt Hutba %{days} dagen gratis gebruiken.
       action: Naar het overzicht
       address: 'Uw adres: %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Uw proefperiode bij Hutba eindigt morgen
+          few: Uw proefperiode bij Hutba eindigt over %{count} dagen
+          many: Uw proefperiode bij Hutba eindigt over %{count} dagen
+          other: Uw proefperiode bij Hutba eindigt over %{count} dagen
+          zero: Uw proefperiode bij Hutba eindigt vandaag
+        body: de gratis proefperiode voor %{account} eindigt op %{date}. Kies nu het jaarabonnement zodat de uitzending op vrijdag doorgaat.
+      renewal:
+        subject:
+          one: Hutba voor %{account} verloopt morgen
+          few: Hutba voor %{account} verloopt over %{count} dagen
+          many: Hutba voor %{account} verloopt over %{count} dagen
+          other: Hutba voor %{account} verloopt over %{count} dagen
+          zero: Hutba voor %{account} verloopt vandaag
+        body: het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu zodat het uitzenden zonder onderbreking doorgaat.
+      action: Nu betalen
+      price: 'Jaarprijs: %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ nl:
         speaker_pin: Pincode
         country: Land
         city: Plaats
+        billing_name: Naam
+        billing_address: Adres
+        billing_zip: Postcode
+        billing_city: Plaats
+        billing_phone: Telefoon
+        billing_email: E-mail
     errors:
       models:
         account:

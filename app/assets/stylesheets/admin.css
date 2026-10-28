@@ -61,6 +61,7 @@
 .status--active { color: var(--teal); }
 .status--trial_expired { color: #9a6410; }
 .status--suspended { color: var(--danger); }
+.status--payment_due { color: #9a6410; }
 .status > span { color: var(--ink); }
 
 .filters {

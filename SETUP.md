@@ -1,125 +1,79 @@
-# IGBD Translations App - Setup Guide
+# Hutba – Setup Guide
 
-This Rails application provides real-time Bosnian to German translation using Soniox API.
+Live khutbah translation for mosques, as a multi-tenant B2B app.
+
+- `APP_DOMAIN` (e.g. `hutba.app`) serves the marketing site in `/de`, `/en`, `/fr`, `/nl`, `/bs`, `/tr`, with self-signup.
+- Each mosque gets a subdomain (e.g. `dzemat-nurnberg.hutba.app`):
+  - `/` is the speaker panel.
+  - `/de`, `/en`, … are the listener pages.
+  - `/dashboard` is the owner area: languages, QR codes, poster, team, billing.
+- `/admin` is the super-admin panel.
 
 ## Prerequisites
 
 - Ruby 3.4.9
 - PostgreSQL
-- Node.js and npm (for JavaScript bundling)
+- Redis (production)
+- Node.js 20
 
-## Installation Steps
-
-### 1. Install Dependencies
+## Local development
 
 ```bash
-# Install Ruby gems
 bundle install
-
-# Install JavaScript dependencies
 npm install
+bin/rails db:prepare db:seed
+PORT=3020 bin/rails server -p 3020   # plus `npm run build -- --watch` for JS
 ```
 
-### 2. Configure Environment Variables
+`*.localhost` resolves to your machine in Chrome and Firefox, so no hosts file changes are needed. The seed creates these logins (password `password1234`):
 
-Edit `.env` file and add your configuration:
+| Who | URL |
+|---|---|
+| Marketing site | http://localhost:3020/de |
+| Mosque owner `owner@demo.test` | http://demo.localhost:3020/login |
+| Imam `imam@demo.test` (speaker only) | http://demo.localhost:3020/login |
+| Owner of the original tenant `owner@igbd.test` | http://igbd-nuernberg.localhost:3020/login |
+| Super admin `admin@hutba.test` | http://localhost:3020/admin/login |
+
+Emails are not sent in development. Open http://localhost:3020/letter_opener to read them.
+
+Run the tests with `bin/rails test`.
+
+## Environment variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `SONIOX_API_KEY` | yes | Speech recognition and translation |
+| `APP_DOMAIN` | production | Apex domain, e.g. `hutba.app` (default `localhost`) |
+| `DEFAULT_ACCOUNT_SUBDOMAIN` | optional | Hosts that are neither `APP_DOMAIN` nor a custom domain go to this account. Set it to `igbd-nuernberg` so `hutba.dzamija.net`, `dzuma.dzamija.net` and `hutba.igbd-nuernberg.de` keep working. |
+| `SPEAKER_PIN` | migration only | Copied (hashed) into the `igbd-nuernberg` account by the multi-tenancy migration. After that, PINs are set per mosque in the dashboard. |
+| `CONTACT_EMAIL`, `MAIL_FROM` | production | Sender and contact address |
+| `SMTP_ADDRESS`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` | production | Any SMTP provider (Postmark, Resend, Brevo, …) |
+| `MONRI_AUTHENTICITY_TOKEN`, `MONRI_MERCHANT_KEY` | for payments | From the Monri merchant dashboard |
+| `MONRI_ENV` | for payments | `production` for live payments. Anything else uses `ipgtest.monri.com`. |
+| `REDIS_URL` | production | Action Cable, Soniox language state, rate limiting |
+
+`ADMIN_USERNAME` and `ADMIN_PASSWORD` are no longer used. Create a super admin with:
 
 ```bash
-# Soniox API Key (required)
-SONIOX_API_KEY=your_actual_soniox_api_key_here
-
-# Speaker PIN Protection (required)
-# 6-digit PIN to access the speaker page
-SPEAKER_PIN=123456
+bin/rails admin:create EMAIL=you@example.com NAME="Your Name"   # prompts for the password
 ```
 
-**Important:**
-- Get your Soniox API key from [Soniox Console](https://soniox.com/console)
-- Change the `SPEAKER_PIN` to your own secure 6-digit number
-- The speaker page (/) is PIN-protected for security
+## Production checklist
 
-### 3. Setup Database
+1. **DNS:** point `APP_DOMAIN` and the wildcard `*.APP_DOMAIN` at the app. On Fly, run `fly certs add hutba.app` and `fly certs add "*.hutba.app"`; wildcard certificates need the DNS challenge record that Fly shows you.
+2. **Monri:** in the merchant dashboard, set:
+   - Success URL: any mosque's `/dashboard/billing/success`. The app overrides it per mosque over HTTPS.
+   - Callback URL: `https://APP_DOMAIN/monri/callback`
+   - Test with `MONRI_ENV` unset and Monri's test cards first.
+3. **Daily reminders:** schedule `bin/rails billing:reminders` once a day. It sends trial-ending emails at 14, 3 and 0 days, and renewal emails at 30, 7 and 0 days. On Fly, use a scheduled machine, e.g. `fly machine run . --schedule daily --command "bin/rails billing:reminders"`.
+4. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
 
-```bash
-# Create and migrate database
-rails db:create
-rails db:migrate
-```
+## How streaming works
 
-### 4. Build JavaScript
+1. The speaker panel streams 16 kHz PCM audio over Action Cable (`TranslationChannel`).
+2. `SonioxProxyService` opens one Soniox connection per language that has listeners. Connections, Redis keys and streams are scoped per account.
+3. Translations are broadcast to `translation:<account_id>:<language>`, which the listener pages subscribe to.
+4. Streaming is refused when a trial has expired, a paid year has run out, the account is suspended, or the weekly limit (180 minutes by default) is used up.
 
-```bash
-# Build JavaScript assets
-npm run build
-```
-
-### 5. Start the Server
-
-```bash
-# Start Rails server
-rails server
-```
-
-The app will be available at `http://localhost:3000`
-
-## Usage
-
-### Speaker Page (/)
-
-1. Navigate to `http://localhost:3000`
-2. Click "Start Recording"
-3. Allow microphone access when prompted
-4. Speak in Bosnian
-5. Translations will be broadcast to all German listeners
-
-### Listener Page (/german)
-
-1. Navigate to `http://localhost:3000/german`
-2. Wait for the speaker to start broadcasting
-3. See real-time German translations appear
-
-## How It Works
-
-1. **Speaker captures audio** from microphone
-2. **Audio is sent via Action Cable** to Rails backend
-3. **Rails forwards audio to Soniox API** via WebSocket
-4. **Soniox translates Bosnian → German** in real-time
-5. **German translations broadcast** to all `/german` listeners via Action Cable
-
-## Architecture
-
-- **Frontend**: Rails views with Vanilla JavaScript
-- **Real-time Communication**: Action Cable (WebSockets)
-- **Translation API**: Soniox Real-Time Translation
-- **Audio Processing**: Web Audio API
-
-## Troubleshooting
-
-### Microphone not working
-- Ensure you've granted microphone permissions to your browser
-- Check browser console for errors
-- HTTPS is required for microphone access (localhost is exempt)
-
-### Translations not appearing
-- Verify your Soniox API key is correct in `.env`
-- Check Rails logs for connection errors
-- Ensure Action Cable is running (check browser console)
-
-### Build errors
-- Run `npm install` to ensure dependencies are installed
-- Run `npm run build` to rebuild JavaScript
-
-## Development
-
-To watch for JavaScript changes during development:
-
-```bash
-npm run build -- --watch
-```
-
-## Production Deployment
-
-1. Set `SONIOX_API_KEY` environment variable
-2. Configure Redis for Action Cable
-3. Precompile assets: `rails assets:precompile`
-4. Set up SSL certificate (required for microphone access)
+Transcripts and audio are never stored or logged.

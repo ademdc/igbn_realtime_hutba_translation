@@ -7,6 +7,7 @@ de:
       team: Team
       speaker: Übertragung starten
       sign_out: Abmelden
+      billing: Abrechnung
     fields:
       email: E-Mail
       password: Passwort
@@ -67,6 +68,9 @@ de:
           other: Noch %{count} Testtage
         trial_until: Kostenlos bis %{date}
         active: Aktiv
+        payment_due: Zahlung fällig
+        pay_now: Jetzt bezahlen
+        subscribe: Tarif buchen
       usage:
         title: Übertragung diese Woche
         minutes: "%{used} von %{limit} Min."
@@ -152,6 +156,56 @@ de:
       terms_html: Ich akzeptiere die %{terms} und habe die %{privacy} gelesen.
       terms_link: Nutzungsbedingungen
       submit: Kostenlos starten
+    billing:
+      title: Abrechnung
+      lead: 20 € pro Monat, jährlich im Voraus bezahlt. Weitere Sprachen 5 € pro Monat.
+      current: Ihr Tarif
+      status: Status
+      status_due: Abgelaufen am %{date}
+      status_paid: Bezahlt bis %{date}
+      languages: Sprachen
+      languages_value: "%{included} inklusive + %{extra} zusätzlich"
+      price: Preis
+      price_value: "%{yearly} pro Jahr (%{monthly} pro Monat)"
+      pay_title: Tarif buchen
+      renew_or_add: Sprachen hinzufügen oder verlängern
+      choose: Was möchten Sie bezahlen?
+      kind_addon: Zusätzliche Sprachen für die verbleibenden %{months} Monate (je %{price} pro Monat)
+      kind_renew: Ein weiteres Jahr bis %{date}
+      extra_languages: Zusätzliche Sprachen
+      extra_hint: "%{included} Sprachen sind inklusive. Jede weitere kostet %{price} pro Monat."
+      details: Rechnungsdaten
+      fields:
+        name: Name / Verein
+        address: Straße und Hausnummer
+        phone: Telefon
+        zip: PLZ
+        city: Ort
+        country: Land
+      submit: Weiter zur Zahlung
+      secure: Sie zahlen sicher über Monri. Wir sehen Ihre Kartendaten nicht.
+      not_configured: Online-Zahlung ist noch nicht eingerichtet. Bitte kontaktieren Sie uns.
+      details_missing: Bitte füllen Sie alle Rechnungsdaten aus.
+      nothing_to_pay: Bitte wählen Sie mindestens eine zusätzliche Sprache.
+      paid: Vielen Dank! Ihre Zahlung ist eingegangen.
+      unverified: Wir prüfen Ihre Zahlung noch. Sie wird in wenigen Minuten bestätigt.
+      history: Zahlungen
+      date: Datum
+      item: Leistung
+      amount: Betrag
+      item_subscription: Jahrestarif %{from} – %{to}
+      item_addon:
+        one: "%{count} zusätzliche Sprache"
+        few: "%{count} zusätzliche Sprachen"
+        many: "%{count} zusätzliche Sprachen"
+        other: "%{count} zusätzliche Sprachen"
+      payment_status:
+        approved: Bezahlt
+        declined: Abgelehnt
+        pending: Offen
+      redirecting: Weiter zur Zahlung …
+      redirecting_lead: Sie werden zur sicheren Zahlungsseite von Monri weitergeleitet.
+      continue: Weiter
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -173,6 +227,25 @@ de:
       body: Ihre Gemeinde %{account} ist eingerichtet. Sie können Hutba %{days} Tage lang kostenlos nutzen.
       action: Zur Übersicht
       address: 'Ihre Adresse: %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Ihr Test bei Hutba endet morgen
+          few: Ihr Test bei Hutba endet in %{count} Tagen
+          many: Ihr Test bei Hutba endet in %{count} Tagen
+          other: Ihr Test bei Hutba endet in %{count} Tagen
+          zero: Ihr Test bei Hutba endet heute
+        body: die kostenlose Testzeit für %{account} endet am %{date}. Damit die Übertragung am Freitag weiterläuft, buchen Sie jetzt den Jahrestarif.
+      renewal:
+        subject:
+          one: Hutba für %{account} läuft morgen ab
+          few: Hutba für %{account} läuft in %{count} Tagen ab
+          many: Hutba für %{account} läuft in %{count} Tagen ab
+          other: Hutba für %{account} läuft in %{count} Tagen ab
+          zero: Hutba für %{account} läuft heute ab
+        body: das bezahlte Jahr für %{account} endet am %{date}. Verlängern Sie jetzt, damit die Übertragung ohne Unterbrechung weiterläuft.
+      action: Jetzt bezahlen
+      price: 'Jahrespreis: %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ de:
         speaker_pin: PIN
         country: Land
         city: Stadt
+        billing_name: Name
+        billing_address: Adresse
+        billing_zip: PLZ
+        billing_city: Ort
+        billing_phone: Telefon
+        billing_email: E-Mail
     errors:
       models:
         account:

@@ -7,6 +7,7 @@ en:
       team: Team
       speaker: Start broadcast
       sign_out: Log out
+      billing: Billing
     fields:
       email: Email
       password: Password
@@ -67,6 +68,9 @@ en:
           other: "%{count} trial days left"
         trial_until: Free until %{date}
         active: Active
+        payment_due: Payment due
+        pay_now: Pay now
+        subscribe: Choose plan
       usage:
         title: Broadcasting this week
         minutes: "%{used} of %{limit} min"
@@ -152,6 +156,56 @@ en:
       terms_html: I accept the %{terms} and have read the %{privacy} policy.
       terms_link: terms of service
       submit: Start for free
+    billing:
+      title: Billing
+      lead: "€20 per month, paid yearly in advance. Extra languages €5 per month."
+      current: Your plan
+      status: Status
+      status_due: Expired on %{date}
+      status_paid: Paid until %{date}
+      languages: Languages
+      languages_value: "%{included} included + %{extra} extra"
+      price: Price
+      price_value: "%{yearly} per year (%{monthly} per month)"
+      pay_title: Choose plan
+      renew_or_add: Add languages or renew
+      choose: What would you like to pay for?
+      kind_addon: Extra languages for the remaining %{months} months (%{price} per month each)
+      kind_renew: Another year, until %{date}
+      extra_languages: Extra languages
+      extra_hint: "%{included} languages are included. Each extra one costs %{price} per month."
+      details: Billing details
+      fields:
+        name: Name / organisation
+        address: Street address
+        phone: Phone
+        zip: Postcode
+        city: City
+        country: Country
+      submit: Continue to payment
+      secure: You pay securely through Monri. We never see your card details.
+      not_configured: Online payment isn't set up yet. Please contact us.
+      details_missing: Please fill in all billing details.
+      nothing_to_pay: Please choose at least one extra language.
+      paid: Thank you! Your payment was received.
+      unverified: We're still checking your payment. It will be confirmed in a few minutes.
+      history: Payments
+      date: Date
+      item: Item
+      amount: Amount
+      item_subscription: Yearly plan %{from} – %{to}
+      item_addon:
+        one: "%{count} extra language"
+        few: "%{count} extra languages"
+        many: "%{count} extra languages"
+        other: "%{count} extra languages"
+      payment_status:
+        approved: Paid
+        declined: Declined
+        pending: Pending
+      redirecting: Continuing to payment…
+      redirecting_lead: You're being sent to Monri's secure payment page.
+      continue: Continue
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -173,6 +227,25 @@ en:
       body: Your mosque %{account} is set up. You can use Hutba for free for %{days} days.
       action: Go to overview
       address: 'Your address: %{url}'
+    reminder:
+      trial:
+        subject:
+          one: Your Hutba trial ends tomorrow
+          few: Your Hutba trial ends in %{count} days
+          many: Your Hutba trial ends in %{count} days
+          other: Your Hutba trial ends in %{count} days
+          zero: Your Hutba trial ends today
+        body: the free trial for %{account} ends on %{date}. To keep Friday's broadcast running, choose the yearly plan now.
+      renewal:
+        subject:
+          one: Hutba for %{account} expires tomorrow
+          few: Hutba for %{account} expires in %{count} days
+          many: Hutba for %{account} expires in %{count} days
+          other: Hutba for %{account} expires in %{count} days
+          zero: Hutba for %{account} expires today
+        body: the paid year for %{account} ends on %{date}. Renew now so broadcasting continues without a break.
+      action: Pay now
+      price: 'Yearly price: %{price}'
   activerecord:
     attributes:
       user:
@@ -188,6 +261,12 @@ en:
         speaker_pin: PIN
         country: Country
         city: City
+        billing_name: Name
+        billing_address: Address
+        billing_zip: Postcode
+        billing_city: City
+        billing_phone: Phone
+        billing_email: Email
     errors:
       models:
         account:

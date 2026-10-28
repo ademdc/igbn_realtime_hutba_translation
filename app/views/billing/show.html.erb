@@ -1,0 +1,132 @@
+<% content_for :title, t("app.nav.billing") %>
+<% euros = ->(cents) { number_to_currency(cents / 100.0, unit: "€", format: "%n %u", precision: (cents % 100).zero? ? 0 : 2, locale: I18n.locale) } %>
+
+<h1 class="page-title"><%= t("app.billing.title") %></h1>
+<p class="page-lead"><%= t("app.billing.lead") %></p>
+
+<div class="stack">
+  <section class="panel" aria-labelledby="current-title">
+    <h2 class="panel__title" id="current-title"><%= t("app.billing.current") %></h2>
+    <dl class="summary">
+      <dt><%= t("app.billing.status") %></dt>
+      <dd>
+        <% if @account.payment_due? %>
+          <strong class="text-alert"><%= t("app.billing.status_due", date: l(@account.paid_until.to_date, format: :long)) %></strong>
+        <% elsif @account.paid_until&.future? %>
+          <%= t("app.billing.status_paid", date: l(@account.paid_until.to_date, format: :long)) %>
+        <% elsif @account.status == "trialing" %>
+          <%= t("app.dashboard.plan.trial_until", date: l(@account.trial_ends_at.to_date, format: :long)) %>
+        <% else %>
+          <%= t("app.dashboard.plan.active") %>
+        <% end %>
+      </dd>
+      <dt><%= t("app.billing.languages") %></dt>
+      <dd><%= t("app.billing.languages_value", included: Account::INCLUDED_LANGUAGES, extra: @account.extra_languages) %></dd>
+      <dt><%= t("app.billing.price") %></dt>
+      <dd><%= t("app.billing.price_value", yearly: euros.(@account.yearly_price_cents), monthly: euros.(@account.monthly_price_cents)) %></dd>
+    </dl>
+  </section>
+
+  <section class="panel" aria-labelledby="pay-title">
+    <h2 class="panel__title" id="pay-title"><%= @account.paid_until&.future? ? t("app.billing.renew_or_add") : t("app.billing.pay_title") %></h2>
+
+    <% unless Monri::Gateway.configured? %>
+      <p class="flash flash--alert"><%= t("app.billing.not_configured") %></p>
+    <% end %>
+    <%= render "shared/errors", record: @account %>
+
+    <%= form_with model: @account, url: billing_checkout_path, method: :post, data: { billing: true } do |form| %>
+      <fieldset class="plain-fieldset">
+        <legend class="panel__subtitle"><%= t("app.billing.choose") %></legend>
+        <% if @account.paid_until&.future? %>
+          <label class="choice">
+            <%= radio_button_tag :kind, "addon", true %>
+            <span><%= t("app.billing.kind_addon", months: @account.paid_months_left, price: euros.(Account::EXTRA_LANGUAGE_PRICE_CENTS)) %></span>
+          </label>
+          <label class="choice">
+            <%= radio_button_tag :kind, "subscription", false %>
+            <span><%= t("app.billing.kind_renew", date: l(@account.paid_until.to_date + 1.year, format: :long)) %></span>
+          </label>
+        <% else %>
+          <%= hidden_field_tag :kind, "subscription" %>
+        <% end %>
+        <div class="field field--narrow">
+          <%= label_tag :extra_languages, t("app.billing.extra_languages") %>
+          <%= number_field_tag :extra_languages, @account.paid_until&.future? ? 1 : @account.extra_languages, min: 0, max: 20 %>
+          <p class="field__hint"><%= t("app.billing.extra_hint", included: Account::INCLUDED_LANGUAGES, price: euros.(Account::EXTRA_LANGUAGE_PRICE_CENTS)) %></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="plain-fieldset">
+        <legend class="panel__subtitle"><%= t("app.billing.details") %></legend>
+        <div class="form-grid">
+          <div class="field">
+            <%= form.label :billing_name, t("app.billing.fields.name") %>
+            <%= form.text_field :billing_name, required: true, maxlength: 30, autocomplete: "name" %>
+          </div>
+          <div class="field">
+            <%= form.label :billing_email, t("app.fields.email") %>
+            <%= form.email_field :billing_email, required: true, autocomplete: "email" %>
+          </div>
+          <div class="field">
+            <%= form.label :billing_address, t("app.billing.fields.address") %>
+            <%= form.text_field :billing_address, required: true, autocomplete: "street-address" %>
+          </div>
+          <div class="field">
+            <%= form.label :billing_phone, t("app.billing.fields.phone") %>
+            <%= form.telephone_field :billing_phone, required: true, autocomplete: "tel" %>
+          </div>
+          <div class="field">
+            <%= form.label :billing_zip, t("app.billing.fields.zip") %>
+            <%= form.text_field :billing_zip, required: true, maxlength: 9, autocomplete: "postal-code" %>
+          </div>
+          <div class="field">
+            <%= form.label :billing_city, t("app.billing.fields.city") %>
+            <%= form.text_field :billing_city, required: true, autocomplete: "address-level2" %>
+          </div>
+          <div class="field">
+            <%= form.label :country, t("app.billing.fields.country") %>
+            <%= form.select :country, Account::COUNTRY_NAMES.invert.sort, {}, required: true %>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="panel__actions">
+        <%= form.submit t("app.billing.submit"), class: "button", disabled: !Monri::Gateway.configured? %>
+        <p class="muted"><%= t("app.billing.secure") %></p>
+      </div>
+    <% end %>
+  </section>
+
+  <% if @payments.any? %>
+    <section class="panel" aria-labelledby="history-title">
+      <h2 class="panel__title" id="history-title"><%= t("app.billing.history") %></h2>
+      <table class="table table--responsive">
+        <thead>
+          <tr>
+            <th><%= t("app.billing.date") %></th>
+            <th><%= t("app.billing.item") %></th>
+            <th><%= t("app.billing.amount") %></th>
+            <th><%= t("app.billing.status") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @payments.each do |payment| %>
+            <tr>
+              <td><%= l(payment.created_at.to_date, format: :long) %></td>
+              <td>
+                <% if payment.kind == "subscription" %>
+                  <%= t("app.billing.item_subscription", from: l(payment.period_start.to_date), to: l(payment.period_end.to_date)) %>
+                <% else %>
+                  <%= t("app.billing.item_addon", count: payment.extra_languages) %>
+                <% end %>
+              </td>
+              <td><%= euros.(payment.amount_cents) %></td>
+              <td><span class="tag"><%= t("app.billing.payment_status.#{payment.status}") %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+  <% end %>
+</div>

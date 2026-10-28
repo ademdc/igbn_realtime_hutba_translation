@@ -21,6 +21,7 @@ class Account < ApplicationRecord
   has_many :speaker_sessions, dependent: :destroy
   has_many :listener_connections, dependent: :destroy
   has_many :users, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   normalizes :subdomain, with: ->(value) { value.to_s.strip.downcase }
   normalizes :custom_domain, with: ->(value) { value.to_s.strip.downcase.presence }
@@ -43,6 +44,7 @@ class Account < ApplicationRecord
   scope :trial_expired, -> { where(status: "trialing").where("trial_ends_at < ?", Time.current) }
   scope :paying, -> { where(status: "active") }
   scope :suspended, -> { where(status: "suspended") }
+  scope :payment_due, -> { where(status: "active").where("paid_until < ?", Time.current) }
 
   def self.search(query)
     return all if query.blank?
@@ -56,7 +58,9 @@ class Account < ApplicationRecord
 
   # Status as shown to admins, with expired trials split out
   def display_status
-    trial_expired? ? "trial_expired" : status
+    return "trial_expired" if trial_expired?
+    return "payment_due" if payment_due?
+    status
   end
 
   # Resolves the tenant for a request host:
@@ -121,8 +125,30 @@ class Account < ApplicationRecord
     status == "trialing" && trial_ends_at.present? && trial_ends_at.past?
   end
 
+  # Paid year ran out (accounts without paid_until, like the original tenant, never expire)
+  def payment_due?
+    status == "active" && paid_until.present? && paid_until.past?
+  end
+
   def can_stream?
-    !suspended? && !trial_expired? && !weekly_limit_reached?
+    !suspended? && !trial_expired? && !payment_due? && !weekly_limit_reached?
+  end
+
+  def yearly_price_cents
+    monthly_price_cents * 12
+  end
+
+  # Started months left in the paid year, for prorating add-on languages
+  def paid_months_left
+    return 0 unless paid_until&.future?
+
+    months = 0
+    months += 1 while Time.current + months.months < paid_until && months < 12
+    months
+  end
+
+  def billing_details_complete?
+    [billing_name, billing_address, billing_zip, billing_city, billing_phone, billing_email, country].all?(&:present?)
   end
 
   def weekly_minutes_used
