@@ -1,0 +1,25 @@
+<% content_for :title, "#{t("marketing.footer.privacy")} – Hutba" %>
+
+<section class="legal">
+  <div class="wrap">
+    <h1><%= t("marketing.footer.privacy") %></h1>
+
+    <%# TODO: have this reviewed before launch. It describes what the app actually does today. %>
+    <p>[Draft – to be completed before launch.]</p>
+
+    <h2>Controller</h2>
+    <p>[Company name] d.o.o., [address]. Email: <%= mail_to Rails.configuration.x.contact_email %></p>
+
+    <h2>Live translation</h2>
+    <p>During a broadcast, the imam's audio is sent to our speech recognition and translation provider (Soniox) and the translated text is shown to listeners. Neither audio nor text is recorded or stored by us.</p>
+
+    <h2>Listeners</h2>
+    <p>Listeners do not create an account. We store anonymous connection statistics (time, language, duration) to show mosques how many people read along.</p>
+
+    <h2>Mosque accounts</h2>
+    <p>For mosque accounts we store the mosque name, contact person, email address and billing details needed to provide the service.</p>
+
+    <h2>Cookies</h2>
+    <p>We only use a technically necessary session cookie. There is no tracking and no advertising.</p>
+  </div>
+</section>

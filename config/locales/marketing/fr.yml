@@ -1,0 +1,75 @@
+fr:
+  marketing:
+    meta:
+      title: "Hutba – le sermon du vendredi traduit en direct"
+      description: "L'imam parle, la communauté lit en même temps : traduction en direct de la khutba sur chaque téléphone. Sans application, gratuit pendant 60 jours."
+    nav:
+      skip: "Aller au contenu"
+      how: "Fonctionnement"
+      pricing: "Tarif"
+      faq: "Questions"
+      login: "Connexion"
+      cta: "Essai gratuit"
+      language: "Langue"
+    hero:
+      title: "Le sermon du vendredi, compris par chaque génération."
+      lead: "L'imam parle comme d'habitude. Votre communauté lit la khutba en direct sur son téléphone – en français, allemand, néerlandais et d'autres langues."
+      cta: "Essayer gratuitement 60 jours"
+      note: "Sans carte bancaire. Prêt en 10 minutes."
+    demo:
+      label: "Aperçu en direct"
+      original: "Imam, en bosnien"
+      read_in: "Lire en"
+      live: "en direct"
+    how:
+      title: "Fonctionnement"
+      steps:
+        - title: "L'imam lance la diffusion"
+          text: "Un téléphone ou un ordinateur portable près du minbar suffit. Il appuie sur « Démarrer » et parle normalement."
+        - title: "Hutba traduit en temps réel"
+          text: "Chaque phrase est traduite en quelques secondes dans les langues choisies par votre communauté."
+        - title: "Les fidèles scannent le QR code"
+          text: "À l'entrée, une affiche présente un QR code par langue. On scanne et on lit – sans application ni inscription."
+    benefits:
+      title: "Conçu pour la mosquée, pas pour le bureau"
+      items:
+        - title: "Les jeunes comprennent le sermon"
+          text: "Ceux qui ont grandi ici ne comprennent souvent qu'à moitié la langue de leurs parents. Avec Hutba, aucun message ne se perd."
+        - title: "Invités et convertis sont les bienvenus"
+          text: "Voisins, conjoints et nouveaux musulmans peuvent suivre la khutba au lieu de simplement y assister."
+        - title: "Rien à installer"
+          text: "Les fidèles ouvrent une page web. L'imam n'a besoin que d'un micro et d'internet."
+        - title: "Rien n'est enregistré"
+          text: "Nous n'enregistrons ni le son ni le texte. Ce qui est dit dans la salle reste dans la salle."
+    pricing:
+      title: "Un seul prix pour toute la communauté"
+      plan: "Communauté"
+      price: "20 €"
+      per: "par mois, facturé annuellement (240 €)"
+      includes:
+        - "3 langues de traduction"
+        - "Jusqu'à 3 heures de diffusion par semaine"
+        - "Nombre d'auditeurs illimité"
+        - "Votre propre adresse, p. ex. votre-mosquee.hutba.app"
+        - "Affiches QR code à imprimer"
+      addon: "Langue supplémentaire : +5 € par mois"
+      cta: "Essayer gratuitement 60 jours"
+      note: "Vous décidez après l'essai. Rien n'est renouvelé sans paiement."
+    faq:
+      title: "Questions fréquentes"
+      items:
+        - q: "Dans quelle langue l'imam doit-il parler ?"
+          a: "Actuellement en bosnien, croate ou serbe. D'autres langues comme le turc, l'albanais et l'arabe arrivent – écrivez-nous si vous en avez besoin."
+        - q: "Les fidèles ont-ils besoin d'une application ?"
+          a: "Non. Ils scannent le QR code et lisent dans le navigateur. Cela fonctionne sur tous les smartphones."
+        - q: "De quoi avons-nous besoin à la mosquée ?"
+          a: "Un téléphone, une tablette ou un ordinateur connecté à internet près de l'imam. Un micro-cravate améliore la qualité, mais n'est pas obligatoire."
+        - q: "La traduction est-elle précise ?"
+          a: "La traduction est très compréhensible, mais automatique. Les versets du Coran et les termes courants sont généralement bien reconnus ; des erreurs ponctuelles sont possibles."
+        - q: "Que se passe-t-il après 60 jours ?"
+          a: "Vous recevez un rappel à temps. Si vous payez, tout continue. Sinon, la diffusion est mise en pause – rien de plus."
+    footer:
+      tagline: "Traduction de la khutba en direct pour les mosquées en Europe."
+      imprint: "Mentions légales"
+      privacy: "Confidentialité"
+      contact: "Contact"

@@ -28,11 +28,11 @@ class Account < ApplicationRecord
   #   3. DEFAULT_ACCOUNT_SUBDOMAIN, so pre-multi-tenancy hosts keep working
   def self.for_host(host)
     host = host.to_s.downcase
-    app_domain = ENV.fetch("APP_DOMAIN", "localhost").downcase
+    return if AppDomain.marketing_host?(host)
 
     find_by(custom_domain: host) ||
-      (host.end_with?(".#{app_domain}") && find_by(subdomain: host.delete_suffix(".#{app_domain}"))) ||
-      (host != app_domain && ENV["DEFAULT_ACCOUNT_SUBDOMAIN"].present? && find_by(subdomain: ENV["DEFAULT_ACCOUNT_SUBDOMAIN"])) ||
+      (host.end_with?(".#{AppDomain.host}") && find_by(subdomain: host.delete_suffix(".#{AppDomain.host}"))) ||
+      (ENV["DEFAULT_ACCOUNT_SUBDOMAIN"].present? && find_by(subdomain: ENV["DEFAULT_ACCOUNT_SUBDOMAIN"])) ||
       nil
   end
 

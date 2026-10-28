@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <title><%= content_for(:title).presence || t("marketing.meta.title") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= t("marketing.meta.description") %>">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#12302d">
+    <% MarketingController::LOCALES.each do |locale| %>
+      <link rel="alternate" hreflang="<%= locale %>" href="<%= url_for(locale: locale, only_path: false) %>">
+    <% end %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <style>
+      <% { "Atkinson Hyperlegible" => [["atkinson-400", 400], ["atkinson-700", 700]], "Bricolage Grotesque" => [["bricolage", "500 800"]] }.each do |family, faces| %>
+        <% faces.each do |file, weight| %>
+          @font-face { font-family: "<%= family %>"; font-weight: <%= weight %>; font-display: swap;
+            src: url("<%= font_path("#{file}-latin.woff2") %>") format("woff2");
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+          @font-face { font-family: "<%= family %>"; font-weight: <%= weight %>; font-display: swap;
+            src: url("<%= font_path("#{file}-latin-ext.woff2") %>") format("woff2");
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+        <% end %>
+      <% end %>
+    </style>
+    <%= stylesheet_link_tag "marketing", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "marketing", type: "module", defer: true %>
+  </head>
+
+  <body class="marketing">
+    <a class="skip-link" href="#main"><%= t("marketing.nav.skip") %></a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <%= link_to marketing_path(locale: I18n.locale), class: "wordmark", "aria-label": "Hutba" do %>
+          <span class="wordmark__dot" aria-hidden="true"></span>hutba
+        <% end %>
+
+        <nav class="site-nav" aria-label="Main">
+          <a href="<%= marketing_path(locale: I18n.locale) %>#how"><%= t("marketing.nav.how") %></a>
+          <a href="<%= marketing_path(locale: I18n.locale) %>#pricing"><%= t("marketing.nav.pricing") %></a>
+          <a href="<%= marketing_path(locale: I18n.locale) %>#faq"><%= t("marketing.nav.faq") %></a>
+        </nav>
+
+        <details class="locale-switch">
+          <summary aria-label="<%= t("marketing.nav.language") %>"><%= I18n.locale.upcase %></summary>
+          <ul>
+            <% { "de" => "Deutsch", "en" => "English", "fr" => "Français", "nl" => "Nederlands", "bs" => "Bosanski", "tr" => "Türkçe" }.each do |locale, name| %>
+              <li>
+                <%= link_to name, url_for(locale: locale), lang: locale, hreflang: locale,
+                      "aria-current": (locale == I18n.locale.to_s ? "true" : nil) %>
+              </li>
+            <% end %>
+          </ul>
+        </details>
+
+        <a class="button button--small site-header__cta" href="<%= marketing_path(locale: I18n.locale) %>#pricing"><%= t("marketing.nav.cta") %></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <div>
+          <p class="wordmark wordmark--small"><span class="wordmark__dot" aria-hidden="true"></span>hutba</p>
+          <p class="site-footer__tagline"><%= t("marketing.footer.tagline") %></p>
+        </div>
+        <nav aria-label="Footer">
+          <%= link_to t("marketing.footer.imprint"), marketing_imprint_path(locale: I18n.locale) %>
+          <%= link_to t("marketing.footer.privacy"), marketing_privacy_path(locale: I18n.locale) %>
+          <%= mail_to Rails.configuration.x.contact_email, t("marketing.footer.contact") %>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

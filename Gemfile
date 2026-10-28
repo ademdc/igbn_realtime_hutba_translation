@@ -44,6 +44,9 @@ gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# QR codes for listener pages and printable posters
+gem "rqrcode", "~> 2.2"
+
 # WebSocket client for connecting to Soniox API
 gem "faye-websocket"
 gem "eventmachine"

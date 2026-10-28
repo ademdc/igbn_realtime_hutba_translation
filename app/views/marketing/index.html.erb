@@ -1,0 +1,149 @@
+<%
+  # Sample khutbah passage shown in the hero. Bosnian original with the
+  # translations listeners would see.
+  demo_script = [
+    {
+      "bs" => "Draga braćo i sestre, Allah nas u Kur'anu poziva na milost prema roditeljima.",
+      "de" => "Liebe Brüder und Schwestern, Allah ruft uns im Koran zur Barmherzigkeit gegenüber unseren Eltern auf.",
+      "en" => "Dear brothers and sisters, in the Qur'an Allah calls us to show mercy to our parents.",
+      "fr" => "Chers frères et sœurs, dans le Coran, Allah nous appelle à la miséricorde envers nos parents.",
+      "nl" => "Beste broeders en zusters, in de Koran roept Allah ons op tot barmhartigheid jegens onze ouders.",
+      "tr" => "Aziz kardeşlerim, Allah Kur'an'da bizi anne babamıza merhametli olmaya çağırıyor."
+    },
+    {
+      "bs" => "Oni su nas nosili dok nismo znali hodati.",
+      "de" => "Sie haben uns getragen, als wir noch nicht laufen konnten.",
+      "en" => "They carried us when we could not yet walk.",
+      "fr" => "Ils nous ont portés quand nous ne savions pas encore marcher.",
+      "nl" => "Zij droegen ons toen wij nog niet konden lopen.",
+      "tr" => "Biz henüz yürüyemezken onlar bizi taşıdılar."
+    },
+    {
+      "bs" => "Danas, kada su oni stari i slabi, red je na nama.",
+      "de" => "Heute, wo sie alt und schwach sind, sind wir an der Reihe.",
+      "en" => "Today, now that they are old and weak, it is our turn.",
+      "fr" => "Aujourd'hui, alors qu'ils sont âgés et faibles, c'est à notre tour.",
+      "nl" => "Nu zij oud en zwak zijn, is het onze beurt.",
+      "tr" => "Bugün, onlar yaşlı ve güçsüzken, sıra bizde."
+    }
+  ]
+  demo_languages = %w[de en fr nl tr]
+  poster_languages = %w[de en nl]
+%>
+
+<section class="hero">
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <h1 class="hero__title"><%= t("marketing.hero.title") %></h1>
+      <p class="hero__lead"><%= t("marketing.hero.lead") %></p>
+      <div class="hero__actions">
+        <a class="button" href="#pricing"><%= t("marketing.hero.cta") %></a>
+        <p class="hero__note"><%= t("marketing.hero.note") %></p>
+      </div>
+    </div>
+
+    <figure class="demo" data-demo data-language="<%= @demo_language %>" aria-label="<%= t("marketing.demo.label") %>">
+      <script type="application/json" data-demo-script><%= raw json_escape(demo_script.to_json) %></script>
+
+      <div class="demo__source">
+        <p class="demo__status">
+          <span class="live-badge"><span class="live-dot" aria-hidden="true"></span><%= t("marketing.demo.live") %></span>
+          <span><%= t("marketing.demo.original") %></span>
+        </p>
+        <p class="demo__original" data-demo-original lang="bs"><%= demo_script.first["bs"] %></p>
+      </div>
+
+      <div class="demo__reading">
+        <p class="demo__translation" data-demo-translation lang="<%= @demo_language %>"><%= demo_script.first[@demo_language] %></p>
+      </div>
+
+      <div class="demo__languages" role="group" aria-label="<%= t("marketing.demo.read_in") %>">
+        <span class="demo__languages-label"><%= t("marketing.demo.read_in") %></span>
+        <% demo_languages.each do |code| %>
+          <button type="button" class="chip" data-demo-language="<%= code %>" aria-pressed="<%= code == @demo_language %>">
+            <span aria-hidden="true"><%= Language.info(code)[:flag] %></span> <%= Language.info(code)[:name] %>
+          </button>
+        <% end %>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="how" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 class="section-title" id="how-title"><%= t("marketing.how.title") %></h2>
+
+    <div class="how__layout">
+      <ol class="steps">
+        <% t("marketing.how.steps").each do |step| %>
+          <li class="step">
+            <h3 class="step__title"><%= step[:title] %></h3>
+            <p><%= step[:text] %></p>
+          </li>
+        <% end %>
+      </ol>
+
+      <div class="poster" aria-hidden="true">
+        <p class="poster__mosque">Džemat Demo</p>
+        <p class="poster__title">Hutba</p>
+        <ul class="poster__codes">
+          <% poster_languages.each do |code| %>
+            <li>
+              <%= qr_code_svg("https://demo.#{AppDomain.host}/#{code}", size: 96) %>
+              <span><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits" aria-labelledby="benefits-title">
+  <div class="wrap">
+    <h2 class="section-title" id="benefits-title"><%= t("marketing.benefits.title") %></h2>
+    <div class="benefits__list">
+      <% t("marketing.benefits.items").each do |item| %>
+        <div class="benefit">
+          <h3><%= item[:title] %></h3>
+          <p><%= item[:text] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="wrap pricing__inner">
+    <div class="pricing__head">
+      <h2 class="section-title" id="pricing-title"><%= t("marketing.pricing.title") %></h2>
+      <p class="pricing__plan"><%= t("marketing.pricing.plan") %></p>
+      <p class="pricing__price"><%= t("marketing.pricing.price") %></p>
+      <p class="pricing__per"><%= t("marketing.pricing.per") %></p>
+    </div>
+    <div class="pricing__body">
+      <ul class="pricing__includes">
+        <% t("marketing.pricing.includes").each do |line| %>
+          <li><%= line %></li>
+        <% end %>
+      </ul>
+      <p class="pricing__addon"><%= t("marketing.pricing.addon") %></p>
+      <a class="button button--light" href="mailto:<%= Rails.configuration.x.contact_email %>" data-signup-link><%= t("marketing.pricing.cta") %></a>
+      <p class="pricing__note"><%= t("marketing.pricing.note") %></p>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq__inner">
+    <h2 class="section-title" id="faq-title"><%= t("marketing.faq.title") %></h2>
+    <div class="faq__list">
+      <% t("marketing.faq.items").each do |item| %>
+        <details class="faq__item">
+          <summary><%= item[:q] %></summary>
+          <p><%= item[:a] %></p>
+        </details>
+      <% end %>
+    </div>
+  </div>
+</section>

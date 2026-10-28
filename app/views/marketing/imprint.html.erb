@@ -1,0 +1,23 @@
+<% content_for :title, "#{t("marketing.footer.imprint")} – Hutba" %>
+
+<section class="legal">
+  <div class="wrap">
+    <h1><%= t("marketing.footer.imprint") %></h1>
+
+    <%# TODO: replace placeholders with the d.o.o. details before launch (required by § 5 DDG for German visitors) %>
+    <address>
+      [Company name] d.o.o.<br>
+      [Street and number]<br>
+      [Postcode] [City], Bosnia and Herzegovina
+    </address>
+
+    <h2>Contact</h2>
+    <p>Email: <%= mail_to Rails.configuration.x.contact_email %></p>
+
+    <h2>Register</h2>
+    <p>[Court register / JIB / ID number]</p>
+
+    <h2>Managing director</h2>
+    <p>[Name]</p>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+nl:
+  marketing:
+    meta:
+      title: "Hutba – de vrijdagpreek live vertaald"
+      description: "De imam spreekt, de gemeenschap leest mee: live vertaling van de khutba op elke telefoon. Zonder app, 60 dagen gratis."
+    nav:
+      skip: "Naar de inhoud"
+      how: "Zo werkt het"
+      pricing: "Prijs"
+      faq: "Vragen"
+      login: "Inloggen"
+      cta: "Gratis proberen"
+      language: "Taal"
+    hero:
+      title: "De vrijdagpreek, begrijpelijk voor elke generatie."
+      lead: "De imam spreekt zoals altijd. Uw gemeenschap leest de khutba live mee op de telefoon – in het Nederlands, Duits, Engels en meer."
+      cta: "60 dagen gratis proberen"
+      note: "Geen creditcard nodig. In 10 minuten ingericht."
+    demo:
+      label: "Live voorbeeld"
+      original: "Imam, in het Bosnisch"
+      read_in: "Meelezen in"
+      live: "live"
+    how:
+      title: "Zo werkt het"
+      steps:
+        - title: "De imam start de uitzending"
+          text: "Een telefoon of laptop bij de minbar is genoeg. Eén tik op „Start” en hij spreekt zoals altijd."
+        - title: "Hutba vertaalt in realtime"
+          text: "Elke zin wordt binnen enkele seconden vertaald in de talen die uw gemeenschap heeft gekozen."
+        - title: "De gemeenschap scant de QR-code"
+          text: "Bij de ingang hangt een poster met een QR-code per taal. Scannen en meelezen – zonder app en zonder account."
+    benefits:
+      title: "Gemaakt voor de moskee, niet voor kantoor"
+      items:
+        - title: "Jongeren begrijpen de preek"
+          text: "Wie hier is opgegroeid, verstaat de taal van de ouders vaak maar half. Met Hutba gaat geen boodschap verloren."
+        - title: "Gasten en bekeerlingen zijn welkom"
+          text: "Buren, partners en nieuwe moslims kunnen de khutba volgen in plaats van er alleen bij te zitten."
+        - title: "Niets te installeren"
+          text: "Luisteraars openen een webpagina. De imam heeft alleen een microfoon en internet nodig."
+        - title: "Er wordt niets opgeslagen"
+          text: "We nemen geen geluid en geen tekst op. Wat in de zaal wordt gezegd, blijft in de zaal."
+    pricing:
+      title: "Eén prijs voor de hele gemeenschap"
+      plan: "Gemeenschap"
+      price: "€ 20"
+      per: "per maand, jaarlijks betaald (€ 240)"
+      includes:
+        - "3 vertaaltalen"
+        - "Tot 3 uur uitzenden per week"
+        - "Onbeperkt aantal luisteraars"
+        - "Eigen adres, bijv. uw-moskee.hutba.app"
+        - "QR-code posters om te printen"
+      addon: "Extra taal: + € 5 per maand"
+      cta: "60 dagen gratis proberen"
+      note: "Na de proefperiode beslist u zelf. Niets wordt verlengd zonder betaling."
+    faq:
+      title: "Veelgestelde vragen"
+      items:
+        - q: "In welke taal moet de imam spreken?"
+          a: "Op dit moment Bosnisch, Kroatisch of Servisch. Meer brontalen zoals Turks, Albanees en Arabisch volgen – laat het ons weten als u er een nodig heeft."
+        - q: "Hebben luisteraars een app nodig?"
+          a: "Nee. Ze scannen de QR-code en lezen mee in de browser. Het werkt op elke smartphone."
+        - q: "Wat hebben we nodig in de moskee?"
+          a: "Een telefoon, tablet of laptop met internet in de buurt van de imam. Een dasspeldmicrofoon verbetert de kwaliteit, maar is niet verplicht."
+        - q: "Hoe nauwkeurig is de vertaling?"
+          a: "De vertaling is goed te volgen, maar wel automatisch. Koranverzen en vaste begrippen worden meestal goed herkend; af en toe gaat er iets mis."
+        - q: "Wat gebeurt er na 60 dagen?"
+          a: "U krijgt op tijd een herinnering. Betaalt u, dan loopt alles door. Betaalt u niet, dan wordt het uitzenden gepauzeerd – verder niets."
+    footer:
+      tagline: "Live vertaling van de khutba voor moskeegemeenschappen in Europa."
+      imprint: "Colofon"
+      privacy: "Privacy"
+      contact: "Contact"

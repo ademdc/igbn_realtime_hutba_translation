@@ -1,0 +1,75 @@
+de:
+  marketing:
+    meta:
+      title: "Hutba – die Freitagspredigt live übersetzt"
+      description: "Der Imam spricht, die Gemeinde liest mit: Live-Übersetzung der Hutba auf jedes Handy. Ohne App, 60 Tage kostenlos testen."
+    nav:
+      skip: "Zum Inhalt springen"
+      how: "So funktioniert's"
+      pricing: "Preis"
+      faq: "Fragen"
+      login: "Anmelden"
+      cta: "Kostenlos testen"
+      language: "Sprache"
+    hero:
+      title: "Die Freitagspredigt, für jede Generation verständlich."
+      lead: "Der Imam spricht wie gewohnt. Ihre Gemeinde liest die Hutba live auf dem Handy mit – auf Deutsch, Englisch, Niederländisch und weiteren Sprachen."
+      cta: "60 Tage kostenlos testen"
+      note: "Keine Kreditkarte nötig. Einrichtung in 10 Minuten."
+    demo:
+      label: "Live-Vorschau"
+      original: "Imam, auf Bosnisch"
+      read_in: "Mitlesen auf"
+      live: "live"
+    how:
+      title: "So funktioniert's"
+      steps:
+        - title: "Der Imam startet die Übertragung"
+          text: "Ein Handy oder Laptop am Minbar genügt. Ein Tipp auf „Start“, dann wird ganz normal gesprochen."
+        - title: "Hutba übersetzt in Echtzeit"
+          text: "Jeder Satz wird nach wenigen Sekunden in die Sprachen übersetzt, die Ihre Gemeinde gewählt hat."
+        - title: "Die Gemeinde scannt den QR-Code"
+          text: "Am Eingang hängt ein Plakat mit einem QR-Code pro Sprache. Scannen, mitlesen – ohne App und ohne Anmeldung."
+    benefits:
+      title: "Gemacht für die Moschee, nicht fürs Büro"
+      items:
+        - title: "Jugendliche verstehen die Predigt"
+          text: "Wer hier aufgewachsen ist, versteht die Muttersprache der Eltern oft nur halb. Mit Hutba geht keine Botschaft verloren."
+        - title: "Gäste und Konvertiten sind willkommen"
+          text: "Nachbarn, Ehepartner und neue Muslime können der Hutba folgen, statt nur dabeizusitzen."
+        - title: "Nichts zu installieren"
+          text: "Die Zuhörer öffnen eine Webseite. Der Imam braucht nur ein Mikrofon und Internet."
+        - title: "Es wird nichts gespeichert"
+          text: "Wir zeichnen weder Ton noch Text auf. Was im Raum gesagt wird, bleibt im Raum."
+    pricing:
+      title: "Ein Preis für die ganze Gemeinde"
+      plan: "Gemeinde"
+      price: "20 €"
+      per: "pro Monat, jährliche Zahlung (240 €)"
+      includes:
+        - "3 Übersetzungssprachen"
+        - "Bis zu 3 Stunden Übertragung pro Woche"
+        - "Unbegrenzt viele Zuhörer"
+        - "Eigene Adresse, z. B. ihr-dzemat.hutba.app"
+        - "QR-Code-Plakate zum Ausdrucken"
+      addon: "Weitere Sprache: +5 € pro Monat"
+      cta: "60 Tage kostenlos testen"
+      note: "Nach dem Test entscheiden Sie. Keine automatische Verlängerung ohne Zahlung."
+    faq:
+      title: "Häufige Fragen"
+      items:
+        - q: "In welcher Sprache muss der Imam sprechen?"
+          a: "Derzeit Bosnisch, Kroatisch oder Serbisch. Weitere Ausgangssprachen wie Türkisch, Albanisch und Arabisch folgen – schreiben Sie uns, wenn Sie Bedarf haben."
+        - q: "Brauchen die Zuhörer eine App?"
+          a: "Nein. Sie scannen den QR-Code und lesen im Browser mit. Das funktioniert auf jedem Smartphone."
+        - q: "Was brauchen wir in der Moschee?"
+          a: "Ein Handy, Tablet oder Laptop mit Internet in der Nähe des Imams. Ein Ansteckmikrofon verbessert die Qualität, ist aber kein Muss."
+        - q: "Wie genau ist die Übersetzung?"
+          a: "Die Übersetzung ist sehr gut verständlich, aber maschinell. Koranverse und feste Begriffe werden meist korrekt erkannt; einzelne Fehler kommen vor."
+        - q: "Was passiert nach den 60 Tagen?"
+          a: "Sie erhalten rechtzeitig eine Erinnerung. Zahlen Sie, läuft alles weiter. Zahlen Sie nicht, wird die Übertragung pausiert – sonst passiert nichts."
+    footer:
+      tagline: "Live-Übersetzung der Hutba für Moscheegemeinden in Europa."
+      imprint: "Impressum"
+      privacy: "Datenschutz"
+      contact: "Kontakt"
