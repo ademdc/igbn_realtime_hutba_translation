@@ -60,7 +60,7 @@ class Payment < ApplicationRecord
         account.update!(extra_languages: account.extra_languages + extra_languages,
                         custom_domain_enabled: custom_domain? || account.custom_domain_enabled?)
       end
-      AdminMailer.with(account: account).custom_domain_requested.deliver_later if custom_domain? && account.requested_custom_domain
+      CustomDomainSetupJob.perform_later(account) if custom_domain? && account.requested_custom_domain
     end
   end
 

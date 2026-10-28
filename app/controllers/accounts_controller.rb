@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
     @account = Current.account
 
     if @account.update(account_params)
+      CustomDomainSetupJob.perform_later(@account) if @account.saved_change_to_requested_custom_domain?
       redirect_to dashboard_path(anchor: params[:section]), notice: t("app.accounts.saved")
     else
       @dashboard = DashboardPresenter.new(@account)
@@ -21,7 +22,9 @@ class AccountsController < ApplicationController
   private
 
   def account_params
-    permitted = params.require(:account).permit(:name, :speaker_pin, :source_language, languages: [])
+    allowed = [:name, :speaker_pin, :source_language, { languages: [] }]
+    allowed << :requested_custom_domain if Current.account.custom_domain_enabled?
+    permitted = params.require(:account).permit(*allowed)
     # Unchecking every box submits only the hidden blank value
     permitted[:languages] = permitted[:languages].compact_blank if permitted.key?(:languages)
     permitted

@@ -77,7 +77,11 @@
         <%= form.number_field :weekly_minutes_limit, min: 0, step: 30 %>
       </div>
       <div class="field" style="flex-basis: 16rem;">
-        <%= form.label :custom_domain, "Custom domain (live)" %>
+        <%= form.label :requested_custom_domain, "Requested domain" %>
+        <%= form.text_field :requested_custom_domain, placeholder: "hutba.mosque-website.com" %>
+      </div>
+      <div class="field" style="flex-basis: 16rem;">
+        <%= form.label :custom_domain, "Live domain (manual override)" %>
         <%= form.text_field :custom_domain, placeholder: @account.requested_custom_domain || "hutba.mosque-website.com" %>
       </div>
       <label class="choice" style="align-self: center;">
@@ -87,10 +91,16 @@
       <%= form.submit "Save", class: "button" %>
     <% end %>
 
-    <% if @account.requested_custom_domain && @account.custom_domain != @account.requested_custom_domain %>
-      <p class="flash" style="margin-top: 1rem;">Requested domain: <strong><%= @account.requested_custom_domain %></strong><%= " (paid)" if @account.custom_domain_enabled? %></p>
+    <% if @account.custom_domain_status %>
+      <p class="muted" style="margin-top: 1rem;">
+        Domain setup: <strong><%= @account.custom_domain_status.humanize %></strong>
+        <% if @account.custom_domain_status == "pending_dns" %>
+          – waiting for CNAME <%= @account.custom_domain_registered %> → <%= @account.custom_domain_target %>
+        <% end %>
+        <% if @account.custom_domain_checked_at %>(checked <%= time_ago_in_words(@account.custom_domain_checked_at) %> ago)<% end %>
+      </p>
     <% end %>
-    <p class="muted" style="margin-top: 0.75rem;">Custom domain setup: <code>heroku domains:add DOMAIN</code>, send the mosque the DNS target Heroku shows for its CNAME record, and enter the domain above once DNS resolves. Heroku issues the certificate automatically (ACM).</p>
+    <p class="muted" style="margin-top: 0.75rem;">Domains are registered with Heroku and switched live automatically. Saving a new requested domain re-runs the setup.</p>
 
     <%= form_with url: extend_trial_admin_account_path(@account), class: "action-row", style: "margin-top: 1.5rem;" do |form| %>
       <div class="field">

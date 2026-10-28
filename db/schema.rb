@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_29_090000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_29_110000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_29_090000) do
     t.string "source_language", default: "bs", null: false
     t.boolean "custom_domain_enabled", default: false, null: false
     t.string "requested_custom_domain"
+    t.string "custom_domain_status"
+    t.string "custom_domain_target"
+    t.string "custom_domain_registered"
+    t.datetime "custom_domain_checked_at"
     t.index ["custom_domain"], name: "index_accounts_on_custom_domain", unique: true
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end

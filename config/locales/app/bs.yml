@@ -121,6 +121,17 @@ bs:
         lead: 'Prikažite prevod velikim slovima na televizoru ili projektoru. Otvorite jednu od ovih adresa u pregledniku televizora:'
         all_languages: svi jezici jedan pored drugog (do 3)
         how: 'Savjet: preglednik na pametnom TV-u, Chromecast (prenesi tab) ili laptop preko HDMI. Jednom dodirnite „Fullscreen“ i ekran ostaje upaljen.'
+      domain:
+        title: Vlastita domena
+        pending: 'Skoro gotovo: dodajte ovaj DNS zapis za %{domain} kod vašeg pružaoca domene.'
+        type: Tip
+        name: Naziv
+        target: Cilj
+        pending_note: Provjeravamo automatski. Domena je obično aktivna sat vremena nakon dodavanja zapisa – poslat ćemo vam e-mail.
+        failed: "%{domain} nije bilo moguće postaviti. Provjerite naziv i sačuvajte ponovo."
+        live_html: Vaš džemat je aktivan na %{domain}.
+        preparing: Postavljamo %{domain}…
+        save: Sačuvaj domenu
     users:
       title: Tim
       lead: Pozovite imame i članove uprave. Svako se prijavljuje svojim e-mailom.
@@ -307,6 +318,13 @@ bs:
         body: plaćena godina za %{account} ističe %{date}. Produžite sada da prenos radi bez prekida.
       action: Plati sada
       price: 'Godišnja cijena: %{price}'
+    custom_domain_dns:
+      subject: DNS zapis za %{domain}
+      body: 'Vaša domena %{domain} je zakupljena. Dodajte ovaj zapis kod vašeg pružaoca domene:'
+      note: Provjeravamo automatski i javljamo vam čim domena bude aktivna – obično u roku od sat vremena.
+    custom_domain_live:
+      subject: "%{domain} je aktivna"
+      body: Vaš džemat je sada na %{domain}. QR kodovi, plakat i TV prikaz od sada koriste novu adresu – najbolje je ponovo printati plakat.
   activerecord:
     attributes:
       user:

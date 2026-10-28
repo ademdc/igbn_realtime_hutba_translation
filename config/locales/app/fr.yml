@@ -121,6 +121,17 @@ fr:
         lead: 'Affichez la traduction en grand sur une TV ou un projecteur. Ouvrez l''une de ces adresses dans le navigateur de la TV :'
         all_languages: toutes les langues côte à côte (jusqu'à 3)
         how: 'Astuce : navigateur de smart TV, Chromecast (caster un onglet) ou ordinateur en HDMI. Appuyez une fois sur « Fullscreen » et l''écran reste allumé.'
+      domain:
+        title: Domaine propre
+        pending: 'Presque fini : ajoutez cet enregistrement DNS pour %{domain} chez votre fournisseur de domaine.'
+        type: Type
+        name: Nom
+        target: Cible
+        pending_note: Nous vérifions automatiquement. Le domaine est généralement actif une heure après l'ajout – nous vous enverrons un e-mail.
+        failed: "%{domain} n'a pas pu être configuré. Vérifiez l'orthographe et enregistrez à nouveau."
+        live_html: Votre mosquée est en ligne sur %{domain}.
+        preparing: Configuration de %{domain}…
+        save: Enregistrer le domaine
     users:
       title: Équipe
       lead: Invitez imams et membres du bureau. Chacun se connecte avec son propre e-mail.
@@ -307,6 +318,13 @@ fr:
         body: l'année payée pour %{account} se termine le %{date}. Renouvelez maintenant pour que la diffusion continue sans interruption.
       action: Payer maintenant
       price: 'Prix annuel : %{price}'
+    custom_domain_dns:
+      subject: Enregistrement DNS pour %{domain}
+      body: 'Votre domaine %{domain} est réservé. Ajoutez cet enregistrement chez votre fournisseur de domaine :'
+      note: Nous vérifions automatiquement et vous écrivons dès que le domaine est actif – généralement en moins d'une heure.
+    custom_domain_live:
+      subject: "%{domain} est en ligne"
+      body: Votre mosquée est maintenant sur %{domain}. Les QR codes, l'affiche et la vue TV utilisent désormais la nouvelle adresse – imprimez de préférence l'affiche à nouveau.
   activerecord:
     attributes:
       user:

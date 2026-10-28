@@ -121,6 +121,17 @@ en:
         lead: 'Show the translation in large letters on a TV or projector. Open one of these addresses in the TV''s browser:'
         all_languages: all languages side by side (up to 3)
         how: 'Tip: smart TV browser, Chromecast (cast a tab) or a laptop over HDMI. Tap “Fullscreen” once and the screen stays on.'
+      domain:
+        title: Own domain
+        pending: 'Almost done: add this DNS record for %{domain} at your domain provider.'
+        type: Type
+        name: Name
+        target: Target
+        pending_note: We check automatically. The domain is usually live within an hour of adding the record – we'll email you.
+        failed: "%{domain} couldn't be set up. Please check the spelling and save again."
+        live_html: Your mosque is live at %{domain}.
+        preparing: Setting up %{domain}…
+        save: Save domain
     users:
       title: Team
       lead: Invite imams and board members. Everyone logs in with their own email.
@@ -307,6 +318,13 @@ en:
         body: the paid year for %{account} ends on %{date}. Renew now so broadcasting continues without a break.
       action: Pay now
       price: 'Yearly price: %{price}'
+    custom_domain_dns:
+      subject: DNS record for %{domain}
+      body: 'Your own domain %{domain} is booked. Add this record at your domain provider:'
+      note: We check automatically and email you as soon as the domain is live – usually within an hour.
+    custom_domain_live:
+      subject: "%{domain} is live"
+      body: Your mosque is now at %{domain}. QR codes, the poster and the TV view use the new address from now on – it's best to print the poster again.
   activerecord:
     attributes:
       user:

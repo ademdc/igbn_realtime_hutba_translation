@@ -14,6 +14,18 @@ class AccountMailer < ApplicationMailer
     mail to: @user.email, subject: t("mailers.reminder.#{@kind}.subject", account: @account.name, count: @days_left)
   end
 
+  def custom_domain_dns
+    @user = params[:user]
+    @account = @user.account
+    mail to: @user.email, subject: t("mailers.custom_domain_dns.subject", domain: @account.custom_domain_registered)
+  end
+
+  def custom_domain_live
+    @user = params[:user]
+    @account = @user.account
+    mail to: @user.email, subject: t("mailers.custom_domain_live.subject", domain: @account.custom_domain)
+  end
+
   def login_links
     @accounts = params[:users].map(&:account)
     mail to: params[:email], subject: t("mailers.login_links.subject")

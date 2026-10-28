@@ -1,0 +1,9 @@
+<%= t("mailers.greeting", name: @user.name) %>
+
+<%= t("mailers.custom_domain_dns.body", domain: @account.custom_domain_registered) %>
+
+  Type:   CNAME
+  Name:   <%= @account.custom_domain_registered %>
+  Target: <%= @account.custom_domain_target %>
+
+<%= t("mailers.custom_domain_dns.note") %>

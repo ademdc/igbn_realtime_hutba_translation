@@ -28,6 +28,10 @@ module Admin
 
     def update
       if @account.update(admin_params)
+        if @account.custom_domain_enabled? && @account.requested_custom_domain.present? &&
+           (@account.saved_change_to_requested_custom_domain? || @account.saved_change_to_custom_domain_enabled?)
+          CustomDomainSetupJob.perform_later(@account)
+        end
         redirect_to admin_account_path(@account), notice: "Account updated"
       else
         redirect_to admin_account_path(@account), alert: @account.errors.full_messages.to_sentence
@@ -61,7 +65,7 @@ module Admin
     end
 
     def admin_params
-      params.require(:account).permit(:status, :extra_languages, :weekly_minutes_limit, :name, :custom_domain, :custom_domain_enabled)
+      params.require(:account).permit(:status, :extra_languages, :weekly_minutes_limit, :name, :custom_domain, :custom_domain_enabled, :requested_custom_domain)
     end
   end
 end

@@ -121,6 +121,17 @@ tr:
         lead: 'Tercümeyi TV veya projeksiyonda büyük harflerle gösterin. Bu adreslerden birini TV''nin tarayıcısında açın:'
         all_languages: tüm diller yan yana (en fazla 3)
         how: 'İpucu: akıllı TV tarayıcısı, Chromecast (sekme yansıtma) veya HDMI ile dizüstü bilgisayar. Bir kez „Fullscreen“a dokunun, ekran açık kalır.'
+      domain:
+        title: Kendi alan adınız
+        pending: 'Neredeyse bitti: alan adı sağlayıcınızda %{domain} için bu DNS kaydını ekleyin.'
+        type: Tür
+        name: Ad
+        target: Hedef
+        pending_note: Otomatik olarak kontrol ediyoruz. Alan adı genellikle kayıttan bir saat sonra aktif olur – size e-posta göndeririz.
+        failed: "%{domain} kurulamadı. Lütfen yazımı kontrol edip tekrar kaydedin."
+        live_html: Caminiz %{domain} adresinde yayında.
+        preparing: "%{domain} kuruluyor…"
+        save: Alan adını kaydet
     users:
       title: Ekip
       lead: İmamları ve yönetim üyelerini davet edin. Herkes kendi e-postasıyla giriş yapar.
@@ -307,6 +318,13 @@ tr:
         body: "%{account} için ödenen yıl %{date} tarihinde bitiyor. Yayının kesintisiz devam etmesi için şimdi uzatın."
       action: Şimdi öde
       price: 'Yıllık fiyat: %{price}'
+    custom_domain_dns:
+      subject: "%{domain} için DNS kaydı"
+      body: 'Kendi alan adınız %{domain} alındı. Alan adı sağlayıcınızda bu kaydı ekleyin:'
+      note: Otomatik olarak kontrol ediyor ve alan adı aktif olur olmaz size yazıyoruz – genellikle bir saat içinde.
+    custom_domain_live:
+      subject: "%{domain} yayında"
+      body: Caminiz artık %{domain} adresinde. QR kodları, afiş ve TV görünümü bundan sonra yeni adresi kullanır – afişi yeniden yazdırmanız iyi olur.
   activerecord:
     attributes:
       user:

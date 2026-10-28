@@ -1,0 +1,8 @@
+<p><%= t("mailers.greeting", name: @user.name) %></p>
+<p><%= t("mailers.custom_domain_dns.body", domain: @account.custom_domain_registered) %></p>
+<table style="border-collapse:collapse;margin:16px 0;font-size:15px;">
+  <tr><td style="padding:4px 16px 4px 0;color:#3f5754;">Type</td><td style="font-weight:700;">CNAME</td></tr>
+  <tr><td style="padding:4px 16px 4px 0;color:#3f5754;">Name</td><td style="font-weight:700;"><%= @account.custom_domain_registered %></td></tr>
+  <tr><td style="padding:4px 16px 4px 0;color:#3f5754;">Target</td><td style="font-weight:700;"><%= @account.custom_domain_target %></td></tr>
+</table>
+<p style="color:#3f5754;font-size:14px;"><%= t("mailers.custom_domain_dns.note") %></p>

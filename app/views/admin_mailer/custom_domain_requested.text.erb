@@ -1,8 +1,0 @@
-<%= @account.name %> paid for its own domain.
-
-Requested domain: <%= @account.requested_custom_domain %>
-Account: <%= AppDomain.marketing_url("/admin/accounts/#{@account.id}") %>
-
-1. heroku domains:add <%= @account.requested_custom_domain %>
-2. Send the mosque the DNS target Heroku shows (CNAME <%= @account.requested_custom_domain %> -> ....herokudns.com)
-3. When DNS resolves, enter the domain as "Custom domain" in the admin panel.

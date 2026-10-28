@@ -146,6 +146,40 @@
     <p class="panel__footer"><%= link_to t("app.nav.speaker"), root_path, class: "button button--quiet" %></p>
   </section>
 
+  <% if @account.custom_domain_enabled? %>
+    <section class="panel" id="domain" aria-labelledby="domain-title">
+      <h2 class="panel__title" id="domain-title"><%= t("app.dashboard.domain.title") %></h2>
+
+      <% case @account.custom_domain_status %>
+      <% when "pending_dns" %>
+        <p><%= t("app.dashboard.domain.pending", domain: @account.custom_domain_registered) %></p>
+        <dl class="dns-record">
+          <dt><%= t("app.dashboard.domain.type") %></dt><dd><code>CNAME</code></dd>
+          <dt><%= t("app.dashboard.domain.name") %></dt><dd><code><%= @account.custom_domain_registered %></code></dd>
+          <dt><%= t("app.dashboard.domain.target") %></dt><dd><code><%= @account.custom_domain_target %></code></dd>
+        </dl>
+        <p class="muted"><%= t("app.dashboard.domain.pending_note") %></p>
+      <% when "failed" %>
+        <p class="flash flash--alert"><%= t("app.dashboard.domain.failed", domain: @account.requested_custom_domain) %></p>
+      <% else %>
+        <% if @account.custom_domain %>
+          <p><%= t("app.dashboard.domain.live_html", domain: link_to(@account.custom_domain, @account.url("/listener"), target: "_blank", rel: "noopener")) %></p>
+        <% elsif @account.requested_custom_domain %>
+          <p class="muted"><%= t("app.dashboard.domain.preparing", domain: @account.requested_custom_domain) %></p>
+        <% end %>
+      <% end %>
+
+      <%= form_with model: @account, url: account_path, method: :patch, class: "inline-form" do |form| %>
+        <%= hidden_field_tag :section, "domain" %>
+        <div class="field">
+          <%= form.label :requested_custom_domain, t("app.billing.custom_domain_field") %>
+          <%= form.text_field :requested_custom_domain, placeholder: t("app.billing.custom_domain_placeholder"), autocapitalize: "off", spellcheck: false %>
+        </div>
+        <%= form.submit t("app.dashboard.domain.save"), class: "button button--quiet" %>
+      <% end %>
+    </section>
+  <% end %>
+
   <section class="panel" id="settings" aria-labelledby="settings-title">
     <h2 class="panel__title" id="settings-title"><%= t("app.dashboard.settings.title") %></h2>
     <%= render "shared/errors", record: @account if @account.errors[:name].any? %>

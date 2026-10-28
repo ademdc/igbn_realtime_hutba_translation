@@ -1,0 +1,5 @@
+<%= t("mailers.greeting", name: @user.name) %>
+
+<%= t("mailers.custom_domain_live.body", domain: @account.custom_domain) %>
+
+<%= @account.url("/dashboard") %>

@@ -121,6 +121,17 @@ nl:
         lead: 'Toon de vertaling groot op een tv of beamer. Open een van deze adressen in de browser van de tv:'
         all_languages: alle talen naast elkaar (tot 3)
         how: 'Tip: browser van de smart-tv, Chromecast (tabblad casten) of een laptop via HDMI. Tik één keer op „Fullscreen” en het scherm blijft aan.'
+      domain:
+        title: Eigen domein
+        pending: 'Bijna klaar: voeg dit DNS-record voor %{domain} toe bij uw domeinprovider.'
+        type: Type
+        name: Naam
+        target: Doel
+        pending_note: We controleren automatisch. Het domein is meestal een uur na het toevoegen live – u krijgt dan een e-mail.
+        failed: "%{domain} kon niet worden ingesteld. Controleer de spelling en sla opnieuw op."
+        live_html: Uw moskee is live op %{domain}.
+        preparing: "%{domain} wordt ingesteld…"
+        save: Domein opslaan
     users:
       title: Team
       lead: Nodig imams en bestuursleden uit. Iedereen logt in met een eigen e-mailadres.
@@ -307,6 +318,13 @@ nl:
         body: het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu zodat het uitzenden zonder onderbreking doorgaat.
       action: Nu betalen
       price: 'Jaarprijs: %{price}'
+    custom_domain_dns:
+      subject: DNS-record voor %{domain}
+      body: 'Uw eigen domein %{domain} is geboekt. Voeg dit record toe bij uw domeinprovider:'
+      note: We controleren automatisch en mailen u zodra het domein live is – meestal binnen een uur.
+    custom_domain_live:
+      subject: "%{domain} is live"
+      body: Uw moskee is nu bereikbaar op %{domain}. QR-codes, poster en tv-weergave gebruiken vanaf nu het nieuwe adres – print de poster het best opnieuw.
   activerecord:
     attributes:
       user:

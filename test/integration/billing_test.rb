@@ -2,6 +2,7 @@ require "test_helper"
 
 class BillingTest < ActionDispatch::IntegrationTest
   include ActionMailer::TestHelper
+  include ActiveJob::TestHelper
   KEY = "test-merchant-key"
 
   setup do
@@ -120,7 +121,7 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_equal (2000 + 500) * 12, payment.amount_cents
     assert_equal "hutba.mosque-website.com", accounts(:demo).reload.requested_custom_domain
 
-    assert_enqueued_email_with AdminMailer, :custom_domain_requested, params: { account: accounts(:demo) } do
+    assert_enqueued_with(job: CustomDomainSetupJob, args: [accounts(:demo)]) do
       payment.approve!
     end
     account = accounts(:demo).reload

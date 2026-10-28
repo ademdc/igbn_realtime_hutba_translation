@@ -121,6 +121,17 @@ de:
         lead: 'Zeigen Sie die Übersetzung groß auf einem Fernseher oder Beamer. Öffnen Sie eine dieser Adressen im Browser des Fernsehers:'
         all_languages: alle Sprachen nebeneinander (bis zu 3)
         how: 'Tipp: Smart-TV-Browser, Chromecast (Tab übertragen) oder Laptop per HDMI. Einmal auf „Fullscreen“ tippen, dann bleibt der Bildschirm an.'
+      domain:
+        title: Eigene Domain
+        pending: 'Fast fertig: Legen Sie bei Ihrem Domain-Anbieter diesen DNS-Eintrag für %{domain} an.'
+        type: Typ
+        name: Name
+        target: Ziel
+        pending_note: Wir prüfen automatisch. Meist ist die Domain eine Stunde nach dem Eintrag live – Sie bekommen dann eine E-Mail.
+        failed: "%{domain} konnte nicht eingerichtet werden. Bitte prüfen Sie die Schreibweise und speichern Sie erneut."
+        live_html: Ihre Gemeinde ist live unter %{domain}.
+        preparing: "%{domain} wird eingerichtet …"
+        save: Domain speichern
     users:
       title: Team
       lead: Laden Sie Imame und Vorstandsmitglieder ein. Jede Person meldet sich mit eigener E-Mail an.
@@ -307,6 +318,13 @@ de:
         body: das bezahlte Jahr für %{account} endet am %{date}. Verlängern Sie jetzt, damit die Übertragung ohne Unterbrechung weiterläuft.
       action: Jetzt bezahlen
       price: 'Jahrespreis: %{price}'
+    custom_domain_dns:
+      subject: DNS-Eintrag für %{domain}
+      body: 'Ihre eigene Domain %{domain} ist gebucht. Legen Sie bei Ihrem Domain-Anbieter diesen Eintrag an:'
+      note: Wir prüfen automatisch und schreiben Ihnen, sobald die Domain live ist – meist innerhalb einer Stunde.
+    custom_domain_live:
+      subject: "%{domain} ist live"
+      body: Ihre Gemeinde ist jetzt unter %{domain} erreichbar. QR-Codes, Plakat und TV-Ansicht verwenden ab sofort die neue Adresse – drucken Sie das Plakat am besten neu.
   activerecord:
     attributes:
       user:

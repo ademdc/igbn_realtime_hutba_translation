@@ -53,6 +53,7 @@ Run the tests with `bin/rails test`.
 | `MONRI_AUTHENTICITY_TOKEN`, `MONRI_MERCHANT_KEY` | for payments | From the Monri merchant dashboard |
 | `MONRI_ENV` | for payments | `production` for live payments. Anything else uses `ipgtest.monri.com`. |
 | `REDIS_URL` | production | Action Cable, Soniox language state, rate limiting |
+| `HEROKU_API_TOKEN`, `HEROKU_APP_NAME` | production | Registers mosques' own domains with Heroku automatically |
 
 `ADMIN_USERNAME` and `ADMIN_PASSWORD` are no longer used. Create a super admin with:
 
@@ -62,24 +63,36 @@ bin/rails admin:create EMAIL=you@example.com NAME="Your Name"   # prompts for th
 
 ## Production checklist (Heroku)
 
-1. **Domain and DNS:**
+Everything below is a one-time setup. After it, new mosques, their subdomains and their own domains all go live automatically, with no approval or manual step from us.
+
+1. **Cloudflare in front of `hutba.app`** (this gives the mosque subdomains their certificate):
+   - Add `hutba.app` to Cloudflare (free plan) and switch the nameservers at your registrar.
    - Run `heroku domains:add hutba.app` and `heroku domains:add "*.hutba.app"`.
-   - Point both at the DNS targets Heroku prints (CNAME/ALIAS).
-   - Heroku's automatic certificates (ACM) don't cover wildcard domains. Use one of these for `*.hutba.app`:
-     - **Cloudflare in front (easiest):** proxy the apex and the wildcard through Cloudflare, set SSL mode to "Full (strict)", and upload a Cloudflare Origin certificate for `hutba.app` and `*.hutba.app` with `heroku certs:add`.
-     - **Let's Encrypt:** get a wildcard certificate (certbot with a DNS challenge) and upload it with `heroku certs:add`. It has to be renewed every 90 days.
-2. **Config vars:** `heroku config:set APP_DOMAIN=hutba.app DEFAULT_ACCOUNT_SUBDOMAIN=igbd-nuernberg …` (see the table above).
-3. **Monri:** in the merchant dashboard, set:
+   - In Cloudflare DNS, create proxied CNAME records: `@` and `*`, each pointing to the DNS target Heroku printed for it.
+   - Set SSL/TLS mode to **Full**. Cloudflare's free certificate covers `hutba.app` and `*.hutba.app` and renews itself.
+   - Heroku's own certificates (ACM) can't cover wildcards, and ACM can't be mixed with uploaded certificates, so this is the setup that keeps everything automatic.
+2. **Automatic certificates for mosques' own domains:**
+   - Run `heroku certs:auto:enable`.
+   - Create an API token with `heroku authorizations:create -d "hutba custom domains"`.
+   - Set `HEROKU_API_TOKEN` and `HEROKU_APP_NAME`.
+3. **Config vars:** `heroku config:set APP_DOMAIN=hutba.app DEFAULT_ACCOUNT_SUBDOMAIN=igbd-nuernberg …` (see the table above).
+4. **Heroku Scheduler** (add-on), two jobs:
+   - `bin/rails custom_domains:check`, every 10 minutes
+   - `bin/rails billing:reminders`, daily
+5. **Monri:** in the merchant dashboard, set:
    - Success URL: any mosque's `/dashboard/billing/success`. The app overrides it per mosque over HTTPS.
    - Callback URL: `https://APP_DOMAIN/monri/callback`
    - Test with `MONRI_ENV` unset and Monri's test cards first.
-4. **Daily reminders:** add the Heroku Scheduler add-on and schedule `bin/rails billing:reminders` daily. It sends trial-ending emails at 14, 3 and 0 days, and renewal emails at 30, 7 and 0 days.
-5. **Custom domains** (paid add-on, €5/month): when a mosque pays, `CONTACT_EMAIL` gets an email with the requested domain.
-   1. Run `heroku domains:add hutba.mosque-website.com`.
-   2. Send the mosque the DNS target Heroku shows, for their CNAME record.
-   3. Once DNS resolves, enter the domain as "Custom domain (live)" on the account page in `/admin`. ACM issues the certificate automatically for single domains.
-   Requests to a domain only pass the host check once an account uses it.
 6. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
+
+### How own domains work (automatic)
+
+1. The mosque books "own domain" (€5/month) on the billing page and enters e.g. `hutba.mosque-website.com`.
+2. After payment, the app registers the domain with Heroku through the Platform API. It shows the mosque the CNAME record to add (in the dashboard and by email).
+3. Every 10 minutes `custom_domains:check` asks Heroku whether the certificate has been issued. When it has, the domain goes live: QR codes, posters, emails and TV links switch to it, and the mosque gets an email.
+4. If the mosque changes its domain later, the old one keeps working until the new one is live, and is then removed from Heroku.
+
+The admin page shows the status and the CNAME target. "Live domain (manual override)" is only needed for special cases.
 
 ### The original Nürnberg setup
 

@@ -1,6 +1,7 @@
 require "test_helper"
 
 class DashboardTest < ActionDispatch::IntegrationTest
+  include ActiveJob::TestHelper
   setup do
     host! "demo.localhost"
     post "/login", params: { email: "owner@demo.test", password: "password1234" }
@@ -46,6 +47,24 @@ class DashboardTest < ActionDispatch::IntegrationTest
 
     patch "/dashboard/account", params: { account: { source_language: "xx" } }
     assert_response :unprocessable_entity
+  end
+
+  test "owners with the domain add-on can change their domain" do
+    accounts(:demo).update!(custom_domain_enabled: true)
+    assert_enqueued_with(job: CustomDomainSetupJob) do
+      patch "/dashboard/account", params: { section: "domain", account: { requested_custom_domain: "hutba.mosque-website.com" } }
+    end
+    assert_equal "hutba.mosque-website.com", accounts(:demo).reload.requested_custom_domain
+
+    accounts(:demo).update!(custom_domain_status: "pending_dns", custom_domain_registered: "hutba.mosque-website.com",
+                            custom_domain_target: "x.herokudns.com")
+    get "/dashboard"
+    assert_select ".dns-record code", "x.herokudns.com"
+  end
+
+  test "owners without the add-on cannot set a domain" do
+    patch "/dashboard/account", params: { account: { requested_custom_domain: "hutba.mosque-website.com" } }
+    assert_nil accounts(:demo).reload.requested_custom_domain
   end
 
   test "QR code downloads" do
