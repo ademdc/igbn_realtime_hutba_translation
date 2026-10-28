@@ -4,7 +4,7 @@ This Rails application provides real-time Bosnian to German translation using So
 
 ## Prerequisites
 
-- Ruby 3.1.2
+- Ruby 3.4.9
 - PostgreSQL
 - Node.js and npm (for JavaScript bundling)
 

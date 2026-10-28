@@ -83,6 +83,7 @@ GEM
     addressable (2.8.8)
       public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
+    bcrypt (3.1.22)
     benchmark (0.5.0)
     bigdecimal (3.3.1)
     bindex (0.8.1)
@@ -164,6 +165,8 @@ GEM
     nio4r (2.7.5)
     nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.18.10-arm64-darwin)
       racc (~> 1.4)
     pg (1.6.2-arm64-darwin)
     pg (1.6.2-x86_64-linux)
@@ -272,9 +275,11 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-25
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   capybara
   cssbundling-rails
@@ -297,7 +302,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.4.9p82
 
 BUNDLED WITH
    2.6.9
