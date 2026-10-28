@@ -102,6 +102,32 @@
   </div>
 </section>
 
+<section class="screen" aria-labelledby="screen-title">
+  <div class="wrap screen__inner">
+    <div>
+      <h2 class="section-title" id="screen-title"><%= t("marketing.screen.title") %></h2>
+      <p class="screen__text"><%= t("marketing.screen.text") %></p>
+      <ul class="screen__points">
+        <% t("marketing.screen.points").each do |point| %>
+          <li><%= point %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <figure class="tv-mock" aria-hidden="true">
+      <div class="tv-mock__screen">
+        <p class="tv-mock__mosque">Džemat Demo</p>
+        <p class="tv-mock__text"><span class="tv-mock__old"><%= demo_script[0][@demo_language] %></span> <%= demo_script[1][@demo_language] %></p>
+        <div class="tv-mock__scan">
+          <%= qr_code_svg("https://demo.#{AppDomain.host}/#{@demo_language}", size: 44) %>
+          <span><%= Language.listener_ui(@demo_language)[:scan] %></span>
+        </div>
+      </div>
+      <div class="tv-mock__stand"></div>
+    </figure>
+  </div>
+</section>
+
 <section class="benefits" aria-labelledby="benefits-title">
   <div class="wrap">
     <h2 class="section-title" id="benefits-title"><%= t("marketing.benefits.title") %></h2>

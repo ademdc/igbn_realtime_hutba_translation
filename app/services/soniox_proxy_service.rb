@@ -177,7 +177,7 @@ class SonioxProxyService
             sample_rate: 16000,
             num_channels: 1,
             include_nonfinal: true,
-            model: 'stt-rt-preview',
+            model: ENV.fetch("SONIOX_MODEL", "stt-rt-v5"),
             language_hints: Language.source_hints(source_language),  # the mosque's khutbah language
             language_hints_strict: true  # Force these languages only
           }

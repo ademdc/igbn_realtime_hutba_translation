@@ -65,6 +65,8 @@ tr:
         a: Hayır. QR kodu tarar ve tarayıcıda okurlar. Her akıllı telefonda çalışır.
       - q: Camide neye ihtiyacımız var?
         a: İmamın yakınında internete bağlı bir telefon, tablet veya dizüstü bilgisayar. Yaka mikrofonu kaliteyi artırır ama zorunlu değildir.
+      - q: Tercümeyi televizyonda gösterebilir miyiz?
+        a: Evet. camiiniz.hutba.app/tv adresini akıllı TV'de, Chromecast ile veya HDMI ile bağlı bir dizüstü bilgisayarda açın. Yazı tüm salon için yeterince büyüktür ve bir QR kodu telefondan takip etmeye davet eder.
       - q: Tercüme ne kadar doğru?
         a: Tercüme oldukça anlaşılırdır ama makine tercümesidir. Ayetler ve kalıp ifadeler genellikle doğru tanınır; ara sıra hatalar olabilir.
       - q: 60 günden sonra ne olur?
@@ -74,3 +76,10 @@ tr:
       imprint: Künye
       privacy: Gizlilik
       contact: İletişim
+    screen:
+      title: Camideki ekranda da
+      text: Tercümeyi bir televizyon veya projeksiyonda büyük harflerle gösterin – namaz salonunun önünde, kadınlar bölümünde veya girişte. Böylece telefonu olmayan herkes de takip edebilir.
+      points:
+      - Tarayıcılı her TV, Chromecast veya HDMI ile bir dizüstü bilgisayar
+      - Yan yana üç dile kadar
+      - Telefondan takip için QR kodu ile

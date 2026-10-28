@@ -53,4 +53,25 @@ class TenancyTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
   end
+
+  test "TV screen shows one column per language, at most three" do
+    accounts(:igbd).update!(languages: %w[de en fr nl], extra_languages: 1)
+    host! "igbd-nuernberg.localhost"
+
+    get "/tv"
+    assert_response :success
+    assert_select ".tv__column", 3
+    assert_select "[data-translation-feed][data-language=de]"
+    assert_select ".tv__scan svg"
+
+    get "/tv/en"
+    assert_select ".tv__column", 1
+    assert_select "[data-translation-feed][data-language=en]"
+  end
+
+  test "TV screen for a language the mosque doesn't offer falls back to all" do
+    host! "demo.localhost"
+    get "/tv/de"
+    assert_redirected_to "http://demo.localhost/tv"
+  end
 end

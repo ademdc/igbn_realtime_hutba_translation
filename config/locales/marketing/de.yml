@@ -65,6 +65,8 @@ de:
         a: Nein. Sie scannen den QR-Code und lesen im Browser mit. Das funktioniert auf jedem Smartphone.
       - q: Was brauchen wir in der Moschee?
         a: Ein Handy, Tablet oder Laptop mit Internet in der Nähe des Imams. Ein Ansteckmikrofon verbessert die Qualität, ist aber kein Muss.
+      - q: Können wir die Übersetzung auf einem Fernseher zeigen?
+        a: Ja. Öffnen Sie ihr-dzemat.hutba.app/tv auf einem Smart-TV, über Chromecast oder an einem Laptop mit HDMI. Die Schrift ist groß genug für den ganzen Raum, und ein QR-Code lädt zum Mitlesen auf dem Handy ein.
       - q: Wie genau ist die Übersetzung?
         a: Die Übersetzung ist sehr gut verständlich, aber maschinell. Koranverse und feste Begriffe werden meist korrekt erkannt; einzelne Fehler kommen vor.
       - q: Was passiert nach den 60 Tagen?
@@ -74,3 +76,10 @@ de:
       imprint: Impressum
       privacy: Datenschutz
       contact: Kontakt
+    screen:
+      title: Auch auf dem Bildschirm in der Moschee
+      text: Zeigen Sie die Übersetzung groß auf einem Fernseher oder Beamer – vorne im Gebetsraum, im Frauenbereich oder im Vorraum. So liest jeder mit, auch ohne Handy.
+      points:
+      - Jeder Fernseher mit Browser, Chromecast oder ein Laptop per HDMI
+      - Bis zu drei Sprachen nebeneinander
+      - Mit QR-Code zum Mitlesen auf dem Handy

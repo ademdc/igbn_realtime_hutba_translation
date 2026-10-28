@@ -114,6 +114,12 @@ de:
         name: Name der Gemeinde
         save: Speichern
         address: 'Ihre Adresse: %{host}'
+      tv:
+        title: Bildschirm in der Moschee
+        open_all: TV-Ansicht öffnen
+        lead: 'Zeigen Sie die Übersetzung groß auf einem Fernseher oder Beamer. Öffnen Sie eine dieser Adressen im Browser des Fernsehers:'
+        all_languages: alle Sprachen nebeneinander (bis zu 3)
+        how: 'Tipp: Smart-TV-Browser, Chromecast (Tab übertragen) oder Laptop per HDMI. Einmal auf „Fullscreen“ tippen, dann bleibt der Bildschirm an.'
     users:
       title: Team
       lead: Laden Sie Imame und Vorstandsmitglieder ein. Jede Person meldet sich mit eigener E-Mail an.

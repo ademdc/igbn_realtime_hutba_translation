@@ -114,6 +114,12 @@ fr:
         name: Nom de la mosquée
         save: Enregistrer
         address: 'Votre adresse : %{host}'
+      tv:
+        title: Écran dans la mosquée
+        open_all: Ouvrir la vue TV
+        lead: 'Affichez la traduction en grand sur une TV ou un projecteur. Ouvrez l''une de ces adresses dans le navigateur de la TV :'
+        all_languages: toutes les langues côte à côte (jusqu'à 3)
+        how: 'Astuce : navigateur de smart TV, Chromecast (caster un onglet) ou ordinateur en HDMI. Appuyez une fois sur « Fullscreen » et l''écran reste allumé.'
     users:
       title: Équipe
       lead: Invitez imams et membres du bureau. Chacun se connecte avec son propre e-mail.

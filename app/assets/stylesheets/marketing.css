@@ -900,3 +900,99 @@ body.marketing {
   .signup-field__row { grid-template-columns: minmax(0, 1fr); }
   .subdomain-input__suffix { padding: 0 0.5rem; font-size: 0.9rem; }
 }
+
+/* Screen in the mosque */
+
+.screen {
+  padding-block: var(--section-space) 0;
+}
+
+.screen__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.screen__text {
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+  max-width: 44ch;
+}
+
+.screen__points {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.screen__points li {
+  position: relative;
+  padding-left: 2rem;
+}
+.screen__points li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.45em;
+  width: 0.9rem;
+  height: 0.5rem;
+  border-left: 3px solid var(--teal);
+  border-bottom: 3px solid var(--teal);
+  transform: rotate(-45deg);
+}
+
+.tv-mock { margin: 0; }
+
+.tv-mock__screen {
+  aspect-ratio: 16 / 9;
+  padding: 5% 6% 4%;
+  border: 10px solid #1b1f1e;
+  border-radius: 14px;
+  background: #0d2422;
+  color: var(--plaster);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgb(18 48 45 / 0.6);
+}
+
+.tv-mock__mosque { font-size: clamp(0.7rem, 1.1vw, 0.85rem); font-weight: 700; color: var(--mist-strong); }
+
+.tv-mock__text {
+  align-self: end;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.6rem);
+  line-height: 1.35;
+}
+.tv-mock__old { color: rgb(244 246 243 / 0.45); }
+
+.tv-mock__scan {
+  margin-top: 4%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  color: var(--mist-strong);
+}
+.tv-mock__scan svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 3px;
+  border-radius: 4px;
+  background: var(--plaster);
+  color: var(--ink);
+}
+
+.tv-mock__stand {
+  width: 22%;
+  height: 14px;
+  margin: 0 auto;
+  background: #1b1f1e;
+  border-radius: 0 0 6px 6px;
+}
+
+@media (max-width: 900px) {
+  .screen__inner { grid-template-columns: minmax(0, 1fr); }
+}

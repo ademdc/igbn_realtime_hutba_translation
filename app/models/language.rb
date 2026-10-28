@@ -16,16 +16,16 @@ class Language
 
   # Listener page text, in the listener's own language
   LISTENER_UI = {
-    "de" => { connecting: "Verbinde …", connected: "Verbunden", disconnected: "Verbindung unterbrochen", waiting: "Warten auf die Hutba …", change: "Sprache wechseln" },
-    "en" => { connecting: "Connecting…", connected: "Connected", disconnected: "Connection lost", waiting: "Waiting for the khutbah…", change: "Change language" },
-    "fr" => { connecting: "Connexion…", connected: "Connecté", disconnected: "Connexion perdue", waiting: "En attente de la khutba…", change: "Changer de langue" },
-    "nl" => { connecting: "Verbinden…", connected: "Verbonden", disconnected: "Verbinding verbroken", waiting: "Wachten op de khutba…", change: "Andere taal" },
-    "it" => { connecting: "Connessione…", connected: "Connesso", disconnected: "Connessione persa", waiting: "In attesa della khutba…", change: "Cambia lingua" },
-    "es" => { connecting: "Conectando…", connected: "Conectado", disconnected: "Conexión perdida", waiting: "Esperando la jutba…", change: "Cambiar idioma" },
-    "sv" => { connecting: "Ansluter…", connected: "Ansluten", disconnected: "Anslutningen bröts", waiting: "Väntar på khutban…", change: "Byt språk" },
-    "tr" => { connecting: "Bağlanıyor…", connected: "Bağlandı", disconnected: "Bağlantı kesildi", waiting: "Hutbe bekleniyor…", change: "Dili değiştir" },
-    "ar" => { connecting: "جارٍ الاتصال…", connected: "متصل", disconnected: "انقطع الاتصال", waiting: "في انتظار الخطبة…", change: "تغيير اللغة" },
-    "sq" => { connecting: "Duke u lidhur…", connected: "I lidhur", disconnected: "Lidhja u ndërpre", waiting: "Në pritje të hutbes…", change: "Ndrysho gjuhën" }
+    "de" => { connecting: "Verbinde …", connected: "Verbunden", disconnected: "Verbindung unterbrochen", waiting: "Warten auf die Hutba …", change: "Sprache wechseln", scan: "Auf dem Handy mitlesen" },
+    "en" => { connecting: "Connecting…", connected: "Connected", disconnected: "Connection lost", waiting: "Waiting for the khutbah…", change: "Change language", scan: "Read along on your phone" },
+    "fr" => { connecting: "Connexion…", connected: "Connecté", disconnected: "Connexion perdue", waiting: "En attente de la khutba…", change: "Changer de langue", scan: "Lire sur votre téléphone" },
+    "nl" => { connecting: "Verbinden…", connected: "Verbonden", disconnected: "Verbinding verbroken", waiting: "Wachten op de khutba…", change: "Andere taal", scan: "Lees mee op je telefoon" },
+    "it" => { connecting: "Connessione…", connected: "Connesso", disconnected: "Connessione persa", waiting: "In attesa della khutba…", change: "Cambia lingua", scan: "Leggi sul tuo telefono" },
+    "es" => { connecting: "Conectando…", connected: "Conectado", disconnected: "Conexión perdida", waiting: "Esperando la jutba…", change: "Cambiar idioma", scan: "Lee en tu móvil" },
+    "sv" => { connecting: "Ansluter…", connected: "Ansluten", disconnected: "Anslutningen bröts", waiting: "Väntar på khutban…", change: "Byt språk", scan: "Läs med i mobilen" },
+    "tr" => { connecting: "Bağlanıyor…", connected: "Bağlandı", disconnected: "Bağlantı kesildi", waiting: "Hutbe bekleniyor…", change: "Dili değiştir", scan: "Telefonunuzdan takip edin" },
+    "ar" => { connecting: "جارٍ الاتصال…", connected: "متصل", disconnected: "انقطع الاتصال", waiting: "في انتظار الخطبة…", change: "تغيير اللغة", scan: "تابع على هاتفك" },
+    "sq" => { connecting: "Duke u lidhur…", connected: "I lidhur", disconnected: "Lidhja u ndërpre", waiting: "Në pritje të hutbes…", change: "Ndrysho gjuhën", scan: "Lexo në telefonin tënd" }
   }.freeze
 
   # Languages the imam can speak, with the Soniox recognition hints for each.

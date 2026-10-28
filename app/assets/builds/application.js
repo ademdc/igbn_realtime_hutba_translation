@@ -382,8 +382,8 @@
     "node_modules/@rails/actioncable/src/subscription_guarantor.js"() {
       init_logger();
       SubscriptionGuarantor = class {
-        constructor(subscriptions) {
-          this.subscriptions = subscriptions;
+        constructor(subscriptions2) {
+          this.subscriptions = subscriptions2;
           this.pendingSubscriptions = [];
         }
         guarantee(subscription) {
@@ -480,13 +480,13 @@
           return this.subscriptions.map((subscription) => this.notify(subscription, callbackName, ...args));
         }
         notify(subscription, callbackName, ...args) {
-          let subscriptions;
+          let subscriptions2;
           if (typeof subscription === "string") {
-            subscriptions = this.findAll(subscription);
+            subscriptions2 = this.findAll(subscription);
           } else {
-            subscriptions = [subscription];
+            subscriptions2 = [subscription];
           }
-          return subscriptions.map((subscription2) => typeof subscription2[callbackName] === "function" ? subscription2[callbackName](...args) : void 0);
+          return subscriptions2.map((subscription2) => typeof subscription2[callbackName] === "function" ? subscription2[callbackName](...args) : void 0);
         }
         subscribe(subscription) {
           if (this.sendCommand(subscription, "subscribe")) {
@@ -4405,8 +4405,8 @@
     return createConsumer4();
   }
   async function subscribeTo(channel, mixin) {
-    const { subscriptions } = await getConsumer();
-    return subscriptions.create(channel, mixin);
+    const { subscriptions: subscriptions2 } = await getConsumer();
+    return subscriptions2.create(channel, mixin);
   }
 
   // node_modules/@hotwired/turbo-rails/app/javascript/turbo/snakeize.js
@@ -4832,8 +4832,8 @@
     }
   };
   var SubscriptionGuarantor2 = class {
-    constructor(subscriptions) {
-      this.subscriptions = subscriptions;
+    constructor(subscriptions2) {
+      this.subscriptions = subscriptions2;
       this.pendingSubscriptions = [];
     }
     guarantee(subscription) {
@@ -4917,13 +4917,13 @@
       return this.subscriptions.map((subscription) => this.notify(subscription, callbackName, ...args));
     }
     notify(subscription, callbackName, ...args) {
-      let subscriptions;
+      let subscriptions2;
       if (typeof subscription === "string") {
-        subscriptions = this.findAll(subscription);
+        subscriptions2 = this.findAll(subscription);
       } else {
-        subscriptions = [subscription];
+        subscriptions2 = [subscription];
       }
-      return subscriptions.map((subscription2) => typeof subscription2[callbackName] === "function" ? subscription2[callbackName](...args) : void 0);
+      return subscriptions2.map((subscription2) => typeof subscription2[callbackName] === "function" ? subscription2[callbackName](...args) : void 0);
     }
     subscribe(subscription) {
       if (this.sendCommand(subscription, "subscribe")) {
@@ -5000,105 +5000,80 @@
   var consumer_default = createConsumer3();
 
   // app/javascript/channels/translation_channel.js
-  var translationFeed = document.getElementById("translationFeed");
-  if (translationFeed) {
-    const language = translationFeed.dataset.language || "de";
-    const subscription = consumer_default.subscriptions.create(
+  var MAX_SPANS = 400;
+  var statusText = document.getElementById("connectionStatus");
+  var statusDot = document.getElementById("statusDot");
+  var feeds = document.querySelectorAll("[data-translation-feed]");
+  var wakeLock = null;
+  async function requestWakeLock() {
+    if (!("wakeLock" in navigator) || wakeLock)
+      return;
+    try {
+      wakeLock = await navigator.wakeLock.request("screen");
+      wakeLock.addEventListener("release", () => {
+        wakeLock = null;
+      });
+    } catch (err) {
+      console.log("Could not activate wake lock:", err.message);
+    }
+  }
+  function updateStatus(text, connected) {
+    if (statusText && text)
+      statusText.textContent = text;
+    if (statusDot)
+      statusDot.dataset.connected = connected;
+  }
+  function displayTranslation(feed, text) {
+    feed.querySelector(".no-translations")?.remove();
+    let container = feed.querySelector(".continuous-text");
+    if (!container) {
+      container = document.createElement("div");
+      container.className = "continuous-text";
+      feed.appendChild(container);
+    }
+    if (container.children.length > 0) {
+      container.appendChild(document.createTextNode(" "));
+    }
+    const span = document.createElement("span");
+    span.className = "new-text";
+    span.textContent = text;
+    container.appendChild(span);
+    setTimeout(() => {
+      span.className = "";
+    }, 3e3);
+    while (container.children.length > MAX_SPANS) {
+      container.firstElementChild.remove();
+    }
+    feed.scrollTop = feed.scrollHeight;
+  }
+  var subscriptions = Array.from(feeds).map((feed) => {
+    const language = feed.dataset.language || "de";
+    return consumer_default.subscriptions.create(
       { channel: "TranslationChannel", language },
       {
         connected() {
-          console.log(`Connected to TranslationChannel for ${language}`);
-          this.updateStatus(translationFeed.dataset.connectedText, true);
-          this.lastReceivedAt = Date.now();
-          this.requestWakeLock();
-        },
-        async requestWakeLock() {
-          if (!("wakeLock" in navigator)) {
-            console.log("Wake lock not supported");
-            return;
-          }
-          try {
-            this.wakeLock = await navigator.wakeLock.request("screen");
-            console.log("Screen wake lock activated");
-            this.wakeLock.addEventListener("release", () => {
-              console.log("Screen wake lock released");
-            });
-            document.addEventListener("visibilitychange", async () => {
-              if (document.visibilityState === "visible" && !this.wakeLock) {
-                try {
-                  this.wakeLock = await navigator.wakeLock.request("screen");
-                  console.log("Screen wake lock re-activated");
-                } catch (err) {
-                  console.log("Could not re-activate wake lock:", err.message);
-                }
-              }
-            });
-          } catch (err) {
-            console.log("Could not activate wake lock:", err.message);
-          }
+          updateStatus(feed.dataset.connectedText, true);
+          requestWakeLock();
         },
         disconnected() {
-          console.log(`Disconnected from TranslationChannel for ${language}`);
-          this.updateStatus(translationFeed.dataset.disconnectedText, false);
+          updateStatus(feed.dataset.disconnectedText, false);
         },
         received(data) {
-          console.log("Received translation:", data);
-          this.lastReceivedAt = Date.now();
-          this.displayTranslation(data);
-        },
-        updateStatus(status, connected) {
-          const statusText = document.getElementById("connectionStatus");
-          const statusDot = document.getElementById("statusDot");
-          if (statusText) {
-            statusText.textContent = status;
-          }
-          if (statusDot) {
-            statusDot.dataset.connected = connected;
-          }
-        },
-        displayTranslation(data) {
-          const feed = document.getElementById("translationFeed");
-          const noTranslations = feed.querySelector(".no-translations");
-          if (noTranslations) {
-            noTranslations.remove();
-          }
-          let textContainer = feed.querySelector(".continuous-text");
-          if (!textContainer) {
-            textContainer = document.createElement("div");
-            textContainer.className = "continuous-text";
-            feed.appendChild(textContainer);
-          }
-          const span = document.createElement("span");
-          span.className = "new-text";
-          span.textContent = data.text;
-          if (textContainer.children.length > 0) {
-            textContainer.appendChild(document.createTextNode(" "));
-          }
-          textContainer.appendChild(span);
-          setTimeout(() => {
-            span.className = "";
-          }, 3e3);
-          feed.scrollTop = feed.scrollHeight;
-        },
-        escapeHtml(text) {
-          const div = document.createElement("div");
-          div.textContent = text;
-          return div.innerHTML;
+          if (data.text)
+            displayTranslation(feed, data.text);
         }
       }
     );
+  });
+  if (subscriptions.length > 0) {
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        console.log("Tab became visible, ensuring connection is active");
-        setTimeout(() => {
-          if (subscription.consumer.connection.isActive()) {
-            console.log("Connection is active after tab switch");
-          } else {
-            console.log("Connection inactive, reconnecting...");
-            subscription.consumer.connection.reopen();
-          }
-        }, 100);
-      }
+      if (document.visibilityState !== "visible")
+        return;
+      requestWakeLock();
+      setTimeout(() => {
+        if (!consumer_default.connection.isActive())
+          consumer_default.connection.reopen();
+      }, 100);
     });
   }
 
@@ -5287,6 +5262,16 @@
     document.addEventListener("DOMContentLoaded", initializeControllers);
   } else {
     initializeControllers();
+  }
+
+  // app/javascript/tv.js
+  var button = document.querySelector("[data-fullscreen]");
+  if (button && document.fullscreenEnabled) {
+    button.hidden = false;
+    button.addEventListener("click", () => document.documentElement.requestFullscreen());
+    document.addEventListener("fullscreenchange", () => {
+      button.hidden = Boolean(document.fullscreenElement);
+    });
   }
 })();
 //# sourceMappingURL=/assets/application.js.map

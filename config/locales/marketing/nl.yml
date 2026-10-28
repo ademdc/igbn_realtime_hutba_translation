@@ -65,6 +65,8 @@ nl:
         a: Nee. Ze scannen de QR-code en lezen mee in de browser. Het werkt op elke smartphone.
       - q: Wat hebben we nodig in de moskee?
         a: Een telefoon, tablet of laptop met internet in de buurt van de imam. Een dasspeldmicrofoon verbetert de kwaliteit, maar is niet verplicht.
+      - q: Kunnen we de vertaling op een tv tonen?
+        a: Ja. Open uw-moskee.hutba.app/tv op een smart-tv, via Chromecast of op een laptop met HDMI. De tekst is groot genoeg voor de hele zaal, en een QR-code nodigt uit om mee te lezen op de telefoon.
       - q: Hoe nauwkeurig is de vertaling?
         a: De vertaling is goed te volgen, maar wel automatisch. Koranverzen en vaste begrippen worden meestal goed herkend; af en toe gaat er iets mis.
       - q: Wat gebeurt er na 60 dagen?
@@ -74,3 +76,10 @@ nl:
       imprint: Colofon
       privacy: Privacy
       contact: Contact
+    screen:
+      title: Ook op het scherm in de moskee
+      text: Toon de vertaling groot op een tv of beamer – voorin de gebedsruimte, in de vrouwenruimte of in de hal. Zo leest iedereen mee, ook zonder telefoon.
+      points:
+      - Elke tv met browser, Chromecast of een laptop via HDMI
+      - Tot drie talen naast elkaar
+      - Met een QR-code om mee te lezen op de telefoon

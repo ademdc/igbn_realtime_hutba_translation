@@ -1,0 +1,38 @@
+<% content_for :title, "TV · Hutba" %>
+<% first_ui = Language.listener_ui(@tv_languages.first) %>
+
+<main class="tv" data-columns="<%= @tv_languages.size %>">
+  <header class="tv__bar">
+    <p class="tv__mosque"><%= Current.account.name %></p>
+    <p class="reader__status">
+      <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+      <span id="connectionStatus"><%= first_ui[:connecting] %></span>
+    </p>
+    <button type="button" class="tv__fullscreen" data-fullscreen hidden>⛶ Fullscreen</button>
+  </header>
+
+  <div class="tv__columns">
+    <% @tv_languages.each do |code| %>
+      <% ui = Language.listener_ui(code) %>
+      <section class="tv__column" lang="<%= code %>" dir="<%= Language.direction(code) %>">
+        <% if @tv_languages.size > 1 %>
+          <h2 class="tv__language"><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></h2>
+        <% end %>
+        <div class="tv__feed" data-translation-feed data-language="<%= code %>"
+             data-connected-text="<%= first_ui[:connected] %>" data-disconnected-text="<%= first_ui[:disconnected] %>">
+          <p class="no-translations"><%= ui[:waiting] %></p>
+        </div>
+      </section>
+    <% end %>
+  </div>
+
+  <footer class="tv__scan">
+    <%= qr_code_svg(Current.account.url(@tv_languages.size == 1 ? "/#{@tv_languages.first}" : "/listener"), size: 120, label: first_ui[:scan]) %>
+    <div>
+      <% @tv_languages.each do |code| %>
+        <p lang="<%= code %>" dir="<%= Language.direction(code) %>"><%= Language.listener_ui(code)[:scan] %></p>
+      <% end %>
+      <p class="tv__host"><%= Current.account.host %></p>
+    </div>
+  </footer>
+</main>

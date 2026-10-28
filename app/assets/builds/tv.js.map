@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/tv.js"],
+  "sourcesContent": ["// TV screen: offer fullscreen once (browsers require a click), then stay out of the way.\nconst button = document.querySelector('[data-fullscreen]')\n\nif (button && document.fullscreenEnabled) {\n  button.hidden = false\n  button.addEventListener('click', () => document.documentElement.requestFullscreen())\n  document.addEventListener('fullscreenchange', () => {\n    button.hidden = Boolean(document.fullscreenElement)\n  })\n}\n"],
+  "mappings": ";;AACA,MAAM,SAAS,SAAS,cAAc,mBAAmB;AAEzD,MAAI,UAAU,SAAS,mBAAmB;AACxC,WAAO,SAAS;AAChB,WAAO,iBAAiB,SAAS,MAAM,SAAS,gBAAgB,kBAAkB,CAAC;AACnF,aAAS,iBAAiB,oBAAoB,MAAM;AAClD,aAAO,SAAS,QAAQ,SAAS,iBAAiB;AAAA,IACpD,CAAC;AAAA,EACH;",
+  "names": []
+}

@@ -1,137 +1,88 @@
 import consumer from "./consumer"
 
-// Only subscribe if we're on a listener page
-const translationFeed = document.getElementById('translationFeed')
-if (translationFeed) {
-  const language = translationFeed.dataset.language || 'de'
+// Listener pages show one feed; the TV screen can show one feed per language.
+const MAX_SPANS = 400
 
-  const subscription = consumer.subscriptions.create(
+const statusText = document.getElementById('connectionStatus')
+const statusDot = document.getElementById('statusDot')
+const feeds = document.querySelectorAll('[data-translation-feed]')
+
+let wakeLock = null
+
+async function requestWakeLock() {
+  if (!('wakeLock' in navigator) || wakeLock) return
+
+  try {
+    wakeLock = await navigator.wakeLock.request('screen')
+    wakeLock.addEventListener('release', () => { wakeLock = null })
+  } catch (err) {
+    console.log('Could not activate wake lock:', err.message)
+  }
+}
+
+function updateStatus(text, connected) {
+  if (statusText && text) statusText.textContent = text
+  if (statusDot) statusDot.dataset.connected = connected
+}
+
+function displayTranslation(feed, text) {
+  feed.querySelector('.no-translations')?.remove()
+
+  let container = feed.querySelector('.continuous-text')
+  if (!container) {
+    container = document.createElement('div')
+    container.className = 'continuous-text'
+    feed.appendChild(container)
+  }
+
+  if (container.children.length > 0) {
+    container.appendChild(document.createTextNode(' '))
+  }
+
+  const span = document.createElement('span')
+  span.className = 'new-text'
+  span.textContent = text
+  container.appendChild(span)
+  setTimeout(() => { span.className = '' }, 3000)
+
+  // Long khutbahs: drop the oldest text so the page stays light
+  while (container.children.length > MAX_SPANS) {
+    container.firstElementChild.remove()
+  }
+
+  feed.scrollTop = feed.scrollHeight
+}
+
+const subscriptions = Array.from(feeds).map((feed) => {
+  const language = feed.dataset.language || 'de'
+
+  return consumer.subscriptions.create(
     { channel: "TranslationChannel", language: language },
     {
       connected() {
-        console.log(`Connected to TranslationChannel for ${language}`)
-        this.updateStatus(translationFeed.dataset.connectedText, true)
-        // Clear any stale state when reconnecting
-        this.lastReceivedAt = Date.now()
-        // Request wake lock to keep screen on
-        this.requestWakeLock()
+        updateStatus(feed.dataset.connectedText, true)
+        requestWakeLock()
       },
 
-      async requestWakeLock() {
-        if (!('wakeLock' in navigator)) {
-          console.log('Wake lock not supported')
-          return
-        }
-
-        try {
-          this.wakeLock = await navigator.wakeLock.request('screen')
-          console.log('Screen wake lock activated')
-
-          this.wakeLock.addEventListener('release', () => {
-            console.log('Screen wake lock released')
-          })
-
-          // Re-request wake lock when page becomes visible again
-          document.addEventListener('visibilitychange', async () => {
-            if (document.visibilityState === 'visible' && !this.wakeLock) {
-              try {
-                this.wakeLock = await navigator.wakeLock.request('screen')
-                console.log('Screen wake lock re-activated')
-              } catch (err) {
-                console.log('Could not re-activate wake lock:', err.message)
-              }
-            }
-          })
-        } catch (err) {
-          console.log('Could not activate wake lock:', err.message)
-        }
+      disconnected() {
+        updateStatus(feed.dataset.disconnectedText, false)
       },
 
-    disconnected() {
-      console.log(`Disconnected from TranslationChannel for ${language}`)
-      this.updateStatus(translationFeed.dataset.disconnectedText, false)
-    },
-
-    received(data) {
-      console.log("Received translation:", data)
-      this.lastReceivedAt = Date.now()
-      this.displayTranslation(data)
-    },
-
-    updateStatus(status, connected) {
-      const statusText = document.getElementById('connectionStatus')
-      const statusDot = document.getElementById('statusDot')
-
-      if (statusText) {
-        statusText.textContent = status
+      received(data) {
+        if (data.text) displayTranslation(feed, data.text)
       }
-
-      if (statusDot) {
-        statusDot.dataset.connected = connected
-      }
-    },
-
-    displayTranslation(data) {
-      const feed = document.getElementById('translationFeed')
-      const noTranslations = feed.querySelector('.no-translations')
-
-      // Remove "waiting" message on first translation
-      if (noTranslations) {
-        noTranslations.remove()
-      }
-
-      // Get or create continuous text container
-      let textContainer = feed.querySelector('.continuous-text')
-      if (!textContainer) {
-        textContainer = document.createElement('div')
-        textContainer.className = 'continuous-text'
-        feed.appendChild(textContainer)
-      }
-
-      // Create a span for new text with highlight animation
-      const span = document.createElement('span')
-      span.className = 'new-text'
-      span.textContent = data.text
-
-      // Add space before if not first text
-      if (textContainer.children.length > 0) {
-        textContainer.appendChild(document.createTextNode(' '))
-      }
-
-      textContainer.appendChild(span)
-
-      // Remove animation class after animation completes
-      setTimeout(() => {
-        span.className = ''
-      }, 3000)
-
-      // Auto-scroll to bottom
-      feed.scrollTop = feed.scrollHeight
-    },
-
-    escapeHtml(text) {
-      const div = document.createElement('div')
-      div.textContent = text
-      return div.innerHTML
     }
-  })
+  )
+})
 
-  // Handle page visibility changes (tab switching)
+if (subscriptions.length > 0) {
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      console.log('Tab became visible, ensuring connection is active')
+    if (document.visibilityState !== 'visible') return
 
-      // If disconnected, consumer will auto-reconnect
-      // If connected but not receiving data, force reconnection
-      setTimeout(() => {
-        if (subscription.consumer.connection.isActive()) {
-          console.log('Connection is active after tab switch')
-        } else {
-          console.log('Connection inactive, reconnecting...')
-          subscription.consumer.connection.reopen()
-        }
-      }, 100)
-    }
+    requestWakeLock()
+    // Phones suspend sockets in the background; reconnect when the tab comes back
+    setTimeout(() => {
+      if (!consumer.connection.isActive()) consumer.connection.reopen()
+    }, 100)
   })
-
 }

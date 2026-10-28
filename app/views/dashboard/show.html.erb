@@ -112,6 +112,24 @@
     </ul>
   </section>
 
+  <section class="panel" id="tv" aria-labelledby="tv-title">
+    <div class="panel__head">
+      <h2 class="panel__title" id="tv-title"><%= t("app.dashboard.tv.title") %></h2>
+      <%= link_to t("app.dashboard.tv.open_all"), @account.url("/tv"), class: "button button--quiet", target: "_blank", rel: "noopener" %>
+    </div>
+    <p class="muted"><%= t("app.dashboard.tv.lead") %></p>
+    <ul class="tv-links">
+      <li><code><%= @account.host %>/tv</code> <span class="muted"><%= t("app.dashboard.tv.all_languages") %></span></li>
+      <% @account.languages.each do |code| %>
+        <li>
+          <%= link_to "#{@account.host}/tv/#{code}", @account.url("/tv/#{code}"), target: "_blank", rel: "noopener" %>
+          <span class="muted"><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></span>
+        </li>
+      <% end %>
+    </ul>
+    <p class="muted panel__footer"><%= t("app.dashboard.tv.how") %></p>
+  </section>
+
   <section class="panel" id="speaker" aria-labelledby="speaker-title">
     <h2 class="panel__title" id="speaker-title"><%= t("app.dashboard.speaker.title") %></h2>
     <p class="muted"><%= t("app.dashboard.speaker.lead") %></p>

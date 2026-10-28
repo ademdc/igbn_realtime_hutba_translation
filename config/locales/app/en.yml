@@ -114,6 +114,12 @@ en:
         name: Mosque name
         save: Save
         address: 'Your address: %{host}'
+      tv:
+        title: Screen in the mosque
+        open_all: Open TV view
+        lead: 'Show the translation in large letters on a TV or projector. Open one of these addresses in the TV''s browser:'
+        all_languages: all languages side by side (up to 3)
+        how: 'Tip: smart TV browser, Chromecast (cast a tab) or a laptop over HDMI. Tap “Fullscreen” once and the screen stays on.'
     users:
       title: Team
       lead: Invite imams and board members. Everyone logs in with their own email.

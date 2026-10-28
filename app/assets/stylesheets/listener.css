@@ -194,3 +194,97 @@ body.listener {
   .status-dot[data-connected="true"] { animation: none; }
   .continuous-text span { transition: none; }
 }
+
+/* TV / projector screen in the mosque: huge text, newest line always visible */
+
+.tv {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  background: var(--ink-deep);
+}
+
+.tv__bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25vw 3vw;
+}
+
+.tv__mosque { font-weight: 700; font-size: clamp(1rem, 1.4vw, 1.6rem); }
+.tv .reader__status { font-size: clamp(0.9rem, 1.1vw, 1.3rem); }
+
+.tv__fullscreen {
+  margin-left: auto;
+  font: inherit;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tv__fullscreen[hidden] { display: none; }
+
+.tv__columns {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 1), minmax(0, 1fr));
+  gap: 3vw;
+  padding: 0 3vw;
+  min-height: 0;
+}
+.tv[data-columns="2"] { --columns: 2; }
+.tv[data-columns="3"] { --columns: 3; }
+
+.tv__column {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+}
+
+.tv__language {
+  margin: 0 0 1vw;
+  font-size: clamp(1rem, 1.5vw, 1.8rem);
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Text sits at the bottom and older lines scroll away above it */
+.tv__feed {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
+}
+
+.tv .continuous-text {
+  font-size: clamp(2rem, 4.2vw, 5.5rem);
+  line-height: 1.35;
+}
+.tv[data-columns="2"] .continuous-text { font-size: clamp(1.6rem, 2.9vw, 4rem); }
+.tv[data-columns="3"] .continuous-text { font-size: clamp(1.4rem, 2.2vw, 3rem); }
+
+.tv .no-translations { font-size: clamp(1.5rem, 2.6vw, 3rem); }
+
+.tv__scan {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  padding: 1.5vw 3vw;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 1.2vw, 1.5rem);
+}
+.tv__scan svg {
+  width: clamp(72px, 7vw, 140px);
+  height: auto;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--plaster);
+  color: var(--ink);
+}
+.tv__host { color: var(--plaster); font-weight: 700; }

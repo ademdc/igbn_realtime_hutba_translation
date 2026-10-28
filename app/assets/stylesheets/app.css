@@ -637,3 +637,7 @@ body.app {
 @media (prefers-reduced-motion: reduce) {
   .live-dot { animation: none; }
 }
+
+.tv-links { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.4rem; }
+.tv-links li { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
+.tv-links code { font-family: inherit; font-weight: 700; }

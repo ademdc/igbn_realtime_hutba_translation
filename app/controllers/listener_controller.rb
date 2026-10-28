@@ -10,6 +10,15 @@ class ListenerController < ApplicationController
     redirect_to listener_language_path(language: @languages.keys.first) if @languages.size == 1
   end
 
+  # Up to three languages side by side on a TV; more would be unreadable from the back of the hall
+  def tv
+    languages = params[:language] ? [params[:language]] : Current.account.languages
+    @tv_languages = languages.select { |code| Current.account.offers_language?(code) }.first(3)
+    return redirect_to tv_path if @tv_languages.empty?
+
+    @language = @tv_languages.first
+  end
+
   def show
     @language = params[:language]
     @language_info = Language.info(@language)

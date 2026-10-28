@@ -65,6 +65,8 @@ en:
         a: No. They scan the QR code and read along in the browser. It works on any smartphone.
       - q: What do we need in the mosque?
         a: A phone, tablet or laptop with internet near the imam. A clip-on microphone improves quality but is not required.
+      - q: Can we show the translation on a TV?
+        a: Yes. Open your-dzemat.hutba.app/tv on a smart TV, through Chromecast or on a laptop connected over HDMI. The text is large enough for the whole hall, and a QR code invites people to read along on their phones.
       - q: How accurate is the translation?
         a: The translation is very readable, but it is machine translation. Qur'anic verses and fixed terms are usually recognised correctly; occasional mistakes happen.
       - q: What happens after 60 days?
@@ -74,3 +76,10 @@ en:
       imprint: Legal notice
       privacy: Privacy
       contact: Contact
+    screen:
+      title: On the screen in the mosque, too
+      text: Show the translation in large letters on a TV or projector – at the front of the prayer hall, in the women's section or in the entrance. Everyone can read along, even without a phone.
+      points:
+      - Any TV with a browser, Chromecast or a laptop over HDMI
+      - Up to three languages side by side
+      - With a QR code to read along on your phone

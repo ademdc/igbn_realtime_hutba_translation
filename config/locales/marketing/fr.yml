@@ -65,6 +65,8 @@ fr:
         a: Non. Ils scannent le QR code et lisent dans le navigateur. Cela fonctionne sur tous les smartphones.
       - q: De quoi avons-nous besoin à la mosquée ?
         a: Un téléphone, une tablette ou un ordinateur connecté à internet près de l'imam. Un micro-cravate améliore la qualité, mais n'est pas obligatoire.
+      - q: Peut-on afficher la traduction sur une télévision ?
+        a: Oui. Ouvrez votre-mosquee.hutba.app/tv sur une smart TV, via Chromecast ou sur un ordinateur relié en HDMI. Le texte est assez grand pour toute la salle, et un QR code invite à suivre sur le téléphone.
       - q: La traduction est-elle précise ?
         a: La traduction est très compréhensible, mais automatique. Les versets du Coran et les termes courants sont généralement bien reconnus ; des erreurs ponctuelles sont possibles.
       - q: Que se passe-t-il après 60 jours ?
@@ -74,3 +76,10 @@ fr:
       imprint: Mentions légales
       privacy: Confidentialité
       contact: Contact
+    screen:
+      title: Aussi sur l'écran de la mosquée
+      text: Affichez la traduction en grand sur une télévision ou un projecteur – devant la salle de prière, dans l'espace des femmes ou à l'entrée. Tout le monde peut suivre, même sans téléphone.
+      points:
+      - N'importe quelle TV avec navigateur, Chromecast ou un ordinateur en HDMI
+      - Jusqu'à trois langues côte à côte
+      - Avec un QR code pour suivre sur le téléphone

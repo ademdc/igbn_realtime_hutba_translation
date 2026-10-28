@@ -114,6 +114,12 @@ tr:
         name: Caminin adı
         save: Kaydet
         address: 'Adresiniz: %{host}'
+      tv:
+        title: Camideki ekran
+        open_all: TV görünümünü aç
+        lead: 'Tercümeyi TV veya projeksiyonda büyük harflerle gösterin. Bu adreslerden birini TV''nin tarayıcısında açın:'
+        all_languages: tüm diller yan yana (en fazla 3)
+        how: 'İpucu: akıllı TV tarayıcısı, Chromecast (sekme yansıtma) veya HDMI ile dizüstü bilgisayar. Bir kez „Fullscreen“a dokunun, ekran açık kalır.'
     users:
       title: Ekip
       lead: İmamları ve yönetim üyelerini davet edin. Herkes kendi e-postasıyla giriş yapar.

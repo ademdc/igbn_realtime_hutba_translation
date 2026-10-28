@@ -114,6 +114,12 @@ bs:
         name: Naziv džemata
         save: Sačuvaj
         address: 'Vaša adresa: %{host}'
+      tv:
+        title: Ekran u džamiji
+        open_all: Otvori TV prikaz
+        lead: 'Prikažite prevod velikim slovima na televizoru ili projektoru. Otvorite jednu od ovih adresa u pregledniku televizora:'
+        all_languages: svi jezici jedan pored drugog (do 3)
+        how: 'Savjet: preglednik na pametnom TV-u, Chromecast (prenesi tab) ili laptop preko HDMI. Jednom dodirnite „Fullscreen“ i ekran ostaje upaljen.'
     users:
       title: Tim
       lead: Pozovite imame i članove uprave. Svako se prijavljuje svojim e-mailom.

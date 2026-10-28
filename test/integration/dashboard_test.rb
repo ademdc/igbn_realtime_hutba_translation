@@ -11,6 +11,7 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "[role=meter][aria-valuemax='180']"
     assert_select ".qr-item", accounts(:demo).languages.size
+    assert_select "#tv a[href='http://demo.localhost/tv/nl']"
   end
 
   test "owner changes languages within the limit" do

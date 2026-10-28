@@ -44,6 +44,7 @@ Run the tests with `bin/rails test`.
 | Variable | Required | Purpose |
 |---|---|---|
 | `SONIOX_API_KEY` | yes | Speech recognition and translation |
+| `SONIOX_MODEL` | optional | Real-time model, default `stt-rt-v5` (see soniox.com/docs/stt/models) |
 | `APP_DOMAIN` | production | Apex domain, e.g. `hutba.app` (default `localhost`) |
 | `DEFAULT_ACCOUNT_SUBDOMAIN` | optional | Hosts that are neither `APP_DOMAIN` nor a custom domain go to this account. Set it to `igbd-nuernberg` so `hutba.dzamija.net`, `dzuma.dzamija.net` and `hutba.igbd-nuernberg.de` keep working. |
 | `SPEAKER_PIN` | migration only | Copied (hashed) into the `igbd-nuernberg` account by the multi-tenancy migration. After that, PINs are set per mosque in the dashboard. |

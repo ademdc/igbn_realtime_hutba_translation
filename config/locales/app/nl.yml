@@ -114,6 +114,12 @@ nl:
         name: Naam van de moskee
         save: Opslaan
         address: 'Uw adres: %{host}'
+      tv:
+        title: Scherm in de moskee
+        open_all: Tv-weergave openen
+        lead: 'Toon de vertaling groot op een tv of beamer. Open een van deze adressen in de browser van de tv:'
+        all_languages: alle talen naast elkaar (tot 3)
+        how: 'Tip: browser van de smart-tv, Chromecast (tabblad casten) of een laptop via HDMI. Tik één keer op „Fullscreen” en het scherm blijft aan.'
     users:
       title: Team
       lead: Nodig imams en bestuursleden uit. Iedereen logt in met een eigen e-mailadres.

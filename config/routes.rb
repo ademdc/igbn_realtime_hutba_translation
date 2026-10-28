@@ -77,6 +77,11 @@ Rails.application.routes.draw do
   # Listener language selection
   get "listener", to: "listener#index", as: :listener
 
+  # Big-screen view for a TV or projector in the mosque: /tv (all languages) or /tv/de
+  get "tv", to: "listener#tv", as: :tv
+  get "tv/:language", to: "listener#tv", as: :tv_language,
+    constraints: { language: Regexp.union(Language::CODES) }
+
   # Language-specific listener pages, e.g. /de, /en
   get ":language", to: "listener#show", as: :listener_language,
     constraints: { language: Regexp.union(Language::CODES) }

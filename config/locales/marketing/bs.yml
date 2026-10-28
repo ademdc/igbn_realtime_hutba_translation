@@ -65,6 +65,8 @@ bs:
         a: Ne. Skeniraju QR kod i čitaju u pregledniku. Radi na svakom pametnom telefonu.
       - q: Šta nam treba u džamiji?
         a: Mobitel, tablet ili laptop s internetom u blizini imama. Mikrofon na kopču poboljšava kvalitet, ali nije obavezan.
+      - q: Možemo li prevod prikazati na televizoru?
+        a: Da. Otvorite vas-dzemat.hutba.app/tv na pametnom televizoru, preko Chromecasta ili na laptopu povezanom HDMI kablom. Slova su dovoljno velika za cijelu džamiju, a QR kod poziva da se prati i na mobitelu.
       - q: Koliko je prevod tačan?
         a: Prevod je vrlo razumljiv, ali je mašinski. Ajeti i ustaljeni izrazi se uglavnom tačno prepoznaju; pojedinačne greške su moguće.
       - q: Šta se dešava nakon 60 dana?
@@ -74,3 +76,10 @@ bs:
       imprint: Impressum
       privacy: Privatnost
       contact: Kontakt
+    screen:
+      title: I na ekranu u džamiji
+      text: Prikažite prevod velikim slovima na televizoru ili projektoru – ispred u džamiji, u ženskom dijelu ili u predvorju. Tako svi mogu čitati, i bez mobitela.
+      points:
+      - Bilo koji TV s preglednikom, Chromecast ili laptop preko HDMI
+      - Do tri jezika jedan pored drugog
+      - S QR kodom za čitanje na mobitelu
