@@ -1,0 +1,107 @@
+<% content_for :title, @account.name %>
+
+<p><%= link_to "All accounts", admin_accounts_path %></p>
+<div class="section-head" style="margin-top: 0.75rem;">
+  <h1 class="page-title"><%= @account.name %></h1>
+  <%= button_to "Open dashboard as owner", impersonate_admin_account_path(@account), class: "button button--quiet", form: { target: "_blank" } %>
+</div>
+<p><%= render "admin/shared/status", account: @account %> <%= link_to @account.host, @account.url("/listener"), target: "_blank", rel: "noopener" %></p>
+
+<div class="kpis">
+  <section class="panel kpi">
+    <h2 class="kpi__label">This week</h2>
+    <p class="kpi__value"><%= @week_minutes %> min</p>
+    <p class="kpi__note">of <%= @account.weekly_minutes_limit %> min limit</p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">Broadcasts</h2>
+    <p class="kpi__value"><%= @total_sessions %></p>
+    <p class="kpi__note">all time</p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">Listener connections</h2>
+    <p class="kpi__value"><%= @total_listeners %></p>
+    <p class="kpi__note"><%= @listeners_by_language.map { |lang, count| "#{lang.upcase} #{count}" }.join(" · ").presence || "none yet" %></p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">Price</h2>
+    <p class="kpi__value"><%= number_to_currency(@account.monthly_price_cents / 100.0, unit: "€", format: "%u%n", precision: 0) %>/mo</p>
+    <p class="kpi__note"><%= pluralize(@account.extra_languages, "extra language") %></p>
+  </section>
+</div>
+
+<div class="two-col" style="margin-top: 1.5rem;">
+  <section class="panel">
+    <h2 class="panel__title">Details</h2>
+    <dl class="definition-list">
+      <dt>Address</dt><dd><%= @account.host %></dd>
+      <dt>Location</dt><dd><%= [@account.city, Account::COUNTRY_NAMES[@account.country]].compact_blank.join(", ").presence || "—" %></dd>
+      <dt>Languages</dt><dd><%= @account.languages.map { |code| Language.info(code)[:name] }.join(", ") %></dd>
+      <dt>Speaker PIN</dt><dd><%= @account.speaker_pin_digest? ? "Set" : "Not set" %></dd>
+      <dt>Trial ends</dt><dd><%= @account.trial_ends_at ? l(@account.trial_ends_at.to_date, format: :long) : "—" %></dd>
+      <dt>Signed up</dt><dd><%= l(@account.created_at, format: :long) %></dd>
+    </dl>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">Team</h2>
+    <table class="table">
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %><br><span class="muted"><%= mail_to user.email %></span></td>
+            <td><span class="tag"><%= user.role %></span></td>
+            <td class="num muted"><%= user.last_login_at ? "last login #{time_ago_in_words(user.last_login_at)} ago" : "never logged in" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<div class="two-col" style="margin-top: 1.5rem;">
+  <section class="panel">
+    <h2 class="panel__title">Plan</h2>
+    <%= form_with model: @account, url: admin_account_path(@account), method: :patch, class: "action-row" do |form| %>
+      <div class="field">
+        <%= form.label :status, "Status" %>
+        <%= form.select :status, Account::STATUSES.map { |status| [status.humanize, status] } %>
+      </div>
+      <div class="field">
+        <%= form.label :extra_languages, "Extra languages" %>
+        <%= form.number_field :extra_languages, min: 0, max: 20 %>
+      </div>
+      <div class="field">
+        <%= form.label :weekly_minutes_limit, "Minutes / week" %>
+        <%= form.number_field :weekly_minutes_limit, min: 0, step: 30 %>
+      </div>
+      <%= form.submit "Save", class: "button" %>
+    <% end %>
+
+    <%= form_with url: extend_trial_admin_account_path(@account), class: "action-row", style: "margin-top: 1.5rem;" do |form| %>
+      <div class="field">
+        <%= form.label :days, "Extend trial (days)" %>
+        <%= form.number_field :days, value: 30, min: 1, max: 365 %>
+      </div>
+      <%= form.submit "Extend trial", class: "button button--quiet" %>
+    <% end %>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title">Recent broadcasts</h2>
+    <% if @sessions.any? %>
+      <table class="table">
+        <tbody>
+          <% @sessions.each do |session| %>
+            <tr>
+              <td><%= l(session.started_at, format: :short) %></td>
+              <td class="num"><%= session.duration_formatted %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="muted">No broadcasts yet.</p>
+    <% end %>
+  </section>
+</div>

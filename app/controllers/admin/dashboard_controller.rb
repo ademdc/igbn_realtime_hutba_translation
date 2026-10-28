@@ -1,23 +1,28 @@
 module Admin
   class DashboardController < BaseController
     def index
-      # Live stats
-      @active_speakers = SpeakerSession.active.count
+      @accounts_total = Account.count
+      @accounts_trialing = Account.trialing.count
+      @accounts_paying = Account.paying.count
+      @accounts_expired = Account.trial_expired.count
+      @accounts_suspended = Account.suspended.count
+      @mrr_cents = Account.paying.sum { |account| account.monthly_price_cents }
+      decided = @accounts_paying + @accounts_expired
+      @conversion = decided.zero? ? nil : (@accounts_paying * 100.0 / decided).round
+      @signups_30_days = Account.where(created_at: 30.days.ago..).count
+
+      # Live
+      @active_speakers = SpeakerSession.active.includes(:account).to_a
       @active_listeners = ListenerConnection.active.count
       @active_listeners_by_language = ListenerConnection.active_by_language
 
-      # Today's stats
-      @today_sessions = SpeakerSession.today.count
-      @today_listeners = ListenerConnection.today.count
-      @today_speaking_time = SpeakerSession.today.completed.sum(:duration_seconds)
-
-      # This week's stats
+      # This week
       @week_sessions = SpeakerSession.this_week.count
       @week_listeners = ListenerConnection.this_week.count
+      @week_minutes = SpeakerSession.this_week.completed.sum(:duration_seconds) / 60
 
-      # Recent activity
-      @recent_speaker_sessions = SpeakerSession.includes(:account).recent.limit(10)
-      @recent_listener_connections = ListenerConnection.includes(:account).recent.limit(20)
+      @recent_accounts = Account.order(created_at: :desc).limit(8)
+      @trials_ending = Account.trialing.where(trial_ends_at: ..14.days.from_now).order(:trial_ends_at).limit(8)
     end
 
     def reset_speakers

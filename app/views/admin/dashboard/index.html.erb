@@ -1,162 +1,124 @@
-<header class="admin-header">
-  <h1>IGBD Translations Admin</h1>
-  <%= button_to "Logout", admin_logout_path, method: :delete, class: "btn btn-logout" %>
-</header>
+<% content_for :title, "Overview" %>
 
-<div class="admin-container">
-  <% if flash[:notice] %>
-    <div class="status status-info" style="margin-bottom: 20px;">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
+<h1 class="page-title">Overview</h1>
 
-  <!-- Live Stats -->
-  <div class="admin-panel">
-    <div class="panel-header-row">
-      <h2>Live Statistics</h2>
-      <div class="reset-buttons">
-        <% if @active_speakers > 0 || @active_listeners > 0 %>
-          <%= button_to "Reset All", admin_reset_all_path, method: :post, class: "btn-reset", data: { confirm: "Reset all active speakers and listeners?" } %>
-        <% end %>
-      </div>
+<div class="kpis">
+  <section class="panel kpi">
+    <h2 class="kpi__label">Monthly recurring revenue</h2>
+    <p class="kpi__value"><%= number_to_currency(@mrr_cents / 100.0, unit: "€", format: "%u%n", precision: 0) %></p>
+    <p class="kpi__note"><%= number_to_currency(@mrr_cents * 12 / 100.0, unit: "€", format: "%u%n", precision: 0) %> per year</p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">Paying mosques</h2>
+    <p class="kpi__value"><%= @accounts_paying %></p>
+    <p class="kpi__note"><%= @conversion ? "#{@conversion}% of finished trials converted" : "No finished trials yet" %></p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">In trial</h2>
+    <p class="kpi__value"><%= @accounts_trialing %></p>
+    <p class="kpi__note"><%= @accounts_expired %> expired, unpaid</p>
+  </section>
+  <section class="panel kpi">
+    <h2 class="kpi__label">Signups, last 30 days</h2>
+    <p class="kpi__value"><%= @signups_30_days %></p>
+    <p class="kpi__note"><%= @accounts_total %> accounts in total</p>
+  </section>
+</div>
+
+<div class="section-head">
+  <h2>Live now</h2>
+  <%= button_to "Reset all live sessions", admin_reset_all_path, method: :post, class: "link-button",
+        form: { onsubmit: "return confirm('Mark all active speakers and listeners as ended?')" } %>
+</div>
+<div class="two-col">
+  <section class="panel">
+    <h3 class="panel__title">Broadcasts (<%= @active_speakers.size %>)</h3>
+    <% if @active_speakers.any? %>
+      <table class="table">
+        <tbody>
+          <% @active_speakers.each do |session| %>
+            <tr>
+              <td><span class="live-dot" aria-hidden="true"></span><%= link_to session.account.name, admin_account_path(session.account) %></td>
+              <td class="num"><%= distance_of_time_in_words(session.started_at, Time.current) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="muted">Nobody is broadcasting right now.</p>
+    <% end %>
+  </section>
+  <section class="panel">
+    <h3 class="panel__title">Listeners (<%= @active_listeners %>)</h3>
+    <% if @active_listeners_by_language.any? %>
+      <table class="table">
+        <tbody>
+          <% @active_listeners_by_language.sort_by { |_, count| -count }.each do |language, count| %>
+            <tr>
+              <td><%= Language.info(language)&.dig(:flag) %> <%= Language.info(language)&.dig(:name) || language %></td>
+              <td class="num"><%= count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="muted">No listeners connected.</p>
+    <% end %>
+  </section>
+</div>
+
+<div class="section-head">
+  <h2>This week</h2>
+</div>
+<div class="kpis">
+  <section class="panel kpi">
+    <h3 class="kpi__label">Broadcasts</h3>
+    <p class="kpi__value"><%= @week_sessions %></p>
+  </section>
+  <section class="panel kpi">
+    <h3 class="kpi__label">Minutes broadcast</h3>
+    <p class="kpi__value"><%= @week_minutes %></p>
+  </section>
+  <section class="panel kpi">
+    <h3 class="kpi__label">Listener connections</h3>
+    <p class="kpi__value"><%= @week_listeners %></p>
+  </section>
+</div>
+
+<div class="two-col">
+  <section>
+    <div class="section-head"><h2>Newest accounts</h2><%= link_to "All accounts", admin_accounts_path %></div>
+    <div class="panel">
+      <table class="table">
+        <tbody>
+          <% @recent_accounts.each do |account| %>
+            <tr>
+              <td><%= link_to account.name, admin_account_path(account) %><br><span class="muted"><%= [account.city, account.country].compact_blank.join(", ") %></span></td>
+              <td><%= render "admin/shared/status", account: account %></td>
+              <td class="num muted"><%= l(account.created_at.to_date, format: :short) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-    <div class="stats-grid">
-      <div class="stat-card live">
-        <div class="stat-value"><%= @active_speakers %></div>
-        <div class="stat-label">Active Speakers</div>
-        <% if @active_speakers > 0 %>
-          <%= button_to "Reset", admin_reset_speakers_path, method: :post, class: "btn-reset-small", data: { confirm: "Reset all active speakers?" } %>
-        <% end %>
-      </div>
-      <div class="stat-card live">
-        <div class="stat-value"><%= @active_listeners %></div>
-        <div class="stat-label">Active Listeners</div>
-        <% if @active_listeners_by_language.any? %>
-          <div class="language-breakdown">
-            <% @active_listeners_by_language.each do |language, count| %>
-              <div class="language-item">
-                <span><%= Language.info(language)&.dig(:name) || language %></span>
-                <span class="count"><%= count %></span>
-              </div>
+  </section>
+  <section>
+    <div class="section-head"><h2>Trials ending in 14 days</h2></div>
+    <div class="panel">
+      <% if @trials_ending.any? %>
+        <table class="table">
+          <tbody>
+            <% @trials_ending.each do |account| %>
+              <tr>
+                <td><%= link_to account.name, admin_account_path(account) %></td>
+                <td class="num"><%= pluralize(account.trial_days_left, "day") %> left</td>
+              </tr>
             <% end %>
-          </div>
-        <% end %>
-        <% if @active_listeners > 0 %>
-          <%= button_to "Reset", admin_reset_listeners_path, method: :post, class: "btn-reset-small", data: { confirm: "Reset all active listeners?" } %>
-        <% end %>
-      </div>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="muted">No trials ending soon.</p>
+      <% end %>
     </div>
-  </div>
-
-  <!-- Today's Stats -->
-  <div class="admin-panel">
-    <h2>Today's Statistics</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-value"><%= @today_sessions %></div>
-        <div class="stat-label">Speaker Sessions</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value"><%= @today_listeners %></div>
-        <div class="stat-label">Listener Connections</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value"><%= @today_speaking_time / 60 %></div>
-        <div class="stat-label">Minutes Speaking</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- This Week's Stats -->
-  <div class="admin-panel">
-    <h2>This Week's Statistics</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-value"><%= @week_sessions %></div>
-        <div class="stat-label">Speaker Sessions</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value"><%= @week_listeners %></div>
-        <div class="stat-label">Listener Connections</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Recent Speaker Sessions -->
-  <div class="admin-panel">
-    <h2>Recent Speaker Sessions</h2>
-    <% if @recent_speaker_sessions.any? %>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Mosque</th>
-            <th>Session ID</th>
-            <th>Started</th>
-            <th>Duration</th>
-            <th>Words</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @recent_speaker_sessions.each do |session| %>
-            <tr>
-              <td><%= session.account.subdomain %></td>
-              <td><%= session.session_id.truncate(20) %></td>
-              <td><%= session.started_at.strftime("%b %d, %H:%M") %></td>
-              <td><%= session.duration_formatted %></td>
-              <td><%= session.word_count %></td>
-              <td>
-                <% if session.ended_at.nil? %>
-                  <span class="badge badge-active">Active</span>
-                <% else %>
-                  <span class="badge badge-completed">Completed</span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <div class="no-data">No speaker sessions recorded yet</div>
-    <% end %>
-  </div>
-
-  <!-- Recent Listener Connections -->
-  <div class="admin-panel">
-    <h2>Recent Listener Connections</h2>
-    <% if @recent_listener_connections.any? %>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Mosque</th>
-            <th>Session ID</th>
-            <th>Language</th>
-            <th>Connected</th>
-            <th>Duration</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @recent_listener_connections.each do |connection| %>
-            <tr>
-              <td><%= connection.account.subdomain %></td>
-              <td><%= connection.session_id.truncate(20) %></td>
-              <td><span class="badge badge-language"><%= connection.language %></span></td>
-              <td><%= connection.connected_at.strftime("%b %d, %H:%M") %></td>
-              <td><%= connection.duration_formatted %></td>
-              <td>
-                <% if connection.disconnected_at.nil? %>
-                  <span class="badge badge-active">Active</span>
-                <% else %>
-                  <span class="badge badge-completed">Completed</span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <div class="no-data">No listener connections recorded yet</div>
-    <% end %>
-  </div>
+  </section>
 </div>

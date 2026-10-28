@@ -9,7 +9,7 @@ class SignupsController < MarketingController
     if @signup.save
       AccountMailer.with(user: @signup.user).welcome.deliver_later
       # Session cookies are per host, so hand over to the new subdomain with a short-lived token
-      redirect_to @signup.account.url("/session/#{@signup.user.generate_token_for(:handover)}"), allow_other_host: true
+      redirect_to @signup.account.url("/session/#{@signup.user.generate_token_for(:handover)}?welcome=1"), allow_other_host: true
     else
       render :new, status: :unprocessable_entity
     end

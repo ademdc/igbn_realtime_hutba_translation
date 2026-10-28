@@ -3,6 +3,8 @@ class Account < ApplicationRecord
   STATUSES = %w[trialing active suspended].freeze
   TRIAL_LENGTH = 60.days
   INCLUDED_LANGUAGES = 3
+  BASE_PRICE_CENTS = 2000            # per month, billed yearly
+  EXTRA_LANGUAGE_PRICE_CENTS = 500   # per extra language per month
   # Endonyms, so the list reads the same in every UI language
   COUNTRY_NAMES = {
     "DE" => "Deutschland", "AT" => "Österreich", "CH" => "Schweiz", "NL" => "Nederland",
@@ -36,6 +38,26 @@ class Account < ApplicationRecord
   validate :languages_within_limit
 
   before_validation :set_trial_end, on: :create
+
+  scope :trialing, -> { where(status: "trialing").where("trial_ends_at IS NULL OR trial_ends_at >= ?", Time.current) }
+  scope :trial_expired, -> { where(status: "trialing").where("trial_ends_at < ?", Time.current) }
+  scope :paying, -> { where(status: "active") }
+  scope :suspended, -> { where(status: "suspended") }
+
+  def self.search(query)
+    return all if query.blank?
+    pattern = "%#{sanitize_sql_like(query.strip)}%"
+    where("accounts.name ILIKE :q OR accounts.subdomain ILIKE :q OR accounts.city ILIKE :q", q: pattern)
+  end
+
+  def monthly_price_cents
+    BASE_PRICE_CENTS + extra_languages * EXTRA_LANGUAGE_PRICE_CENTS
+  end
+
+  # Status as shown to admins, with expired trials split out
+  def display_status
+    trial_expired? ? "trial_expired" : status
+  end
 
   # Resolves the tenant for a request host:
   #   1. an exact custom domain (e.g. hutba.igbd-nuernberg.de)

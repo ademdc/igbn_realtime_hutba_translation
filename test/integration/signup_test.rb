@@ -31,7 +31,7 @@ class SignupTest < ActionDispatch::IntegrationTest
 
     # Handover signs in on the subdomain
     host! "dzemat-stuttgart.localhost"
-    get URI(response.location).path
+    get URI(response.location).request_uri
     assert_redirected_to "http://dzemat-stuttgart.localhost/dashboard?welcome=1"
     follow_redirect!
     assert_response :success

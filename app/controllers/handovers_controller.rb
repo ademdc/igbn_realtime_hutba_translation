@@ -9,7 +9,7 @@ class HandoversController < ApplicationController
     if user && user.account_id == Current.account.id
       session[:locale] = user.locale
       sign_in(user)
-      redirect_to dashboard_path(welcome: 1)
+      redirect_to dashboard_path(welcome: params[:welcome].presence)
     else
       redirect_to login_path
     end

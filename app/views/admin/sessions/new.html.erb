@@ -1,45 +1,17 @@
-<div class="admin-login-container">
-  <div class="admin-login-panel">
-    <h1>Admin Login</h1>
-    <p class="subtitle" style="color: #8b8fa3; text-align: center; margin-bottom: 30px;">
-      Enter your admin credentials to access the dashboard
-    </p>
+<% content_for :title, "Log in" %>
 
-    <% if flash.now[:alert] || flash[:alert] %>
-      <div class="status status-error" style="animation: shake 0.5s;">
-        <strong><%= flash.now[:alert] || flash[:alert] %></strong>
-      </div>
-    <% end %>
+<div class="auth">
+  <h1 class="page-title">Admin login</h1>
 
-    <% if flash[:notice] %>
-      <div class="status status-info">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-
-    <%= form_with url: admin_login_path, method: :post, class: "pin-form" do |form| %>
-      <div class="form-group">
-        <%= form.label :email, "Email", class: "form-label" %>
-        <%= form.email_field :email,
-            placeholder: "Enter email",
-            autocomplete: "username",
-            autofocus: true,
-            class: "form-input",
-            required: true %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :password, "Password", class: "form-label" %>
-        <%= form.password_field :password,
-            placeholder: "Enter password",
-            autocomplete: "current-password",
-            class: "form-input",
-            required: true %>
-      </div>
-
-      <div class="form-actions">
-        <%= form.submit "Login", class: "btn btn-primary btn-large" %>
-      </div>
-    <% end %>
-  </div>
+  <%= form_with url: admin_login_path, method: :post, class: "auth__form" do |form| %>
+    <div class="field">
+      <%= form.label :email, "Email" %>
+      <%= form.email_field :email, autocomplete: "username", autofocus: true, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :password, "Password" %>
+      <%= form.password_field :password, autocomplete: "current-password", required: true %>
+    </div>
+    <%= form.submit "Log in", class: "button button--block" %>
+  <% end %>
 </div>
