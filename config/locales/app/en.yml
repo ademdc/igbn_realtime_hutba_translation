@@ -114,6 +114,7 @@ en:
         name: Mosque name
         save: Save
         address: 'Your address: %{host}'
+        custom_domain_html: Want your own domain like hutba.your-mosque.com? Write to us at %{email}.
       tv:
         title: Screen in the mosque
         open_all: Open TV view

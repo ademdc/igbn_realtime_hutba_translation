@@ -53,6 +53,7 @@ de:
       - Unbegrenzt viele Zuhörer
       - Eigene Adresse, z. B. ihr-dzemat.hutba.app
       - QR-Code-Plakate zum Ausdrucken
+      - Auf Wunsch unter Ihrer eigenen Domain, z. B. hutba.ihre-moschee.de
       addon: 'Weitere Sprache: +5 € pro Monat'
       cta: 60 Tage kostenlos testen
       note: Nach dem Test entscheiden Sie. Keine automatische Verlängerung ohne Zahlung.
@@ -69,6 +70,8 @@ de:
         a: Ja. Öffnen Sie ihr-dzemat.hutba.app/tv auf einem Smart-TV, über Chromecast oder an einem Laptop mit HDMI. Die Schrift ist groß genug für den ganzen Raum, und ein QR-Code lädt zum Mitlesen auf dem Handy ein.
       - q: Wie genau ist die Übersetzung?
         a: Die Übersetzung ist sehr gut verständlich, aber maschinell. Koranverse und feste Begriffe werden meist korrekt erkannt; einzelne Fehler kommen vor.
+      - q: Können wir unsere eigene Domain verwenden?
+        a: Ja. Statt ihr-dzemat.hutba.app können Zuhörer z. B. hutba.ihre-moschee.de öffnen. Sie legen bei Ihrem Domain-Anbieter einen CNAME-Eintrag an, wir kümmern uns um das Sicherheitszertifikat. Schreiben Sie uns einfach.
       - q: Was passiert nach den 60 Tagen?
         a: Sie erhalten rechtzeitig eine Erinnerung. Zahlen Sie, läuft alles weiter. Zahlen Sie nicht, wird die Übertragung pausiert – sonst passiert nichts.
     footer:

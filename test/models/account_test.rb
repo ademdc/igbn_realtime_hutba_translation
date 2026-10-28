@@ -35,6 +35,24 @@ class AccountTest < ActiveSupport::TestCase
     assert account.valid?, account.errors.full_messages.to_sentence
   end
 
+  test "custom domains must be real domains outside the app domain" do
+    account = accounts(:demo)
+    account.custom_domain = "hutba.mosque-website.com"
+    assert account.valid?, account.errors.full_messages.to_sentence
+    assert_equal "hutba.mosque-website.com", account.host
+
+    account.custom_domain = "not a domain"
+    assert_not account.valid?
+
+    account.custom_domain = "evil.localhost"
+    assert_not account.valid?
+  end
+
+  test "knows which custom domains belong to mosques" do
+    assert Account.custom_domain?("HUTBA.igbd-nuernberg.de")
+    assert_not Account.custom_domain?("example.com")
+  end
+
   test "rejects unsupported languages" do
     account = Account.new(name: "X", subdomain: "xyz", languages: ["de", "german"])
     assert_not account.valid?

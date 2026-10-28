@@ -53,6 +53,7 @@ fr:
       - Nombre d'auditeurs illimité
       - Votre propre adresse, p. ex. votre-mosquee.hutba.app
       - Affiches QR code à imprimer
+      - Sur demande sous votre propre domaine, p. ex. hutba.votre-mosquee.fr
       addon: 'Langue supplémentaire : +5 € par mois'
       cta: Essayer gratuitement 60 jours
       note: Vous décidez après l'essai. Rien n'est renouvelé sans paiement.
@@ -69,6 +70,8 @@ fr:
         a: Oui. Ouvrez votre-mosquee.hutba.app/tv sur une smart TV, via Chromecast ou sur un ordinateur relié en HDMI. Le texte est assez grand pour toute la salle, et un QR code invite à suivre sur le téléphone.
       - q: La traduction est-elle précise ?
         a: La traduction est très compréhensible, mais automatique. Les versets du Coran et les termes courants sont généralement bien reconnus ; des erreurs ponctuelles sont possibles.
+      - q: Pouvons-nous utiliser notre propre domaine ?
+        a: Oui. Au lieu de votre-mosquee.hutba.app, les fidèles peuvent ouvrir p. ex. hutba.votre-mosquee.fr. Vous ajoutez un enregistrement CNAME chez votre fournisseur de domaine, nous nous occupons du certificat de sécurité. Écrivez-nous simplement.
       - q: Que se passe-t-il après 60 jours ?
         a: Vous recevez un rappel à temps. Si vous payez, tout continue. Sinon, la diffusion est mise en pause – rien de plus.
     footer:

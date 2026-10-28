@@ -114,6 +114,7 @@ bs:
         name: Naziv džemata
         save: Sačuvaj
         address: 'Vaša adresa: %{host}'
+        custom_domain_html: Želite vlastitu domenu poput hutba.vasa-dzamija.com? Pišite nam na %{email}.
       tv:
         title: Ekran u džamiji
         open_all: Otvori TV prikaz

@@ -30,7 +30,9 @@ class Account < ApplicationRecord
   validates :subdomain, presence: true, uniqueness: true, length: { in: 3..63 },
     format: { with: /\A[a-z0-9]([a-z0-9-]*[a-z0-9])?\z/, message: "may only contain lowercase letters, numbers and hyphens" },
     exclusion: { in: RESERVED_SUBDOMAINS, message: "is reserved" }
-  validates :custom_domain, uniqueness: true, allow_nil: true
+  validates :custom_domain, uniqueness: true, allow_nil: true,
+    format: { with: /\A(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+\z/, message: "must be a domain like hutba.example.com" }
+  validate :custom_domain_outside_app_domain
   validates :status, inclusion: { in: STATUSES }
   validates :languages, presence: true
   validates :source_language, inclusion: { in: Language::SOURCES.keys }
@@ -80,6 +82,11 @@ class Account < ApplicationRecord
 
   def host
     custom_domain || "#{subdomain}.#{AppDomain.host}"
+  end
+
+  # Custom domains are added per mosque, so they can't be in the static host list
+  def self.custom_domain?(host)
+    host.present? && where(custom_domain: host.to_s.downcase).exists?
   end
 
   def url(path = "/")
@@ -166,6 +173,13 @@ class Account < ApplicationRecord
 
   def set_trial_end
     self.trial_ends_at ||= TRIAL_LENGTH.from_now if status == "trialing"
+  end
+
+  def custom_domain_outside_app_domain
+    return if custom_domain.blank?
+    if AppDomain.marketing_host?(custom_domain) || custom_domain.end_with?(".#{AppDomain.host}")
+      errors.add(:custom_domain, "can't be on #{AppDomain.host}; use the subdomain instead")
+    end
   end
 
   def languages_within_limit

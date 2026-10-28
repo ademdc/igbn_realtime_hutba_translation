@@ -114,6 +114,7 @@ nl:
         name: Naam van de moskee
         save: Opslaan
         address: 'Uw adres: %{host}'
+        custom_domain_html: Eigen domein zoals hutba.uw-moskee.nl? Mail ons op %{email}.
       tv:
         title: Scherm in de moskee
         open_all: Tv-weergave openen

@@ -68,7 +68,8 @@ bin/rails admin:create EMAIL=you@example.com NAME="Your Name"   # prompts for th
    - Callback URL: `https://APP_DOMAIN/monri/callback`
    - Test with `MONRI_ENV` unset and Monri's test cards first.
 3. **Daily reminders:** schedule `bin/rails billing:reminders` once a day. It sends trial-ending emails at 14, 3 and 0 days, and renewal emails at 30, 7 and 0 days. On Fly, use a scheduled machine, e.g. `fly machine run . --schedule daily --command "bin/rails billing:reminders"`.
-4. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
+4. **Custom domains** (e.g. `hutba.mosque-website.com`): the mosque adds a CNAME record for that name pointing to `APP_DOMAIN`. Enter the domain on the account page in `/admin`, then run `fly certs add hutba.mosque-website.com`. Requests to a domain only pass the host check once an account uses it.
+5. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
 
 ## How streaming works
 

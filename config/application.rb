@@ -22,6 +22,11 @@ module IgbdTranslationsApp
       config.hosts << /\A([a-z0-9-]+\.)?#{Regexp.escape(ENV["APP_DOMAIN"])}\z/
     end
 
+    # Mosques' own domains (e.g. hutba.mosque-website.com) are allowed if an account uses them
+    config.host_authorization = {
+      exclude: ->(request) { request.path == "/up" || Account.custom_domain?(request.host) }
+    }
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.

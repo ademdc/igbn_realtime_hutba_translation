@@ -74,4 +74,15 @@ class TenancyTest < ActionDispatch::IntegrationTest
     get "/tv/de"
     assert_redirected_to "http://demo.localhost/tv"
   end
+
+  test "mosque is served on its own domain" do
+    host! "hutba.igbd-nuernberg.de"
+    get "/de"
+    assert_response :success
+    assert_select "#translationFeed[data-language=de]"
+  end
+
+  test "session cookie is named after the product" do
+    assert_equal "_hutba_session", Rails.application.config.session_options[:key]
+  end
 end

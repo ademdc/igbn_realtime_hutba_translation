@@ -114,6 +114,7 @@ fr:
         name: Nom de la mosquée
         save: Enregistrer
         address: 'Votre adresse : %{host}'
+        custom_domain_html: Vous souhaitez votre propre domaine comme hutba.votre-mosquee.fr ? Écrivez-nous à %{email}.
       tv:
         title: Écran dans la mosquée
         open_all: Ouvrir la vue TV

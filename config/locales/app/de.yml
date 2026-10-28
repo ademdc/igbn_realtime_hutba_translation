@@ -114,6 +114,7 @@ de:
         name: Name der Gemeinde
         save: Speichern
         address: 'Ihre Adresse: %{host}'
+        custom_domain_html: Eigene Domain wie hutba.ihre-moschee.de gewünscht? Schreiben Sie uns an %{email}.
       tv:
         title: Bildschirm in der Moschee
         open_all: TV-Ansicht öffnen

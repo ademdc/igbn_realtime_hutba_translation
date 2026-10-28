@@ -114,6 +114,7 @@ tr:
         name: Caminin adı
         save: Kaydet
         address: 'Adresiniz: %{host}'
+        custom_domain_html: hutba.camiiniz.com gibi kendi alan adınızı mı istiyorsunuz? %{email} adresine yazın.
       tv:
         title: Camideki ekran
         open_all: TV görünümünü aç

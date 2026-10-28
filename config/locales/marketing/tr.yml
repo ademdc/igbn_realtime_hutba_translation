@@ -53,6 +53,7 @@ tr:
       - Sınırsız dinleyici
       - Size özel adres, ör. camiiniz.hutba.app
       - Yazdırılabilir QR kod afişleri
+      - İsterseniz kendi alan adınızla, ör. hutba.camiiniz.com
       addon: 'Ek dil: ayda +5 €'
       cta: 60 gün ücretsiz deneyin
       note: Deneme süresinden sonra siz karar verirsiniz. Ödeme yapılmadan hiçbir şey uzatılmaz.
@@ -69,6 +70,8 @@ tr:
         a: Evet. camiiniz.hutba.app/tv adresini akıllı TV'de, Chromecast ile veya HDMI ile bağlı bir dizüstü bilgisayarda açın. Yazı tüm salon için yeterince büyüktür ve bir QR kodu telefondan takip etmeye davet eder.
       - q: Tercüme ne kadar doğru?
         a: Tercüme oldukça anlaşılırdır ama makine tercümesidir. Ayetler ve kalıp ifadeler genellikle doğru tanınır; ara sıra hatalar olabilir.
+      - q: Kendi alan adımızı kullanabilir miyiz?
+        a: Evet. camiiniz.hutba.app yerine dinleyiciler ör. hutba.camiiniz.com adresini açabilir. Alan adı sağlayıcınızda bir CNAME kaydı eklersiniz, güvenlik sertifikasıyla biz ilgileniriz. Bize yazmanız yeterli.
       - q: 60 günden sonra ne olur?
         a: Zamanında bir hatırlatma alırsınız. Öderseniz her şey devam eder. Ödemezseniz yayın durdurulur – başka hiçbir şey olmaz.
     footer:

@@ -53,6 +53,7 @@ nl:
       - Onbeperkt aantal luisteraars
       - Eigen adres, bijv. uw-moskee.hutba.app
       - QR-code posters om te printen
+      - Desgewenst op uw eigen domein, bijv. hutba.uw-moskee.nl
       addon: 'Extra taal: + € 5 per maand'
       cta: 60 dagen gratis proberen
       note: Na de proefperiode beslist u zelf. Niets wordt verlengd zonder betaling.
@@ -69,6 +70,8 @@ nl:
         a: Ja. Open uw-moskee.hutba.app/tv op een smart-tv, via Chromecast of op een laptop met HDMI. De tekst is groot genoeg voor de hele zaal, en een QR-code nodigt uit om mee te lezen op de telefoon.
       - q: Hoe nauwkeurig is de vertaling?
         a: De vertaling is goed te volgen, maar wel automatisch. Koranverzen en vaste begrippen worden meestal goed herkend; af en toe gaat er iets mis.
+      - q: Kunnen we ons eigen domein gebruiken?
+        a: Ja. In plaats van uw-moskee.hutba.app openen luisteraars bijv. hutba.uw-moskee.nl. U voegt een CNAME-record toe bij uw domeinprovider en wij regelen het beveiligingscertificaat. Stuur ons gewoon een bericht.
       - q: Wat gebeurt er na 60 dagen?
         a: U krijgt op tijd een herinnering. Betaalt u, dan loopt alles door. Betaalt u niet, dan wordt het uitzenden gepauzeerd – verder niets.
     footer:
