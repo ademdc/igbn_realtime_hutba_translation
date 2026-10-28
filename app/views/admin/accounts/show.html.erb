@@ -36,6 +36,7 @@
     <dl class="definition-list">
       <dt>Address</dt><dd><%= @account.host %></dd>
       <dt>Location</dt><dd><%= [@account.city, Account::COUNTRY_NAMES[@account.country]].compact_blank.join(", ").presence || "—" %></dd>
+      <dt>Khutbah language</dt><dd><%= Language::SOURCES[@account.source_language][:name] %></dd>
       <dt>Languages</dt><dd><%= @account.languages.map { |code| Language.info(code)[:name] }.join(", ") %></dd>
       <dt>Speaker PIN</dt><dd><%= @account.speaker_pin_digest? ? "Set" : "Not set" %></dd>
       <dt>Trial ends</dt><dd><%= @account.trial_ends_at ? l(@account.trial_ends_at.to_date, format: :long) : "—" %></dd>

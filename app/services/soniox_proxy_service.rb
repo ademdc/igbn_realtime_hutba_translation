@@ -29,6 +29,7 @@ class SonioxProxyService
 
       # Create one connection per active language
       active_langs = get_active_languages_from_redis(account_id)
+      source_language = Account.where(id: account_id).pick(:source_language) || "bs"
       connections = {}
 
       active_langs.each do |lang|
@@ -41,7 +42,7 @@ class SonioxProxyService
           unless @@connections[connection_key]
             Rails.logger.info "Creating Soniox connection for account: #{account_id}, session: #{session_id}, language: #{lang}"
             @@audio_buffers[connection_key] = []
-            @@connections[connection_key] = connect_to_soniox(account_id, session_id, lang)
+            @@connections[connection_key] = connect_to_soniox(account_id, session_id, lang, source_language)
           end
 
           connections[lang] = @@connections[connection_key]
@@ -153,11 +154,13 @@ class SonioxProxyService
       "#{REDIS_ACTIVE_LANGUAGES_KEY}:#{account_id}"
     end
 
-    def connect_to_soniox(account_id, session_id, language_code)
+    def connect_to_soniox(account_id, session_id, language_code, source_language)
       api_key = ENV['SONIOX_API_KEY']
       raise "SONIOX_API_KEY not configured" unless api_key
 
       connection_key = connection_key(account_id, session_id, language_code)
+      # Listeners in the imam's own language get the transcript instead of a translation
+      transcription_only = Language.same_as_source?(language_code, source_language)
       ws_container = { ws: nil }
 
       EM.next_tick do
@@ -175,13 +178,12 @@ class SonioxProxyService
             num_channels: 1,
             include_nonfinal: true,
             model: 'stt-rt-preview',
-            language_hints: ['bs', 'hr', 'sr'],  # Bosnian, Croatian, Serbian
-            language_hints_strict: true,  # Force these languages only
-            translation: {
-              type: "one_way",
-              target_language: language_code
-            }
+            language_hints: Language.source_hints(source_language),  # the mosque's khutbah language
+            language_hints_strict: true  # Force these languages only
           }
+          unless transcription_only
+            config[:translation] = { type: "one_way", target_language: language_code }
+          end
 
           config_json = JSON.generate(config)
           Rails.logger.info "Sending config for #{language_code}: #{config.except(:api_key).to_json}"
@@ -205,7 +207,12 @@ class SonioxProxyService
             # Process tokens if present
             if result['tokens']&.any?
               # Broadcast translations to language-specific channels
-              translations = extract_translations_by_language(result)
+              translations =
+                if transcription_only
+                  { language_code => extract_original(result) }
+                else
+                  extract_translations_by_language(result)
+                end
               translations.each do |lang_code, text|
                 if text.present? && Language.supported?(lang_code)
                   # Transcript text is never logged: we promise mosques nothing is stored
@@ -216,7 +223,7 @@ class SonioxProxyService
                 end
               end
 
-              # Send Bosnian original back to speaker
+              # Send the original speech back to the speaker
               original_text = extract_original(result)
               if original_text.present?
                 ActionCable.server.broadcast(
@@ -283,9 +290,9 @@ class SonioxProxyService
     def extract_original(result)
       tokens = result['tokens'] || []
 
-      # Extract original tokens (only final)
+      # Extract original tokens (only final). Without translation, tokens carry no translation_status.
       original_tokens = tokens.select do |token|
-        token['translation_status'] == 'original' && token['is_final'] == true
+        token['translation_status'] != 'translation' && token['is_final'] == true
       end
 
       original_tokens.map { |t| t['text'] }.join('')

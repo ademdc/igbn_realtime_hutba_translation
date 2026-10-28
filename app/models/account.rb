@@ -33,6 +33,7 @@ class Account < ApplicationRecord
   validates :custom_domain, uniqueness: true, allow_nil: true
   validates :status, inclusion: { in: STATUSES }
   validates :languages, presence: true
+  validates :source_language, inclusion: { in: Language::SOURCES.keys }
   validates :speaker_pin, format: { with: /\A\d{4,8}\z/ }, allow_nil: true
   validates :country, inclusion: { in: COUNTRIES }, allow_nil: true
   validate :languages_supported

@@ -2,11 +2,18 @@ require "test_helper"
 
 class TenancyTest < ActionDispatch::IntegrationTest
   test "listener index shows only the account's languages" do
-    host! "demo.localhost"
+    host! "igbd-nuernberg.localhost"
     get "/listener"
     assert_response :success
-    assert_select "a[href='/nl']"
-    assert_select "a[href='/de']", count: 0
+    assert_select "a[href='/de']"
+    assert_select "a[href='/en']"
+    assert_select "a[href='/nl']", count: 0
+  end
+
+  test "listener index skips the picker when there is one language" do
+    host! "demo.localhost"
+    get "/listener"
+    assert_redirected_to "http://demo.localhost/nl"
   end
 
   test "language page by ISO code" do

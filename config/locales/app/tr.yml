@@ -16,6 +16,8 @@ tr:
       password_hint: En az 10 karakter.
       name: Ad
       role: Rol
+      source_language: Hutbe dili
+      source_language_hint: İmamın konuştuğu dil. Daha sonra değiştirebilirsiniz.
     errors:
       heading: 'Lütfen şunları kontrol edin:'
     roles:
@@ -206,6 +208,51 @@ tr:
       redirecting: Ödemeye yönlendiriliyor…
       redirecting_lead: Monri'nin güvenli ödeme sayfasına yönlendiriliyorsunuz.
       continue: Devam
+    speaker:
+      title: Yayın
+      lead: 'Hutbe dili: %{source}. Cemaat şu dillerde okur: %{languages}.'
+      start: Yayını başlat
+      stop: Yayını bitir
+      live: Canlı
+      idle_hint: Cihazı imama yakın tutun.
+      minutes_left:
+        one: Bu hafta %{count} dakika kaldı
+        few: Bu hafta %{count} dakika kaldı
+        many: Bu hafta %{count} dakika kaldı
+        other: Bu hafta %{count} dakika kaldı
+      listeners: Şu an dinleyen
+      hears: Hutba'nın duyduğu
+      help_title: Nasıl çalışır
+      steps:
+      - Cihazı imama yakın koyun; ekran açık kalır.
+      - "„Yayını başlat“a dokunun ve mikrofona izin verin."
+      - Her zamanki gibi konuşun. Tercüme birkaç saniye içinde görünür.
+      - Hutbeden sonra „Yayını bitir“e dokunun.
+      messages:
+        connecting: Bağlanıyor…
+        live: Canlı yayındasınız. Her zamanki gibi konuşun.
+        stopped: Yayın bitti.
+        rejected: Yayın yapılamıyor. Lütfen tekrar giriş yapın.
+        weekly_limit: Haftalık sınıra ulaşıldı.
+        unavailable: Bu cami için yayın durduruldu. Lütfen yönetimle iletişime geçin.
+        microphone_error: Mikrofona erişim yok.
+        no_listeners: Henüz kimse bağlı değil.
+      login:
+        title: Yayın
+        lead: "%{account} için PIN girin"
+        pin: PIN
+        submit: Devam
+        invalid: Yanlış PIN.
+        email_login: E-posta ile giriş
+    source_languages:
+      bs: Boşnakça/Hırvatça/Sırpça
+      sq: Arnavutça
+      tr: Türkçe
+      ar: Arapça
+      de: Almanca
+      en: İngilizce
+      fr: Fransızca
+      nl: Felemenkçe
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -267,6 +314,7 @@ tr:
         billing_city: Şehir
         billing_phone: Telefon
         billing_email: E-posta
+        source_language: Hutbe dili
     errors:
       models:
         account:
@@ -284,6 +332,7 @@ tr:
         email: E-posta
         password: Şifre
         terms: Kullanım koşulları
+        source_language: Hutbe dili
     errors:
       models:
         signup:

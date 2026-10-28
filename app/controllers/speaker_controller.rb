@@ -2,6 +2,7 @@ class SpeakerController < ApplicationController
   include AccountScoped
   include Authentication
   include AppLocale
+  layout "app"
   before_action :authenticate_speaker, only: [:index]
 
   def index
@@ -14,19 +15,23 @@ class SpeakerController < ApplicationController
 
   def authenticate
     if params[:pin].present? && Current.account.authenticate_speaker_pin(params[:pin])
+      locale = session[:locale]
       reset_session
+      session[:locale] = locale
       session[:speaker_account_id] = Current.account.id
-      redirect_to root_path, notice: "Successfully authenticated"
+      redirect_to root_path
     else
-      flash.now[:alert] = "Invalid PIN. Please try again."
+      flash.now[:alert] = t("app.speaker.login.invalid")
       @pin_error = true
       render :login, status: :unprocessable_entity
     end
   end
 
   def logout
+    locale = session[:locale]
     reset_session
-    redirect_to speaker_login_path, notice: "Logged out"
+    session[:locale] = locale
+    redirect_to speaker_login_path, notice: t("app.sessions.signed_out")
   end
 
   private

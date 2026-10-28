@@ -5,6 +5,7 @@ class Signup
 
   attribute :mosque_name, :string
   attribute :subdomain, :string
+  attribute :source_language, :string
   attribute :country, :string
   attribute :city, :string
   attribute :name, :string
@@ -27,6 +28,7 @@ class Signup
     @account = Account.new(
       name: mosque_name, subdomain: subdomain.presence || self.class.suggest_subdomain(mosque_name),
       country: country.presence, city: city.presence, status: "trialing",
+      source_language: source_language.presence || "bs",
       languages: Account.default_languages_for(country)
     )
     @user = @account.users.build(
@@ -48,7 +50,7 @@ class Signup
   private
 
   def copy_errors
-    { name: :mosque_name, subdomain: :subdomain, country: :country, city: :city }.each do |from, to|
+    { name: :mosque_name, subdomain: :subdomain, country: :country, city: :city, source_language: :source_language }.each do |from, to|
       @account.errors[from].each { |message| errors.add(to, message) }
     end
     %i[name email password].each do |attribute|

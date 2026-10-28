@@ -42,6 +42,12 @@
           <p class="signup-field__hint" id="subdomain-status" aria-live="polite" data-signup-status><%= t("app.signup.subdomain_hint") %></p>
         </div>
 
+        <div class="signup-field">
+          <%= form.label :source_language, t("app.fields.source_language") %>
+          <%= form.select :source_language, Language::SOURCES.map { |code, info| [t("app.source_languages.#{code}"), code] }, {}, "aria-describedby": "source-hint" %>
+          <p class="signup-field__hint" id="source-hint"><%= t("app.fields.source_language_hint") %></p>
+        </div>
+
         <div class="signup-field__row">
           <div class="signup-field">
             <%= form.label :country, t("app.signup.fields.country") %>

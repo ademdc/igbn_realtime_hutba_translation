@@ -1,75 +1,76 @@
+---
 tr:
   marketing:
     meta:
-      title: "Hutba – cuma hutbesi canlı tercümeyle"
-      description: "İmam konuşur, cemaat telefonundan okur: hutbenin her telefona canlı tercümesi. Uygulama gerekmez, 60 gün ücretsiz."
+      title: Hutba – cuma hutbesi canlı tercümeyle
+      description: 'İmam konuşur, cemaat telefonundan okur: hutbenin her telefona canlı tercümesi. Uygulama gerekmez, 60 gün ücretsiz.'
     nav:
-      skip: "İçeriğe geç"
-      how: "Nasıl çalışır"
-      pricing: "Fiyat"
-      faq: "Sorular"
-      login: "Giriş"
-      cta: "Ücretsiz deneyin"
-      language: "Dil"
+      skip: İçeriğe geç
+      how: Nasıl çalışır
+      pricing: Fiyat
+      faq: Sorular
+      login: Giriş
+      cta: Ücretsiz deneyin
+      language: Dil
     hero:
-      title: "Cuma hutbesi, her nesil için anlaşılır."
-      lead: "İmam her zamanki gibi konuşur. Cemaatiniz hutbeyi telefonundan canlı okur – Almanca, İngilizce, Felemenkçe ve diğer dillerde."
-      cta: "60 gün ücretsiz deneyin"
-      note: "Kredi kartı gerekmez. 10 dakikada kurulum."
+      title: Cuma hutbesi, her nesil için anlaşılır.
+      lead: İmam her zamanki gibi konuşur. Cemaatiniz hutbeyi telefonundan canlı okur – Almanca, İngilizce, Felemenkçe ve diğer dillerde.
+      cta: 60 gün ücretsiz deneyin
+      note: Kredi kartı gerekmez. 10 dakikada kurulum.
     demo:
-      label: "Canlı önizleme"
-      original: "İmam, Boşnakça"
-      read_in: "Okuma dili"
-      live: "canlı"
+      label: Canlı önizleme
+      original: İmam, Boşnakça
+      read_in: Okuma dili
+      live: canlı
     how:
-      title: "Nasıl çalışır"
+      title: Nasıl çalışır
       steps:
-        - title: "İmam yayını başlatır"
-          text: "Minberin yanında bir telefon veya dizüstü bilgisayar yeterlidir. „Başlat“a dokunur ve her zamanki gibi konuşur."
-        - title: "Hutba anında tercüme eder"
-          text: "Her cümle birkaç saniye içinde cemaatinizin seçtiği dillere tercüme edilir."
-        - title: "Cemaat QR kodu tarar"
-          text: "Girişte her dil için bir QR kodu olan bir afiş asılıdır. Tarayın ve okuyun – uygulama ve kayıt gerekmez."
+      - title: İmam yayını başlatır
+        text: Minberin yanında bir telefon veya dizüstü bilgisayar yeterlidir. „Başlat“a dokunur ve her zamanki gibi konuşur.
+      - title: Hutba anında tercüme eder
+        text: Her cümle birkaç saniye içinde cemaatinizin seçtiği dillere tercüme edilir.
+      - title: Cemaat QR kodu tarar
+        text: Girişte her dil için bir QR kodu olan bir afiş asılıdır. Tarayın ve okuyun – uygulama ve kayıt gerekmez.
     benefits:
-      title: "Ofis için değil, cami için yapıldı"
+      title: Ofis için değil, cami için yapıldı
       items:
-        - title: "Gençler hutbeyi anlar"
-          text: "Burada büyüyenler, anne babalarının dilini çoğu zaman yarım anlar. Hutba ile hiçbir mesaj kaybolmaz."
-        - title: "Misafirler ve yeni Müslümanlar hoş karşılanır"
-          text: "Komşular, eşler ve yeni Müslümanlar hutbeyi sadece dinlemekle kalmaz, takip edebilir."
-        - title: "Kurulacak bir şey yok"
-          text: "Dinleyiciler bir web sayfası açar. İmamın sadece bir mikrofona ve internete ihtiyacı vardır."
-        - title: "Hiçbir şey kaydedilmez"
-          text: "Ne ses ne de metin kaydederiz. Camide söylenen camide kalır."
+      - title: Gençler hutbeyi anlar
+        text: Burada büyüyenler, anne babalarının dilini çoğu zaman yarım anlar. Hutba ile hiçbir mesaj kaybolmaz.
+      - title: Misafirler ve yeni Müslümanlar hoş karşılanır
+        text: Komşular, eşler ve yeni Müslümanlar hutbeyi sadece dinlemekle kalmaz, takip edebilir.
+      - title: Kurulacak bir şey yok
+        text: Dinleyiciler bir web sayfası açar. İmamın sadece bir mikrofona ve internete ihtiyacı vardır.
+      - title: Hiçbir şey kaydedilmez
+        text: Ne ses ne de metin kaydederiz. Camide söylenen camide kalır.
     pricing:
-      title: "Tüm cemaat için tek fiyat"
-      plan: "Cemaat"
-      price: "20 €"
-      per: "aylık, yıllık ödeme (240 €)"
+      title: Tüm cemaat için tek fiyat
+      plan: Cemaat
+      price: 20 €
+      per: aylık, yıllık ödeme (240 €)
       includes:
-        - "3 tercüme dili"
-        - "Haftada 3 saate kadar yayın"
-        - "Sınırsız dinleyici"
-        - "Size özel adres, ör. camiiniz.hutba.app"
-        - "Yazdırılabilir QR kod afişleri"
-      addon: "Ek dil: ayda +5 €"
-      cta: "60 gün ücretsiz deneyin"
-      note: "Deneme süresinden sonra siz karar verirsiniz. Ödeme yapılmadan hiçbir şey uzatılmaz."
+      - 3 tercüme dili
+      - Haftada 3 saate kadar yayın
+      - Sınırsız dinleyici
+      - Size özel adres, ör. camiiniz.hutba.app
+      - Yazdırılabilir QR kod afişleri
+      addon: 'Ek dil: ayda +5 €'
+      cta: 60 gün ücretsiz deneyin
+      note: Deneme süresinden sonra siz karar verirsiniz. Ödeme yapılmadan hiçbir şey uzatılmaz.
     faq:
-      title: "Sık sorulan sorular"
+      title: Sık sorulan sorular
       items:
-        - q: "İmam hangi dilde konuşmalı?"
-          a: "Şu anda Boşnakça, Hırvatça veya Sırpça. Türkçe, Arnavutça ve Arapça gibi diller yakında geliyor – ihtiyacınız varsa bize yazın."
-        - q: "Dinleyicilerin uygulamaya ihtiyacı var mı?"
-          a: "Hayır. QR kodu tarar ve tarayıcıda okurlar. Her akıllı telefonda çalışır."
-        - q: "Camide neye ihtiyacımız var?"
-          a: "İmamın yakınında internete bağlı bir telefon, tablet veya dizüstü bilgisayar. Yaka mikrofonu kaliteyi artırır ama zorunlu değildir."
-        - q: "Tercüme ne kadar doğru?"
-          a: "Tercüme oldukça anlaşılırdır ama makine tercümesidir. Ayetler ve kalıp ifadeler genellikle doğru tanınır; ara sıra hatalar olabilir."
-        - q: "60 günden sonra ne olur?"
-          a: "Zamanında bir hatırlatma alırsınız. Öderseniz her şey devam eder. Ödemezseniz yayın durdurulur – başka hiçbir şey olmaz."
+      - q: İmam hangi dilde konuşmalı?
+        a: Boşnakça, Hırvatça, Sırpça, Arnavutça, Türkçe, Arapça, Almanca, İngilizce, Fransızca veya Felemenkçe. Dili kayıt olurken seçersiniz ve istediğiniz zaman değiştirebilirsiniz.
+      - q: Dinleyicilerin uygulamaya ihtiyacı var mı?
+        a: Hayır. QR kodu tarar ve tarayıcıda okurlar. Her akıllı telefonda çalışır.
+      - q: Camide neye ihtiyacımız var?
+        a: İmamın yakınında internete bağlı bir telefon, tablet veya dizüstü bilgisayar. Yaka mikrofonu kaliteyi artırır ama zorunlu değildir.
+      - q: Tercüme ne kadar doğru?
+        a: Tercüme oldukça anlaşılırdır ama makine tercümesidir. Ayetler ve kalıp ifadeler genellikle doğru tanınır; ara sıra hatalar olabilir.
+      - q: 60 günden sonra ne olur?
+        a: Zamanında bir hatırlatma alırsınız. Öderseniz her şey devam eder. Ödemezseniz yayın durdurulur – başka hiçbir şey olmaz.
     footer:
-      tagline: "Avrupa'daki cami cemaatleri için canlı hutbe tercümesi."
-      imprint: "Künye"
-      privacy: "Gizlilik"
-      contact: "İletişim"
+      tagline: Avrupa'daki cami cemaatleri için canlı hutbe tercümesi.
+      imprint: Künye
+      privacy: Gizlilik
+      contact: İletişim

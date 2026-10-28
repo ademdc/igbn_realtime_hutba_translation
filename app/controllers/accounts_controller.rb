@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   private
 
   def account_params
-    permitted = params.require(:account).permit(:name, :speaker_pin, languages: [])
+    permitted = params.require(:account).permit(:name, :speaker_pin, :source_language, languages: [])
     # Unchecking every box submits only the hidden blank value
     permitted[:languages] = permitted[:languages].compact_blank if permitted.key?(:languages)
     permitted

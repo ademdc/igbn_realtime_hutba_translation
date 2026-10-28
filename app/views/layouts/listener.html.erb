@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="<%= @language || I18n.locale %>" dir="<%= Language.direction(@language.to_s) %>">
+  <head>
+    <meta charset="utf-8">
+    <title><%= [content_for(:title), Current.account.name].compact_blank.join(" – ") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#12302d">
+    <meta name="color-scheme" content="dark">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= render "layouts/fonts" %>
+    <%= stylesheet_link_tag "listener", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body class="listener">
+    <%= yield %>
+  </body>
+</html>

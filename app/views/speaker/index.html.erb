@@ -1,50 +1,72 @@
-<div class="container">
-  <div class="speaker-panel">
-    <div class="panel-header">
-      <div>
-        <h1>Panel za govornika</h1>
-        <p class="subtitle"><%= Current.account.name %> · Govorite na bosanskom da biste emitovali prevode</p>
-      </div>
-    </div>
+<% content_for :title, t("app.speaker.title") %>
+<% content_for :head do %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+<% end %>
+<%
+  account = Current.account
+  messages = t("app.speaker.messages").to_h
+  language_names = Language::CATALOG.transform_values { |info| "#{info[:flag]} #{info[:name]}" }
+%>
 
-    <div class="listener-stats" id="listenerStats">
-      <div class="stats-header">
-        <span class="stats-icon">👥</span>
-        <span class="stats-title">Aktivni slusaoci:</span>
-        <span class="stats-total" id="totalListeners">0</span>
-      </div>
-      <div class="stats-breakdown" id="statsBreakdown">
-        <span class="no-listeners">Nema povezanih slusaoca</span>
-      </div>
+<div class="speaker" id="speakerPanel" data-state="idle"
+     data-messages="<%= messages.to_json %>" data-language-names="<%= language_names.to_json %>">
+  <div class="speaker__head">
+    <div>
+      <h1 class="page-title"><%= t("app.speaker.title") %></h1>
+      <p class="page-lead"><%= t("app.speaker.lead", source: t("app.source_languages.#{account.source_language}"), languages: account.languages.map { |code| Language.info(code)[:name] }.to_sentence(locale: I18n.locale)) %></p>
     </div>
-
-    <div class="controls">
-      <button id="startRecording" class="btn btn-primary btn-large">
-        <span class="icon">🎤</span>
-        Pokreni snimanje
-      </button>
-      <button id="stopRecording" class="btn btn-danger btn-large" style="display: none;">
-        <span class="icon">⏹</span>
-        Zaustavi snimanje
-      </button>
-    </div>
-
-    <div id="status" class="status"></div>
-    
-    <div class="transcription-box" id="transcriptionBox" style="display: none;">
-      <h3>Vaš govor (bosanski):</h3>
-      <div id="transcription"></div>
-    </div>
-    
-    <div class="info-box">
-      <h3>Kako funkcionise:</h3>
-      <ol>
-        <li>Kliknite "Pokreni snimanje" da zapocnete govoriti</li>
-        <li>Govorite na bosanskom</li>
-        <li>Slusatelji na /<%= Current.account.languages.join(", /") %> ce vidjeti prevode u realnom vremenu</li>
-        <li>Kliknite "Zaustavi snimanje" kada zavrsite</li>
-      </ol>
-      <%= button_to "🚪 Odjava", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Da li ste sigurni da želite da se odjavite?" } %>
-    </div>
+    <% unless current_user %>
+      <%= button_to t("app.nav.sign_out"), speaker_logout_path, method: :delete, class: "link-button" %>
+    <% end %>
   </div>
+
+  <div class="speaker__grid">
+    <section class="panel speaker__control" aria-labelledby="control-title">
+      <h2 class="visually-hidden" id="control-title"><%= t("app.speaker.title") %></h2>
+
+      <p class="speaker__badge" aria-hidden="true">
+        <span class="live-dot"></span><%= t("app.speaker.live") %>
+      </p>
+
+      <% if account.can_stream? %>
+        <button type="button" id="startRecording" class="record-button">
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
+          <span><%= t("app.speaker.start") %></span>
+        </button>
+        <button type="button" id="stopRecording" class="record-button record-button--stop" hidden>
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>
+          <span><%= t("app.speaker.stop") %></span>
+        </button>
+        <p id="status" class="speaker__status" role="status" aria-live="polite"><%= t("app.speaker.idle_hint") %></p>
+      <% else %>
+        <p class="flash flash--alert">
+          <%= account.weekly_limit_reached? ? t("app.speaker.messages.weekly_limit") : t("app.speaker.messages.unavailable") %>
+        </p>
+      <% end %>
+
+      <p class="speaker__minutes muted"><%= t("app.speaker.minutes_left", count: account.weekly_minutes_left) %></p>
+    </section>
+
+    <section class="panel speaker__listeners" aria-labelledby="listeners-title">
+      <h2 class="stat__label" id="listeners-title"><%= t("app.speaker.listeners") %></h2>
+      <p class="speaker__total" id="totalListeners">0</p>
+      <ul class="speaker__breakdown" id="statsBreakdown">
+        <li class="muted"><%= t("app.speaker.messages.no_listeners") %></li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="hears" id="transcriptionBox" aria-labelledby="hears-title" hidden>
+    <h2 class="hears__title" id="hears-title"><%= t("app.speaker.hears") %></h2>
+    <p class="hears__text" id="transcription" lang="<%= account.source_language %>" dir="<%= Language.direction(account.source_language) %>"></p>
+  </section>
+
+  <section class="panel speaker__help" aria-labelledby="help-title">
+    <h2 class="panel__title" id="help-title"><%= t("app.speaker.help_title") %></h2>
+    <ol>
+      <% t("app.speaker.steps").each do |step| %>
+        <li><%= step %></li>
+      <% end %>
+    </ol>
+  </section>
 </div>

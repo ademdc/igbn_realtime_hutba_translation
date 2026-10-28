@@ -39,6 +39,14 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test "owner changes the khutbah language" do
+    patch "/dashboard/account", params: { account: { source_language: "tr" } }
+    assert_equal "tr", accounts(:demo).reload.source_language
+
+    patch "/dashboard/account", params: { account: { source_language: "xx" } }
+    assert_response :unprocessable_entity
+  end
+
   test "QR code downloads" do
     get "/dashboard/qr/nl.png"
     assert_equal "image/png", response.media_type

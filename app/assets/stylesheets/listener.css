@@ -1,0 +1,196 @@
+/* Listener pages: a calm, dark reading screen for use during the khutbah. */
+
+:root {
+  --ink: #12302d;
+  --ink-deep: #0d2422;
+  --plaster: #f4f6f3;
+  --mist: #dde7e3;
+  --mist-strong: #b9cbc5;
+  --muted: #9fb5af;
+  --teal: #4fb3a9;
+  --saffron: #e8a23a;
+  --line: rgb(221 231 227 / 0.14);
+
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Bricolage Grotesque", var(--font-body);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body.listener {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--ink);
+  color: var(--plaster);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.listener :focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+:where(.listener) p, :where(.listener) h1, :where(.listener) ul { margin: 0; }
+
+/* Language picker */
+
+.picker {
+  max-width: 34rem;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: clamp(2rem, 8vw, 4rem) 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.picker__mosque { color: var(--muted); }
+
+.picker__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 12vw, 3.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 0.25rem;
+}
+
+.picker__list {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0 auto;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.picker__option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.04);
+  color: inherit;
+  text-decoration: none;
+}
+.picker__option:hover { background: rgb(255 255 255 / 0.08); border-color: var(--mist-strong); }
+
+.picker__flag { font-size: 2rem; line-height: 1; }
+.picker__name { display: block; font-weight: 700; font-size: 1.25rem; }
+.picker__line { display: block; color: var(--muted); font-size: 0.975rem; }
+
+.listener-footer {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--muted);
+}
+.listener-footer__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--saffron);
+}
+
+/* Reader */
+
+.reader {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.reader__bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  /* Line the bar up with the 40rem reading column */
+  padding: 0.85rem max(1.15rem, calc((100% - 40rem) / 2 + 1.15rem), env(safe-area-inset-left));
+  background: var(--ink-deep);
+  border-bottom: 1px solid var(--line);
+}
+
+.reader__mosque { font-weight: 700; font-size: 1rem; }
+
+.reader__status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.status-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.status-dot[data-connected="true"] {
+  background: var(--saffron);
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.reader__switch {
+  flex: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.reader__switch:hover { border-color: var(--mist-strong); }
+
+.translation-feed {
+  flex: 1;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.15rem 30vh;
+  overflow-y: auto;
+}
+
+.no-translations {
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.continuous-text {
+  font-size: clamp(1.4rem, 5vw, 1.75rem);
+  line-height: 1.6;
+  font-weight: 700;
+  text-wrap: pretty;
+}
+
+.continuous-text span {
+  text-decoration: underline 3px transparent;
+  text-underline-offset: 0.28em;
+  transition: text-decoration-color 2s ease;
+}
+.continuous-text .new-text {
+  text-decoration-color: var(--saffron);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot[data-connected="true"] { animation: none; }
+  .continuous-text span { transition: none; }
+}

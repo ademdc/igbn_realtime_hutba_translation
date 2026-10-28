@@ -5008,7 +5008,7 @@
       {
         connected() {
           console.log(`Connected to TranslationChannel for ${language}`);
-          this.updateStatus("Verbunden", true);
+          this.updateStatus(translationFeed.dataset.connectedText, true);
           this.lastReceivedAt = Date.now();
           this.requestWakeLock();
         },
@@ -5039,7 +5039,7 @@
         },
         disconnected() {
           console.log(`Disconnected from TranslationChannel for ${language}`);
-          this.updateStatus("Getrennt", false);
+          this.updateStatus(translationFeed.dataset.disconnectedText, false);
         },
         received(data) {
           console.log("Received translation:", data);
@@ -5053,7 +5053,7 @@
             statusText.textContent = status;
           }
           if (statusDot) {
-            statusDot.className = connected ? "dot connected" : "dot";
+            statusDot.dataset.connected = connected;
           }
         },
         displayTranslation(data) {
@@ -5105,6 +5105,9 @@
   // app/javascript/controllers/speaker_controller.js
   var SpeakerController = class {
     constructor() {
+      this.root = document.getElementById("speakerPanel");
+      this.messages = JSON.parse(this.root.dataset.messages);
+      this.languageNames = JSON.parse(this.root.dataset.languageNames);
       this.startButton = document.getElementById("startRecording");
       this.stopButton = document.getElementById("stopRecording");
       this.statusDiv = document.getElementById("status");
@@ -5149,7 +5152,7 @@
           {
             connected: () => {
               console.log("Connected to translation channel as speaker");
-              this.updateStatus("Connected and recording...", "success");
+              this.updateStatus(this.messages.live, "success");
             },
             disconnected: () => {
               console.log("Disconnected from translation channel");
@@ -5157,11 +5160,11 @@
             rejected: () => {
               console.log("Translation channel subscription rejected");
               this.stopRecording();
-              this.updateStatus(this.blockedMessage || "Streaming is not available. Please log in again.", "error");
+              this.updateStatus(this.blockedMessage || this.messages.rejected, "error");
             },
             received: (data) => {
               if (data.error === "streaming_unavailable") {
-                this.blockedMessage = data.weekly_limit_reached ? "Weekly streaming limit reached." : "Streaming is not available for this account.";
+                this.blockedMessage = data.weekly_limit_reached ? this.messages.weekly_limit : this.messages.unavailable;
                 return;
               }
               if (data.original) {
@@ -5193,13 +5196,14 @@
         processor.connect(this.audioContext.destination);
         this.isRecording = true;
         this.processor = processor;
-        this.startButton.style.display = "none";
-        this.stopButton.style.display = "inline-block";
-        this.transcriptionBox.style.display = "block";
-        this.updateStatus("Recording... Speak in Bosnian", "success");
+        this.startButton.hidden = true;
+        this.stopButton.hidden = false;
+        this.transcriptionBox.hidden = false;
+        this.root.dataset.state = "live";
+        this.updateStatus(this.messages.connecting, "info");
       } catch (error) {
         console.error("Error accessing microphone:", error);
-        this.updateStatus(`Error: ${error.message}`, "error");
+        this.updateStatus(`${this.messages.microphone_error} (${error.message})`, "error");
       }
     }
     stopRecording() {
@@ -5224,9 +5228,10 @@
         this.channel.unsubscribe();
         this.channel = null;
       }
-      this.startButton.style.display = "inline-block";
-      this.stopButton.style.display = "none";
-      this.updateStatus("Recording stopped", "info");
+      this.startButton.hidden = false;
+      this.stopButton.hidden = true;
+      this.root.dataset.state = "idle";
+      this.updateStatus(this.messages.stopped, "info");
     }
     float32ToInt16(float32Array) {
       const int16Array = new Int16Array(float32Array.length);
@@ -5238,7 +5243,7 @@
     }
     updateStatus(message, type) {
       this.statusDiv.textContent = message;
-      this.statusDiv.className = `status status-${type}`;
+      this.statusDiv.dataset.type = type;
     }
     updateListenerStats(stats) {
       if (this.totalListenersEl) {
@@ -5248,28 +5253,20 @@
         const byLanguage = stats.by_language || {};
         const languages = Object.keys(byLanguage);
         if (languages.length === 0) {
-          this.statsBreakdownEl.innerHTML = '<span class="no-listeners">Nema povezanih slusaoca</span>';
+          const empty = document.createElement("li");
+          empty.className = "muted";
+          empty.textContent = this.messages.no_listeners;
+          this.statsBreakdownEl.replaceChildren(empty);
         } else {
-          const languageNames = {
-            "de": "Njema\u010Dki",
-            "en": "Engleski",
-            "fr": "Francuski",
-            "nl": "Holandski",
-            "it": "Italijanski",
-            "es": "\u0160panski",
-            "sv": "\u0160vedski",
-            "tr": "Turski",
-            "ar": "Arapski",
-            "sq": "Albanski"
-          };
-          this.statsBreakdownEl.innerHTML = languages.map((lang) => {
-            const displayName = languageNames[lang] || lang;
-            const count = byLanguage[lang];
-            return `<div class="language-stat">
-            <span class="lang-name">${displayName}</span>
-            <span class="lang-count">${count}</span>
-          </div>`;
-          }).join("");
+          this.statsBreakdownEl.replaceChildren(...languages.map((lang) => {
+            const row = document.createElement("li");
+            const name = document.createElement("span");
+            name.textContent = this.languageNames[lang] || lang;
+            const count = document.createElement("strong");
+            count.textContent = byLanguage[lang];
+            row.append(name, count);
+            return row;
+          }));
         }
       }
     }

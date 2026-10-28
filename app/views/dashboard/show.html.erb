@@ -137,6 +137,10 @@
         <%= form.label :name, t("app.dashboard.settings.name") %>
         <%= form.text_field :name, required: true %>
       </div>
+      <div class="field">
+        <%= form.label :source_language, t("app.fields.source_language") %>
+        <%= form.select :source_language, Language::SOURCES.map { |code, info| [t("app.source_languages.#{code}"), code] } %>
+      </div>
       <%= form.submit t("app.dashboard.settings.save"), class: "button" %>
     <% end %>
     <p class="muted panel__footer"><%= t("app.dashboard.settings.address", host: @account.host) %></p>

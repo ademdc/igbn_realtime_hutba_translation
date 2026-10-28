@@ -1,75 +1,76 @@
+---
 bs:
   marketing:
     meta:
-      title: "Hutba – džuma-hutba prevedena uživo"
-      description: "Imam govori, džemat čita: prevod hutbe uživo na svakom mobitelu. Bez aplikacije, 60 dana besplatno."
+      title: Hutba – džuma-hutba prevedena uživo
+      description: 'Imam govori, džemat čita: prevod hutbe uživo na svakom mobitelu. Bez aplikacije, 60 dana besplatno.'
     nav:
-      skip: "Preskoči na sadržaj"
-      how: "Kako radi"
-      pricing: "Cijena"
-      faq: "Pitanja"
-      login: "Prijava"
-      cta: "Probajte besplatno"
-      language: "Jezik"
+      skip: Preskoči na sadržaj
+      how: Kako radi
+      pricing: Cijena
+      faq: Pitanja
+      login: Prijava
+      cta: Probajte besplatno
+      language: Jezik
     hero:
-      title: "Džuma-hutba, razumljiva svakoj generaciji."
-      lead: "Imam govori kao i uvijek. Džemat čita hutbu uživo na mobitelu – na njemačkom, engleskom, holandskom i drugim jezicima."
-      cta: "60 dana besplatno"
-      note: "Bez kreditne kartice. Postavljanje za 10 minuta."
+      title: Džuma-hutba, razumljiva svakoj generaciji.
+      lead: Imam govori kao i uvijek. Džemat čita hutbu uživo na mobitelu – na njemačkom, engleskom, holandskom i drugim jezicima.
+      cta: 60 dana besplatno
+      note: Bez kreditne kartice. Postavljanje za 10 minuta.
     demo:
-      label: "Pregled uživo"
-      original: "Imam, na bosanskom"
-      read_in: "Čitaj na"
-      live: "uživo"
+      label: Pregled uživo
+      original: Imam, na bosanskom
+      read_in: Čitaj na
+      live: uživo
     how:
-      title: "Kako radi"
+      title: Kako radi
       steps:
-        - title: "Imam pokrene prenos"
-          text: "Dovoljan je mobitel ili laptop kod mimbera. Jedan dodir na „Start“ i govori se kao i obično."
-        - title: "Hutba prevodi u stvarnom vremenu"
-          text: "Svaka rečenica se za nekoliko sekundi prevodi na jezike koje je džemat odabrao."
-        - title: "Džemat skenira QR kod"
-          text: "Na ulazu visi plakat s QR kodom za svaki jezik. Skenirate i čitate – bez aplikacije i bez registracije."
+      - title: Imam pokrene prenos
+        text: Dovoljan je mobitel ili laptop kod mimbera. Jedan dodir na „Start“ i govori se kao i obično.
+      - title: Hutba prevodi u stvarnom vremenu
+        text: Svaka rečenica se za nekoliko sekundi prevodi na jezike koje je džemat odabrao.
+      - title: Džemat skenira QR kod
+        text: Na ulazu visi plakat s QR kodom za svaki jezik. Skenirate i čitate – bez aplikacije i bez registracije.
     benefits:
-      title: "Napravljeno za džamiju, ne za kancelariju"
+      title: Napravljeno za džamiju, ne za kancelariju
       items:
-        - title: "Mladi razumiju hutbu"
-          text: "Ko je odrastao ovdje, jezik roditelja često razumije samo napola. Uz Hutbu se nijedna poruka ne gubi."
-        - title: "Gosti i novi muslimani su dobrodošli"
-          text: "Komšije, bračni partneri i novi muslimani mogu pratiti hutbu, umjesto da samo sjede."
-        - title: "Ništa se ne instalira"
-          text: "Slušaoci otvore web stranicu. Imamu treba samo mikrofon i internet."
-        - title: "Ništa se ne snima"
-          text: "Ne snimamo ni zvuk ni tekst. Ono što se kaže u džamiji, ostaje u džamiji."
+      - title: Mladi razumiju hutbu
+        text: Ko je odrastao ovdje, jezik roditelja često razumije samo napola. Uz Hutbu se nijedna poruka ne gubi.
+      - title: Gosti i novi muslimani su dobrodošli
+        text: Komšije, bračni partneri i novi muslimani mogu pratiti hutbu, umjesto da samo sjede.
+      - title: Ništa se ne instalira
+        text: Slušaoci otvore web stranicu. Imamu treba samo mikrofon i internet.
+      - title: Ništa se ne snima
+        text: Ne snimamo ni zvuk ni tekst. Ono što se kaže u džamiji, ostaje u džamiji.
     pricing:
-      title: "Jedna cijena za cijeli džemat"
-      plan: "Džemat"
-      price: "20 €"
-      per: "mjesečno, godišnje plaćanje (240 €)"
+      title: Jedna cijena za cijeli džemat
+      plan: Džemat
+      price: 20 €
+      per: mjesečno, godišnje plaćanje (240 €)
       includes:
-        - "3 jezika prevoda"
-        - "Do 3 sata prenosa sedmično"
-        - "Neograničen broj slušalaca"
-        - "Vlastita adresa, npr. vas-dzemat.hutba.app"
-        - "QR plakati za printanje"
-      addon: "Dodatni jezik: +5 € mjesečno"
-      cta: "60 dana besplatno"
-      note: "Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate."
+      - 3 jezika prevoda
+      - Do 3 sata prenosa sedmično
+      - Neograničen broj slušalaca
+      - Vlastita adresa, npr. vas-dzemat.hutba.app
+      - QR plakati za printanje
+      addon: 'Dodatni jezik: +5 € mjesečno'
+      cta: 60 dana besplatno
+      note: Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate.
     faq:
-      title: "Česta pitanja"
+      title: Česta pitanja
       items:
-        - q: "Na kojem jeziku imam treba govoriti?"
-          a: "Trenutno bosanski, hrvatski ili srpski. Uskoro i turski, albanski i arapski – javite nam se ako vam treba."
-        - q: "Trebaju li slušaoci aplikaciju?"
-          a: "Ne. Skeniraju QR kod i čitaju u pregledniku. Radi na svakom pametnom telefonu."
-        - q: "Šta nam treba u džamiji?"
-          a: "Mobitel, tablet ili laptop s internetom u blizini imama. Mikrofon na kopču poboljšava kvalitet, ali nije obavezan."
-        - q: "Koliko je prevod tačan?"
-          a: "Prevod je vrlo razumljiv, ali je mašinski. Ajeti i ustaljeni izrazi se uglavnom tačno prepoznaju; pojedinačne greške su moguće."
-        - q: "Šta se dešava nakon 60 dana?"
-          a: "Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više."
+      - q: Na kojem jeziku imam treba govoriti?
+        a: Bosanski, hrvatski, srpski, albanski, turski, arapski, njemački, engleski, francuski ili holandski. Jezik birate pri prijavi i možete ga promijeniti bilo kada.
+      - q: Trebaju li slušaoci aplikaciju?
+        a: Ne. Skeniraju QR kod i čitaju u pregledniku. Radi na svakom pametnom telefonu.
+      - q: Šta nam treba u džamiji?
+        a: Mobitel, tablet ili laptop s internetom u blizini imama. Mikrofon na kopču poboljšava kvalitet, ali nije obavezan.
+      - q: Koliko je prevod tačan?
+        a: Prevod je vrlo razumljiv, ali je mašinski. Ajeti i ustaljeni izrazi se uglavnom tačno prepoznaju; pojedinačne greške su moguće.
+      - q: Šta se dešava nakon 60 dana?
+        a: Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više.
     footer:
-      tagline: "Prevod hutbe uživo za džemate širom Evrope."
-      imprint: "Impressum"
-      privacy: "Privatnost"
-      contact: "Kontakt"
+      tagline: Prevod hutbe uživo za džemate širom Evrope.
+      imprint: Impressum
+      privacy: Privatnost
+      contact: Kontakt

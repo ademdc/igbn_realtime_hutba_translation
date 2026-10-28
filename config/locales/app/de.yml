@@ -16,6 +16,8 @@ de:
       password_hint: Mindestens 10 Zeichen.
       name: Name
       role: Rolle
+      source_language: Sprache der Hutba
+      source_language_hint: In dieser Sprache spricht der Imam. Sie können sie später ändern.
     errors:
       heading: 'Bitte prüfen Sie Ihre Eingaben:'
     roles:
@@ -206,6 +208,51 @@ de:
       redirecting: Weiter zur Zahlung …
       redirecting_lead: Sie werden zur sicheren Zahlungsseite von Monri weitergeleitet.
       continue: Weiter
+    speaker:
+      title: Übertragung
+      lead: 'Sprache der Hutba: %{source}. Die Gemeinde liest mit auf: %{languages}.'
+      start: Übertragung starten
+      stop: Übertragung beenden
+      live: Live
+      idle_hint: Halten Sie das Gerät in der Nähe des Imams.
+      minutes_left:
+        one: Diese Woche noch %{count} Minute
+        few: Diese Woche noch %{count} Minuten
+        many: Diese Woche noch %{count} Minuten
+        other: Diese Woche noch %{count} Minuten
+      listeners: Zuhörer gerade
+      hears: Das hört Hutba gerade
+      help_title: So geht's
+      steps:
+      - Gerät nah am Imam platzieren, Bildschirm bleibt an.
+      - Auf „Übertragung starten“ tippen und das Mikrofon erlauben.
+      - Ganz normal sprechen. Die Übersetzung erscheint nach wenigen Sekunden.
+      - Nach der Hutba auf „Übertragung beenden“ tippen.
+      messages:
+        connecting: Verbinde …
+        live: Sie sind live. Sprechen Sie ganz normal.
+        stopped: Übertragung beendet.
+        rejected: Übertragung nicht möglich. Bitte melden Sie sich erneut an.
+        weekly_limit: Das Wochenlimit ist erreicht.
+        unavailable: Die Übertragung ist für diese Gemeinde pausiert. Bitte wenden Sie sich an die Verwaltung.
+        microphone_error: Kein Zugriff auf das Mikrofon.
+        no_listeners: Noch niemand verbunden.
+      login:
+        title: Übertragung
+        lead: PIN für %{account} eingeben
+        pin: PIN
+        submit: Weiter
+        invalid: Falsche PIN.
+        email_login: Mit E-Mail anmelden
+    source_languages:
+      bs: Bosnisch/Kroatisch/Serbisch
+      sq: Albanisch
+      tr: Türkisch
+      ar: Arabisch
+      de: Deutsch
+      en: Englisch
+      fr: Französisch
+      nl: Niederländisch
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -267,6 +314,7 @@ de:
         billing_city: Ort
         billing_phone: Telefon
         billing_email: E-Mail
+        source_language: Sprache der Hutba
     errors:
       models:
         account:
@@ -284,6 +332,7 @@ de:
         email: E-Mail
         password: Passwort
         terms: Nutzungsbedingungen
+        source_language: Sprache der Hutba
     errors:
       models:
         signup:

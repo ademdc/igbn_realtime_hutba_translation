@@ -1,6 +1,6 @@
 class SignupsController < MarketingController
   def new
-    @signup = Signup.new(country: country_from_locale)
+    @signup = Signup.new(country: country_from_locale, source_language: I18n.locale.to_s == "tr" ? "tr" : "bs")
   end
 
   def create
@@ -27,7 +27,7 @@ class SignupsController < MarketingController
   private
 
   def signup_params
-    params.require(:signup).permit(:mosque_name, :subdomain, :country, :city, :name, :email, :password, :terms)
+    params.require(:signup).permit(:mosque_name, :subdomain, :source_language, :country, :city, :name, :email, :password, :terms)
   end
 
   def country_from_locale

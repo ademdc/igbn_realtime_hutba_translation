@@ -14,6 +14,33 @@ class Language
     "sq" => { name: "Shqip",      flag: "🇦🇱", name_bs: "Albanski", poster: "Lexo hutben drejtpërdrejt në shqip" }
   }.freeze
 
+  # Listener page text, in the listener's own language
+  LISTENER_UI = {
+    "de" => { connecting: "Verbinde …", connected: "Verbunden", disconnected: "Verbindung unterbrochen", waiting: "Warten auf die Hutba …", change: "Sprache wechseln" },
+    "en" => { connecting: "Connecting…", connected: "Connected", disconnected: "Connection lost", waiting: "Waiting for the khutbah…", change: "Change language" },
+    "fr" => { connecting: "Connexion…", connected: "Connecté", disconnected: "Connexion perdue", waiting: "En attente de la khutba…", change: "Changer de langue" },
+    "nl" => { connecting: "Verbinden…", connected: "Verbonden", disconnected: "Verbinding verbroken", waiting: "Wachten op de khutba…", change: "Andere taal" },
+    "it" => { connecting: "Connessione…", connected: "Connesso", disconnected: "Connessione persa", waiting: "In attesa della khutba…", change: "Cambia lingua" },
+    "es" => { connecting: "Conectando…", connected: "Conectado", disconnected: "Conexión perdida", waiting: "Esperando la jutba…", change: "Cambiar idioma" },
+    "sv" => { connecting: "Ansluter…", connected: "Ansluten", disconnected: "Anslutningen bröts", waiting: "Väntar på khutban…", change: "Byt språk" },
+    "tr" => { connecting: "Bağlanıyor…", connected: "Bağlandı", disconnected: "Bağlantı kesildi", waiting: "Hutbe bekleniyor…", change: "Dili değiştir" },
+    "ar" => { connecting: "جارٍ الاتصال…", connected: "متصل", disconnected: "انقطع الاتصال", waiting: "في انتظار الخطبة…", change: "تغيير اللغة" },
+    "sq" => { connecting: "Duke u lidhur…", connected: "I lidhur", disconnected: "Lidhja u ndërpre", waiting: "Në pritje të hutbes…", change: "Ndrysho gjuhën" }
+  }.freeze
+
+  # Languages the imam can speak, with the Soniox recognition hints for each.
+  # Bosnian, Croatian and Serbian are recognised together.
+  SOURCES = {
+    "bs" => { name: "Bosanski / Hrvatski / Srpski", hints: %w[bs hr sr] },
+    "sq" => { name: "Shqip", hints: %w[sq] },
+    "tr" => { name: "Türkçe", hints: %w[tr] },
+    "ar" => { name: "العربية", hints: %w[ar] },
+    "de" => { name: "Deutsch", hints: %w[de] },
+    "en" => { name: "English", hints: %w[en] },
+    "fr" => { name: "Français", hints: %w[fr] },
+    "nl" => { name: "Nederlands", hints: %w[nl] }
+  }.freeze
+
   CODES = CATALOG.keys.freeze
   RTL = %w[ar].freeze
 
@@ -26,5 +53,22 @@ class Language
 
   def self.info(code)
     CATALOG[code]
+  end
+
+  def self.source_hints(code)
+    SOURCES.fetch(code, SOURCES["bs"])[:hints]
+  end
+
+  # The listener language is the one spoken: show the transcript, don't translate
+  def self.same_as_source?(listener_code, source_code)
+    source_hints(source_code).include?(listener_code)
+  end
+
+  def self.listener_ui(code)
+    LISTENER_UI.fetch(code, LISTENER_UI["en"])
+  end
+
+  def self.direction(code)
+    RTL.include?(code) ? "rtl" : "ltr"
   end
 end

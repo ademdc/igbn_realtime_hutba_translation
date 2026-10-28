@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_28_180000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_28_200000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_180000) do
     t.string "billing_phone"
     t.string "billing_email"
     t.string "last_reminder"
+    t.string "source_language", default: "bs", null: false
     t.index ["custom_domain"], name: "index_accounts_on_custom_domain", unique: true
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end

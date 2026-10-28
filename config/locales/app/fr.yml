@@ -16,6 +16,8 @@ fr:
       password_hint: Au moins 10 caractères.
       name: Nom
       role: Rôle
+      source_language: Langue de la khutba
+      source_language_hint: La langue dans laquelle parle l'imam. Vous pourrez la changer plus tard.
     errors:
       heading: 'Veuillez vérifier les points suivants :'
     roles:
@@ -206,6 +208,51 @@ fr:
       redirecting: Redirection vers le paiement…
       redirecting_lead: Vous êtes redirigé vers la page de paiement sécurisée de Monri.
       continue: Continuer
+    speaker:
+      title: Diffusion
+      lead: 'Langue de la khutba : %{source}. La communauté lit en : %{languages}.'
+      start: Lancer la diffusion
+      stop: Terminer la diffusion
+      live: En direct
+      idle_hint: Gardez l'appareil près de l'imam.
+      minutes_left:
+        one: Encore %{count} minute cette semaine
+        few: Encore %{count} minutes cette semaine
+        many: Encore %{count} minutes cette semaine
+        other: Encore %{count} minutes cette semaine
+      listeners: Auditeurs en ce moment
+      hears: Ce que Hutba entend
+      help_title: Comment faire
+      steps:
+      - Placez l'appareil près de l'imam ; l'écran reste allumé.
+      - Appuyez sur « Lancer la diffusion » et autorisez le micro.
+      - Parlez normalement. La traduction apparaît en quelques secondes.
+      - Après la khutba, appuyez sur « Terminer la diffusion ».
+      messages:
+        connecting: Connexion…
+        live: Vous êtes en direct. Parlez normalement.
+        stopped: Diffusion terminée.
+        rejected: Diffusion impossible. Veuillez vous reconnecter.
+        weekly_limit: La limite hebdomadaire est atteinte.
+        unavailable: La diffusion est en pause pour cette mosquée. Contactez l'administration.
+        microphone_error: Pas d'accès au micro.
+        no_listeners: Personne n'est encore connecté.
+      login:
+        title: Diffusion
+        lead: Saisissez le code de %{account}
+        pin: Code
+        submit: Continuer
+        invalid: Code incorrect.
+        email_login: Se connecter par e-mail
+    source_languages:
+      bs: bosnien/croate/serbe
+      sq: albanais
+      tr: turc
+      ar: arabe
+      de: allemand
+      en: anglais
+      fr: français
+      nl: néerlandais
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -267,6 +314,7 @@ fr:
         billing_city: Ville
         billing_phone: Téléphone
         billing_email: E-mail
+        source_language: Langue de la khutba
     errors:
       models:
         account:
@@ -284,6 +332,7 @@ fr:
         email: E-mail
         password: Mot de passe
         terms: Conditions d'utilisation
+        source_language: Langue de la khutba
     errors:
       models:
         signup:

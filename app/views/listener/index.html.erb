@@ -1,72 +1,26 @@
-<div class="container">
-  <div class="listener-panel">
-    <div class="logo-container">
-      <%= image_tag "logo.png", alt: "IGBD Logo", class: "header-logo" %>
-    </div>
-    <h1>Live-Übersetzungen von der Hutba</h1>
-    <p class="subtitle">Wählen Sie Ihre Sprache / Choose your language</p>
+<% content_for :title, "Hutba" %>
 
-    <div class="language-grid">
-      <% @languages.each do |key, lang| %>
-        <%= link_to "/#{key}", class: "language-card", data: { turbo: false } do %>
-          <div class="language-flag"><%= lang[:flag] %></div>
-          <div class="language-name"><%= lang[:name] %></div>
+<main class="picker">
+  <header class="picker__head">
+    <p class="picker__mosque"><%= Current.account.name %></p>
+    <h1 class="picker__title">Hutba</h1>
+  </header>
+
+  <ul class="picker__list">
+    <% @languages.each do |code, info| %>
+      <li>
+        <%= link_to listener_language_path(language: code), class: "picker__option", lang: code, dir: Language.direction(code), data: { turbo: false } do %>
+          <span class="picker__flag" aria-hidden="true"><%= info[:flag] %></span>
+          <span>
+            <span class="picker__name"><%= info[:name] %></span>
+            <span class="picker__line"><%= info[:poster] %></span>
+          </span>
         <% end %>
-      <% end %>
-    </div>
+      </li>
+    <% end %>
+  </ul>
 
-    <div class="info-note">
-      <p>Die Übersetzungen werden live während der Hutba bereitgestellt.</p>
-    </div>
-  </div>
-</div>
-
-<style>
-.language-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 40px 0;
-}
-
-.language-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.language-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.language-flag {
-  font-size: 4rem;
-  margin-bottom: 15px;
-}
-
-.language-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.info-note {
-  background: #f8f9fa;
-  border-left: 4px solid #667eea;
-  padding: 20px;
-  margin-top: 40px;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.info-note p {
-  margin: 10px 0;
-  color: #555;
-}
-</style>
+  <footer class="listener-footer">
+    <span class="listener-footer__dot" aria-hidden="true"></span>hutba
+  </footer>
+</main>

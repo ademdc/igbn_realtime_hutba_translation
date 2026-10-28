@@ -16,6 +16,8 @@ en:
       password_hint: At least 10 characters.
       name: Name
       role: Role
+      source_language: Khutbah language
+      source_language_hint: The language the imam speaks. You can change it later.
     errors:
       heading: 'Please check the following:'
     roles:
@@ -206,6 +208,51 @@ en:
       redirecting: Continuing to payment…
       redirecting_lead: You're being sent to Monri's secure payment page.
       continue: Continue
+    speaker:
+      title: Broadcast
+      lead: 'Khutbah language: %{source}. The congregation reads along in: %{languages}.'
+      start: Start broadcast
+      stop: End broadcast
+      live: Live
+      idle_hint: Keep the device close to the imam.
+      minutes_left:
+        one: "%{count} minute left this week"
+        few: "%{count} minutes left this week"
+        many: "%{count} minutes left this week"
+        other: "%{count} minutes left this week"
+      listeners: Listening now
+      hears: What Hutba hears
+      help_title: How it works
+      steps:
+      - Place the device close to the imam; the screen stays on.
+      - Tap “Start broadcast” and allow the microphone.
+      - Speak as usual. Translations appear within seconds.
+      - Tap “End broadcast” after the khutbah.
+      messages:
+        connecting: Connecting…
+        live: You're live. Speak as usual.
+        stopped: Broadcast ended.
+        rejected: Can't broadcast. Please log in again.
+        weekly_limit: The weekly limit has been reached.
+        unavailable: Broadcasting is paused for this mosque. Please contact the administrators.
+        microphone_error: No access to the microphone.
+        no_listeners: Nobody connected yet.
+      login:
+        title: Broadcast
+        lead: Enter the PIN for %{account}
+        pin: PIN
+        submit: Continue
+        invalid: Wrong PIN.
+        email_login: Log in with email
+    source_languages:
+      bs: Bosnian/Croatian/Serbian
+      sq: Albanian
+      tr: Turkish
+      ar: Arabic
+      de: German
+      en: English
+      fr: French
+      nl: Dutch
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -267,6 +314,7 @@ en:
         billing_city: City
         billing_phone: Phone
         billing_email: Email
+        source_language: Khutbah language
     errors:
       models:
         account:
@@ -284,6 +332,7 @@ en:
         email: Email
         password: Password
         terms: Terms of service
+        source_language: Khutbah language
     errors:
       models:
         signup:

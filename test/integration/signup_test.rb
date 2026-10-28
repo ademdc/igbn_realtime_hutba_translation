@@ -75,6 +75,11 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_equal %w[nl fr], Account.find_by!(subdomain: "moskee-gent").languages
   end
 
+  test "signup stores the khutbah language" do
+    post "/en/signup", params: valid_params(source_language: "sq", subdomain: "xhamia-wien")
+    assert_equal "sq", Account.find_by!(subdomain: "xhamia-wien").source_language
+  end
+
   test "suggests a subdomain from the mosque name" do
     assert_equal "dzemat-nurnberg", Signup.suggest_subdomain("Džemat Nürnberg")
   end

@@ -16,6 +16,8 @@ bs:
       password_hint: Najmanje 10 znakova.
       name: Ime
       role: Uloga
+      source_language: Jezik hutbe
+      source_language_hint: Jezik kojim imam govori. Možete ga kasnije promijeniti.
     errors:
       heading: 'Molimo provjerite unos:'
     roles:
@@ -206,6 +208,51 @@ bs:
       redirecting: Nastavak na plaćanje…
       redirecting_lead: Preusmjeravamo vas na sigurnu Monri stranicu za plaćanje.
       continue: Nastavi
+    speaker:
+      title: Prenos
+      lead: 'Jezik hutbe: %{source}. Džemat čita na: %{languages}.'
+      start: Pokreni prenos
+      stop: Završi prenos
+      live: Uživo
+      idle_hint: Držite uređaj blizu imama.
+      minutes_left:
+        one: Ove sedmice još %{count} minuta
+        few: Ove sedmice još %{count} minute
+        many: Ove sedmice još %{count} minuta
+        other: Ove sedmice još %{count} minuta
+      listeners: Trenutno prati
+      hears: Ovo Hutba trenutno čuje
+      help_title: Kako radi
+      steps:
+      - Postavite uređaj blizu imama; ekran ostaje upaljen.
+      - Dodirnite „Pokreni prenos“ i dozvolite mikrofon.
+      - Govorite kao i obično. Prevod se pojavi za nekoliko sekundi.
+      - Nakon hutbe dodirnite „Završi prenos“.
+      messages:
+        connecting: Povezivanje…
+        live: Uživo ste. Govorite kao i obično.
+        stopped: Prenos završen.
+        rejected: Prenos nije moguć. Molimo prijavite se ponovo.
+        weekly_limit: Sedmični limit je dostignut.
+        unavailable: Prenos je pauziran za ovaj džemat. Obratite se upravi.
+        microphone_error: Nema pristupa mikrofonu.
+        no_listeners: Još niko nije povezan.
+      login:
+        title: Prenos
+        lead: Unesite PIN za %{account}
+        pin: PIN
+        submit: Nastavi
+        invalid: Pogrešan PIN.
+        email_login: Prijava e-mailom
+    source_languages:
+      bs: bosanski/hrvatski/srpski
+      sq: albanski
+      tr: turski
+      ar: arapski
+      de: njemački
+      en: engleski
+      fr: francuski
+      nl: holandski
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -267,6 +314,7 @@ bs:
         billing_city: Grad
         billing_phone: Telefon
         billing_email: E-mail
+        source_language: Jezik hutbe
     errors:
       models:
         account:
@@ -284,6 +332,7 @@ bs:
         email: E-mail
         password: Lozinka
         terms: Uslovi korištenja
+        source_language: Jezik hutbe
     errors:
       models:
         signup:

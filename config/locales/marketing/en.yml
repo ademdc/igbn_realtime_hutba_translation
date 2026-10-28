@@ -1,75 +1,76 @@
+---
 en:
   marketing:
     meta:
-      title: "Hutba – the Friday sermon, translated live"
-      description: "The imam speaks, the congregation reads along: live translation of the khutbah on every phone. No app needed, free for 60 days."
+      title: Hutba – the Friday sermon, translated live
+      description: 'The imam speaks, the congregation reads along: live translation of the khutbah on every phone. No app needed, free for 60 days.'
     nav:
-      skip: "Skip to content"
-      how: "How it works"
-      pricing: "Pricing"
-      faq: "Questions"
-      login: "Log in"
-      cta: "Try it free"
-      language: "Language"
+      skip: Skip to content
+      how: How it works
+      pricing: Pricing
+      faq: Questions
+      login: Log in
+      cta: Try it free
+      language: Language
     hero:
-      title: "The Friday sermon, understood by every generation."
-      lead: "The imam speaks as always. Your congregation reads the khutbah live on their phones – in English, German, Dutch and more."
-      cta: "Try free for 60 days"
-      note: "No credit card. Set up in 10 minutes."
+      title: The Friday sermon, understood by every generation.
+      lead: The imam speaks as always. Your congregation reads the khutbah live on their phones – in English, German, Dutch and more.
+      cta: Try free for 60 days
+      note: No credit card. Set up in 10 minutes.
     demo:
-      label: "Live preview"
-      original: "Imam, in Bosnian"
-      read_in: "Read in"
-      live: "live"
+      label: Live preview
+      original: Imam, in Bosnian
+      read_in: Read in
+      live: live
     how:
-      title: "How it works"
+      title: How it works
       steps:
-        - title: "The imam starts the broadcast"
-          text: "A phone or laptop at the minbar is enough. Tap “Start” and speak as usual."
-        - title: "Hutba translates in real time"
-          text: "Every sentence is translated within seconds into the languages your congregation has chosen."
-        - title: "The congregation scans the QR code"
-          text: "A poster at the entrance has one QR code per language. Scan and read along – no app, no sign-up."
+      - title: The imam starts the broadcast
+        text: A phone or laptop at the minbar is enough. Tap “Start” and speak as usual.
+      - title: Hutba translates in real time
+        text: Every sentence is translated within seconds into the languages your congregation has chosen.
+      - title: The congregation scans the QR code
+        text: A poster at the entrance has one QR code per language. Scan and read along – no app, no sign-up.
     benefits:
-      title: "Made for the mosque, not the office"
+      title: Made for the mosque, not the office
       items:
-        - title: "Young people understand the sermon"
-          text: "Those who grew up here often half-understand their parents' language. With Hutba no message gets lost."
-        - title: "Guests and converts feel welcome"
-          text: "Neighbours, spouses and new Muslims can follow the khutbah instead of just sitting through it."
-        - title: "Nothing to install"
-          text: "Listeners open a web page. The imam only needs a microphone and internet."
-        - title: "Nothing is stored"
-          text: "We record neither audio nor text. What is said in the room stays in the room."
+      - title: Young people understand the sermon
+        text: Those who grew up here often half-understand their parents' language. With Hutba no message gets lost.
+      - title: Guests and converts feel welcome
+        text: Neighbours, spouses and new Muslims can follow the khutbah instead of just sitting through it.
+      - title: Nothing to install
+        text: Listeners open a web page. The imam only needs a microphone and internet.
+      - title: Nothing is stored
+        text: We record neither audio nor text. What is said in the room stays in the room.
     pricing:
-      title: "One price for the whole congregation"
-      plan: "Congregation"
+      title: One price for the whole congregation
+      plan: Congregation
       price: "€20"
-      per: "per month, billed yearly (€240)"
+      per: per month, billed yearly (€240)
       includes:
-        - "3 translation languages"
-        - "Up to 3 hours of broadcasting per week"
-        - "Unlimited listeners"
-        - "Your own address, e.g. your-dzemat.hutba.app"
-        - "Printable QR code posters"
-      addon: "Extra language: +€5 per month"
-      cta: "Try free for 60 days"
-      note: "You decide after the trial. Nothing renews without payment."
+      - 3 translation languages
+      - Up to 3 hours of broadcasting per week
+      - Unlimited listeners
+      - Your own address, e.g. your-dzemat.hutba.app
+      - Printable QR code posters
+      addon: 'Extra language: +€5 per month'
+      cta: Try free for 60 days
+      note: You decide after the trial. Nothing renews without payment.
     faq:
-      title: "Frequently asked questions"
+      title: Frequently asked questions
       items:
-        - q: "Which language does the imam have to speak?"
-          a: "Currently Bosnian, Croatian or Serbian. More source languages such as Turkish, Albanian and Arabic are coming – write to us if you need one."
-        - q: "Do listeners need an app?"
-          a: "No. They scan the QR code and read along in the browser. It works on any smartphone."
-        - q: "What do we need in the mosque?"
-          a: "A phone, tablet or laptop with internet near the imam. A clip-on microphone improves quality but is not required."
-        - q: "How accurate is the translation?"
-          a: "The translation is very readable, but it is machine translation. Qur'anic verses and fixed terms are usually recognised correctly; occasional mistakes happen."
-        - q: "What happens after 60 days?"
-          a: "You get a reminder in good time. If you pay, everything continues. If you don't, broadcasting pauses – nothing else happens."
+      - q: Which language does the imam have to speak?
+        a: Bosnian, Croatian, Serbian, Albanian, Turkish, Arabic, German, English, French or Dutch. You choose the language when you sign up and can change it at any time.
+      - q: Do listeners need an app?
+        a: No. They scan the QR code and read along in the browser. It works on any smartphone.
+      - q: What do we need in the mosque?
+        a: A phone, tablet or laptop with internet near the imam. A clip-on microphone improves quality but is not required.
+      - q: How accurate is the translation?
+        a: The translation is very readable, but it is machine translation. Qur'anic verses and fixed terms are usually recognised correctly; occasional mistakes happen.
+      - q: What happens after 60 days?
+        a: You get a reminder in good time. If you pay, everything continues. If you don't, broadcasting pauses – nothing else happens.
     footer:
-      tagline: "Live khutbah translation for mosque communities in Europe."
-      imprint: "Legal notice"
-      privacy: "Privacy"
-      contact: "Contact"
+      tagline: Live khutbah translation for mosque communities in Europe.
+      imprint: Legal notice
+      privacy: Privacy
+      contact: Contact

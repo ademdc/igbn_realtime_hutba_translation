@@ -10,7 +10,7 @@ if (translationFeed) {
     {
       connected() {
         console.log(`Connected to TranslationChannel for ${language}`)
-        this.updateStatus("Verbunden", true)
+        this.updateStatus(translationFeed.dataset.connectedText, true)
         // Clear any stale state when reconnecting
         this.lastReceivedAt = Date.now()
         // Request wake lock to keep screen on
@@ -49,7 +49,7 @@ if (translationFeed) {
 
     disconnected() {
       console.log(`Disconnected from TranslationChannel for ${language}`)
-      this.updateStatus("Getrennt", false)
+      this.updateStatus(translationFeed.dataset.disconnectedText, false)
     },
 
     received(data) {
@@ -67,7 +67,7 @@ if (translationFeed) {
       }
 
       if (statusDot) {
-        statusDot.className = connected ? 'dot connected' : 'dot'
+        statusDot.dataset.connected = connected
       }
     },
 
