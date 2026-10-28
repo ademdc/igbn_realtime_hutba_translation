@@ -1,25 +1,17 @@
 class ListenerController < ApplicationController
-  SUPPORTED_LANGUAGES = {
-    'german' => { name: 'Deutsch', code: 'de', flag: '🇩🇪' },
-    # 'english' => { name: 'English', code: 'en', flag: '🇬🇧' }
-  }.freeze
+  include AccountScoped
 
   def index
     # Language selection page
-    @languages = SUPPORTED_LANGUAGES
+    @languages = Current.account.languages.index_with { |code| Language.info(code) }
   end
 
   def show
     @language = params[:language]
-    @language_info = SUPPORTED_LANGUAGES[@language]
+    @language_info = Language.info(@language)
 
-    unless @language_info
+    unless Current.account.offers_language?(@language)
       redirect_to listener_path, alert: "Language not supported"
     end
-  end
-
-  # Keep old german action for backward compatibility
-  def german
-    redirect_to german_path
   end
 end

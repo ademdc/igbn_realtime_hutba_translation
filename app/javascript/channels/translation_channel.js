@@ -3,7 +3,7 @@ import consumer from "./consumer"
 // Only subscribe if we're on a listener page
 const translationFeed = document.getElementById('translationFeed')
 if (translationFeed) {
-  const language = translationFeed.dataset.language || 'german'
+  const language = translationFeed.dataset.language || 'de'
 
   const subscription = consumer.subscriptions.create(
     { channel: "TranslationChannel", language: language },

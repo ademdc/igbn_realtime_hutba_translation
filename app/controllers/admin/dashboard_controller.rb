@@ -16,8 +16,8 @@ module Admin
       @week_listeners = ListenerConnection.this_week.count
 
       # Recent activity
-      @recent_speaker_sessions = SpeakerSession.recent.limit(10)
-      @recent_listener_connections = ListenerConnection.recent.limit(20)
+      @recent_speaker_sessions = SpeakerSession.includes(:account).recent.limit(10)
+      @recent_listener_connections = ListenerConnection.includes(:account).recent.limit(20)
     end
 
     def reset_speakers

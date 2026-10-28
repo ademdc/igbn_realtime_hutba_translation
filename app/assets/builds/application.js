@@ -5002,7 +5002,7 @@
   // app/javascript/channels/translation_channel.js
   var translationFeed = document.getElementById("translationFeed");
   if (translationFeed) {
-    const language = translationFeed.dataset.language || "german";
+    const language = translationFeed.dataset.language || "de";
     const subscription = consumer_default.subscriptions.create(
       { channel: "TranslationChannel", language },
       {
@@ -5010,6 +5010,32 @@
           console.log(`Connected to TranslationChannel for ${language}`);
           this.updateStatus("Verbunden", true);
           this.lastReceivedAt = Date.now();
+          this.requestWakeLock();
+        },
+        async requestWakeLock() {
+          if (!("wakeLock" in navigator)) {
+            console.log("Wake lock not supported");
+            return;
+          }
+          try {
+            this.wakeLock = await navigator.wakeLock.request("screen");
+            console.log("Screen wake lock activated");
+            this.wakeLock.addEventListener("release", () => {
+              console.log("Screen wake lock released");
+            });
+            document.addEventListener("visibilitychange", async () => {
+              if (document.visibilityState === "visible" && !this.wakeLock) {
+                try {
+                  this.wakeLock = await navigator.wakeLock.request("screen");
+                  console.log("Screen wake lock re-activated");
+                } catch (err) {
+                  console.log("Could not re-activate wake lock:", err.message);
+                }
+              }
+            });
+          } catch (err) {
+            console.log("Could not activate wake lock:", err.message);
+          }
         },
         disconnected() {
           console.log(`Disconnected from TranslationChannel for ${language}`);
@@ -5074,21 +5100,6 @@
         }, 100);
       }
     });
-    let wakeLock = null;
-    const requestWakeLock = async () => {
-      try {
-        if ("wakeLock" in navigator) {
-          wakeLock = await navigator.wakeLock.request("screen");
-          console.log("Screen wake lock activated");
-          wakeLock.addEventListener("release", () => {
-            console.log("Screen wake lock released");
-          });
-        }
-      } catch (err) {
-        console.log("Wake lock not supported or failed:", err.message);
-      }
-    };
-    document.addEventListener("click", requestWakeLock, { once: true });
   }
 
   // app/javascript/controllers/speaker_controller.js
@@ -5099,6 +5110,8 @@
       this.statusDiv = document.getElementById("status");
       this.transcriptionDiv = document.getElementById("transcription");
       this.transcriptionBox = document.getElementById("transcriptionBox");
+      this.totalListenersEl = document.getElementById("totalListeners");
+      this.statsBreakdownEl = document.getElementById("statsBreakdown");
       this.mediaRecorder = null;
       this.audioContext = null;
       this.channel = null;
@@ -5141,10 +5154,27 @@
             disconnected: () => {
               console.log("Disconnected from translation channel");
             },
+            rejected: () => {
+              console.log("Translation channel subscription rejected");
+              this.stopRecording();
+              this.updateStatus(this.blockedMessage || "Streaming is not available. Please log in again.", "error");
+            },
             received: (data) => {
+              if (data.error === "streaming_unavailable") {
+                this.blockedMessage = data.weekly_limit_reached ? "Weekly streaming limit reached." : "Streaming is not available for this account.";
+                return;
+              }
               if (data.original) {
                 console.log("Received original:", data.original);
                 this.transcriptionDiv.textContent = data.original;
+              }
+              if (data.listener_stats) {
+                console.log("Received listener stats:", data.listener_stats);
+                this.updateListenerStats(data.listener_stats);
+              }
+              if (data.total !== void 0 && data.by_language !== void 0) {
+                console.log("Received listener stats broadcast:", data);
+                this.updateListenerStats(data);
               }
             }
           }
@@ -5210,11 +5240,56 @@
       this.statusDiv.textContent = message;
       this.statusDiv.className = `status status-${type}`;
     }
+    updateListenerStats(stats) {
+      if (this.totalListenersEl) {
+        this.totalListenersEl.textContent = stats.total || 0;
+      }
+      if (this.statsBreakdownEl) {
+        const byLanguage = stats.by_language || {};
+        const languages = Object.keys(byLanguage);
+        if (languages.length === 0) {
+          this.statsBreakdownEl.innerHTML = '<span class="no-listeners">Nema povezanih slusaoca</span>';
+        } else {
+          const languageNames = {
+            "de": "Njema\u010Dki",
+            "en": "Engleski",
+            "fr": "Francuski",
+            "nl": "Holandski",
+            "it": "Italijanski",
+            "es": "\u0160panski",
+            "sv": "\u0160vedski",
+            "tr": "Turski",
+            "ar": "Arapski",
+            "sq": "Albanski"
+          };
+          this.statsBreakdownEl.innerHTML = languages.map((lang) => {
+            const displayName = languageNames[lang] || lang;
+            const count = byLanguage[lang];
+            return `<div class="language-stat">
+            <span class="lang-name">${displayName}</span>
+            <span class="lang-count">${count}</span>
+          </div>`;
+          }).join("");
+        }
+      }
+    }
   };
 
   // app/javascript/controllers/index.js
-  if (document.getElementById("startRecording")) {
-    new SpeakerController();
+  var speakerController = null;
+  function initializeControllers() {
+    if (speakerController) {
+      speakerController = null;
+    }
+    if (document.getElementById("startRecording")) {
+      speakerController = new SpeakerController();
+    }
+  }
+  document.addEventListener("turbo:load", initializeControllers);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeControllers);
+  } else {
+    initializeControllers();
   }
 })();
 //# sourceMappingURL=/assets/application.js.map

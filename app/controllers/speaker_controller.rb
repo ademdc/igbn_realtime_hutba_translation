@@ -1,4 +1,5 @@
 class SpeakerController < ApplicationController
+  include AccountScoped
   before_action :authenticate_speaker, only: [:index]
 
   def index
@@ -10,8 +11,9 @@ class SpeakerController < ApplicationController
   end
 
   def authenticate
-    if params[:pin].present? && params[:pin] == ENV['SPEAKER_PIN']
-      session[:speaker_authenticated] = true
+    if params[:pin].present? && Current.account.authenticate_speaker_pin(params[:pin])
+      reset_session
+      session[:speaker_account_id] = Current.account.id
       redirect_to root_path, notice: "Successfully authenticated"
     else
       flash.now[:alert] = "Invalid PIN. Please try again."
@@ -21,14 +23,14 @@ class SpeakerController < ApplicationController
   end
 
   def logout
-    session[:speaker_authenticated] = nil
+    session[:speaker_account_id] = nil
     redirect_to speaker_login_path, notice: "Logged out"
   end
 
   private
 
   def authenticate_speaker
-    unless session[:speaker_authenticated]
+    unless session[:speaker_account_id] == Current.account.id
       redirect_to speaker_login_path
     end
   end

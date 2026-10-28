@@ -1,4 +1,6 @@
 class ListenerConnection < ApplicationRecord
+  belongs_to :account
+
   validates :session_id, presence: true
   validates :language, presence: true
   validates :connected_at, presence: true

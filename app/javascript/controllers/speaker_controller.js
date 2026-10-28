@@ -62,7 +62,19 @@ export default class SpeakerController {
           disconnected: () => {
             console.log("Disconnected from translation channel")
           },
+          rejected: () => {
+            console.log("Translation channel subscription rejected")
+            this.stopRecording()
+            this.updateStatus(this.blockedMessage || "Streaming is not available. Please log in again.", "error")
+          },
           received: (data) => {
+            // Server refuses to stream (trial expired, suspended or weekly limit reached)
+            if (data.error === "streaming_unavailable") {
+              this.blockedMessage = data.weekly_limit_reached
+                ? "Weekly streaming limit reached."
+                : "Streaming is not available for this account."
+              return
+            }
             // Display Bosnian original transcription
             if (data.original) {
               console.log("Received original:", data.original)
@@ -182,8 +194,16 @@ export default class SpeakerController {
         this.statsBreakdownEl.innerHTML = '<span class="no-listeners">Nema povezanih slusaoca</span>'
       } else {
         const languageNames = {
-          'german': 'Njemački',
-          'english': 'Engleski'
+          'de': 'Njemački',
+          'en': 'Engleski',
+          'fr': 'Francuski',
+          'nl': 'Holandski',
+          'it': 'Italijanski',
+          'es': 'Španski',
+          'sv': 'Švedski',
+          'tr': 'Turski',
+          'ar': 'Arapski',
+          'sq': 'Albanski'
         }
 
         this.statsBreakdownEl.innerHTML = languages.map(lang => {

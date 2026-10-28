@@ -3,7 +3,7 @@
     <div class="panel-header">
       <div>
         <h1>Panel za govornika</h1>
-        <p class="subtitle">Govorite na bosanskom da biste emitovali prevode na njemački</p>
+        <p class="subtitle"><%= Current.account.name %> · Govorite na bosanskom da biste emitovali prevode</p>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
       <ol>
         <li>Kliknite "Pokreni snimanje" da zapocnete govoriti</li>
         <li>Govorite na bosanskom</li>
-        <li>Slusatelji na /german ce vidjeti prevode na njemacki u realnom vremenu</li>
+        <li>Slusatelji na /<%= Current.account.languages.join(", /") %> ce vidjeti prevode u realnom vremenu</li>
         <li>Kliknite "Zaustavi snimanje" kada zavrsite</li>
       </ol>
       <%= button_to "🚪 Odjava", speaker_logout_path, method: :delete, class: "btn-logout", data: { confirm: "Da li ste sigurni da želite da se odjavite?" } %>

@@ -35,7 +35,7 @@
           <div class="language-breakdown">
             <% @active_listeners_by_language.each do |language, count| %>
               <div class="language-item">
-                <span><%= language.capitalize %></span>
+                <span><%= Language.info(language)&.dig(:name) || language %></span>
                 <span class="count"><%= count %></span>
               </div>
             <% end %>
@@ -89,6 +89,7 @@
       <table class="data-table">
         <thead>
           <tr>
+            <th>Mosque</th>
             <th>Session ID</th>
             <th>Started</th>
             <th>Duration</th>
@@ -99,6 +100,7 @@
         <tbody>
           <% @recent_speaker_sessions.each do |session| %>
             <tr>
+              <td><%= session.account.subdomain %></td>
               <td><%= session.session_id.truncate(20) %></td>
               <td><%= session.started_at.strftime("%b %d, %H:%M") %></td>
               <td><%= session.duration_formatted %></td>
@@ -126,6 +128,7 @@
       <table class="data-table">
         <thead>
           <tr>
+            <th>Mosque</th>
             <th>Session ID</th>
             <th>Language</th>
             <th>Connected</th>
@@ -136,6 +139,7 @@
         <tbody>
           <% @recent_listener_connections.each do |connection| %>
             <tr>
+              <td><%= connection.account.subdomain %></td>
               <td><%= connection.session_id.truncate(20) %></td>
               <td><span class="badge badge-language"><%= connection.language %></span></td>
               <td><%= connection.connected_at.strftime("%b %d, %H:%M") %></td>

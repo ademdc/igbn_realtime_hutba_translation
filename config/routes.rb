@@ -28,8 +28,11 @@ Rails.application.routes.draw do
   # Listener language selection
   get "listener", to: "listener#index", as: :listener
 
-  # Language-specific listener pages
-  get "german", to: "listener#show", defaults: { language: 'german' }
-  get "deutsch", to: redirect("/german")
-  # get "english", to: "listener#show", defaults: { language: 'english' }
+  # Language-specific listener pages, e.g. /de, /en
+  get ":language", to: "listener#show", as: :listener_language,
+    constraints: { language: Regexp.union(Language::CODES) }
+
+  # Old full-name URLs (/german, /deutsch) from the single-tenant version
+  get ":legacy", to: redirect { |params, _| "/#{Language::LEGACY_NAMES[params[:legacy]]}" },
+    constraints: { legacy: Regexp.union(Language::LEGACY_NAMES.keys) }
 end

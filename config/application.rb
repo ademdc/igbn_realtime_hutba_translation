@@ -16,6 +16,12 @@ module IgbdTranslationsApp
     config.hosts << 'dzuma.dzamija.net'
     config.hosts << 'hutba.igbd-nuernberg.de'
 
+    # Tenant subdomains, e.g. dzemat-nurnberg.hutba.app. In development *.localhost is allowed by default.
+    if ENV["APP_DOMAIN"].present?
+      config.hosts << ENV["APP_DOMAIN"]
+      config.hosts << /\A([a-z0-9-]+\.)?#{Regexp.escape(ENV["APP_DOMAIN"])}\z/
+    end
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.

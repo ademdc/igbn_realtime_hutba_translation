@@ -42,9 +42,9 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
+  # Allow WebSocket connections from any host that is allowed to serve the app
   config.action_cable.allowed_request_origins = [
-    "https://igbn-nuernberg-d2981e27b782.herokuapp.com",
-    /https:\/\/igbn-nuernberg-d2981e27b782\.herokuapp\.com/
+    ->(origin) { Rails.application.config.hosts.any? { |host| host === URI.parse(origin).host } rescue false }
   ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.

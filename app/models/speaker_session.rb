@@ -1,4 +1,6 @@
 class SpeakerSession < ApplicationRecord
+  belongs_to :account
+
   validates :session_id, presence: true
   validates :started_at, presence: true
 
