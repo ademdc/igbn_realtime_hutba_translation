@@ -49,6 +49,65 @@ fr:
       listener_links: Liens pour les fidèles
       broadcast: Diffusion
       broadcast_text: Ouvrez la page de diffusion sur l'appareil près de l'imam et appuyez sur « Démarrer ».
+      welcome:
+        title: "%{account} est prête. Prochaines étapes :"
+        languages: Choisir les langues des fidèles
+        pin: Définir le code de l'imam
+        poster: Imprimer et afficher l'affiche QR
+      plan:
+        title: Formule
+        suspended: En pause
+        suspended_note: Veuillez nous contacter.
+        trial_over: Essai terminé
+        trial_over_note: La diffusion est en pause jusqu'à réception du paiement.
+        trial_days:
+          one: Encore 1 jour d'essai
+          few: Encore %{count} jours d'essai
+          many: Encore %{count} jours d'essai
+          other: Encore %{count} jours d'essai
+        trial_until: Gratuit jusqu'au %{date}
+        active: Active
+      usage:
+        title: Diffusion cette semaine
+        minutes: "%{used} sur %{limit} min"
+        reached: Limite hebdomadaire atteinte. De nouveau disponible le %{date}.
+        resets: Remise à zéro le %{date}.
+      week:
+        title: Cette semaine
+        listeners:
+          one: 1 auditeur
+          few: "%{count} auditeurs"
+          many: "%{count} auditeurs"
+          other: "%{count} auditeurs"
+        broadcasts:
+          one: 1 diffusion
+          few: "%{count} diffusions"
+          many: "%{count} diffusions"
+          other: "%{count} diffusions"
+      languages:
+        title: Langues pour les fidèles
+        limit: "%{used} sur %{limit} langues"
+        save: Enregistrer les langues
+        more: Besoin de plus ? %{price}
+      qr:
+        title: QR codes
+        poster: Imprimer l'affiche
+        lead: Chaque langue a son propre lien. Affichez l'affiche à l'entrée ou partagez les liens dans votre groupe WhatsApp.
+        alt: QR code pour %{language}
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: Imam et diffusion
+        lead: Avec le code, l'imam lance la diffusion sans compte personnel.
+        set_pin: Définir le code
+        change_pin: Nouveau code
+        pin_hint: 4 à 8 chiffres.
+        save_pin: Enregistrer le code
+      settings:
+        title: Paramètres
+        name: Nom de la mosquée
+        save: Enregistrer
+        address: 'Votre adresse : %{host}'
     users:
       title: Équipe
       lead: Invitez imams et membres du bureau. Chacun se connecte avec son propre e-mail.
@@ -67,6 +126,32 @@ fr:
       lead: Saisissez votre adresse e-mail, nous vous enverrons le lien de connexion de votre communauté.
       submit: Envoyer le lien
       sent: Si cette adresse est enregistrée chez nous, nous vous avons envoyé le lien de connexion.
+    accounts:
+      saved: Enregistré.
+    poster:
+      print: Imprimer
+      back: Retour à l'aperçu
+    signup:
+      title: Inscrire votre mosquée
+      lead: Prêt en quelques minutes. Gratuit pendant 60 jours, ensuite vous décidez.
+      facts:
+      - Sans carte bancaire
+      - Une adresse propre à votre communauté
+      - Affiche QR à imprimer incluse
+      - Jusqu'à 3 heures de diffusion par semaine
+      mosque: Votre mosquée
+      you: Votre accès
+      fields:
+        mosque_name: Nom de la mosquée
+        subdomain: Adresse
+        country: Pays
+        city: Ville
+      placeholders:
+        mosque_name: p. ex. Mosquée de Lyon
+      subdomain_hint: Lettres minuscules, chiffres et tirets.
+      terms_html: J'accepte les %{terms} et j'ai lu la politique de %{privacy}.
+      terms_link: conditions d'utilisation
+      submit: Commencer gratuitement
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -83,6 +168,11 @@ fr:
       subject: Votre lien de connexion Hutba
       body: 'Connectez-vous à votre communauté ici :'
       ignore: Si vous n'avez rien demandé, ignorez cet e-mail.
+    welcome:
+      subject: Bienvenue sur Hutba, %{account}
+      body: Votre mosquée %{account} est prête. Vous pouvez utiliser Hutba gratuitement pendant %{days} jours.
+      action: Voir l'aperçu
+      address: 'Votre adresse : %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ fr:
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         role: Rôle
+      account:
+        name: Nom de la mosquée
+        subdomain: Adresse
+        languages: Langues
+        speaker_pin: Code
+        country: Pays
+        city: Ville
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Votre formule comprend %{count} langues. Vous pouvez en ajouter.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Nom de la mosquée
+        subdomain: Adresse
+        country: Pays
+        city: Ville
+        name: Nom
+        email: E-mail
+        password: Mot de passe
+        terms: Conditions d'utilisation
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: doivent être acceptées

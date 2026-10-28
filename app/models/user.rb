@@ -29,6 +29,11 @@ class User < ApplicationRecord
     password_salt.last(10)
   end
 
+  # Single-use: last_login_at changes once the token signs the user in
+  generates_token_for :handover, expires_in: 2.minutes do
+    last_login_at&.to_i
+  end
+
   # Invited users get an unguessable password until they choose their own
   def self.invite(account:, name:, email:, role:)
     account.users.create(name: name, email: email, role: role, password: SecureRandom.base58(32))

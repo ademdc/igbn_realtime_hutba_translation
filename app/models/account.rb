@@ -2,6 +2,17 @@ class Account < ApplicationRecord
   RESERVED_SUBDOMAINS = %w[www admin app api mail cable assets static help support status blog].freeze
   STATUSES = %w[trialing active suspended].freeze
   TRIAL_LENGTH = 60.days
+  INCLUDED_LANGUAGES = 3
+  # Endonyms, so the list reads the same in every UI language
+  COUNTRY_NAMES = {
+    "DE" => "Deutschland", "AT" => "Österreich", "CH" => "Schweiz", "NL" => "Nederland",
+    "BE" => "België / Belgique", "FR" => "France", "LU" => "Luxembourg", "DK" => "Danmark",
+    "SE" => "Sverige", "NO" => "Norge", "GB" => "United Kingdom", "IT" => "Italia",
+    "ES" => "España", "BA" => "Bosna i Hercegovina", "HR" => "Hrvatska", "RS" => "Srbija",
+    "ME" => "Crna Gora", "SI" => "Slovenija", "MK" => "Северна Македонија", "AL" => "Shqipëria",
+    "XK" => "Kosova", "TR" => "Türkiye", "US" => "United States", "CA" => "Canada", "AU" => "Australia"
+  }.freeze
+  COUNTRIES = COUNTRY_NAMES.keys.freeze
 
   has_secure_password :speaker_pin, validations: false
 
@@ -19,7 +30,10 @@ class Account < ApplicationRecord
   validates :custom_domain, uniqueness: true, allow_nil: true
   validates :status, inclusion: { in: STATUSES }
   validates :languages, presence: true
+  validates :speaker_pin, format: { with: /\A\d{4,8}\z/ }, allow_nil: true
+  validates :country, inclusion: { in: COUNTRIES }, allow_nil: true
   validate :languages_supported
+  validate :languages_within_limit
 
   before_validation :set_trial_end, on: :create
 
@@ -49,6 +63,34 @@ class Account < ApplicationRecord
     languages.include?(code)
   end
 
+  def language_limit
+    INCLUDED_LANGUAGES + extra_languages
+  end
+
+  # Listener languages that suit a mosque in this country
+  def self.default_languages_for(country)
+    case country
+    when "DE", "AT", "CH", "LU" then %w[de]
+    when "NL" then %w[nl]
+    when "BE" then %w[nl fr]
+    when "FR" then %w[fr]
+    when "IT" then %w[it]
+    when "ES" then %w[es]
+    when "SE" then %w[sv]
+    when "TR" then %w[tr]
+    else %w[en]
+    end
+  end
+
+  def trial_days_left
+    return 0 unless status == "trialing" && trial_ends_at
+    [(trial_ends_at.to_date - Date.current).to_i, 0].max
+  end
+
+  def weekly_minutes_left
+    [weekly_minutes_limit - weekly_minutes_used, 0].max
+  end
+
   def suspended?
     status == "suspended"
   end
@@ -75,6 +117,12 @@ class Account < ApplicationRecord
 
   def set_trial_end
     self.trial_ends_at ||= TRIAL_LENGTH.from_now if status == "trialing"
+  end
+
+  def languages_within_limit
+    if Array(languages).size > language_limit
+      errors.add(:languages, :too_many, count: language_limit)
+    end
   end
 
   def languages_supported

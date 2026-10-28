@@ -19,6 +19,9 @@ class MarketingController < ApplicationController
   def privacy
   end
 
+  def terms
+  end
+
   private
 
   def switch_locale(&action)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_28_140000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_28_160000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_140000) do
     t.integer "weekly_minutes_limit", default: 180, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country"
+    t.string "city"
+    t.integer "extra_languages", default: 0, null: false
     t.index ["custom_domain"], name: "index_accounts_on_custom_domain", unique: true
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end

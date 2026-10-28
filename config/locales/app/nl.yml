@@ -49,6 +49,65 @@ nl:
       listener_links: Links voor luisteraars
       broadcast: Uitzending
       broadcast_text: Open de uitzendpagina op het apparaat bij de imam en tik op „Start”.
+      welcome:
+        title: "%{account} is klaar. Volgende stappen:"
+        languages: Talen voor luisteraars kiezen
+        pin: Pincode voor de imam instellen
+        poster: QR-poster printen en ophangen
+      plan:
+        title: Abonnement
+        suspended: Gepauzeerd
+        suspended_note: Neem contact met ons op.
+        trial_over: Proefperiode voorbij
+        trial_over_note: Uitzenden is gepauzeerd tot de betaling binnen is.
+        trial_days:
+          one: Nog 1 proefdag
+          few: Nog %{count} proefdagen
+          many: Nog %{count} proefdagen
+          other: Nog %{count} proefdagen
+        trial_until: Gratis tot %{date}
+        active: Actief
+      usage:
+        title: Uitzenden deze week
+        minutes: "%{used} van %{limit} min"
+        reached: Weeklimiet bereikt. Weer beschikbaar vanaf %{date}.
+        resets: Wordt op %{date} gereset.
+      week:
+        title: Deze week
+        listeners:
+          one: 1 luisteraar
+          few: "%{count} luisteraars"
+          many: "%{count} luisteraars"
+          other: "%{count} luisteraars"
+        broadcasts:
+          one: 1 uitzending
+          few: "%{count} uitzendingen"
+          many: "%{count} uitzendingen"
+          other: "%{count} uitzendingen"
+      languages:
+        title: Talen voor luisteraars
+        limit: "%{used} van %{limit} talen"
+        save: Talen opslaan
+        more: Meer nodig? %{price}
+      qr:
+        title: QR-codes
+        poster: Poster printen
+        lead: Elke taal heeft een eigen link. Hang de poster bij de ingang of deel de links in uw WhatsApp-groep.
+        alt: QR-code voor %{language}
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: Imam en uitzending
+        lead: Met de pincode start de imam de uitzending zonder eigen account.
+        set_pin: Pincode instellen
+        change_pin: Nieuwe pincode
+        pin_hint: 4 tot 8 cijfers.
+        save_pin: Pincode opslaan
+      settings:
+        title: Instellingen
+        name: Naam van de moskee
+        save: Opslaan
+        address: 'Uw adres: %{host}'
     users:
       title: Team
       lead: Nodig imams en bestuursleden uit. Iedereen logt in met een eigen e-mailadres.
@@ -67,6 +126,32 @@ nl:
       lead: Vul uw e-mailadres in, dan sturen we u de inloglink van uw gemeenschap.
       submit: Link versturen
       sent: Als dit adres bij ons bekend is, hebben we u de inloglink gestuurd.
+    accounts:
+      saved: Opgeslagen.
+    poster:
+      print: Afdrukken
+      back: Terug naar overzicht
+    signup:
+      title: Uw moskee aanmelden
+      lead: In een paar minuten klaar. 60 dagen gratis, daarna beslist u.
+      facts:
+      - Geen creditcard nodig
+      - Een eigen adres voor uw gemeenschap
+      - QR-poster om te printen inbegrepen
+      - Tot 3 uur uitzenden per week
+      mosque: Uw moskee
+      you: Uw toegang
+      fields:
+        mosque_name: Naam van de moskee
+        subdomain: Adres
+        country: Land
+        city: Plaats
+      placeholders:
+        mosque_name: bijv. Bosnische Moskee Rotterdam
+      subdomain_hint: Kleine letters, cijfers en streepjes.
+      terms_html: Ik ga akkoord met de %{terms} en heb de %{privacy}verklaring gelezen.
+      terms_link: gebruiksvoorwaarden
+      submit: Gratis starten
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -83,6 +168,11 @@ nl:
       subject: Uw inloglink voor Hutba
       body: 'Hier logt u in bij uw gemeenschap:'
       ignore: Heeft u niets aangevraagd, negeer deze e-mail dan.
+    welcome:
+      subject: Welkom bij Hutba, %{account}
+      body: Uw moskee %{account} is klaar. U kunt Hutba %{days} dagen gratis gebruiken.
+      action: Naar het overzicht
+      address: 'Uw adres: %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ nl:
         password: Wachtwoord
         password_confirmation: Wachtwoordbevestiging
         role: Rol
+      account:
+        name: Naam van de moskee
+        subdomain: Adres
+        languages: Talen
+        speaker_pin: Pincode
+        country: Land
+        city: Plaats
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Uw abonnement omvat %{count} talen. U kunt er meer bijnemen.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Naam van de moskee
+        subdomain: Adres
+        country: Land
+        city: Plaats
+        name: Naam
+        email: E-mail
+        password: Wachtwoord
+        terms: Gebruiksvoorwaarden
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: moeten worden geaccepteerd

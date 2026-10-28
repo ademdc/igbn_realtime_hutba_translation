@@ -49,6 +49,65 @@ de:
       listener_links: Links für die Zuhörer
       broadcast: Übertragung
       broadcast_text: Öffnen Sie die Übertragung auf dem Gerät beim Imam und tippen Sie auf „Start“.
+      welcome:
+        title: "%{account} ist eingerichtet. Die nächsten Schritte:"
+        languages: Sprachen für die Zuhörer wählen
+        pin: PIN für den Imam festlegen
+        poster: QR-Plakat drucken und aufhängen
+      plan:
+        title: Tarif
+        suspended: Pausiert
+        suspended_note: Bitte kontaktieren Sie uns.
+        trial_over: Testzeit beendet
+        trial_over_note: Die Übertragung ist pausiert, bis die Zahlung eingeht.
+        trial_days:
+          one: Noch 1 Testtag
+          few: Noch %{count} Testtage
+          many: Noch %{count} Testtage
+          other: Noch %{count} Testtage
+        trial_until: Kostenlos bis %{date}
+        active: Aktiv
+      usage:
+        title: Übertragung diese Woche
+        minutes: "%{used} von %{limit} Min."
+        reached: Wochenlimit erreicht. Wieder verfügbar ab %{date}.
+        resets: Wird am %{date} zurückgesetzt.
+      week:
+        title: Diese Woche
+        listeners:
+          one: 1 Zuhörer
+          few: "%{count} Zuhörer"
+          many: "%{count} Zuhörer"
+          other: "%{count} Zuhörer"
+        broadcasts:
+          one: 1 Übertragung
+          few: "%{count} Übertragungen"
+          many: "%{count} Übertragungen"
+          other: "%{count} Übertragungen"
+      languages:
+        title: Sprachen für die Zuhörer
+        limit: "%{used} von %{limit} Sprachen"
+        save: Sprachen speichern
+        more: Mehr Sprachen? %{price}
+      qr:
+        title: QR-Codes
+        poster: Plakat drucken
+        lead: Jede Sprache hat ihren eigenen Link. Hängen Sie das Plakat am Eingang auf oder teilen Sie die Links in Ihrer WhatsApp-Gruppe.
+        alt: QR-Code für %{language}
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: Imam und Übertragung
+        lead: Mit der PIN startet der Imam die Übertragung, ohne eigenes Konto.
+        set_pin: PIN festlegen
+        change_pin: Neue PIN
+        pin_hint: 4 bis 8 Ziffern.
+        save_pin: PIN speichern
+      settings:
+        title: Einstellungen
+        name: Name der Gemeinde
+        save: Speichern
+        address: 'Ihre Adresse: %{host}'
     users:
       title: Team
       lead: Laden Sie Imame und Vorstandsmitglieder ein. Jede Person meldet sich mit eigener E-Mail an.
@@ -67,6 +126,32 @@ de:
       lead: Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen den Anmeldelink Ihrer Gemeinde.
       submit: Link senden
       sent: Falls die Adresse bei uns registriert ist, haben wir Ihnen den Anmeldelink geschickt.
+    accounts:
+      saved: Gespeichert.
+    poster:
+      print: Drucken
+      back: Zurück zur Übersicht
+    signup:
+      title: Gemeinde anmelden
+      lead: In wenigen Minuten eingerichtet. 60 Tage kostenlos, danach entscheiden Sie.
+      facts:
+      - Keine Kreditkarte nötig
+      - Eigene Adresse für Ihre Gemeinde
+      - QR-Plakat zum Ausdrucken inklusive
+      - Bis zu 3 Stunden Übertragung pro Woche
+      mosque: Ihre Gemeinde
+      you: Ihr Zugang
+      fields:
+        mosque_name: Name der Gemeinde
+        subdomain: Adresse
+        country: Land
+        city: Stadt
+      placeholders:
+        mosque_name: z. B. Džemat Nürnberg
+      subdomain_hint: Kleinbuchstaben, Zahlen und Bindestriche.
+      terms_html: Ich akzeptiere die %{terms} und habe die %{privacy} gelesen.
+      terms_link: Nutzungsbedingungen
+      submit: Kostenlos starten
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -83,6 +168,11 @@ de:
       subject: Ihr Anmeldelink für Hutba
       body: 'Hier melden Sie sich bei Ihrer Gemeinde an:'
       ignore: Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail.
+    welcome:
+      subject: Willkommen bei Hutba, %{account}
+      body: Ihre Gemeinde %{account} ist eingerichtet. Sie können Hutba %{days} Tage lang kostenlos nutzen.
+      action: Zur Übersicht
+      address: 'Ihre Adresse: %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ de:
         password: Passwort
         password_confirmation: Passwortbestätigung
         role: Rolle
+      account:
+        name: Name der Gemeinde
+        subdomain: Adresse
+        languages: Sprachen
+        speaker_pin: PIN
+        country: Land
+        city: Stadt
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Ihr Tarif umfasst %{count} Sprachen. Weitere Sprachen können Sie dazubuchen.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Name der Gemeinde
+        subdomain: Adresse
+        country: Land
+        city: Stadt
+        name: Name
+        email: E-Mail
+        password: Passwort
+        terms: Nutzungsbedingungen
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: müssen akzeptiert werden

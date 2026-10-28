@@ -49,6 +49,65 @@ tr:
       listener_links: Dinleyici bağlantıları
       broadcast: Yayın
       broadcast_text: İmamın yanındaki cihazda yayın sayfasını açın ve „Başlat“a dokunun.
+      welcome:
+        title: "%{account} hazır. Sonraki adımlar:"
+        languages: Dinleyiciler için dilleri seçin
+        pin: İmam için PIN belirleyin
+        poster: QR afişini yazdırıp asın
+      plan:
+        title: Paket
+        suspended: Durduruldu
+        suspended_note: Lütfen bizimle iletişime geçin.
+        trial_over: Deneme süresi bitti
+        trial_over_note: Ödeme alınana kadar yayın durduruldu.
+        trial_days:
+          one: 1 deneme günü kaldı
+          few: "%{count} deneme günü kaldı"
+          many: "%{count} deneme günü kaldı"
+          other: "%{count} deneme günü kaldı"
+        trial_until: "%{date} tarihine kadar ücretsiz"
+        active: Aktif
+      usage:
+        title: Bu haftaki yayın
+        minutes: "%{limit} dakikanın %{used} dakikası"
+        reached: Haftalık sınıra ulaşıldı. %{date} tarihinden itibaren tekrar kullanılabilir.
+        resets: "%{date} tarihinde sıfırlanır."
+      week:
+        title: Bu hafta
+        listeners:
+          one: 1 dinleyici
+          few: "%{count} dinleyici"
+          many: "%{count} dinleyici"
+          other: "%{count} dinleyici"
+        broadcasts:
+          one: 1 yayın
+          few: "%{count} yayın"
+          many: "%{count} yayın"
+          other: "%{count} yayın"
+      languages:
+        title: Dinleyici dilleri
+        limit: "%{limit} dilin %{used} tanesi"
+        save: Dilleri kaydet
+        more: Daha fazlası mı lazım? %{price}
+      qr:
+        title: QR kodları
+        poster: Afişi yazdır
+        lead: Her dilin kendi bağlantısı var. Afişi girişe asın veya bağlantıları WhatsApp grubunuzda paylaşın.
+        alt: "%{language} için QR kodu"
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: İmam ve yayın
+        lead: İmam, PIN ile kendi hesabı olmadan yayını başlatır.
+        set_pin: PIN belirle
+        change_pin: Yeni PIN
+        pin_hint: 4 ila 8 rakam.
+        save_pin: PIN'i kaydet
+      settings:
+        title: Ayarlar
+        name: Caminin adı
+        save: Kaydet
+        address: 'Adresiniz: %{host}'
     users:
       title: Ekip
       lead: İmamları ve yönetim üyelerini davet edin. Herkes kendi e-postasıyla giriş yapar.
@@ -67,6 +126,32 @@ tr:
       lead: E-posta adresinizi girin, cemaatinizin giriş bağlantısını size gönderelim.
       submit: Bağlantı gönder
       sent: Bu adres kayıtlıysa giriş bağlantısını size gönderdik.
+    accounts:
+      saved: Kaydedildi.
+    poster:
+      print: Yazdır
+      back: Genel bakışa dön
+    signup:
+      title: Caminizi kaydedin
+      lead: Birkaç dakikada hazır. 60 gün ücretsiz, sonra siz karar verirsiniz.
+      facts:
+      - Kredi kartı gerekmez
+      - Cemaatinize özel adres
+      - Yazdırılabilir QR afişi dahil
+      - Haftada 3 saate kadar yayın
+      mosque: Caminiz
+      you: Girişiniz
+      fields:
+        mosque_name: Caminin adı
+        subdomain: Adres
+        country: Ülke
+        city: Şehir
+      placeholders:
+        mosque_name: ör. Boşnak Camii Nürnberg
+      subdomain_hint: Küçük harf, rakam ve tire.
+      terms_html: "%{terms} kabul ediyorum ve %{privacy} politikasını okudum."
+      terms_link: Kullanım koşullarını
+      submit: Ücretsiz başla
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -83,6 +168,11 @@ tr:
       subject: Hutba giriş bağlantınız
       body: 'Cemaatinize buradan giriş yapın:'
       ignore: Bir şey istemediyseniz bu e-postayı dikkate almayın.
+    welcome:
+      subject: Hutba'ya hoş geldiniz, %{account}
+      body: "%{account} hazır. Hutba'yı %{days} gün ücretsiz kullanabilirsiniz."
+      action: Genel bakışa git
+      address: 'Adresiniz: %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ tr:
         password: Şifre
         password_confirmation: Şifre onayı
         role: Rol
+      account:
+        name: Caminin adı
+        subdomain: Adres
+        languages: Diller
+        speaker_pin: PIN
+        country: Ülke
+        city: Şehir
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Paketiniz %{count} dil içerir. Daha fazla ekleyebilirsiniz.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Caminin adı
+        subdomain: Adres
+        country: Ülke
+        city: Şehir
+        name: Ad
+        email: E-posta
+        password: Şifre
+        terms: Kullanım koşulları
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: kabul edilmelidir

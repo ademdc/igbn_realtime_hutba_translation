@@ -37,7 +37,7 @@
       <h1 class="hero__title"><%= t("marketing.hero.title") %></h1>
       <p class="hero__lead"><%= t("marketing.hero.lead") %></p>
       <div class="hero__actions">
-        <a class="button" href="#pricing"><%= t("marketing.hero.cta") %></a>
+        <%= link_to t("marketing.hero.cta"), signup_path(locale: I18n.locale), class: "button" %>
         <p class="hero__note"><%= t("marketing.hero.note") %></p>
       </div>
     </div>
@@ -128,7 +128,7 @@
         <% end %>
       </ul>
       <p class="pricing__addon"><%= t("marketing.pricing.addon") %></p>
-      <a class="button button--light" href="mailto:<%= Rails.configuration.x.contact_email %>" data-signup-link><%= t("marketing.pricing.cta") %></a>
+      <%= link_to t("marketing.pricing.cta"), signup_path(locale: I18n.locale), class: "button button--light" %>
       <p class="pricing__note"><%= t("marketing.pricing.note") %></p>
     </div>
   </div>

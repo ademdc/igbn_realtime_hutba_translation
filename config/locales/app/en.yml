@@ -49,6 +49,65 @@ en:
       listener_links: Links for listeners
       broadcast: Broadcast
       broadcast_text: Open the broadcast page on the device next to the imam and tap “Start”.
+      welcome:
+        title: "%{account} is set up. Next steps:"
+        languages: Choose languages for listeners
+        pin: Set the imam's PIN
+        poster: Print the QR poster and hang it up
+      plan:
+        title: Plan
+        suspended: Paused
+        suspended_note: Please contact us.
+        trial_over: Trial ended
+        trial_over_note: Broadcasting is paused until payment is received.
+        trial_days:
+          one: 1 trial day left
+          few: "%{count} trial days left"
+          many: "%{count} trial days left"
+          other: "%{count} trial days left"
+        trial_until: Free until %{date}
+        active: Active
+      usage:
+        title: Broadcasting this week
+        minutes: "%{used} of %{limit} min"
+        reached: Weekly limit reached. Available again from %{date}.
+        resets: Resets on %{date}.
+      week:
+        title: This week
+        listeners:
+          one: 1 listener
+          few: "%{count} listeners"
+          many: "%{count} listeners"
+          other: "%{count} listeners"
+        broadcasts:
+          one: 1 broadcast
+          few: "%{count} broadcasts"
+          many: "%{count} broadcasts"
+          other: "%{count} broadcasts"
+      languages:
+        title: Languages for listeners
+        limit: "%{used} of %{limit} languages"
+        save: Save languages
+        more: Need more? %{price}
+      qr:
+        title: QR codes
+        poster: Print poster
+        lead: Each language has its own link. Hang the poster at the entrance or share the links in your WhatsApp group.
+        alt: QR code for %{language}
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: Imam and broadcast
+        lead: With the PIN, the imam can start the broadcast without an account.
+        set_pin: Set PIN
+        change_pin: New PIN
+        pin_hint: 4 to 8 digits.
+        save_pin: Save PIN
+      settings:
+        title: Settings
+        name: Mosque name
+        save: Save
+        address: 'Your address: %{host}'
     users:
       title: Team
       lead: Invite imams and board members. Everyone logs in with their own email.
@@ -67,6 +126,32 @@ en:
       lead: Enter your email address and we'll send you your congregation's login link.
       submit: Send link
       sent: If that address is registered with us, we've sent you the login link.
+    accounts:
+      saved: Saved.
+    poster:
+      print: Print
+      back: Back to overview
+    signup:
+      title: Register your mosque
+      lead: Ready in a few minutes. Free for 60 days, then you decide.
+      facts:
+      - No credit card needed
+      - Your own address for your congregation
+      - Printable QR poster included
+      - Up to 3 hours of broadcasting per week
+      mosque: Your mosque
+      you: Your login
+      fields:
+        mosque_name: Mosque name
+        subdomain: Address
+        country: Country
+        city: City
+      placeholders:
+        mosque_name: e.g. Džemat Nürnberg
+      subdomain_hint: Lowercase letters, numbers and hyphens.
+      terms_html: I accept the %{terms} and have read the %{privacy} policy.
+      terms_link: terms of service
+      submit: Start for free
   mailers:
     greeting: Salam %{name},
     password_reset:
@@ -83,6 +168,11 @@ en:
       subject: Your Hutba login link
       body: 'Log in to your congregation here:'
       ignore: If you didn't ask for this, ignore this email.
+    welcome:
+      subject: Welcome to Hutba, %{account}
+      body: Your mosque %{account} is set up. You can use Hutba for free for %{days} days.
+      action: Go to overview
+      address: 'Your address: %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ en:
         password: Password
         password_confirmation: Password confirmation
         role: Role
+      account:
+        name: Mosque name
+        subdomain: Address
+        languages: Languages
+        speaker_pin: PIN
+        country: Country
+        city: City
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Your plan includes %{count} languages. You can add more.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Mosque name
+        subdomain: Address
+        country: Country
+        city: City
+        name: Name
+        email: Email
+        password: Password
+        terms: Terms of service
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: must be accepted

@@ -8,5 +8,6 @@ class DashboardController < ApplicationController
 
   def show
     @account = Current.account
+    @dashboard = DashboardPresenter.new(@account)
   end
 end

@@ -46,7 +46,7 @@
         </details>
 
         <%= link_to t("marketing.nav.login"), marketing_login_path(locale: I18n.locale), class: "site-header__login" %>
-        <a class="button button--small site-header__cta" href="<%= marketing_path(locale: I18n.locale) %>#pricing"><%= t("marketing.nav.cta") %></a>
+        <%= link_to t("marketing.nav.cta"), signup_path(locale: I18n.locale), class: "button button--small site-header__cta" %>
       </div>
     </header>
 

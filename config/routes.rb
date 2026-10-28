@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     get "/", to: "marketing#locale_redirect", as: :marketing_root
     scope ":locale", locale: Regexp.union(MarketingController::LOCALES) do
       get "/", to: "marketing#index", as: :marketing
+      get "signup", to: "signups#new", as: :signup
+      post "signup", to: "signups#create", as: nil
+      get "signup/check", to: "signups#check", as: :signup_check
+      get "terms", to: "marketing#terms", as: :marketing_terms
       get "login", to: "account_lookups#new", as: :marketing_login
       post "login", to: "account_lookups#create", as: nil
       get "impressum", to: "marketing#imprint", as: :marketing_imprint
@@ -30,8 +34,15 @@ Rails.application.routes.draw do
   get "invitation/:token", to: "invitations#edit", as: :invitation
   patch "invitation/:token", to: "invitations#update"
 
+  # Sign-in handover from the signup on the marketing site
+  get "session/:token", to: "handovers#show", as: :handover
+
   # Mosque owner area
   get "dashboard", to: "dashboard#show", as: :dashboard
+  patch "dashboard/account", to: "accounts#update", as: :account
+  get "dashboard/qr/:language", to: "qr_codes#show", as: :qr_code,
+    constraints: { language: Regexp.union(Language::CODES), format: /svg|png/ }
+  get "dashboard/poster", to: "posters#show", as: :poster
   resources :users, path: "dashboard/team", only: [:index, :create, :destroy]
 
   # Admin backoffice

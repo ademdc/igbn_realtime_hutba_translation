@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <title><%= @account.name %> – Hutba</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <%= render "layouts/fonts" %>
+    <style>
+      @page { size: A4; margin: 0; }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: #dde7e3;
+        color: #12302d;
+        font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      .toolbar button, .toolbar a {
+        font: inherit;
+        font-weight: 700;
+        padding: 0.6rem 1.3rem;
+        border-radius: 999px;
+        border: 0;
+        background: #12302d;
+        color: #f4f6f3;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .toolbar a { background: transparent; color: #12302d; border: 1.5px solid #12302d; }
+
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 2rem;
+        padding: 18mm 16mm 14mm;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 50px -20px rgb(18 48 45 / 0.4);
+      }
+
+      .sheet__mosque { font-size: 14pt; color: #3f5754; }
+
+      .sheet__title {
+        margin: 2mm 0 0;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        font-size: 44pt;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .codes {
+        flex: 1;
+        list-style: none;
+        margin: 12mm 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        align-content: center;
+        gap: 10mm 8mm;
+      }
+
+      .code {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        gap: 3mm;
+        break-inside: avoid;
+      }
+      .code svg { width: var(--qr); height: var(--qr); color: #12302d; }
+      .code__language { font-weight: 700; font-size: 16pt; }
+      .code__line { font-size: 12pt; color: #3f5754; max-width: 70mm; }
+
+      .sheet__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 6mm;
+        border-top: 1px solid #dde7e3;
+        font-size: 10pt;
+        color: #3f5754;
+      }
+      .wordmark { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 14pt; color: #12302d; }
+      .wordmark::before {
+        content: "";
+        display: inline-block;
+        width: 3mm; height: 3mm;
+        margin-right: 1.5mm;
+        border-radius: 50%;
+        background: #e8a23a;
+      }
+
+      @media print {
+        body { background: #fff; }
+        .toolbar { display: none; }
+        .sheet { margin: 0; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button type="button" onclick="window.print()"><%= t("app.poster.print") %></button>
+      <%= link_to t("app.poster.back"), dashboard_path(anchor: "qr") %>
+    </div>
+
+    <%
+      count = @account.languages.size
+      columns = count <= 1 ? 1 : 2
+      qr_size = { 1 => "110mm", 2 => "72mm" }.fetch(count, count <= 4 ? "62mm" : "44mm")
+    %>
+    <main class="sheet" style="--columns: <%= columns %>; --qr: <%= qr_size %>;">
+      <p class="sheet__mosque"><%= @account.name %></p>
+      <h1 class="sheet__title">Hutba</h1>
+
+      <ul class="codes">
+        <% @account.languages.each do |code| %>
+          <% info = Language.info(code) %>
+          <li class="code" lang="<%= code %>" dir="<%= Language::RTL.include?(code) ? "rtl" : "ltr" %>">
+            <%= qr_code_svg(@account.url("/#{code}"), size: 300, label: info[:name]) %>
+            <span class="code__language"><%= info[:flag] %> <%= info[:name] %></span>
+            <span class="code__line"><%= info[:poster] %></span>
+          </li>
+        <% end %>
+      </ul>
+
+      <footer class="sheet__footer">
+        <span class="wordmark">hutba</span>
+        <span><%= @account.host %></span>
+      </footer>
+    </main>
+  </body>
+</html>

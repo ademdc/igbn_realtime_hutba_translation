@@ -25,3 +25,7 @@ end
 Rack::Attack.throttle("speaker-pin/host", limit: 20, period: 10.minutes) do |request|
   request.host if request.post? && request.path == "/speaker/authenticate"
 end
+
+Rack::Attack.throttle("signup/ip", limit: 5, period: 1.hour) do |request|
+  request.ip if request.post? && request.path.match?(%r{\A/[a-z]{2}/signup\z})
+end

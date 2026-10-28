@@ -49,6 +49,65 @@ bs:
       listener_links: Linkovi za slušaoce
       broadcast: Prenos
       broadcast_text: Otvorite stranicu za prenos na uređaju kod imama i dodirnite „Start“.
+      welcome:
+        title: "%{account} je spreman. Sljedeći koraci:"
+        languages: Odaberite jezike za slušaoce
+        pin: Postavite PIN za imama
+        poster: Printajte QR plakat i okačite ga
+      plan:
+        title: Paket
+        suspended: Pauzirano
+        suspended_note: Molimo kontaktirajte nas.
+        trial_over: Probni period završen
+        trial_over_note: Prenos je pauziran dok uplata ne stigne.
+        trial_days:
+          one: Još %{count} probni dan
+          few: Još %{count} probna dana
+          many: Još %{count} probnih dana
+          other: Još %{count} probnih dana
+        trial_until: Besplatno do %{date}
+        active: Aktivan
+      usage:
+        title: Prenos ove sedmice
+        minutes: "%{used} od %{limit} min"
+        reached: Sedmični limit dostignut. Ponovo dostupno od %{date}.
+        resets: Resetuje se %{date}.
+      week:
+        title: Ove sedmice
+        listeners:
+          one: "%{count} slušalac"
+          few: "%{count} slušaoca"
+          many: "%{count} slušalaca"
+          other: "%{count} slušalaca"
+        broadcasts:
+          one: "%{count} prenos"
+          few: "%{count} prenosa"
+          many: "%{count} prenosa"
+          other: "%{count} prenosa"
+      languages:
+        title: Jezici za slušaoce
+        limit: "%{used} od %{limit} jezika"
+        save: Sačuvaj jezike
+        more: Treba vam više? %{price}
+      qr:
+        title: QR kodovi
+        poster: Printaj plakat
+        lead: Svaki jezik ima svoj link. Okačite plakat na ulazu ili podijelite linkove u WhatsApp grupi.
+        alt: QR kod za %{language}
+        download_png: PNG
+        download_svg: SVG
+      speaker:
+        title: Imam i prenos
+        lead: S PIN-om imam pokreće prenos bez vlastitog računa.
+        set_pin: Postavi PIN
+        change_pin: Novi PIN
+        pin_hint: 4 do 8 cifara.
+        save_pin: Sačuvaj PIN
+      settings:
+        title: Postavke
+        name: Naziv džemata
+        save: Sačuvaj
+        address: 'Vaša adresa: %{host}'
     users:
       title: Tim
       lead: Pozovite imame i članove uprave. Svako se prijavljuje svojim e-mailom.
@@ -67,6 +126,32 @@ bs:
       lead: Unesite e-mail adresu i poslat ćemo vam link za prijavu u vaš džemat.
       submit: Pošalji link
       sent: Ako je adresa registrovana kod nas, poslali smo vam link za prijavu.
+    accounts:
+      saved: Sačuvano.
+    poster:
+      print: Printaj
+      back: Nazad na pregled
+    signup:
+      title: Prijavite džemat
+      lead: Spremno za nekoliko minuta. 60 dana besplatno, a onda vi odlučujete.
+      facts:
+      - Bez kreditne kartice
+      - Vlastita adresa za vaš džemat
+      - QR plakat za printanje uključen
+      - Do 3 sata prenosa sedmično
+      mosque: Vaš džemat
+      you: Vaš pristup
+      fields:
+        mosque_name: Naziv džemata
+        subdomain: Adresa
+        country: Država
+        city: Grad
+      placeholders:
+        mosque_name: npr. Džemat Nürnberg
+      subdomain_hint: Mala slova, brojevi i crtice.
+      terms_html: Prihvatam %{terms} i pročitao/la sam izjavu o %{privacy}.
+      terms_link: uslove korištenja
+      submit: Počnite besplatno
   mailers:
     greeting: Selam %{name},
     password_reset:
@@ -83,6 +168,11 @@ bs:
       subject: Vaš link za prijavu na Hutbu
       body: 'Ovdje se prijavljujete u svoj džemat:'
       ignore: Ako niste ništa tražili, zanemarite ovaj e-mail.
+    welcome:
+      subject: Dobro došli na Hutbu, %{account}
+      body: Vaš džemat %{account} je spreman. Hutbu možete koristiti besplatno %{days} dana.
+      action: Na pregled
+      address: 'Vaša adresa: %{url}'
   activerecord:
     attributes:
       user:
@@ -91,3 +181,33 @@ bs:
         password: Lozinka
         password_confirmation: Potvrda lozinke
         role: Uloga
+      account:
+        name: Naziv džemata
+        subdomain: Adresa
+        languages: Jezici
+        speaker_pin: PIN
+        country: Država
+        city: Grad
+    errors:
+      models:
+        account:
+          attributes:
+            languages:
+              too_many: Vaš paket uključuje %{count} jezika. Možete dokupiti više.
+  activemodel:
+    attributes:
+      signup:
+        mosque_name: Naziv džemata
+        subdomain: Adresa
+        country: Država
+        city: Grad
+        name: Ime
+        email: E-mail
+        password: Lozinka
+        terms: Uslovi korištenja
+    errors:
+      models:
+        signup:
+          attributes:
+            terms:
+              accepted: moraju biti prihvaćeni

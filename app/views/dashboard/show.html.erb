@@ -3,24 +3,135 @@
 <h1 class="page-title"><%= t("app.dashboard.greeting", name: current_user.name) %></h1>
 <p class="page-lead"><%= t("app.dashboard.lead") %></p>
 
-<div class="stack">
-  <section class="panel">
-    <h2 class="panel__title"><%= t("app.dashboard.listener_links") %></h2>
-    <table class="table table--responsive">
-      <tbody>
-        <% @account.languages.each do |code| %>
-          <tr>
-            <td><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></td>
-            <td><%= link_to @account.url("/#{code}"), @account.url("/#{code}"), target: "_blank", rel: "noopener" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<% if params[:welcome] %>
+  <section class="welcome" aria-labelledby="welcome-title">
+    <h2 id="welcome-title"><%= t("app.dashboard.welcome.title", account: @account.name) %></h2>
+    <ol>
+      <li><a href="#languages"><%= t("app.dashboard.welcome.languages") %></a></li>
+      <li><a href="#speaker"><%= t("app.dashboard.welcome.pin") %></a></li>
+      <li><a href="#qr"><%= t("app.dashboard.welcome.poster") %></a></li>
+    </ol>
+  </section>
+<% end %>
+
+<div class="overview">
+  <section class="panel stat" aria-labelledby="plan-title">
+    <h2 class="stat__label" id="plan-title"><%= t("app.dashboard.plan.title") %></h2>
+    <% if @account.suspended? %>
+      <p class="stat__value"><%= t("app.dashboard.plan.suspended") %></p>
+      <p class="stat__note"><%= t("app.dashboard.plan.suspended_note") %></p>
+    <% elsif @account.trial_expired? %>
+      <p class="stat__value"><%= t("app.dashboard.plan.trial_over") %></p>
+      <p class="stat__note"><%= t("app.dashboard.plan.trial_over_note") %></p>
+    <% elsif @account.status == "trialing" %>
+      <p class="stat__value"><%= t("app.dashboard.plan.trial_days", count: @account.trial_days_left) %></p>
+      <p class="stat__note"><%= t("app.dashboard.plan.trial_until", date: l(@account.trial_ends_at.to_date, format: :long)) %></p>
+    <% else %>
+      <p class="stat__value"><%= t("app.dashboard.plan.active") %></p>
+    <% end %>
   </section>
 
-  <section class="panel">
-    <h2 class="panel__title"><%= t("app.dashboard.broadcast") %></h2>
-    <p class="muted"><%= t("app.dashboard.broadcast_text") %></p>
-    <p style="margin-top: 1rem;"><%= link_to t("app.nav.speaker"), root_path, class: "button" %></p>
+  <section class="panel stat" aria-labelledby="usage-title">
+    <h2 class="stat__label" id="usage-title"><%= t("app.dashboard.usage.title") %></h2>
+    <p class="stat__value">
+      <%= t("app.dashboard.usage.minutes", used: @dashboard.minutes_used, limit: @dashboard.minutes_limit) %>
+    </p>
+    <div class="meter" role="meter" aria-labelledby="usage-title"
+         aria-valuemin="0" aria-valuemax="<%= @dashboard.minutes_limit %>" aria-valuenow="<%= @dashboard.minutes_used %>"
+         aria-valuetext="<%= t("app.dashboard.usage.minutes", used: @dashboard.minutes_used, limit: @dashboard.minutes_limit) %>">
+      <span class="meter__fill<%= " meter__fill--full" if @dashboard.limit_reached? %>" style="width: <%= @dashboard.usage_percent %>%"></span>
+    </div>
+    <% if @dashboard.limit_reached? %>
+      <p class="stat__note stat__note--alert"><span aria-hidden="true">⚠︎</span> <%= t("app.dashboard.usage.reached", date: l(@dashboard.resets_on, format: :long)) %></p>
+    <% else %>
+      <p class="stat__note"><%= t("app.dashboard.usage.resets", date: l(@dashboard.resets_on, format: :long)) %></p>
+    <% end %>
+  </section>
+
+  <section class="panel stat" aria-labelledby="week-title">
+    <h2 class="stat__label" id="week-title"><%= t("app.dashboard.week.title") %></h2>
+    <p class="stat__value"><%= t("app.dashboard.week.listeners", count: @dashboard.listeners_this_week) %></p>
+    <p class="stat__note"><%= t("app.dashboard.week.broadcasts", count: @dashboard.broadcasts_this_week) %></p>
+  </section>
+</div>
+
+<div class="stack">
+  <section class="panel" id="languages" aria-labelledby="languages-title">
+    <div class="panel__head">
+      <h2 class="panel__title" id="languages-title"><%= t("app.dashboard.languages.title") %></h2>
+      <p class="muted"><%= t("app.dashboard.languages.limit", used: @account.languages.size, limit: @account.language_limit) %></p>
+    </div>
+    <%= render "shared/errors", record: @account if @account.errors[:languages].any? %>
+    <%= form_with model: @account, url: account_path, method: :patch do |form| %>
+      <%= hidden_field_tag :section, "languages" %>
+      <%= hidden_field_tag "account[languages][]", "" %>
+      <fieldset class="language-picker">
+        <legend class="visually-hidden"><%= t("app.dashboard.languages.title") %></legend>
+        <% Language::CATALOG.each do |code, info| %>
+          <label class="language-option">
+            <%= check_box_tag "account[languages][]", code, @account.languages.include?(code), id: "language_#{code}" %>
+            <span><span aria-hidden="true"><%= info[:flag] %></span> <%= info[:name] %></span>
+          </label>
+        <% end %>
+      </fieldset>
+      <div class="panel__actions">
+        <%= form.submit t("app.dashboard.languages.save"), class: "button" %>
+        <p class="muted"><%= t("app.dashboard.languages.more", price: t("marketing.pricing.addon")) %></p>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="panel" id="qr" aria-labelledby="qr-title">
+    <div class="panel__head">
+      <h2 class="panel__title" id="qr-title"><%= t("app.dashboard.qr.title") %></h2>
+      <%= link_to t("app.dashboard.qr.poster"), poster_path, class: "button button--quiet", target: "_blank", rel: "noopener" %>
+    </div>
+    <p class="muted"><%= t("app.dashboard.qr.lead") %></p>
+    <ul class="qr-list">
+      <% @account.languages.each do |code| %>
+        <% url = @account.url("/#{code}") %>
+        <li class="qr-item">
+          <%= qr_code_svg(url, size: 132, label: t("app.dashboard.qr.alt", language: Language.info(code)[:name])) %>
+          <div>
+            <p class="qr-item__language"><span aria-hidden="true"><%= Language.info(code)[:flag] %></span> <%= Language.info(code)[:name] %></p>
+            <p><%= link_to url.sub(%r{\Ahttps?://}, ""), url, target: "_blank", rel: "noopener" %></p>
+            <p class="qr-item__downloads">
+              <%= link_to t("app.dashboard.qr.download_png"), qr_code_path(language: code, format: :png) %>
+              <%= link_to t("app.dashboard.qr.download_svg"), qr_code_path(language: code, format: :svg) %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <section class="panel" id="speaker" aria-labelledby="speaker-title">
+    <h2 class="panel__title" id="speaker-title"><%= t("app.dashboard.speaker.title") %></h2>
+    <p class="muted"><%= t("app.dashboard.speaker.lead") %></p>
+    <%= render "shared/errors", record: @account if @account.errors[:speaker_pin].any? %>
+    <%= form_with model: @account, url: account_path, method: :patch, class: "inline-form" do |form| %>
+      <%= hidden_field_tag :section, "speaker" %>
+      <div class="field">
+        <%= form.label :speaker_pin, @account.speaker_pin_digest? ? t("app.dashboard.speaker.change_pin") : t("app.dashboard.speaker.set_pin") %>
+        <%= form.password_field :speaker_pin, inputmode: "numeric", pattern: "[0-9]{4,8}", minlength: 4, maxlength: 8, autocomplete: "new-password", required: true %>
+        <p class="field__hint"><%= t("app.dashboard.speaker.pin_hint") %></p>
+      </div>
+      <%= form.submit t("app.dashboard.speaker.save_pin"), class: "button" %>
+    <% end %>
+    <p class="panel__footer"><%= link_to t("app.nav.speaker"), root_path, class: "button button--quiet" %></p>
+  </section>
+
+  <section class="panel" id="settings" aria-labelledby="settings-title">
+    <h2 class="panel__title" id="settings-title"><%= t("app.dashboard.settings.title") %></h2>
+    <%= render "shared/errors", record: @account if @account.errors[:name].any? %>
+    <%= form_with model: @account, url: account_path, method: :patch, class: "inline-form" do |form| %>
+      <%= hidden_field_tag :section, "settings" %>
+      <div class="field">
+        <%= form.label :name, t("app.dashboard.settings.name") %>
+        <%= form.text_field :name, required: true %>
+      </div>
+      <%= form.submit t("app.dashboard.settings.save"), class: "button" %>
+    <% end %>
+    <p class="muted panel__footer"><%= t("app.dashboard.settings.address", host: @account.host) %></p>
   </section>
 </div>
