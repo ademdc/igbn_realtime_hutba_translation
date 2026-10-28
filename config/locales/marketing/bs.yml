@@ -53,10 +53,10 @@ bs:
       - Neograničen broj slušalaca
       - Vlastita adresa, npr. vas-dzemat.hutba.app
       - QR plakati za printanje
-      - Po želji na vašoj domeni, npr. hutba.vasa-dzamija.com
       addon: 'Dodatni jezik: +5 € mjesečno'
       cta: 60 dana besplatno
       note: Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate.
+      addon_domain: 'Vlastita domena: +5 € mjesečno'
     faq:
       title: Česta pitanja
       items:
@@ -71,7 +71,7 @@ bs:
       - q: Koliko je prevod tačan?
         a: Prevod je vrlo razumljiv, ali je mašinski. Ajeti i ustaljeni izrazi se uglavnom tačno prepoznaju; pojedinačne greške su moguće.
       - q: Možemo li koristiti vlastitu domenu?
-        a: Da. Umjesto vas-dzemat.hutba.app slušaoci mogu otvoriti npr. hutba.vasa-dzamija.com. Kod svog pružaoca domene dodate CNAME zapis, a mi se pobrinemo za sigurnosni certifikat. Samo nam pišite.
+        a: Da, za 5 € mjesečno. Slušaoci tada otvaraju npr. hutba.vasa-dzamija.com umjesto vas-dzemat.hutba.app. Domenu zakupite pod Plaćanje, dodate CNAME zapis kod pružaoca domene, a mi se pobrinemo za sigurnosni certifikat.
       - q: Šta se dešava nakon 60 dana?
         a: Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više.
     footer:

@@ -61,7 +61,7 @@ module Admin
     end
 
     def admin_params
-      params.require(:account).permit(:status, :extra_languages, :weekly_minutes_limit, :name, :custom_domain)
+      params.require(:account).permit(:status, :extra_languages, :weekly_minutes_limit, :name, :custom_domain, :custom_domain_enabled)
     end
   end
 end

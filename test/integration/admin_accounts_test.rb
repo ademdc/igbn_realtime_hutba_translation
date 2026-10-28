@@ -10,7 +10,8 @@ class AdminAccountsTest < ActionDispatch::IntegrationTest
     accounts(:igbd).update!(extra_languages: 1)
     get "/admin/dashboard"
     assert_response :success
-    assert_select ".kpi__value", text: "€25"
+    # base €20 + extra language €5 + own domain €5
+    assert_select ".kpi__value", text: "€30"
   end
 
   test "accounts list with search and status filter" do

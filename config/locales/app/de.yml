@@ -114,7 +114,7 @@ de:
         name: Name der Gemeinde
         save: Speichern
         address: 'Ihre Adresse: %{host}'
-        custom_domain_html: Eigene Domain wie hutba.ihre-moschee.de gewünscht? Schreiben Sie uns an %{email}.
+        custom_domain_html: Eigene Domain wie hutba.ihre-moschee.de? Unter %{link} buchen.
       tv:
         title: Bildschirm in der Moschee
         open_all: TV-Ansicht öffnen
@@ -215,6 +215,13 @@ de:
       redirecting: Weiter zur Zahlung …
       redirecting_lead: Sie werden zur sicheren Zahlungsseite von Monri weitergeleitet.
       continue: Weiter
+      custom_domain: Eigene Domain
+      custom_domain_pending: gebucht – wir richten %{domain} ein
+      custom_domain_included: Ihre eigene Domain ist enthalten (%{price} pro Monat).
+      custom_domain_option: Eigene Domain (%{price} pro Monat)
+      custom_domain_field: Gewünschte Domain
+      custom_domain_placeholder: hutba.ihre-moschee.de
+      custom_domain_hint: Nach der Zahlung senden wir Ihnen den DNS-Eintrag (CNAME) für Ihren Domain-Anbieter.
     speaker:
       title: Übertragung
       lead: 'Sprache der Hutba: %{source}. Die Gemeinde liest mit auf: %{languages}.'
@@ -322,6 +329,7 @@ de:
         billing_phone: Telefon
         billing_email: E-Mail
         source_language: Sprache der Hutba
+        requested_custom_domain: Gewünschte Domain
     errors:
       models:
         account:

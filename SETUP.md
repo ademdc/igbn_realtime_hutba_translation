@@ -60,16 +60,34 @@ Run the tests with `bin/rails test`.
 bin/rails admin:create EMAIL=you@example.com NAME="Your Name"   # prompts for the password
 ```
 
-## Production checklist
+## Production checklist (Heroku)
 
-1. **DNS:** point `APP_DOMAIN` and the wildcard `*.APP_DOMAIN` at the app. On Fly, run `fly certs add hutba.app` and `fly certs add "*.hutba.app"`; wildcard certificates need the DNS challenge record that Fly shows you.
-2. **Monri:** in the merchant dashboard, set:
+1. **Domain and DNS:**
+   - Run `heroku domains:add hutba.app` and `heroku domains:add "*.hutba.app"`.
+   - Point both at the DNS targets Heroku prints (CNAME/ALIAS).
+   - Heroku's automatic certificates (ACM) don't cover wildcard domains. Use one of these for `*.hutba.app`:
+     - **Cloudflare in front (easiest):** proxy the apex and the wildcard through Cloudflare, set SSL mode to "Full (strict)", and upload a Cloudflare Origin certificate for `hutba.app` and `*.hutba.app` with `heroku certs:add`.
+     - **Let's Encrypt:** get a wildcard certificate (certbot with a DNS challenge) and upload it with `heroku certs:add`. It has to be renewed every 90 days.
+2. **Config vars:** `heroku config:set APP_DOMAIN=hutba.app DEFAULT_ACCOUNT_SUBDOMAIN=igbd-nuernberg …` (see the table above).
+3. **Monri:** in the merchant dashboard, set:
    - Success URL: any mosque's `/dashboard/billing/success`. The app overrides it per mosque over HTTPS.
    - Callback URL: `https://APP_DOMAIN/monri/callback`
    - Test with `MONRI_ENV` unset and Monri's test cards first.
-3. **Daily reminders:** schedule `bin/rails billing:reminders` once a day. It sends trial-ending emails at 14, 3 and 0 days, and renewal emails at 30, 7 and 0 days. On Fly, use a scheduled machine, e.g. `fly machine run . --schedule daily --command "bin/rails billing:reminders"`.
-4. **Custom domains** (e.g. `hutba.mosque-website.com`): the mosque adds a CNAME record for that name pointing to `APP_DOMAIN`. Enter the domain on the account page in `/admin`, then run `fly certs add hutba.mosque-website.com`. Requests to a domain only pass the host check once an account uses it.
-5. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
+4. **Daily reminders:** add the Heroku Scheduler add-on and schedule `bin/rails billing:reminders` daily. It sends trial-ending emails at 14, 3 and 0 days, and renewal emails at 30, 7 and 0 days.
+5. **Custom domains** (paid add-on, €5/month): when a mosque pays, `CONTACT_EMAIL` gets an email with the requested domain.
+   1. Run `heroku domains:add hutba.mosque-website.com`.
+   2. Send the mosque the DNS target Heroku shows, for their CNAME record.
+   3. Once DNS resolves, enter the domain as "Custom domain (live)" on the account page in `/admin`. ACM issues the certificate automatically for single domains.
+   Requests to a domain only pass the host check once an account uses it.
+6. **Legal pages:** fill in the placeholders in `app/views/marketing/imprint.html.erb`, `privacy.html.erb` and `terms.html.erb`.
+
+### The original Nürnberg setup
+
+- `hutba.igbd-nuernberg.de` is stored as the custom domain of the `igbd-nuernberg` account, with the domain add-on switched on and no charge. Its QR codes, emails and TV links use that domain.
+- `hutba.dzamija.net`, `dzuma.dzamija.net` and the `herokuapp.com` host also reach that account, through `DEFAULT_ACCOUNT_SUBDOMAIN=igbd-nuernberg`. They stay in `config.hosts`.
+- The old `/german` links redirect to `/de`.
+
+`fly.toml` and the `Dockerfile` are from an earlier Fly.io setup and aren't used by Heroku.
 
 ## How streaming works
 

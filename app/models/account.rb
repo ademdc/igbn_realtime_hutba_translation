@@ -5,6 +5,8 @@ class Account < ApplicationRecord
   INCLUDED_LANGUAGES = 3
   BASE_PRICE_CENTS = 2000            # per month, billed yearly
   EXTRA_LANGUAGE_PRICE_CENTS = 500   # per extra language per month
+  CUSTOM_DOMAIN_PRICE_CENTS = 500    # own domain (e.g. hutba.mosque-website.com) per month
+  DOMAIN_FORMAT = /\A(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+\z/
   # Endonyms, so the list reads the same in every UI language
   COUNTRY_NAMES = {
     "DE" => "Deutschland", "AT" => "Österreich", "CH" => "Schweiz", "NL" => "Nederland",
@@ -24,14 +26,17 @@ class Account < ApplicationRecord
   has_many :payments, dependent: :destroy
 
   normalizes :subdomain, with: ->(value) { value.to_s.strip.downcase }
-  normalizes :custom_domain, with: ->(value) { value.to_s.strip.downcase.presence }
+  normalizes :custom_domain, :requested_custom_domain, with: ->(value) { value.to_s.strip.downcase.presence }
 
   validates :name, presence: true
   validates :subdomain, presence: true, uniqueness: true, length: { in: 3..63 },
     format: { with: /\A[a-z0-9]([a-z0-9-]*[a-z0-9])?\z/, message: "may only contain lowercase letters, numbers and hyphens" },
     exclusion: { in: RESERVED_SUBDOMAINS, message: "is reserved" }
   validates :custom_domain, uniqueness: true, allow_nil: true,
-    format: { with: /\A(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+\z/, message: "must be a domain like hutba.example.com" }
+    format: { with: DOMAIN_FORMAT, message: "must be a domain like hutba.example.com" }
+  validates :requested_custom_domain, allow_nil: true,
+    format: { with: DOMAIN_FORMAT, message: "must be a domain like hutba.example.com" }
+  validates :custom_domain, absence: { message: "needs the custom domain add-on" }, unless: :custom_domain_enabled?
   validate :custom_domain_outside_app_domain
   validates :status, inclusion: { in: STATUSES }
   validates :languages, presence: true
@@ -56,7 +61,8 @@ class Account < ApplicationRecord
   end
 
   def monthly_price_cents
-    BASE_PRICE_CENTS + extra_languages * EXTRA_LANGUAGE_PRICE_CENTS
+    BASE_PRICE_CENTS + extra_languages * EXTRA_LANGUAGE_PRICE_CENTS +
+      (custom_domain_enabled? ? CUSTOM_DOMAIN_PRICE_CENTS : 0)
   end
 
   # Status as shown to admins, with expired trials split out
@@ -176,9 +182,11 @@ class Account < ApplicationRecord
   end
 
   def custom_domain_outside_app_domain
-    return if custom_domain.blank?
-    if AppDomain.marketing_host?(custom_domain) || custom_domain.end_with?(".#{AppDomain.host}")
-      errors.add(:custom_domain, "can't be on #{AppDomain.host}; use the subdomain instead")
+    { custom_domain: custom_domain, requested_custom_domain: requested_custom_domain }.each do |attribute, domain|
+      next if domain.blank?
+      if AppDomain.marketing_host?(domain) || domain.end_with?(".#{AppDomain.host}")
+        errors.add(attribute, "can't be on #{AppDomain.host}; use the subdomain instead")
+      end
     end
   end
 

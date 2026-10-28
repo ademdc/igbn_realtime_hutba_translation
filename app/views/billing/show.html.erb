@@ -22,6 +22,16 @@
       </dd>
       <dt><%= t("app.billing.languages") %></dt>
       <dd><%= t("app.billing.languages_value", included: Account::INCLUDED_LANGUAGES, extra: @account.extra_languages) %></dd>
+      <% if @account.custom_domain_enabled? %>
+        <dt><%= t("app.billing.custom_domain") %></dt>
+        <dd>
+          <% if @account.custom_domain %>
+            <%= @account.custom_domain %>
+          <% else %>
+            <%= t("app.billing.custom_domain_pending", domain: @account.requested_custom_domain) %>
+          <% end %>
+        </dd>
+      <% end %>
       <dt><%= t("app.billing.price") %></dt>
       <dd><%= t("app.billing.price_value", yearly: euros.(@account.yearly_price_cents), monthly: euros.(@account.monthly_price_cents)) %></dd>
     </dl>
@@ -55,6 +65,20 @@
           <%= number_field_tag :extra_languages, @account.paid_until&.future? ? 1 : @account.extra_languages, min: 0, max: 20 %>
           <p class="field__hint"><%= t("app.billing.extra_hint", included: Account::INCLUDED_LANGUAGES, price: euros.(Account::EXTRA_LANGUAGE_PRICE_CENTS)) %></p>
         </div>
+
+        <% if @account.custom_domain_enabled? %>
+          <p class="muted"><%= t("app.billing.custom_domain_included", price: euros.(Account::CUSTOM_DOMAIN_PRICE_CENTS)) %></p>
+        <% else %>
+          <label class="choice" style="margin-top: 1rem;">
+            <%= check_box_tag :custom_domain, "1", params[:custom_domain] == "1", "aria-controls": "custom-domain-field" %>
+            <span><%= t("app.billing.custom_domain_option", price: euros.(Account::CUSTOM_DOMAIN_PRICE_CENTS)) %></span>
+          </label>
+          <div class="field field--narrow" id="custom-domain-field" style="max-width: 24rem;">
+            <%= form.label :requested_custom_domain, t("app.billing.custom_domain_field") %>
+            <%= form.text_field :requested_custom_domain, placeholder: t("app.billing.custom_domain_placeholder"), autocapitalize: "off", spellcheck: false %>
+            <p class="field__hint"><%= t("app.billing.custom_domain_hint") %></p>
+          </div>
+        <% end %>
       </fieldset>
 
       <fieldset class="plain-fieldset">
@@ -118,7 +142,8 @@
                 <% if payment.kind == "subscription" %>
                   <%= t("app.billing.item_subscription", from: l(payment.period_start.to_date), to: l(payment.period_end.to_date)) %>
                 <% else %>
-                  <%= t("app.billing.item_addon", count: payment.extra_languages) %>
+                  <%= [(t("app.billing.item_addon", count: payment.extra_languages) if payment.extra_languages.positive?),
+                       (t("app.billing.custom_domain") if payment.custom_domain?)].compact.join(", ") %>
                 <% end %>
               </td>
               <td><%= euros.(payment.amount_cents) %></td>

@@ -114,7 +114,7 @@ tr:
         name: Caminin adı
         save: Kaydet
         address: 'Adresiniz: %{host}'
-        custom_domain_html: hutba.camiiniz.com gibi kendi alan adınızı mı istiyorsunuz? %{email} adresine yazın.
+        custom_domain_html: hutba.camiiniz.com gibi kendi alan adınızı mı istiyorsunuz? %{link} bölümünden alın.
       tv:
         title: Camideki ekran
         open_all: TV görünümünü aç
@@ -215,6 +215,13 @@ tr:
       redirecting: Ödemeye yönlendiriliyor…
       redirecting_lead: Monri'nin güvenli ödeme sayfasına yönlendiriliyorsunuz.
       continue: Devam
+      custom_domain: Kendi alan adınız
+      custom_domain_pending: satın alındı – %{domain} kuruluyor
+      custom_domain_included: Kendi alan adınız dahildir (aylık %{price}).
+      custom_domain_option: Kendi alan adınız (aylık %{price})
+      custom_domain_field: İstediğiniz alan adı
+      custom_domain_placeholder: hutba.camiiniz.com
+      custom_domain_hint: Ödemeden sonra alan adı sağlayıcınız için DNS kaydını (CNAME) size göndeririz.
     speaker:
       title: Yayın
       lead: 'Hutbe dili: %{source}. Cemaat şu dillerde okur: %{languages}.'
@@ -322,6 +329,7 @@ tr:
         billing_phone: Telefon
         billing_email: E-posta
         source_language: Hutbe dili
+        requested_custom_domain: İstenen alan adı
     errors:
       models:
         account:

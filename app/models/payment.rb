@@ -17,18 +17,21 @@ class Payment < ApplicationRecord
 
   # One year of service from today or from the end of the current paid period.
   # extra_languages is the total number of add-on languages for that year.
-  def self.subscription_for(account, user:, extra_languages:)
+  def self.subscription_for(account, user:, extra_languages:, custom_domain: false)
     start = [account.paid_until, Time.current].compact.max
-    monthly = Account::BASE_PRICE_CENTS + extra_languages * Account::EXTRA_LANGUAGE_PRICE_CENTS
+    monthly = Account::BASE_PRICE_CENTS + extra_languages * Account::EXTRA_LANGUAGE_PRICE_CENTS +
+      (custom_domain ? Account::CUSTOM_DOMAIN_PRICE_CENTS : 0)
     new(account: account, user: user, kind: "subscription", extra_languages: extra_languages,
-        amount_cents: monthly * 12, period_start: start, period_end: start + 1.year)
+        custom_domain: custom_domain, amount_cents: monthly * 12, period_start: start, period_end: start + 1.year)
   end
 
-  # Extra languages during a paid year, charged per started month until paid_until
-  def self.addon_for(account, user:, extra_languages:)
+  # Extra languages or own domain during a paid year, charged per started month until paid_until
+  def self.addon_for(account, user:, extra_languages:, custom_domain: false)
     months = account.paid_months_left
+    monthly = extra_languages * Account::EXTRA_LANGUAGE_PRICE_CENTS +
+      (custom_domain ? Account::CUSTOM_DOMAIN_PRICE_CENTS : 0)
     new(account: account, user: user, kind: "addon", extra_languages: extra_languages,
-        amount_cents: extra_languages * Account::EXTRA_LANGUAGE_PRICE_CENTS * months,
+        custom_domain: custom_domain, amount_cents: monthly * months,
         period_start: Time.current, period_end: account.paid_until)
   end
 
@@ -39,7 +42,8 @@ class Payment < ApplicationRecord
     if kind == "subscription"
       "Hutba #{account.name} #{period_start.to_date} – #{period_end.to_date}"
     else
-      "Hutba #{account.name} +#{extra_languages} language(s)"
+      ["Hutba #{account.name}", ("+#{extra_languages} language(s)" if extra_languages.positive?),
+       ("+own domain" if custom_domain?)].compact.join(" ")
     end
   end
 
@@ -50,10 +54,13 @@ class Payment < ApplicationRecord
 
       update!(status: "approved", approved_at: Time.current, gateway_response: gateway_response)
       if kind == "subscription"
-        account.update!(status: "active", paid_until: period_end, extra_languages: extra_languages)
+        account.update!(status: "active", paid_until: period_end, extra_languages: extra_languages,
+                        custom_domain_enabled: custom_domain? || account.custom_domain_enabled?)
       else
-        account.update!(extra_languages: account.extra_languages + extra_languages)
+        account.update!(extra_languages: account.extra_languages + extra_languages,
+                        custom_domain_enabled: custom_domain? || account.custom_domain_enabled?)
       end
+      AdminMailer.with(account: account).custom_domain_requested.deliver_later if custom_domain? && account.requested_custom_domain
     end
   end
 

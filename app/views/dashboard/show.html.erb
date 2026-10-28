@@ -162,8 +162,8 @@
       <%= form.submit t("app.dashboard.settings.save"), class: "button" %>
     <% end %>
     <p class="muted panel__footer"><%= t("app.dashboard.settings.address", host: @account.host) %></p>
-    <% unless @account.custom_domain %>
-      <p class="muted"><%= t("app.dashboard.settings.custom_domain_html", email: mail_to(Rails.configuration.x.contact_email)) %></p>
+    <% unless @account.custom_domain_enabled? %>
+      <p class="muted"><%= t("app.dashboard.settings.custom_domain_html", link: link_to(t("app.nav.billing"), billing_path)) %></p>
     <% end %>
   </section>
 </div>

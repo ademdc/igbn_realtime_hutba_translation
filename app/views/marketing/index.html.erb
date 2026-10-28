@@ -156,7 +156,7 @@
           <li><%= line %></li>
         <% end %>
       </ul>
-      <p class="pricing__addon"><%= t("marketing.pricing.addon") %></p>
+      <p class="pricing__addon"><%= t("marketing.pricing.addon") %><br><%= t("marketing.pricing.addon_domain") %></p>
       <%= link_to t("marketing.pricing.cta"), signup_path(locale: I18n.locale), class: "button button--light" %>
       <p class="pricing__note"><%= t("marketing.pricing.note") %></p>
     </div>

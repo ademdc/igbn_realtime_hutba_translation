@@ -114,7 +114,7 @@ bs:
         name: Naziv džemata
         save: Sačuvaj
         address: 'Vaša adresa: %{host}'
-        custom_domain_html: Želite vlastitu domenu poput hutba.vasa-dzamija.com? Pišite nam na %{email}.
+        custom_domain_html: Želite vlastitu domenu poput hutba.vasa-dzamija.com? Zakupite je pod %{link}.
       tv:
         title: Ekran u džamiji
         open_all: Otvori TV prikaz
@@ -215,6 +215,13 @@ bs:
       redirecting: Nastavak na plaćanje…
       redirecting_lead: Preusmjeravamo vas na sigurnu Monri stranicu za plaćanje.
       continue: Nastavi
+      custom_domain: Vlastita domena
+      custom_domain_pending: zakupljeno – postavljamo %{domain}
+      custom_domain_included: Vaša vlastita domena je uključena (%{price} mjesečno).
+      custom_domain_option: Vlastita domena (%{price} mjesečno)
+      custom_domain_field: Željena domena
+      custom_domain_placeholder: hutba.vasa-dzamija.com
+      custom_domain_hint: Nakon uplate poslat ćemo vam DNS zapis (CNAME) za vašeg pružaoca domene.
     speaker:
       title: Prenos
       lead: 'Jezik hutbe: %{source}. Džemat čita na: %{languages}.'
@@ -322,6 +329,7 @@ bs:
         billing_phone: Telefon
         billing_email: E-mail
         source_language: Jezik hutbe
+        requested_custom_domain: Željena domena
     errors:
       models:
         account:

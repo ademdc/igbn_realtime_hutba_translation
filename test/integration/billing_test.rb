@@ -1,6 +1,7 @@
 require "test_helper"
 
 class BillingTest < ActionDispatch::IntegrationTest
+  include ActionMailer::TestHelper
   KEY = "test-merchant-key"
 
   setup do
@@ -109,6 +110,42 @@ class BillingTest < ActionDispatch::IntegrationTest
 
     payment.approve!
     assert_equal 2, accounts(:demo).reload.extra_languages
+  end
+
+  test "booking an own domain with the yearly plan" do
+    post "/dashboard/billing/checkout", params: { kind: "subscription", extra_languages: 0, custom_domain: "1",
+                                                  account: billing_details.merge(requested_custom_domain: "Hutba.Mosque-Website.com") }
+    payment = accounts(:demo).payments.sole
+    assert payment.custom_domain?
+    assert_equal (2000 + 500) * 12, payment.amount_cents
+    assert_equal "hutba.mosque-website.com", accounts(:demo).reload.requested_custom_domain
+
+    assert_enqueued_email_with AdminMailer, :custom_domain_requested, params: { account: accounts(:demo) } do
+      payment.approve!
+    end
+    account = accounts(:demo).reload
+    assert account.custom_domain_enabled?
+    assert_nil account.custom_domain, "goes live only after DNS is set up"
+  end
+
+  test "own domain needs the domain name" do
+    post "/dashboard/billing/checkout", params: { kind: "subscription", extra_languages: 0, custom_domain: "1", account: billing_details }
+    assert_response :unprocessable_entity
+    assert_equal 0, Payment.count
+  end
+
+  test "own domain added mid-year is prorated" do
+    accounts(:demo).update!(status: "active", paid_until: 3.months.from_now - 1.day)
+    post "/dashboard/billing/checkout", params: { kind: "addon", extra_languages: 0, custom_domain: "1",
+                                                  account: billing_details.merge(requested_custom_domain: "hutba.mosque-website.com") }
+    payment = accounts(:demo).payments.sole
+    assert_equal 500 * 3, payment.amount_cents
+  end
+
+  test "renewal keeps a booked domain" do
+    accounts(:demo).update!(custom_domain_enabled: true)
+    post "/dashboard/billing/checkout", params: { kind: "subscription", extra_languages: 0, account: billing_details }
+    assert_equal (2000 + 500) * 12, accounts(:demo).payments.sole.amount_cents
   end
 
   test "expired paid year blocks streaming" do

@@ -114,7 +114,7 @@ nl:
         name: Naam van de moskee
         save: Opslaan
         address: 'Uw adres: %{host}'
-        custom_domain_html: Eigen domein zoals hutba.uw-moskee.nl? Mail ons op %{email}.
+        custom_domain_html: Eigen domein zoals hutba.uw-moskee.nl? Boek het onder %{link}.
       tv:
         title: Scherm in de moskee
         open_all: Tv-weergave openen
@@ -215,6 +215,13 @@ nl:
       redirecting: Door naar betalen…
       redirecting_lead: U wordt doorgestuurd naar de beveiligde betaalpagina van Monri.
       continue: Verder
+      custom_domain: Eigen domein
+      custom_domain_pending: geboekt – we richten %{domain} in
+      custom_domain_included: Uw eigen domein is inbegrepen (%{price} per maand).
+      custom_domain_option: Eigen domein (%{price} per maand)
+      custom_domain_field: Gewenst domein
+      custom_domain_placeholder: hutba.uw-moskee.nl
+      custom_domain_hint: Na de betaling sturen we u het DNS-record (CNAME) voor uw domeinprovider.
     speaker:
       title: Uitzending
       lead: 'Taal van de khutba: %{source}. De gemeenschap leest mee in: %{languages}.'
@@ -322,6 +329,7 @@ nl:
         billing_phone: Telefoon
         billing_email: E-mail
         source_language: Taal van de khutba
+        requested_custom_domain: Gewenst domein
     errors:
       models:
         account:

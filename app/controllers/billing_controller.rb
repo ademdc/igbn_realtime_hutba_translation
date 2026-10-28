@@ -23,6 +23,12 @@ class BillingController < ApplicationController
       return render :show, status: :unprocessable_entity
     end
 
+    if buying_custom_domain? && @account.requested_custom_domain.blank?
+      @account.errors.add(:requested_custom_domain, :blank)
+      @payments = @account.payments.where.not(status: "pending").recent
+      return render :show, status: :unprocessable_entity
+    end
+
     @payment = build_payment
     return redirect_to billing_path, alert: t("app.billing.nothing_to_pay") unless @payment&.valid?
 
@@ -56,7 +62,12 @@ class BillingController < ApplicationController
 
   def billing_params
     params.require(:account).permit(:billing_name, :billing_address, :billing_zip, :billing_city,
-                                    :billing_phone, :billing_email, :country)
+                                    :billing_phone, :billing_email, :country, :requested_custom_domain)
+  end
+
+  # A newly booked own domain; mosques that already have one keep it on renewal
+  def buying_custom_domain?
+    params[:custom_domain] == "1" && !Current.account.custom_domain_enabled?
   end
 
   def build_payment
@@ -64,9 +75,12 @@ class BillingController < ApplicationController
     account = Current.account
 
     if account.paid_until&.future? && params[:kind] == "addon"
-      Payment.addon_for(account, user: current_user, extra_languages: extra) if extra.positive?
+      if extra.positive? || buying_custom_domain?
+        Payment.addon_for(account, user: current_user, extra_languages: extra, custom_domain: buying_custom_domain?)
+      end
     else
-      Payment.subscription_for(account, user: current_user, extra_languages: extra)
+      Payment.subscription_for(account, user: current_user, extra_languages: extra,
+                               custom_domain: account.custom_domain_enabled? || buying_custom_domain?)
     end
   end
 end

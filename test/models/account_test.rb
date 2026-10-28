@@ -37,6 +37,7 @@ class AccountTest < ActiveSupport::TestCase
 
   test "custom domains must be real domains outside the app domain" do
     account = accounts(:demo)
+    account.custom_domain_enabled = true
     account.custom_domain = "hutba.mosque-website.com"
     assert account.valid?, account.errors.full_messages.to_sentence
     assert_equal "hutba.mosque-website.com", account.host
@@ -46,6 +47,18 @@ class AccountTest < ActiveSupport::TestCase
 
     account.custom_domain = "evil.localhost"
     assert_not account.valid?
+  end
+
+  test "a live custom domain needs the paid add-on" do
+    account = accounts(:demo)
+    account.custom_domain = "hutba.mosque-website.com"
+    assert_not account.valid?
+    assert_includes account.errors[:custom_domain].join, "add-on"
+  end
+
+  test "own domain adds to the price" do
+    assert_equal 2000, accounts(:demo).monthly_price_cents
+    assert_equal 2500, accounts(:igbd).monthly_price_cents
   end
 
   test "knows which custom domains belong to mosques" do
