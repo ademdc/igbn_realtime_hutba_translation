@@ -1,33 +1,28 @@
 module Admin
   class SessionsController < ApplicationController
+    include Authentication
+
     layout 'admin'
 
     def new
-      redirect_to admin_dashboard_path if session[:admin_authenticated]
+      redirect_to admin_dashboard_path if current_user&.admin?
     end
 
     def create
-      if valid_credentials?
-        session[:admin_authenticated] = true
+      user = User.admins.authenticate_by(email: params[:email], password: params[:password])
+
+      if user
+        sign_in(user)
         redirect_to admin_dashboard_path, notice: "Successfully logged in"
       else
-        flash.now[:alert] = "Invalid username or password"
+        flash.now[:alert] = "Invalid email or password"
         render :new, status: :unprocessable_entity
       end
     end
 
     def destroy
-      session[:admin_authenticated] = nil
+      sign_out
       redirect_to admin_login_path, notice: "Logged out"
-    end
-
-    private
-
-    def valid_credentials?
-      params[:username].present? &&
-        params[:password].present? &&
-        params[:username] == ENV['ADMIN_USERNAME'] &&
-        params[:password] == ENV['ADMIN_PASSWORD']
     end
   end
 end

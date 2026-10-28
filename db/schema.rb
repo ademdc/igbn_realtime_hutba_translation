@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_28_100001) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_28_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,24 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_100001) do
     t.index ["started_at"], name: "index_speaker_sessions_on_started_at"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.bigint "account_id"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.string "role", default: "owner", null: false
+    t.boolean "admin", default: false, null: false
+    t.string "locale"
+    t.datetime "confirmed_at"
+    t.datetime "last_login_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "email"], name: "index_users_on_account_id_and_email", unique: true
+    t.index ["account_id"], name: "index_users_on_account_id"
+    t.index ["email"], name: "index_users_on_email_for_admins", unique: true, where: "admin"
+  end
+
   add_foreign_key "listener_connections", "accounts"
   add_foreign_key "speaker_sessions", "accounts"
+  add_foreign_key "users", "accounts"
 end

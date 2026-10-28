@@ -1,0 +1,7 @@
+<%= t("mailers.login_links.body") %>
+
+<% @accounts.each do |account| %>
+<%= account.name %>: <%= account.url("/login") %>
+<% end %>
+
+<%= t("mailers.login_links.ignore") %>

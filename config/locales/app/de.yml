@@ -1,0 +1,93 @@
+---
+de:
+  app:
+    nav:
+      label: Bereiche
+      dashboard: Übersicht
+      team: Team
+      speaker: Übertragung starten
+      sign_out: Abmelden
+    fields:
+      email: E-Mail
+      password: Passwort
+      new_password: Neues Passwort
+      password_confirmation: Passwort wiederholen
+      password_hint: Mindestens 10 Zeichen.
+      name: Name
+      role: Rolle
+    errors:
+      heading: 'Bitte prüfen Sie Ihre Eingaben:'
+    roles:
+      owner: Verwaltung
+      speaker: Imam / Sprecher
+    sessions:
+      title: Anmelden
+      lead: "%{account}"
+      submit: Anmelden
+      forgot: Passwort vergessen?
+      pin: Mit Sprecher-PIN anmelden
+      invalid: E-Mail oder Passwort ist falsch.
+      signed_out: Sie wurden abgemeldet.
+    password_resets:
+      title: Passwort zurücksetzen
+      lead: Wir senden Ihnen einen Link, mit dem Sie ein neues Passwort festlegen.
+      submit: Link senden
+      back: Zurück zur Anmeldung
+      sent: Falls die Adresse bei uns registriert ist, haben wir Ihnen eine E-Mail geschickt.
+      edit_title: Neues Passwort festlegen
+      save: Passwort speichern
+      updated: Ihr Passwort wurde geändert.
+      invalid_link: Dieser Link ist abgelaufen oder wurde schon benutzt. Fordern Sie einen neuen an.
+    invitations:
+      title: Willkommen
+      lead: "%{name}, legen Sie Ihr Passwort für %{account} fest."
+      submit: Konto aktivieren
+      accepted: Willkommen bei %{account}.
+    dashboard:
+      greeting: Salam, %{name}
+      lead: Hier verwalten Sie die Live-Übersetzung Ihrer Gemeinde.
+      listener_links: Links für die Zuhörer
+      broadcast: Übertragung
+      broadcast_text: Öffnen Sie die Übertragung auf dem Gerät beim Imam und tippen Sie auf „Start“.
+    users:
+      title: Team
+      lead: Laden Sie Imame und Vorstandsmitglieder ein. Jede Person meldet sich mit eigener E-Mail an.
+      actions: Aktionen
+      pending: Einladung offen
+      remove: Entfernen
+      remove_confirm: "%{name} wirklich entfernen?"
+      invite_title: Person einladen
+      invite: Einladen
+      roles_help: Imame können nur die Übertragung starten. Die Verwaltung kann zusätzlich Sprachen, Team und Abrechnung ändern.
+      invited: Einladung an %{email} gesendet.
+      removed: "%{name} wurde entfernt."
+      cannot_remove_self: Sie können sich nicht selbst entfernen.
+    account_lookups:
+      title: Anmelden
+      lead: Geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen den Anmeldelink Ihrer Gemeinde.
+      submit: Link senden
+      sent: Falls die Adresse bei uns registriert ist, haben wir Ihnen den Anmeldelink geschickt.
+  mailers:
+    greeting: Salam %{name},
+    password_reset:
+      subject: Neues Passwort für %{account}
+      body: jemand hat ein neues Passwort für Ihr Konto bei %{account} angefordert. Über den Button legen Sie es fest.
+      action: Neues Passwort festlegen
+      expiry: Der Link ist eine Stunde gültig. Wenn Sie nichts angefordert haben, ignorieren Sie diese E-Mail.
+    invitation:
+      subject: Einladung zu %{account}
+      body: "%{inviter} hat Sie zu %{account} auf Hutba eingeladen. Legen Sie Ihr Passwort fest, um loszulegen."
+      action: Einladung annehmen
+      expiry: Der Link ist 7 Tage gültig.
+    login_links:
+      subject: Ihr Anmeldelink für Hutba
+      body: 'Hier melden Sie sich bei Ihrer Gemeinde an:'
+      ignore: Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail.
+  activerecord:
+    attributes:
+      user:
+        name: Name
+        email: E-Mail
+        password: Passwort
+        password_confirmation: Passwortbestätigung
+        role: Rolle

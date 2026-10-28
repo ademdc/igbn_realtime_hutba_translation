@@ -76,4 +76,12 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Mosque links like http://demo.localhost:3010 (match the port you run the server on)
+  config.x.app_protocol = "http"
+  config.x.app_port = ENV.fetch("PORT", 3010)
+
+  # Outgoing emails are shown at /letter_opener instead of being sent
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.perform_deliveries = true
 end

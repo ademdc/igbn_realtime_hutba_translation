@@ -1,0 +1,31 @@
+demo_owner:
+  account: demo
+  name: Emir Demo
+  email: owner@demo.test
+  role: owner
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
+  confirmed_at: <%= 1.week.ago.to_fs(:db) %>
+
+demo_imam:
+  account: demo
+  name: Imam Demo
+  email: imam@demo.test
+  role: speaker
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
+  confirmed_at: <%= 1.week.ago.to_fs(:db) %>
+
+igbd_owner:
+  account: igbd
+  name: Vorstand IGBD
+  email: owner@igbd.test
+  role: owner
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
+  confirmed_at: <%= 1.week.ago.to_fs(:db) %>
+
+admin:
+  name: Super Admin
+  email: admin@hutba.test
+  role: owner
+  admin: true
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
+  confirmed_at: <%= 1.week.ago.to_fs(:db) %>

@@ -1,0 +1,7 @@
+<%= t("mailers.greeting", name: @user.name) %>
+
+<%= t("mailers.invitation.body", inviter: @inviter.name, account: @account.name) %>
+
+<%= @url %>
+
+<%= t("mailers.invitation.expiry") %>

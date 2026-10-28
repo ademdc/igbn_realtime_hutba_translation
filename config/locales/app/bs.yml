@@ -1,0 +1,93 @@
+---
+bs:
+  app:
+    nav:
+      label: Sekcije
+      dashboard: Pregled
+      team: Tim
+      speaker: Pokreni prenos
+      sign_out: Odjava
+    fields:
+      email: E-mail
+      password: Lozinka
+      new_password: Nova lozinka
+      password_confirmation: Ponovite lozinku
+      password_hint: Najmanje 10 znakova.
+      name: Ime
+      role: Uloga
+    errors:
+      heading: 'Molimo provjerite unos:'
+    roles:
+      owner: Uprava
+      speaker: Imam / govornik
+    sessions:
+      title: Prijava
+      lead: "%{account}"
+      submit: Prijavi se
+      forgot: Zaboravili ste lozinku?
+      pin: Prijava s PIN-om za govornika
+      invalid: Pogrešan e-mail ili lozinka.
+      signed_out: Odjavljeni ste.
+    password_resets:
+      title: Nova lozinka
+      lead: Poslat ćemo vam link za postavljanje nove lozinke.
+      submit: Pošalji link
+      back: Nazad na prijavu
+      sent: Ako je adresa registrovana kod nas, poslali smo vam e-mail.
+      edit_title: Postavite novu lozinku
+      save: Sačuvaj lozinku
+      updated: Lozinka je promijenjena.
+      invalid_link: Link je istekao ili je već iskorišten. Zatražite novi.
+    invitations:
+      title: Dobro došli
+      lead: "%{name}, postavite lozinku za %{account}."
+      submit: Aktiviraj račun
+      accepted: Dobro došli u %{account}.
+    dashboard:
+      greeting: Selam, %{name}
+      lead: Ovdje upravljate prevodom hutbe uživo za vaš džemat.
+      listener_links: Linkovi za slušaoce
+      broadcast: Prenos
+      broadcast_text: Otvorite stranicu za prenos na uređaju kod imama i dodirnite „Start“.
+    users:
+      title: Tim
+      lead: Pozovite imame i članove uprave. Svako se prijavljuje svojim e-mailom.
+      actions: Akcije
+      pending: Pozivnica na čekanju
+      remove: Ukloni
+      remove_confirm: Ukloniti %{name}?
+      invite_title: Pozovi osobu
+      invite: Pozovi
+      roles_help: Imami mogu samo pokrenuti prenos. Uprava može mijenjati i jezike, tim i plaćanje.
+      invited: Pozivnica poslana na %{email}.
+      removed: "%{name} je uklonjen/a."
+      cannot_remove_self: Ne možete ukloniti sami sebe.
+    account_lookups:
+      title: Prijava
+      lead: Unesite e-mail adresu i poslat ćemo vam link za prijavu u vaš džemat.
+      submit: Pošalji link
+      sent: Ako je adresa registrovana kod nas, poslali smo vam link za prijavu.
+  mailers:
+    greeting: Selam %{name},
+    password_reset:
+      subject: Nova lozinka za %{account}
+      body: neko je zatražio novu lozinku za vaš račun u %{account}. Postavite je preko dugmeta.
+      action: Postavi novu lozinku
+      expiry: Link važi jedan sat. Ako niste ništa tražili, zanemarite ovaj e-mail.
+    invitation:
+      subject: Pozivnica u %{account}
+      body: "%{inviter} vas je pozvao/la u %{account} na Hutbi. Postavite lozinku da biste počeli."
+      action: Prihvati pozivnicu
+      expiry: Link važi 7 dana.
+    login_links:
+      subject: Vaš link za prijavu na Hutbu
+      body: 'Ovdje se prijavljujete u svoj džemat:'
+      ignore: Ako niste ništa tražili, zanemarite ovaj e-mail.
+  activerecord:
+    attributes:
+      user:
+        name: Ime
+        email: E-mail
+        password: Lozinka
+        password_confirmation: Potvrda lozinke
+        role: Uloga

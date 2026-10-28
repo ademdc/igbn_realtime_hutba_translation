@@ -10,6 +10,16 @@ module AppDomain
     host == self.host || host == "www.#{self.host}"
   end
 
+  # Absolute URL on a given host, e.g. for emails and QR codes
+  def self.url(host, path = "/")
+    port = Rails.configuration.x.app_port
+    "#{Rails.configuration.x.app_protocol}://#{host}#{":#{port}" if port}#{path}"
+  end
+
+  def self.marketing_url(path = "/")
+    url(self.host, path)
+  end
+
   # Routing constraint for the marketing site
   def self.matches?(request)
     marketing_host?(request.host)

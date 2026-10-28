@@ -35,6 +35,11 @@ module IgbdTranslationsApp
     config.i18n.available_locales = %i[de en fr nl bs tr]
 
     config.x.contact_email = ENV.fetch("CONTACT_EMAIL", "hello@hutba.app")
+    config.x.mail_from = ENV.fetch("MAIL_FROM", "Hutba <#{config.x.contact_email}>")
+
+    # Used to build absolute links to mosque subdomains (emails, QR codes)
+    config.x.app_protocol = "https"
+    config.x.app_port = nil
 
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")

@@ -64,4 +64,6 @@ Rails.application.configure do
 
   # Tests use tenant hosts like demo.localhost; skip host authorization
   config.hosts.clear
+
+  config.x.app_protocol = "http"
 end

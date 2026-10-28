@@ -1,0 +1,93 @@
+---
+fr:
+  app:
+    nav:
+      label: Sections
+      dashboard: Aperçu
+      team: Équipe
+      speaker: Lancer la diffusion
+      sign_out: Déconnexion
+    fields:
+      email: E-mail
+      password: Mot de passe
+      new_password: Nouveau mot de passe
+      password_confirmation: Répéter le mot de passe
+      password_hint: Au moins 10 caractères.
+      name: Nom
+      role: Rôle
+    errors:
+      heading: 'Veuillez vérifier les points suivants :'
+    roles:
+      owner: Administration
+      speaker: Imam / orateur
+    sessions:
+      title: Connexion
+      lead: "%{account}"
+      submit: Se connecter
+      forgot: Mot de passe oublié ?
+      pin: Se connecter avec le code orateur
+      invalid: E-mail ou mot de passe incorrect.
+      signed_out: Vous êtes déconnecté.
+    password_resets:
+      title: Réinitialiser le mot de passe
+      lead: Nous vous envoyons un lien pour choisir un nouveau mot de passe.
+      submit: Envoyer le lien
+      back: Retour à la connexion
+      sent: Si cette adresse est enregistrée chez nous, nous vous avons envoyé un e-mail.
+      edit_title: Choisir un nouveau mot de passe
+      save: Enregistrer
+      updated: Votre mot de passe a été modifié.
+      invalid_link: Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.
+    invitations:
+      title: Bienvenue
+      lead: "%{name}, choisissez votre mot de passe pour %{account}."
+      submit: Activer le compte
+      accepted: Bienvenue à %{account}.
+    dashboard:
+      greeting: Salam, %{name}
+      lead: Gérez ici la traduction en direct de votre communauté.
+      listener_links: Liens pour les fidèles
+      broadcast: Diffusion
+      broadcast_text: Ouvrez la page de diffusion sur l'appareil près de l'imam et appuyez sur « Démarrer ».
+    users:
+      title: Équipe
+      lead: Invitez imams et membres du bureau. Chacun se connecte avec son propre e-mail.
+      actions: Actions
+      pending: Invitation en attente
+      remove: Retirer
+      remove_confirm: Retirer %{name} ?
+      invite_title: Inviter une personne
+      invite: Inviter
+      roles_help: Les imams peuvent seulement lancer la diffusion. L'administration peut aussi modifier langues, équipe et facturation.
+      invited: Invitation envoyée à %{email}.
+      removed: "%{name} a été retiré."
+      cannot_remove_self: Vous ne pouvez pas vous retirer vous-même.
+    account_lookups:
+      title: Connexion
+      lead: Saisissez votre adresse e-mail, nous vous enverrons le lien de connexion de votre communauté.
+      submit: Envoyer le lien
+      sent: Si cette adresse est enregistrée chez nous, nous vous avons envoyé le lien de connexion.
+  mailers:
+    greeting: Salam %{name},
+    password_reset:
+      subject: Nouveau mot de passe pour %{account}
+      body: quelqu'un a demandé un nouveau mot de passe pour votre compte %{account}. Utilisez le bouton pour en choisir un.
+      action: Choisir un mot de passe
+      expiry: Le lien est valable une heure. Si vous n'avez rien demandé, ignorez cet e-mail.
+    invitation:
+      subject: Invitation à %{account}
+      body: "%{inviter} vous a invité à %{account} sur Hutba. Choisissez votre mot de passe pour commencer."
+      action: Accepter l'invitation
+      expiry: Le lien est valable 7 jours.
+    login_links:
+      subject: Votre lien de connexion Hutba
+      body: 'Connectez-vous à votre communauté ici :'
+      ignore: Si vous n'avez rien demandé, ignorez cet e-mail.
+  activerecord:
+    attributes:
+      user:
+        name: Nom
+        email: E-mail
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        role: Rôle

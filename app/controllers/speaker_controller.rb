@@ -1,5 +1,7 @@
 class SpeakerController < ApplicationController
   include AccountScoped
+  include Authentication
+  include AppLocale
   before_action :authenticate_speaker, only: [:index]
 
   def index
@@ -23,14 +25,14 @@ class SpeakerController < ApplicationController
   end
 
   def logout
-    session[:speaker_account_id] = nil
+    reset_session
     redirect_to speaker_login_path, notice: "Logged out"
   end
 
   private
 
   def authenticate_speaker
-    unless session[:speaker_account_id] == Current.account.id
+    unless current_user || session[:speaker_account_id] == Current.account.id
       redirect_to speaker_login_path
     end
   end

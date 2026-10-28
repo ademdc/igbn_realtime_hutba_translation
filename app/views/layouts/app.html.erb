@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <title><%= [content_for(:title), Current.account&.name, "Hutba"].compact_blank.join(" – ") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="color-scheme" content="light">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= render "layouts/fonts" %>
+    <%= stylesheet_link_tag "app", "data-turbo-track": "reload" %>
+    <%= yield :head %>
+  </head>
+
+  <body class="app">
+    <header class="app-bar">
+      <div class="app-bar__inner">
+        <p class="app-bar__brand">
+          <span class="wordmark__dot" aria-hidden="true"></span>
+          <span><%= Current.account&.name || "Hutba" %></span>
+        </p>
+
+        <% if current_user&.owner? %>
+          <nav class="app-nav" aria-label="<%= t("app.nav.label") %>">
+            <%= link_to t("app.nav.dashboard"), dashboard_path, "aria-current": (current_page?(dashboard_path) ? "page" : nil) %>
+            <%= link_to t("app.nav.team"), users_path, "aria-current": (current_page?(users_path) ? "page" : nil) %>
+            <%= link_to t("app.nav.speaker"), root_path %>
+          </nav>
+        <% end %>
+
+        <div class="app-bar__end">
+          <details class="locale-switch">
+            <summary aria-label="<%= t("marketing.nav.language") %>"><%= I18n.locale.upcase %></summary>
+            <ul>
+              <% { "de" => "Deutsch", "en" => "English", "fr" => "Français", "nl" => "Nederlands", "bs" => "Bosanski", "tr" => "Türkçe" }.each do |locale, name| %>
+                <li><%= link_to name, url_for(locale: locale), lang: locale, "aria-current": (locale == I18n.locale.to_s ? "true" : nil) %></li>
+              <% end %>
+            </ul>
+          </details>
+          <% if current_user %>
+            <%= button_to t("app.nav.sign_out"), logout_path, method: :delete, class: "link-button" %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main" id="main">
+      <% flash.each do |type, message| %>
+        <p class="flash flash--<%= type == "alert" ? "alert" : "notice" %>" role="<%= type == "alert" ? "alert" : "status" %>"><%= message %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

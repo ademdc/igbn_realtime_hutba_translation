@@ -1,0 +1,93 @@
+---
+nl:
+  app:
+    nav:
+      label: Onderdelen
+      dashboard: Overzicht
+      team: Team
+      speaker: Uitzending starten
+      sign_out: Uitloggen
+    fields:
+      email: E-mail
+      password: Wachtwoord
+      new_password: Nieuw wachtwoord
+      password_confirmation: Herhaal wachtwoord
+      password_hint: Minstens 10 tekens.
+      name: Naam
+      role: Rol
+    errors:
+      heading: 'Controleer het volgende:'
+    roles:
+      owner: Bestuur
+      speaker: Imam / spreker
+    sessions:
+      title: Inloggen
+      lead: "%{account}"
+      submit: Inloggen
+      forgot: Wachtwoord vergeten?
+      pin: Inloggen met spreker-pincode
+      invalid: E-mail of wachtwoord is onjuist.
+      signed_out: U bent uitgelogd.
+    password_resets:
+      title: Wachtwoord herstellen
+      lead: We sturen u een link om een nieuw wachtwoord te kiezen.
+      submit: Link versturen
+      back: Terug naar inloggen
+      sent: Als dit adres bij ons bekend is, hebben we u een e-mail gestuurd.
+      edit_title: Nieuw wachtwoord kiezen
+      save: Wachtwoord opslaan
+      updated: Uw wachtwoord is gewijzigd.
+      invalid_link: Deze link is verlopen of al gebruikt. Vraag een nieuwe aan.
+    invitations:
+      title: Welkom
+      lead: "%{name}, kies uw wachtwoord voor %{account}."
+      submit: Account activeren
+      accepted: Welkom bij %{account}.
+    dashboard:
+      greeting: Salam, %{name}
+      lead: Hier beheert u de live vertaling van uw gemeenschap.
+      listener_links: Links voor luisteraars
+      broadcast: Uitzending
+      broadcast_text: Open de uitzendpagina op het apparaat bij de imam en tik op „Start”.
+    users:
+      title: Team
+      lead: Nodig imams en bestuursleden uit. Iedereen logt in met een eigen e-mailadres.
+      actions: Acties
+      pending: Uitnodiging open
+      remove: Verwijderen
+      remove_confirm: "%{name} verwijderen?"
+      invite_title: Iemand uitnodigen
+      invite: Uitnodigen
+      roles_help: Imams kunnen alleen de uitzending starten. Het bestuur kan ook talen, team en betaling wijzigen.
+      invited: Uitnodiging verstuurd naar %{email}.
+      removed: "%{name} is verwijderd."
+      cannot_remove_self: U kunt uzelf niet verwijderen.
+    account_lookups:
+      title: Inloggen
+      lead: Vul uw e-mailadres in, dan sturen we u de inloglink van uw gemeenschap.
+      submit: Link versturen
+      sent: Als dit adres bij ons bekend is, hebben we u de inloglink gestuurd.
+  mailers:
+    greeting: Salam %{name},
+    password_reset:
+      subject: Nieuw wachtwoord voor %{account}
+      body: iemand heeft een nieuw wachtwoord aangevraagd voor uw account bij %{account}. Kies het via de knop.
+      action: Nieuw wachtwoord kiezen
+      expiry: De link is een uur geldig. Heeft u niets aangevraagd, negeer deze e-mail dan.
+    invitation:
+      subject: Uitnodiging voor %{account}
+      body: "%{inviter} heeft u uitgenodigd voor %{account} op Hutba. Kies uw wachtwoord om te beginnen."
+      action: Uitnodiging accepteren
+      expiry: De link is 7 dagen geldig.
+    login_links:
+      subject: Uw inloglink voor Hutba
+      body: 'Hier logt u in bij uw gemeenschap:'
+      ignore: Heeft u niets aangevraagd, negeer deze e-mail dan.
+  activerecord:
+    attributes:
+      user:
+        name: Naam
+        email: E-mail
+        password: Wachtwoord
+        password_confirmation: Wachtwoordbevestiging
+        role: Rol

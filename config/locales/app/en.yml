@@ -1,0 +1,93 @@
+---
+en:
+  app:
+    nav:
+      label: Sections
+      dashboard: Overview
+      team: Team
+      speaker: Start broadcast
+      sign_out: Log out
+    fields:
+      email: Email
+      password: Password
+      new_password: New password
+      password_confirmation: Repeat password
+      password_hint: At least 10 characters.
+      name: Name
+      role: Role
+    errors:
+      heading: 'Please check the following:'
+    roles:
+      owner: Administrator
+      speaker: Imam / speaker
+    sessions:
+      title: Log in
+      lead: "%{account}"
+      submit: Log in
+      forgot: Forgot your password?
+      pin: Log in with speaker PIN
+      invalid: Wrong email or password.
+      signed_out: You have been logged out.
+    password_resets:
+      title: Reset password
+      lead: We'll send you a link to choose a new password.
+      submit: Send link
+      back: Back to log in
+      sent: If that address is registered with us, we've sent you an email.
+      edit_title: Choose a new password
+      save: Save password
+      updated: Your password has been changed.
+      invalid_link: This link has expired or was already used. Request a new one.
+    invitations:
+      title: Welcome
+      lead: "%{name}, choose your password for %{account}."
+      submit: Activate account
+      accepted: Welcome to %{account}.
+    dashboard:
+      greeting: Salam, %{name}
+      lead: Manage your congregation's live translation here.
+      listener_links: Links for listeners
+      broadcast: Broadcast
+      broadcast_text: Open the broadcast page on the device next to the imam and tap “Start”.
+    users:
+      title: Team
+      lead: Invite imams and board members. Everyone logs in with their own email.
+      actions: Actions
+      pending: Invitation pending
+      remove: Remove
+      remove_confirm: Remove %{name}?
+      invite_title: Invite someone
+      invite: Invite
+      roles_help: Imams can only start the broadcast. Administrators can also change languages, team and billing.
+      invited: Invitation sent to %{email}.
+      removed: "%{name} has been removed."
+      cannot_remove_self: You can't remove yourself.
+    account_lookups:
+      title: Log in
+      lead: Enter your email address and we'll send you your congregation's login link.
+      submit: Send link
+      sent: If that address is registered with us, we've sent you the login link.
+  mailers:
+    greeting: Salam %{name},
+    password_reset:
+      subject: New password for %{account}
+      body: someone asked for a new password for your %{account} account. Use the button to choose one.
+      action: Choose a new password
+      expiry: The link is valid for one hour. If you didn't ask for this, ignore this email.
+    invitation:
+      subject: Invitation to %{account}
+      body: "%{inviter} has invited you to %{account} on Hutba. Choose your password to get started."
+      action: Accept invitation
+      expiry: The link is valid for 7 days.
+    login_links:
+      subject: Your Hutba login link
+      body: 'Log in to your congregation here:'
+      ignore: If you didn't ask for this, ignore this email.
+  activerecord:
+    attributes:
+      user:
+        name: Name
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role

@@ -1,0 +1,7 @@
+<% content_for :title, t("app.invitations.title") %>
+
+<div class="auth">
+  <h1 class="page-title"><%= t("app.invitations.title") %></h1>
+  <p class="page-lead"><%= t("app.invitations.lead", name: @user.name, account: Current.account.name) %></p>
+  <%= render "password_resets/password_form", url: invitation_path(params[:token]), submit_label: t("app.invitations.submit") %>
+</div>

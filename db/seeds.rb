@@ -23,3 +23,29 @@ if Rails.env.development?
     account.speaker_pin = "1234"
   end
 end
+
+if Rails.env.development?
+  # Dev logins (password "password1234"):
+  #   owner@igbd.test   -> http://igbd-nuernberg.localhost:3010/login
+  #   owner@demo.test   -> http://demo.localhost:3010/login
+  #   imam@demo.test    -> speaker only
+  #   admin@hutba.test  -> http://localhost:3010/admin/login
+  { "igbd-nuernberg" => [["owner@igbd.test", "Vorstand IGBD", "owner"]],
+    "demo" => [["owner@demo.test", "Emir Demo", "owner"], ["imam@demo.test", "Imam Demo", "speaker"]] }.each do |subdomain, users|
+    account = Account.find_by!(subdomain: subdomain)
+    users.each do |email, name, role|
+      account.users.find_or_create_by!(email: email) do |user|
+        user.name = name
+        user.role = role
+        user.password = "password1234"
+        user.confirmed_at = Time.current
+      end
+    end
+  end
+
+  User.find_or_create_by!(email: "admin@hutba.test", admin: true, account_id: nil) do |user|
+    user.name = "Super Admin"
+    user.password = "password1234"
+    user.confirmed_at = Time.current
+  end
+end

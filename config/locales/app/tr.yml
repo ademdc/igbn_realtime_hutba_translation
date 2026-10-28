@@ -1,0 +1,93 @@
+---
+tr:
+  app:
+    nav:
+      label: Bölümler
+      dashboard: Genel bakış
+      team: Ekip
+      speaker: Yayını başlat
+      sign_out: Çıkış
+    fields:
+      email: E-posta
+      password: Şifre
+      new_password: Yeni şifre
+      password_confirmation: Şifreyi tekrarlayın
+      password_hint: En az 10 karakter.
+      name: Ad
+      role: Rol
+    errors:
+      heading: 'Lütfen şunları kontrol edin:'
+    roles:
+      owner: Yönetim
+      speaker: İmam / konuşmacı
+    sessions:
+      title: Giriş
+      lead: "%{account}"
+      submit: Giriş yap
+      forgot: Şifrenizi mi unuttunuz?
+      pin: Konuşmacı PIN'i ile giriş
+      invalid: E-posta veya şifre yanlış.
+      signed_out: Çıkış yaptınız.
+    password_resets:
+      title: Şifre sıfırlama
+      lead: Yeni şifre belirlemeniz için size bir bağlantı göndereceğiz.
+      submit: Bağlantı gönder
+      back: Girişe dön
+      sent: Bu adres kayıtlıysa size bir e-posta gönderdik.
+      edit_title: Yeni şifre belirleyin
+      save: Şifreyi kaydet
+      updated: Şifreniz değiştirildi.
+      invalid_link: Bu bağlantının süresi doldu veya zaten kullanıldı. Yenisini isteyin.
+    invitations:
+      title: Hoş geldiniz
+      lead: "%{name}, %{account} için şifrenizi belirleyin."
+      submit: Hesabı etkinleştir
+      accepted: "%{account} hesabına hoş geldiniz."
+    dashboard:
+      greeting: Selam, %{name}
+      lead: Cemaatinizin canlı tercümesini buradan yönetin.
+      listener_links: Dinleyici bağlantıları
+      broadcast: Yayın
+      broadcast_text: İmamın yanındaki cihazda yayın sayfasını açın ve „Başlat“a dokunun.
+    users:
+      title: Ekip
+      lead: İmamları ve yönetim üyelerini davet edin. Herkes kendi e-postasıyla giriş yapar.
+      actions: İşlemler
+      pending: Davet bekliyor
+      remove: Kaldır
+      remove_confirm: "%{name} kaldırılsın mı?"
+      invite_title: Birini davet et
+      invite: Davet et
+      roles_help: İmamlar yalnızca yayını başlatabilir. Yönetim ayrıca dilleri, ekibi ve ödemeyi değiştirebilir.
+      invited: Davet %{email} adresine gönderildi.
+      removed: "%{name} kaldırıldı."
+      cannot_remove_self: Kendinizi kaldıramazsınız.
+    account_lookups:
+      title: Giriş
+      lead: E-posta adresinizi girin, cemaatinizin giriş bağlantısını size gönderelim.
+      submit: Bağlantı gönder
+      sent: Bu adres kayıtlıysa giriş bağlantısını size gönderdik.
+  mailers:
+    greeting: Selam %{name},
+    password_reset:
+      subject: "%{account} için yeni şifre"
+      body: "%{account} hesabınız için yeni bir şifre istendi. Butona tıklayarak belirleyebilirsiniz."
+      action: Yeni şifre belirle
+      expiry: Bağlantı bir saat geçerlidir. Bir şey istemediyseniz bu e-postayı dikkate almayın.
+    invitation:
+      subject: "%{account} davetiyesi"
+      body: "%{inviter} sizi Hutba'da %{account} hesabına davet etti. Başlamak için şifrenizi belirleyin."
+      action: Daveti kabul et
+      expiry: Bağlantı 7 gün geçerlidir.
+    login_links:
+      subject: Hutba giriş bağlantınız
+      body: 'Cemaatinize buradan giriş yapın:'
+      ignore: Bir şey istemediyseniz bu e-postayı dikkate almayın.
+  activerecord:
+    attributes:
+      user:
+        name: Ad
+        email: E-posta
+        password: Şifre
+        password_confirmation: Şifre onayı
+        role: Rol

@@ -1,14 +1,14 @@
 module Admin
   class BaseController < ApplicationController
+    include Authentication
+
     layout 'admin'
     before_action :authenticate_admin
 
     private
 
     def authenticate_admin
-      unless session[:admin_authenticated]
-        redirect_to admin_login_path
-      end
+      redirect_to admin_login_path unless current_user&.admin?
     end
   end
 end

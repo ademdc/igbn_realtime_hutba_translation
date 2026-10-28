@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   # Marketing site on the apex domain (and www), e.g. hutba.app/de
   constraints(AppDomain) do
     get "/", to: "marketing#locale_redirect", as: :marketing_root
     scope ":locale", locale: Regexp.union(MarketingController::LOCALES) do
       get "/", to: "marketing#index", as: :marketing
+      get "login", to: "account_lookups#new", as: :marketing_login
+      post "login", to: "account_lookups#create", as: nil
       get "impressum", to: "marketing#imprint", as: :marketing_imprint
       get "privacy", to: "marketing#privacy", as: :marketing_privacy
     end
@@ -17,6 +21,18 @@ Rails.application.routes.draw do
 
   # Mosque subdomains: the speaker panel is the root
   root "speaker#index"
+
+  # Mosque user accounts
+  get "login", to: "sessions#new", as: :login
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy", as: :logout
+  resources :password_resets, only: [:new, :create, :edit, :update], param: :token
+  get "invitation/:token", to: "invitations#edit", as: :invitation
+  patch "invitation/:token", to: "invitations#update"
+
+  # Mosque owner area
+  get "dashboard", to: "dashboard#show", as: :dashboard
+  resources :users, path: "dashboard/team", only: [:index, :create, :destroy]
 
   # Admin backoffice
   namespace :admin do

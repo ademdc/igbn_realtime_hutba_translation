@@ -1,0 +1,60 @@
+<% content_for :title, t("app.nav.team") %>
+
+<h1 class="page-title"><%= t("app.users.title") %></h1>
+<p class="page-lead"><%= t("app.users.lead") %></p>
+
+<div class="stack">
+  <section class="panel">
+    <table class="table table--responsive">
+      <thead>
+        <tr>
+          <th><%= t("app.fields.name") %></th>
+          <th><%= t("app.fields.email") %></th>
+          <th><%= t("app.fields.role") %></th>
+          <th><span class="visually-hidden"><%= t("app.users.actions") %></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.select(&:persisted?).each do |user| %>
+          <tr>
+            <td>
+              <%= user.name %>
+              <% if user.invitation_pending? %>
+                <span class="tag tag--pending"><%= t("app.users.pending") %></span>
+              <% end %>
+            </td>
+            <td><%= user.email %></td>
+            <td><span class="tag"><%= t("app.roles.#{user.role}") %></span></td>
+            <td>
+              <% unless user == current_user %>
+                <%= button_to t("app.users.remove"), user_path(user), method: :delete, class: "link-button",
+                      form: { onsubmit: "return confirm(#{t("app.users.remove_confirm", name: user.name).to_json})" } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title"><%= t("app.users.invite_title") %></h2>
+    <%= render "shared/errors", record: @user %>
+    <%= form_with model: @user, url: users_path, class: "form-row" do |form| %>
+      <div class="field">
+        <%= form.label :name, t("app.fields.name") %>
+        <%= form.text_field :name, required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :email, t("app.fields.email") %>
+        <%= form.email_field :email, required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :role, t("app.fields.role") %>
+        <%= form.select :role, User::ROLES.map { |role| [t("app.roles.#{role}"), role] } %>
+      </div>
+      <%= form.submit t("app.users.invite"), class: "button" %>
+    <% end %>
+    <p class="muted" style="margin-top: 1rem;"><%= t("app.users.roles_help") %></p>
+  </section>
+</div>

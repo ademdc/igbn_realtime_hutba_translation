@@ -7,8 +7,12 @@ module ApplicationCable
       self.connection_uuid = SecureRandom.uuid
     end
 
+    # Signed in with the speaker PIN, or as a user of this mosque
     def speaker?
-      rails_session["speaker_account_id"] == account.id
+      return true if rails_session["speaker_account_id"] == account.id
+
+      user = User.from_session(rails_session["user_id"], rails_session["user_fingerprint"])
+      user.present? && user.account_id == account.id
     end
 
     private

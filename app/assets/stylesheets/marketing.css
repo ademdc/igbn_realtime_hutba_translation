@@ -142,6 +142,12 @@ body.marketing {
 }
 .site-nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 0.3em; }
 
+.site-header__login {
+  font-size: 1rem;
+  text-decoration: none;
+}
+.site-header__login:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+
 .locale-switch { position: relative; }
 .locale-switch summary {
   list-style: none;
@@ -691,3 +697,39 @@ body.marketing {
   .live-dot { animation: none; }
   .demo__translation .word { transition: none; }
 }
+
+/* Find my mosque */
+
+.lookup-notice {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: var(--mist);
+  color: var(--ink);
+}
+
+.lookup-form {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 700;
+}
+
+.lookup-form__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.lookup-form input {
+  font: inherit;
+  font-weight: 400;
+  flex: 1 1 16rem;
+  min-height: 3.25rem;
+  padding: 0.6rem 1rem;
+  border: 1.5px solid var(--mist-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.lookup-form .button { border: 0; cursor: pointer; font-family: inherit; }

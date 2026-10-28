@@ -1,0 +1,26 @@
+<% content_for :title, t("app.nav.dashboard") %>
+
+<h1 class="page-title"><%= t("app.dashboard.greeting", name: current_user.name) %></h1>
+<p class="page-lead"><%= t("app.dashboard.lead") %></p>
+
+<div class="stack">
+  <section class="panel">
+    <h2 class="panel__title"><%= t("app.dashboard.listener_links") %></h2>
+    <table class="table table--responsive">
+      <tbody>
+        <% @account.languages.each do |code| %>
+          <tr>
+            <td><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></td>
+            <td><%= link_to @account.url("/#{code}"), @account.url("/#{code}"), target: "_blank", rel: "noopener" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2 class="panel__title"><%= t("app.dashboard.broadcast") %></h2>
+    <p class="muted"><%= t("app.dashboard.broadcast_text") %></p>
+    <p style="margin-top: 1rem;"><%= link_to t("app.nav.speaker"), root_path, class: "button" %></p>
+  </section>
+</div>

@@ -7,6 +7,7 @@ class Account < ApplicationRecord
 
   has_many :speaker_sessions, dependent: :destroy
   has_many :listener_connections, dependent: :destroy
+  has_many :users, dependent: :destroy
 
   normalizes :subdomain, with: ->(value) { value.to_s.strip.downcase }
   normalizes :custom_domain, with: ->(value) { value.to_s.strip.downcase.presence }
@@ -34,6 +35,14 @@ class Account < ApplicationRecord
       (host.end_with?(".#{AppDomain.host}") && find_by(subdomain: host.delete_suffix(".#{AppDomain.host}"))) ||
       (ENV["DEFAULT_ACCOUNT_SUBDOMAIN"].present? && find_by(subdomain: ENV["DEFAULT_ACCOUNT_SUBDOMAIN"])) ||
       nil
+  end
+
+  def host
+    custom_domain || "#{subdomain}.#{AppDomain.host}"
+  end
+
+  def url(path = "/")
+    AppDomain.url(host, path)
   end
 
   def offers_language?(code)

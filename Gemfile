@@ -44,6 +44,12 @@ gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# Translated validation messages and date formats for the app UI
+gem "rails-i18n", "~> 7.0"
+
+# Rate limiting for login and password reset
+gem "rack-attack", "~> 6.7"
+
 # QR codes for listener pages and printable posters
 gem "rqrcode", "~> 2.2"
 
@@ -61,6 +67,9 @@ group :development, :test do
 end
 
 group :development do
+  # Preview outgoing emails at /letter_opener
+  gem "letter_opener_web", "~> 3.0"
+
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 

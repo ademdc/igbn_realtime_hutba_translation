@@ -19,9 +19,9 @@
 
     <%= form_with url: admin_login_path, method: :post, class: "pin-form" do |form| %>
       <div class="form-group">
-        <%= form.label :username, "Username", class: "form-label" %>
-        <%= form.text_field :username,
-            placeholder: "Enter username",
+        <%= form.label :email, "Email", class: "form-label" %>
+        <%= form.email_field :email,
+            placeholder: "Enter email",
             autocomplete: "username",
             autofocus: true,
             class: "form-input",
