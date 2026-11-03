@@ -1,7 +1,6 @@
 # Fly.io configuration. See SETUP.md ("Production on Fly.io") for the one-time setup.
-# Rename `app` if you create a new Fly app for hutba.app.
 
-app = 'igbn-realtime-hutba-translation'
+app = 'hutba-app'
 primary_region = 'fra'
 console_command = '/rails/bin/rails console'
 

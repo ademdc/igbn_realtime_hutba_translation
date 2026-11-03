@@ -19,7 +19,7 @@ FROM base as build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl git libpq-dev libvips node-gyp pkg-config python-is-python3
+    apt-get install --no-install-recommends -y build-essential curl git libpq-dev libvips libyaml-dev node-gyp pkg-config python-is-python3
 
 # Install JavaScript dependencies
 ARG NODE_VERSION=20.9.0
@@ -38,8 +38,9 @@ RUN bundle install && \
 COPY package.json package-lock.json ./
 RUN npm ci --production=false
 
-# Copy application code
+# Copy application code, readable by the non-root user whatever the local file modes are
 COPY . .
+RUN chmod -R a+rX /rails
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/

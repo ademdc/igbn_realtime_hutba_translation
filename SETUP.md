@@ -66,8 +66,8 @@ bin/rails admin:create EMAIL=you@example.com NAME="Your Name"   # prompts for th
 
 Fly issues and renews certificates for `hutba.app` and every `*.hutba.app` subdomain itself, so there is no Cloudflare. The setup below is done once. After it, new mosques, their subdomains and their own domains go live without any step from us.
 
-1. **App:** `fly apps create hutba` and put the name in `fly.toml` (`app = 'hutba'`), or keep the existing app name.
-2. **Database:** `fly postgres create --name hutba-db --region fra`, then `fly postgres attach hutba-db`. That sets `DATABASE_URL`.
+1. **App:** The app is `hutba-app` (org `personal`), already set in `fly.toml`.
+2. **Database:** `fly postgres create --name hutba-app-db --region fra`, then `fly postgres attach hutba-app-db`. That sets `DATABASE_URL`.
 3. **Redis:** `fly redis create` (Upstash, region `fra`). Then run `fly secrets set REDIS_URL=…` with the URL it prints.
 4. **Secrets:**
    ```bash
