@@ -44,12 +44,12 @@ Rails.application.configure do
   # config.action_cable.url = "wss://example.com/cable"
   # Allow WebSocket connections from any host that is allowed to serve the app
   config.action_cable.allowed_request_origins = [
-    ->(origin) {
+    ->(origin) do
       host = URI.parse(origin).host
       Rails.application.config.hosts.any? { |allowed| allowed === host } || Account.custom_domain?(host)
     rescue URI::InvalidURIError
       false
-    }
+    end
   ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
@@ -58,6 +58,8 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
+  # Fly's health check calls /up over plain HTTP inside the private network
+  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)

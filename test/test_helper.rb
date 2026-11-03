@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require_relative "support/fake_heroku_client"
+require_relative "support/fake_domain_client"
 
 module ActiveSupport
   class TestCase

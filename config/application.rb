@@ -15,6 +15,7 @@ module IgbdTranslationsApp
     config.hosts << 'hutba.dzamija.net'
     config.hosts << 'dzuma.dzamija.net'
     config.hosts << 'hutba.igbd-nuernberg.de'
+    config.hosts << "#{ENV["FLY_APP_NAME"]}.fly.dev" if ENV["FLY_APP_NAME"].present?
 
     # Tenant subdomains, e.g. dzemat-nurnberg.hutba.app. In development *.localhost is allowed by default.
     if ENV["APP_DOMAIN"].present?

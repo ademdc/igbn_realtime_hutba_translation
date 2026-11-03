@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# Fly.io has no Heroku Scheduler, so this process runs the periodic jobs:
+#   - own-domain certificate checks, every 10 minutes
+#   - billing reminders, hourly (they only send each reminder once)
+require_relative "../config/environment"
+
+$stdout.sync = true
+Rails.logger.info "Scheduler started"
+last_reminders = nil
+
+loop do
+  begin
+    CustomDomains.check_pending
+
+    if last_reminders.nil? || last_reminders < 1.hour.ago
+      sent = Billing::Reminders.run
+      Rails.logger.info "Billing reminders sent: #{sent}"
+      last_reminders = Time.current
+    end
+  rescue => e
+    Rails.logger.error "Scheduler: #{e.class}: #{e.message}"
+  end
+
+  sleep 10.minutes
+end

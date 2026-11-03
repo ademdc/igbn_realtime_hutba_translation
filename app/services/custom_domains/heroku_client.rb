@@ -6,17 +6,7 @@ require "net/http"
 # ENV: HEROKU_API_TOKEN (heroku authorizations:create), HEROKU_APP_NAME
 module CustomDomains
   class HerokuClient
-    class Error < StandardError; end
-
-    Domain = Struct.new(:hostname, :target, :acm_status, keyword_init: true) do
-      def certificate_issued?
-        acm_status.to_s.match?(/cert issued/i)
-      end
-
-      def failed?
-        acm_status.to_s.match?(/\Afailed\z/i)
-      end
-    end
+    class Error < CustomDomains::Error; end
 
     def self.configured?
       ENV["HEROKU_API_TOKEN"].present? && ENV["HEROKU_APP_NAME"].present?
@@ -47,7 +37,7 @@ module CustomDomains
     end
 
     def to_domain(json)
-      Domain.new(hostname: json["hostname"], target: json["cname"], acm_status: json["acm_status"])
+      Domain.new(hostname: json["hostname"], target: json["cname"], issued: json["acm_status"].to_s.match?(/cert issued/i))
     end
 
     def request(klass, path, body = nil)

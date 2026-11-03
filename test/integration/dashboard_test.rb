@@ -57,9 +57,9 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_equal "hutba.mosque-website.com", accounts(:demo).reload.requested_custom_domain
 
     accounts(:demo).update!(custom_domain_status: "pending_dns", custom_domain_registered: "hutba.mosque-website.com",
-                            custom_domain_target: "x.herokudns.com")
+                            custom_domain_target: "x.fly.dev")
     get "/dashboard"
-    assert_select ".dns-record code", "x.herokudns.com"
+    assert_select ".dns-record code", "x.fly.dev"
   end
 
   test "owners without the add-on cannot set a domain" do

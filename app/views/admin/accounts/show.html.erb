@@ -100,7 +100,7 @@
         <% if @account.custom_domain_checked_at %>(checked <%= time_ago_in_words(@account.custom_domain_checked_at) %> ago)<% end %>
       </p>
     <% end %>
-    <p class="muted" style="margin-top: 0.75rem;">Domains are registered with Heroku and switched live automatically. Saving a new requested domain re-runs the setup.</p>
+    <p class="muted" style="margin-top: 0.75rem;">Domains are registered with Fly.io or Heroku (wherever this app runs) and switched live automatically. Saving a new requested domain re-runs the setup.</p>
 
     <%= form_with url: extend_trial_admin_account_path(@account), class: "action-row", style: "margin-top: 1.5rem;" do |form| %>
       <div class="field">
