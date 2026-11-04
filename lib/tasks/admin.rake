@@ -5,7 +5,8 @@ namespace :admin do
 
     email = ENV["EMAIL"].presence || abort("Usage: bin/rails admin:create EMAIL=you@example.com [NAME='Your Name']")
     print "Password for #{email} (min. 10 characters): "
-    password = $stdin.noecho(&:gets).to_s.chomp
+    # Hide the input when there is a terminal (fly ssh console -C has none without --pty)
+    password = ($stdin.tty? ? $stdin.noecho(&:gets) : $stdin.gets).to_s.chomp
     puts
 
     user = User.find_or_initialize_by(email: email.downcase, admin: true, account_id: nil)
