@@ -4,15 +4,13 @@ import SpeakerController from "./speaker_controller"
 let speakerController = null
 
 function initializeControllers() {
-  // Clean up existing controller if it exists
-  if (speakerController) {
-    speakerController = null
-  }
+  // Both the initial load and turbo:load call this. Set up each speaker panel only once:
+  // a second controller would start a second recorder and send every audio chunk twice.
+  const panel = document.getElementById('speakerPanel')
+  if (!panel || panel.dataset.initialized) return
 
-  // Initialize speaker controller if on the speaker page
-  if (document.getElementById('startRecording')) {
-    speakerController = new SpeakerController()
-  }
+  panel.dataset.initialized = "true"
+  speakerController = new SpeakerController()
 }
 
 // Initialize on Turbo page loads (handles both initial load and navigation)

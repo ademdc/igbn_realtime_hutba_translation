@@ -9,6 +9,7 @@ class SonioxProxyService
   @@audio_buffers = {}
   @@em_thread = nil
   @@connection_mutex = Mutex.new
+  @@redis = nil
   REDIS_ACTIVE_LANGUAGES_KEY = 'soniox:active_languages'  # suffixed with :<account_id>
 
   class << self
@@ -101,12 +102,7 @@ class SonioxProxyService
       old_languages = get_active_languages_from_redis(account_id)
 
       # Store in Redis so all processes can see it
-      redis = Redis.new(
-        url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" },
-        ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
-      )
       redis.set(active_languages_key(account_id), languages.to_json)
-      redis.close
 
       Rails.logger.info "Updated active languages in Redis for account #{account_id}: #{languages.inspect}"
 
@@ -126,13 +122,16 @@ class SonioxProxyService
       end
     end
 
-    def get_active_languages_from_redis(account_id)
-      redis = Redis.new(
+    # One shared client: this is read for every audio chunk, and a new TLS connection each time adds up
+    def redis
+      @@redis ||= Redis.new(
         url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" },
         ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
       )
+    end
+
+    def get_active_languages_from_redis(account_id)
       languages_json = redis.get(active_languages_key(account_id))
-      redis.close
 
       if languages_json
         JSON.parse(languages_json)
@@ -164,7 +163,8 @@ class SonioxProxyService
       ws_container = { ws: nil }
 
       EM.next_tick do
-        ws = Faye::WebSocket::Client.new(SONIOX_WS_URL)
+        # Soniox refuses the key in the start message from 15 January 2027
+        ws = Faye::WebSocket::Client.new(SONIOX_WS_URL, nil, headers: { "Authorization" => "Bearer #{api_key}" })
         ws_container[:ws] = ws
 
         ws.on :open do |event|
@@ -172,7 +172,6 @@ class SonioxProxyService
 
           # Build configuration for Bosnian to target language
           config = {
-            api_key: api_key,
             audio_format: "pcm_s16le",
             sample_rate: 16000,
             num_channels: 1,
@@ -186,7 +185,7 @@ class SonioxProxyService
           end
 
           config_json = JSON.generate(config)
-          Rails.logger.info "Sending config for #{language_code}: #{config.except(:api_key).to_json}"
+          Rails.logger.info "Sending config for #{language_code}: #{config.to_json}"
           ws.send(config_json)
           Rails.logger.info "✓ Sent configuration to Soniox for #{language_code}"
 

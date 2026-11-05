@@ -97,6 +97,8 @@ class TranslationChannel < ApplicationCable::Channel
 
   def unsubscribed
     if @speaker_session
+      # Audio chunks still queued after this must not open a new Soniox connection
+      @stopped = true
       # Close Soniox connection when speaker disconnects
       SonioxProxyService.close_connection(@account.id, @session_id)
       Rails.logger.info "Closed Soniox connection for session: #{@session_id}"
@@ -128,7 +130,7 @@ class TranslationChannel < ApplicationCable::Channel
 
   def receive(data)
     # Only speakers can send audio data
-    if @speaker_session && data['audio']
+    if @speaker_session && !@stopped && data['audio']
       SonioxProxyService.process_audio(data['audio'], @account.id, @session_id)
     end
   end

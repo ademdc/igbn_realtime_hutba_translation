@@ -5250,12 +5250,11 @@
   // app/javascript/controllers/index.js
   var speakerController = null;
   function initializeControllers() {
-    if (speakerController) {
-      speakerController = null;
-    }
-    if (document.getElementById("startRecording")) {
-      speakerController = new SpeakerController();
-    }
+    const panel = document.getElementById("speakerPanel");
+    if (!panel || panel.dataset.initialized)
+      return;
+    panel.dataset.initialized = "true";
+    speakerController = new SpeakerController();
   }
   document.addEventListener("turbo:load", initializeControllers);
   if (document.readyState === "loading") {
