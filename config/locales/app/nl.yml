@@ -316,7 +316,7 @@ nl:
           many: Uw proefperiode bij Hutba eindigt over %{count} dagen
           other: Uw proefperiode bij Hutba eindigt over %{count} dagen
           zero: Uw proefperiode bij Hutba eindigt vandaag
-        body: "de gratis proefperiode voor %{account} eindigt op %{date}. Kies het jaarabonnement om 3 talen en tot 3 uur per week te houden. Anders gaat Hutba verder met het gratis abonnement: 80 minuten per maand, 1 taal."
+        body: "de gratis proefperiode voor %{account} eindigt op %{date}. Kies het jaarabonnement om 3 talen en tot 3 uur per week te houden. Anders gaat Hutba verder met het gratis abonnement: 60 minuten per maand, 1 taal."
       renewal:
         subject:
           one: Hutba voor %{account} verloopt morgen
@@ -324,7 +324,7 @@ nl:
           many: Hutba voor %{account} verloopt over %{count} dagen
           other: Hutba voor %{account} verloopt over %{count} dagen
           zero: Hutba voor %{account} verloopt vandaag
-        body: "het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu om al uw talen te houden. Anders gaat Hutba verder met het gratis abonnement: 80 minuten per maand, 1 taal."
+        body: "het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu om al uw talen te houden. Anders gaat Hutba verder met het gratis abonnement: 60 minuten per maand, 1 taal."
       action: Nu betalen
       price: 'Jaarprijs: %{price}'
     custom_domain_dns:

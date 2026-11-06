@@ -316,7 +316,7 @@ en:
           many: Your Hutba trial ends in %{count} days
           other: Your Hutba trial ends in %{count} days
           zero: Your Hutba trial ends today
-        body: "the free trial for %{account} ends on %{date}. Choose the yearly plan to keep 3 languages and up to 3 hours a week. Otherwise Hutba continues on the free plan with 80 minutes a month and 1 language."
+        body: "the free trial for %{account} ends on %{date}. Choose the yearly plan to keep 3 languages and up to 3 hours a week. Otherwise Hutba continues on the free plan with 60 minutes a month and 1 language."
       renewal:
         subject:
           one: Hutba for %{account} expires tomorrow
@@ -324,7 +324,7 @@ en:
           many: Hutba for %{account} expires in %{count} days
           other: Hutba for %{account} expires in %{count} days
           zero: Hutba for %{account} expires today
-        body: "the paid year for %{account} ends on %{date}. Renew now to keep all your languages. Otherwise Hutba continues on the free plan with 80 minutes a month and 1 language."
+        body: "the paid year for %{account} ends on %{date}. Renew now to keep all your languages. Otherwise Hutba continues on the free plan with 60 minutes a month and 1 language."
       action: Pay now
       price: 'Yearly price: %{price}'
     custom_domain_dns:

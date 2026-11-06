@@ -4,7 +4,7 @@ class Account < ApplicationRecord
   TRIAL_LENGTH = 30.days
   INCLUDED_LANGUAGES = 3
   # Without a trial or a paid year, a mosque keeps broadcasting on the free plan
-  FREE_MONTHLY_MINUTES = 80
+  FREE_MONTHLY_MINUTES = 60
   FREE_LANGUAGES = 1
   BASE_PRICE_CENTS = 2000            # per month, billed yearly
   EXTRA_LANGUAGE_PRICE_CENTS = 500   # per extra language per month

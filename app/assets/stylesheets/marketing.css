@@ -530,6 +530,58 @@ body.marketing {
   color: var(--ink-soft);
 }
 
+/* Free plan: a quieter second option under the main price */
+.pricing__free {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--ink);
+  max-width: 26rem;
+}
+
+.pricing__free-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+
+.pricing__free-title {
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.pricing__free-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.pricing__free-per { color: var(--ink-soft); }
+
+.pricing__free-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pricing__free-list li {
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.95rem;
+}
+
+.pricing__free-note {
+  margin-top: 0.85rem;
+  font-size: 0.925rem;
+  color: var(--ink-soft);
+}
+
 .pricing__body {
   background: var(--paper);
   border-radius: var(--radius);

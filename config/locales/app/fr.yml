@@ -316,7 +316,7 @@ fr:
           many: Votre essai Hutba se termine dans %{count} jours
           other: Votre essai Hutba se termine dans %{count} jours
           zero: Votre essai Hutba se termine aujourd'hui
-        body: "l'essai gratuit de %{account} se termine le %{date}. Choisissez la formule annuelle pour garder 3 langues et jusqu'à 3 heures par semaine. Sinon, Hutba continue avec la formule gratuite : 80 minutes par mois, 1 langue."
+        body: "l'essai gratuit de %{account} se termine le %{date}. Choisissez la formule annuelle pour garder 3 langues et jusqu'à 3 heures par semaine. Sinon, Hutba continue avec la formule gratuite : 60 minutes par mois, 1 langue."
       renewal:
         subject:
           one: Hutba pour %{account} expire demain
@@ -324,7 +324,7 @@ fr:
           many: Hutba pour %{account} expire dans %{count} jours
           other: Hutba pour %{account} expire dans %{count} jours
           zero: Hutba pour %{account} expire aujourd'hui
-        body: "l'année payée de %{account} se termine le %{date}. Renouvelez maintenant pour garder toutes vos langues. Sinon, Hutba continue avec la formule gratuite : 80 minutes par mois, 1 langue."
+        body: "l'année payée de %{account} se termine le %{date}. Renouvelez maintenant pour garder toutes vos langues. Sinon, Hutba continue avec la formule gratuite : 60 minutes par mois, 1 langue."
       action: Payer maintenant
       price: 'Prix annuel : %{price}'
     custom_domain_dns:

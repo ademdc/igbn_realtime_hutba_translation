@@ -316,7 +316,7 @@ bs:
           many: Probni period na Hutbi ističe za %{count} dana
           other: Probni period na Hutbi ističe za %{count} dana
           zero: Probni period na Hutbi ističe danas
-        body: "besplatni probni period za %{account} ističe %{date}. Odaberite godišnji paket da zadržite 3 jezika i do 3 sata sedmično. U suprotnom Hutba nastavlja u besplatnom paketu: 80 minuta mjesečno, 1 jezik."
+        body: "besplatni probni period za %{account} ističe %{date}. Odaberite godišnji paket da zadržite 3 jezika i do 3 sata sedmično. U suprotnom Hutba nastavlja u besplatnom paketu: 60 minuta mjesečno, 1 jezik."
       renewal:
         subject:
           one: Hutba za %{account} ističe za %{count} dan
@@ -324,7 +324,7 @@ bs:
           many: Hutba za %{account} ističe za %{count} dana
           other: Hutba za %{account} ističe za %{count} dana
           zero: Hutba za %{account} ističe danas
-        body: "plaćena godina za %{account} ističe %{date}. Produžite sada da zadržite sve jezike. U suprotnom Hutba nastavlja u besplatnom paketu: 80 minuta mjesečno, 1 jezik."
+        body: "plaćena godina za %{account} ističe %{date}. Produžite sada da zadržite sve jezike. U suprotnom Hutba nastavlja u besplatnom paketu: 60 minuta mjesečno, 1 jezik."
       action: Plati sada
       price: 'Godišnja cijena: %{price}'
     custom_domain_dns:

@@ -316,7 +316,7 @@ tr:
           many: Hutba deneme süreniz %{count} gün içinde bitiyor
           other: Hutba deneme süreniz %{count} gün içinde bitiyor
           zero: Hutba deneme süreniz bugün bitiyor
-        body: "%{account} için ücretsiz deneme süresi %{date} tarihinde sona eriyor. 3 dili ve haftada 3 saate kadar yayını korumak için yıllık paketi seçin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 80 dakika, 1 dil."
+        body: "%{account} için ücretsiz deneme süresi %{date} tarihinde sona eriyor. 3 dili ve haftada 3 saate kadar yayını korumak için yıllık paketi seçin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 60 dakika, 1 dil."
       renewal:
         subject:
           one: "%{account} için Hutba yarın sona eriyor"
@@ -324,7 +324,7 @@ tr:
           many: "%{account} için Hutba %{count} gün içinde sona eriyor"
           other: "%{account} için Hutba %{count} gün içinde sona eriyor"
           zero: "%{account} için Hutba bugün sona eriyor"
-        body: "%{account} için ödenmiş yıl %{date} tarihinde sona eriyor. Tüm dillerinizi korumak için şimdi yenileyin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 80 dakika, 1 dil."
+        body: "%{account} için ödenmiş yıl %{date} tarihinde sona eriyor. Tüm dillerinizi korumak için şimdi yenileyin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 60 dakika, 1 dil."
       action: Şimdi öde
       price: 'Yıllık fiyat: %{price}'
     custom_domain_dns:

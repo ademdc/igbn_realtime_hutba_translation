@@ -157,6 +157,20 @@
       <p class="pricing__plan"><%= t("marketing.pricing.plan") %></p>
       <p class="pricing__price"><%= t("marketing.pricing.price") %></p>
       <p class="pricing__per"><%= t("marketing.pricing.per") %></p>
+
+      <div class="pricing__free">
+        <p class="pricing__free-head">
+          <span class="pricing__free-title"><%= t("marketing.pricing.free.title") %></span>
+          <span class="pricing__free-price"><%= t("marketing.pricing.free.price") %></span>
+          <span class="pricing__free-per"><%= t("marketing.pricing.free.per") %></span>
+        </p>
+        <ul class="pricing__free-list">
+          <% t("marketing.pricing.free.includes").each do |line| %>
+            <li><%= line %></li>
+          <% end %>
+        </ul>
+        <p class="pricing__free-note"><%= t("marketing.pricing.free.note") %></p>
+      </div>
     </div>
     <div class="pricing__body">
       <ul class="pricing__includes">
@@ -205,12 +219,20 @@
       "operatingSystem" => "Web",
       "description" => t("marketing.meta.description"),
       "inLanguage" => I18n.locale.to_s,
-      "offers" => {
-        "@type" => "Offer",
-        "price" => "20.00",
-        "priceCurrency" => "EUR",
-        "description" => "#{t("marketing.pricing.price")} #{t("marketing.pricing.per")}"
-      }
+      "offers" => [
+        {
+          "@type" => "Offer",
+          "price" => "20.00",
+          "priceCurrency" => "EUR",
+          "description" => "#{t("marketing.pricing.price")} #{t("marketing.pricing.per")}"
+        },
+        {
+          "@type" => "Offer",
+          "price" => "0",
+          "priceCurrency" => "EUR",
+          "description" => t("marketing.pricing.free.includes").join(", ")
+        }
+      ]
     },
     {
       "@context" => "https://schema.org",
