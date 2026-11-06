@@ -13,6 +13,9 @@ class Signup
   attribute :password, :string
   attribute :terms, :boolean
   attribute :locale, :string
+  attribute :heard_from, :string
+  # Campaign and referrer from the visitor's first page view (see MarketingController)
+  attribute :attribution, default: -> { {} }
 
   validates :terms, acceptance: { accept: true }
 
@@ -29,7 +32,9 @@ class Signup
       name: mosque_name, subdomain: subdomain.presence || self.class.suggest_subdomain(mosque_name),
       country: country.presence, city: city.presence, status: "trialing",
       source_language: source_language.presence || "bs",
-      languages: Account.default_languages_for(country)
+      languages: Account.default_languages_for(country),
+      heard_from: heard_from.presence,
+      **attribution.to_h.symbolize_keys.slice(:utm_source, :utm_medium, :utm_campaign, :referrer_host)
     )
     @user = @account.users.build(
       name: name, email: email, password: password, role: "owner",

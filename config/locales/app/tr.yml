@@ -179,6 +179,17 @@ tr:
       terms_html: "%{terms} kabul ediyorum ve %{privacy} politikasını okudum."
       terms_link: Kullanım koşullarını
       submit: Ücretsiz başla
+      heard_from:
+        label: "Hutba'yı nereden duydunuz?"
+        blank: "Seçin (isteğe bağlı)"
+        options:
+          flyer: "El ilanı veya mektup"
+          email: "E-posta"
+          izbg: "Çatı kuruluşu"
+          other_mosque: "Başka bir cami"
+          google: "Google araması"
+          social: "Facebook, Instagram veya WhatsApp"
+          other: "Diğer"
     billing:
       title: Ödeme
       lead: Aylık 20 €, yıllık peşin ödenir. Ek diller aylık 5 €.

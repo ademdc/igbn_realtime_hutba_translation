@@ -22,6 +22,7 @@ module Admin
       @week_minutes = SpeakerSession.this_week.completed.sum(:duration_seconds) / 60
 
       @awaiting_transfers = Payment.awaiting_transfer.includes(:account).order(:created_at)
+      @signup_sources = Account.signup_sources(since: 90.days.ago)
       @recent_accounts = Account.order(created_at: :desc).limit(8)
       @trials_ending = Account.trialing.where(trial_ends_at: ..14.days.from_now).order(:trial_ends_at).limit(8)
     end

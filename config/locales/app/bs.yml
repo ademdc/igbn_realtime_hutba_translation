@@ -179,6 +179,17 @@ bs:
       terms_html: Prihvatam %{terms} i pročitao/la sam izjavu o %{privacy}.
       terms_link: uslove korištenja
       submit: Počnite besplatno
+      heard_from:
+        label: "Kako ste čuli za Hutbu?"
+        blank: "Odaberite (neobavezno)"
+        options:
+          flyer: "Letak ili pismo"
+          email: "E-mail"
+          izbg: "IGBD / krovna organizacija"
+          other_mosque: "Drugi džemat"
+          google: "Google pretraga"
+          social: "Facebook, Instagram ili WhatsApp"
+          other: "Ostalo"
     billing:
       title: Plaćanje
       lead: 20 € mjesečno, plaćeno godišnje unaprijed. Dodatni jezici 5 € mjesečno.

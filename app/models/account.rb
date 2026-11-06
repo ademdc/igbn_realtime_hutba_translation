@@ -20,6 +20,8 @@ class Account < ApplicationRecord
     "XK" => "Kosova", "TR" => "Türkiye", "US" => "United States", "CA" => "Canada", "AU" => "Australia"
   }.freeze
   COUNTRIES = COUNTRY_NAMES.keys.freeze
+  # Answers to "How did you hear about Hutba?" at signup
+  HEARD_FROM = %w[flyer email izbg other_mosque google social other].freeze
 
   has_secure_password :speaker_pin, validations: false
 
@@ -46,6 +48,7 @@ class Account < ApplicationRecord
   validates :source_language, inclusion: { in: Language::SOURCES.keys }
   validates :speaker_pin, format: { with: /\A\d{4,8}\z/ }, allow_nil: true
   validates :country, inclusion: { in: COUNTRIES }, allow_nil: true
+  validates :heard_from, inclusion: { in: HEARD_FROM }, allow_nil: true
   validate :languages_supported
   validate :languages_within_limit, if: :languages_changed?
 
@@ -61,6 +64,21 @@ class Account < ApplicationRecord
     return all if query.blank?
     pattern = "%#{sanitize_sql_like(query.strip)}%"
     where("accounts.name ILIKE :q OR accounts.subdomain ILIKE :q OR accounts.city ILIKE :q", q: pattern)
+  end
+
+  # Where the mosque came from, for the admin: its own answer plus campaign or referring site
+  def attribution_summary
+    campaign = [utm_source, utm_medium, utm_campaign].compact_blank.join(" / ").presence
+    [heard_from && I18n.t("app.signup.heard_from.options.#{heard_from}", locale: :en), campaign, referrer_host].compact.join(" · ")
+  end
+
+  # Signups per answer and per campaign source, for the admin overview
+  def self.signup_sources(since:)
+    scope = where(created_at: since..)
+    {
+      answers: scope.group(:heard_from).count.transform_keys { |key| key ? I18n.t("app.signup.heard_from.options.#{key}", locale: :en) : "No answer" },
+      campaigns: scope.group(Arel.sql("COALESCE(utm_source, referrer_host, 'direct')")).count
+    }
   end
 
   def monthly_price_cents

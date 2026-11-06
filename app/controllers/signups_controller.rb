@@ -4,9 +4,10 @@ class SignupsController < MarketingController
   end
 
   def create
-    @signup = Signup.new(signup_params.merge(locale: I18n.locale.to_s))
+    @signup = Signup.new(signup_params.merge(locale: I18n.locale.to_s, attribution: session[:attribution]))
 
     if @signup.save
+      session.delete(:attribution)
       AccountMailer.with(user: @signup.user).welcome.deliver_later
       # Session cookies are per host, so hand over to the new subdomain with a short-lived token
       redirect_to @signup.account.url("/session/#{@signup.user.generate_token_for(:handover)}?welcome=1"), allow_other_host: true
@@ -27,7 +28,7 @@ class SignupsController < MarketingController
   private
 
   def signup_params
-    params.require(:signup).permit(:mosque_name, :subdomain, :source_language, :country, :city, :name, :email, :password, :terms)
+    params.require(:signup).permit(:mosque_name, :subdomain, :source_language, :country, :city, :name, :email, :password, :terms, :heard_from)
   end
 
   def country_from_locale

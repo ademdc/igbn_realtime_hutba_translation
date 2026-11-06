@@ -48,6 +48,7 @@
       <dt>Speaker PIN</dt><dd><%= @account.speaker_pin_digest? ? "Set" : "Not set" %></dd>
       <dt>Trial ends</dt><dd><%= @account.trial_ends_at ? l(@account.trial_ends_at.to_date, format: :long) : "—" %></dd>
       <dt>Signed up</dt><dd><%= l(@account.created_at, format: :long) %></dd>
+      <dt>Found us via</dt><dd><%= @account.attribution_summary.presence || "—" %></dd>
     </dl>
   </section>
 

@@ -179,6 +179,17 @@ en:
       terms_html: I accept the %{terms} and have read the %{privacy} policy.
       terms_link: terms of service
       submit: Start for free
+      heard_from:
+        label: "How did you hear about Hutba?"
+        blank: "Please choose (optional)"
+        options:
+          flyer: "Flyer or letter"
+          email: "Email"
+          izbg: "Umbrella organisation (e.g. IGBD)"
+          other_mosque: "Another mosque"
+          google: "Google search"
+          social: "Facebook, Instagram or WhatsApp"
+          other: "Other"
     billing:
       title: Billing
       lead: "€20 per month, paid yearly in advance. Extra languages €5 per month."

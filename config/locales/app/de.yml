@@ -179,6 +179,17 @@ de:
       terms_html: Ich akzeptiere die %{terms} und habe die %{privacy} gelesen.
       terms_link: Nutzungsbedingungen
       submit: Kostenlos starten
+      heard_from:
+        label: "Wie haben Sie von Hutba erfahren?"
+        blank: "Bitte wählen (optional)"
+        options:
+          flyer: "Flyer oder Brief"
+          email: "E-Mail"
+          izbg: "Dachverband (z. B. IGBD)"
+          other_mosque: "Eine andere Moschee"
+          google: "Google-Suche"
+          social: "Facebook, Instagram oder WhatsApp"
+          other: "Sonstiges"
     billing:
       title: Abrechnung
       lead: 20 € pro Monat, jährlich im Voraus bezahlt. Weitere Sprachen 5 € pro Monat.

@@ -78,6 +78,11 @@
         </div>
       </fieldset>
 
+      <div class="signup-field">
+        <%= form.label :heard_from, t("app.signup.heard_from.label") %>
+        <%= form.select :heard_from, Account::HEARD_FROM.map { |key| [t("app.signup.heard_from.options.#{key}"), key] }, { include_blank: t("app.signup.heard_from.blank") } %>
+      </div>
+
       <label class="signup-terms">
         <%= form.check_box :terms, { required: true }, "1", "0" %>
         <span><%= t("app.signup.terms_html", terms: link_to(t("app.signup.terms_link"), marketing_terms_path(locale: I18n.locale), target: "_blank"), privacy: link_to(t("marketing.footer.privacy"), marketing_privacy_path(locale: I18n.locale), target: "_blank")) %></span>

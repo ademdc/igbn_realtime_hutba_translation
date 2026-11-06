@@ -129,3 +129,23 @@
     </div>
   </section>
 </div>
+
+<div class="section-head"><h2>Where signups come from, last 90 days</h2></div>
+<div class="two-col">
+  <% { "Their answer" => @signup_sources[:answers], "Campaign link or referring site" => @signup_sources[:campaigns] }.each do |title, counts| %>
+    <section class="panel">
+      <h3 class="panel__title"><%= title %></h3>
+      <% if counts.any? %>
+        <table class="table">
+          <tbody>
+            <% counts.sort_by { |_, count| -count }.each do |label, count| %>
+              <tr><td><%= label %></td><td class="num"><%= count %></td></tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="muted">No signups yet.</p>
+      <% end %>
+    </section>
+  <% end %>
+</div>

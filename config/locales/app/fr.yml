@@ -179,6 +179,17 @@ fr:
       terms_html: J'accepte les %{terms} et j'ai lu la politique de %{privacy}.
       terms_link: conditions d'utilisation
       submit: Commencer gratuitement
+      heard_from:
+        label: "Comment avez-vous connu Hutba ?"
+        blank: "Choisissez (facultatif)"
+        options:
+          flyer: "Prospectus ou lettre"
+          email: "E-mail"
+          izbg: "Fédération / organisation faîtière"
+          other_mosque: "Une autre mosquée"
+          google: "Recherche Google"
+          social: "Facebook, Instagram ou WhatsApp"
+          other: "Autre"
     billing:
       title: Facturation
       lead: 20 € par mois, payés annuellement à l'avance. Langues supplémentaires 5 € par mois.

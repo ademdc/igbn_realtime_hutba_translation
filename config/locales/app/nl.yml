@@ -179,6 +179,17 @@ nl:
       terms_html: Ik ga akkoord met de %{terms} en heb de %{privacy}verklaring gelezen.
       terms_link: gebruiksvoorwaarden
       submit: Gratis starten
+      heard_from:
+        label: "Hoe heeft u over Hutba gehoord?"
+        blank: "Kies (optioneel)"
+        options:
+          flyer: "Folder of brief"
+          email: "E-mail"
+          izbg: "Koepelorganisatie"
+          other_mosque: "Een andere moskee"
+          google: "Google-zoekopdracht"
+          social: "Facebook, Instagram of WhatsApp"
+          other: "Anders"
     billing:
       title: Betaling
       lead: "€ 20 per maand, jaarlijks vooruit betaald. Extra talen € 5 per maand."
