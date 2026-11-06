@@ -673,6 +673,107 @@ body.marketing {
 .legal h2 { font-size: 1.25rem; margin: 2rem 0 0.5rem; }
 .legal p, .legal address { color: var(--ink-soft); font-style: normal; margin-bottom: 0.75rem; }
 
+/* Blog */
+
+.blog,
+.article {
+  padding-block: clamp(3rem, 7vw, 5rem) var(--section-space);
+}
+
+.blog .wrap { max-width: 46rem; }
+.article .wrap { max-width: 42rem; }
+
+.blog__title,
+.article__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.blog__lead {
+  margin-top: 1rem;
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+
+.blog__list {
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0 0;
+}
+
+.blog__item {
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--mist);
+}
+
+.blog__item time,
+.article__date {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.blog__item h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.6vw, 1.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.blog__item h2 a { color: inherit; text-decoration: none; }
+.blog__item h2 a:hover { text-decoration: underline; text-decoration-color: var(--saffron); text-underline-offset: 0.2em; }
+.blog__item p { color: var(--ink-soft); }
+.blog__empty { margin-top: 2rem; color: var(--ink-soft); }
+
+.article__back a { color: var(--teal); font-size: 0.95rem; }
+.article__title { margin-top: 1rem; }
+.article__date { margin-top: 0.75rem; }
+
+.article__body {
+  margin-top: 2.5rem;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.article__body > * + * { margin-top: 1.1em; }
+
+.article__body h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2.2em;
+}
+
+.article__body h3 { font-size: 1.2rem; margin-top: 1.8em; }
+.article__body ul,
+.article__body ol { padding-left: 1.3em; }
+.article__body li + li { margin-top: 0.4em; }
+.article__body a { color: var(--teal); }
+.article__body blockquote {
+  margin-inline: 0;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--saffron);
+  color: var(--ink-soft);
+}
+
+.article__cta {
+  margin-top: 3.5rem;
+  padding: 2rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--plaster);
+}
+
+.article__cta p { margin-bottom: 1.25rem; font-size: 1.1rem; }
+.article__cta .button { background: var(--saffron); color: var(--ink); }
+.article__cta .button:hover { background: var(--plaster); }
+
 /* Responsive */
 
 @media (max-width: 900px) {

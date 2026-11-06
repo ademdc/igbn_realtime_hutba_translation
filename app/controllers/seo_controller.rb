@@ -1,7 +1,7 @@
 # robots.txt and sitemap.xml. Only the marketing site is meant to be found in search;
 # mosque subdomains and custom domains send a noindex header (see ApplicationController).
 class SeoController < ApplicationController
-  PAGES = %w[marketing signup marketing_imprint marketing_privacy marketing_terms].freeze
+  PAGES = %w[marketing blog signup marketing_imprint marketing_privacy marketing_terms].freeze
 
   def robots
     lines = ["User-agent: *"]
@@ -16,5 +16,6 @@ class SeoController < ApplicationController
   def sitemap
     @pages = PAGES
     @locales = MarketingController::LOCALES
+    @posts = BlogPost.all.select { |post| @locales.include?(post.locale) }
   end
 end

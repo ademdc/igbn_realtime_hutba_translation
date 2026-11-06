@@ -11,6 +11,7 @@ fr:
       how: Fonctionnement
       pricing: Tarif
       faq: Questions
+      blog: Blog
       login: Connexion
       cta: Essai gratuit
       language: Langue
@@ -81,6 +82,12 @@ fr:
         a: Oui, pour 5 € par mois. Les fidèles ouvrent alors p. ex. hutba.votre-mosquee.fr au lieu de votre-mosquee.hutba.app. Vous réservez le domaine dans Facturation, ajoutez un enregistrement CNAME chez votre fournisseur, et nous nous occupons du certificat de sécurité.
       - q: Que se passe-t-il après 30 jours ?
         a: Vous recevez un rappel à temps. Si vous payez, tout continue. Sinon, la diffusion est mise en pause – rien de plus.
+    blog:
+      title: 'Blog'
+      lead: 'Conseils pour les communautés de mosquée : faire comprendre la khutba à toutes les générations, la traduction en direct en pratique et les nouveautés de Hutba.'
+      empty: 'Pas encore d''articles dans cette langue.'
+      back: '← Tous les articles'
+      cta_text: 'Essayez-le dans votre mosquée – l''installation prend dix minutes.'
     footer:
       tagline: Traduction de la khutba en direct pour les mosquées en Europe.
       imprint: Mentions légales

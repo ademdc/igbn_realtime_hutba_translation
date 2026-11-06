@@ -11,6 +11,7 @@ en:
       how: How it works
       pricing: Pricing
       faq: Questions
+      blog: Blog
       login: Log in
       cta: Try it free
       language: Language
@@ -81,6 +82,12 @@ en:
         a: Yes, for €5 per month. Listeners then open e.g. hutba.your-mosque.com instead of your-dzemat.hutba.app. You book the domain under Billing, add a CNAME record at your domain provider, and we take care of the security certificate.
       - q: What happens after 30 days?
         a: You get a reminder in good time. If you pay, everything continues. If you don't, broadcasting pauses – nothing else happens.
+    blog:
+      title: 'Blog'
+      lead: 'Guides for mosque communities: reaching every generation with the khutbah, live translation in practice and news from Hutba.'
+      empty: 'No articles in this language yet.'
+      back: '← All articles'
+      cta_text: 'Try it in your mosque – setting up takes ten minutes.'
     footer:
       tagline: Live khutbah translation for mosque communities in Europe.
       imprint: Legal notice

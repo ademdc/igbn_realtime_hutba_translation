@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       post "login", to: "account_lookups#create", as: nil
       get "impressum", to: "marketing#imprint", as: :marketing_imprint
       get "privacy", to: "marketing#privacy", as: :marketing_privacy
+      get "blog", to: "blog#index", as: :blog
+      get "blog/:slug", to: "blog#show", as: :blog_post
     end
   end
 

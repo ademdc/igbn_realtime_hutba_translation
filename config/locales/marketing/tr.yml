@@ -11,6 +11,7 @@ tr:
       how: Nasıl çalışır
       pricing: Fiyat
       faq: Sorular
+      blog: Blog
       login: Giriş
       cta: Ücretsiz deneyin
       language: Dil
@@ -81,6 +82,12 @@ tr:
         a: Evet, aylık 5 € karşılığında. Dinleyiciler o zaman camiiniz.hutba.app yerine ör. hutba.camiiniz.com adresini açar. Alan adını Ödeme bölümünden alırsınız, sağlayıcınızda bir CNAME kaydı eklersiniz, güvenlik sertifikasıyla biz ilgileniriz.
       - q: 30 günden sonra ne olur?
         a: Zamanında bir hatırlatma alırsınız. Öderseniz her şey devam eder. Ödemezseniz yayın durdurulur – başka hiçbir şey olmaz.
+    blog:
+      title: 'Blog'
+      lead: 'Cami cemaatleri için rehber: hutbeyi her kuşağa ulaştırmak, uygulamada canlı tercüme ve Hutba''dan haberler.'
+      empty: 'Bu dilde henüz makale yok.'
+      back: '← Tüm makaleler'
+      cta_text: 'Caminizde deneyin – kurulum on dakika sürer.'
     footer:
       tagline: Avrupa'daki cami cemaatleri için canlı hutbe tercümesi.
       imprint: Künye

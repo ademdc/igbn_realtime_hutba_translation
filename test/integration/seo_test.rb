@@ -12,7 +12,7 @@ class SeoTest < ActionDispatch::IntegrationTest
     host! "localhost"
     get "/sitemap.xml"
     assert_response :success
-    assert_equal SeoController::PAGES.size * MarketingController::LOCALES.size, response.body.scan("<loc>").size
+    assert_equal SeoController::PAGES.size * MarketingController::LOCALES.size + BlogPost.all.size, response.body.scan("<loc>").size
     assert_includes response.body, "<loc>http://localhost/de</loc>"
   end
 

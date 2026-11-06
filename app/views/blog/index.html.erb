@@ -1,0 +1,23 @@
+<% content_for :title, "#{t("marketing.blog.title")} – Hutba" %>
+<% content_for :description, t("marketing.blog.lead") %>
+
+<section class="blog">
+  <div class="wrap">
+    <h1 class="blog__title"><%= t("marketing.blog.title") %></h1>
+    <p class="blog__lead"><%= t("marketing.blog.lead") %></p>
+
+    <% if @posts.any? %>
+      <ul class="blog__list">
+        <% @posts.each do |post| %>
+          <li class="blog__item">
+            <time datetime="<%= post.date.iso8601 %>"><%= l(post.date, format: :long) %></time>
+            <h2><%= link_to post.title, blog_post_path(locale: I18n.locale, slug: post.slug) %></h2>
+            <p><%= post.description %></p>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="blog__empty"><%= t("marketing.blog.empty") %></p>
+    <% end %>
+  </div>
+</section>

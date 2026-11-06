@@ -11,6 +11,7 @@ nl:
       how: Zo werkt het
       pricing: Prijs
       faq: Vragen
+      blog: Blog
       login: Inloggen
       cta: Gratis proberen
       language: Taal
@@ -81,6 +82,12 @@ nl:
         a: Ja, voor € 5 per maand. Luisteraars openen dan bijv. hutba.uw-moskee.nl in plaats van uw-moskee.hutba.app. U boekt het domein onder Betaling, voegt een CNAME-record toe bij uw domeinprovider en wij regelen het beveiligingscertificaat.
       - q: Wat gebeurt er na 30 dagen?
         a: U krijgt op tijd een herinnering. Betaalt u, dan loopt alles door. Betaalt u niet, dan wordt het uitzenden gepauzeerd – verder niets.
+    blog:
+      title: 'Blog'
+      lead: 'Tips voor moskeegemeenschappen: de khutba voor elke generatie begrijpelijk maken, live vertaling in de praktijk en nieuws van Hutba.'
+      empty: 'Nog geen artikelen in deze taal.'
+      back: '← Alle artikelen'
+      cta_text: 'Probeer het in uw moskee – instellen duurt tien minuten.'
     footer:
       tagline: Live vertaling van de khutba voor moskeegemeenschappen in Europa.
       imprint: Colofon

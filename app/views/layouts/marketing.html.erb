@@ -27,6 +27,7 @@
           <a href="<%= marketing_path(locale: I18n.locale) %>#how"><%= t("marketing.nav.how") %></a>
           <a href="<%= marketing_path(locale: I18n.locale) %>#pricing"><%= t("marketing.nav.pricing") %></a>
           <a href="<%= marketing_path(locale: I18n.locale) %>#faq"><%= t("marketing.nav.faq") %></a>
+          <%= link_to t("marketing.nav.blog"), blog_path(locale: I18n.locale) %>
         </nav>
 
         <details class="locale-switch">
@@ -34,7 +35,7 @@
           <ul>
             <% { "de" => "Deutsch", "en" => "English", "fr" => "Français", "nl" => "Nederlands", "bs" => "Bosanski", "tr" => "Türkçe" }.each do |locale, name| %>
               <li>
-                <%= link_to name, url_for(locale: locale), lang: locale, hreflang: locale,
+                <%= link_to name, marketing_alternates[locale], lang: locale, hreflang: locale,
                       "aria-current": (locale == I18n.locale.to_s ? "true" : nil) %>
               </li>
             <% end %>
@@ -57,6 +58,7 @@
           <p class="site-footer__tagline"><%= t("marketing.footer.tagline") %></p>
         </div>
         <nav aria-label="Footer">
+          <%= link_to t("marketing.nav.blog"), blog_path(locale: I18n.locale) %>
           <%= link_to t("marketing.footer.imprint"), marketing_imprint_path(locale: I18n.locale) %>
           <%= link_to t("marketing.footer.privacy"), marketing_privacy_path(locale: I18n.locale) %>
           <%= mail_to Rails.configuration.x.contact_email, t("marketing.footer.contact") %>

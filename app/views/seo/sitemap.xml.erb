@@ -8,9 +8,19 @@
     <xhtml:link rel="alternate" hreflang="<%= alternate %>" href="<%= AppDomain.marketing_url(send("#{page}_path", locale: alternate)) %>"/>
     <% end %>
     <xhtml:link rel="alternate" hreflang="x-default" href="<%= AppDomain.marketing_url(send("#{page}_path", locale: "de")) %>"/>
-    <changefreq><%= page == "marketing" ? "weekly" : "monthly" %></changefreq>
+    <changefreq><%= page == "marketing" || page == "blog" ? "weekly" : "monthly" %></changefreq>
     <priority><%= page == "marketing" ? "1.0" : "0.5" %></priority>
   </url>
   <% end %>
+<% end %>
+<% @posts.each do |post| %>
+  <url>
+    <loc><%= AppDomain.marketing_url(blog_post_path(locale: post.locale, slug: post.slug)) %></loc>
+    <lastmod><%= post.date.iso8601 %></lastmod>
+    <% post.translations.each_value do |translation| %>
+    <xhtml:link rel="alternate" hreflang="<%= translation.locale %>" href="<%= AppDomain.marketing_url(blog_post_path(locale: translation.locale, slug: translation.slug)) %>"/>
+    <% end %>
+    <priority>0.8</priority>
+  </url>
 <% end %>
 </urlset>

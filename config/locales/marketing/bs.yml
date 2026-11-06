@@ -11,6 +11,7 @@ bs:
       how: Kako radi
       pricing: Cijena
       faq: Pitanja
+      blog: Blog
       login: Prijava
       cta: Probajte besplatno
       language: Jezik
@@ -81,6 +82,12 @@ bs:
         a: Da, za 5 € mjesečno. Slušaoci tada otvaraju npr. hutba.vasa-dzamija.com umjesto vas-dzemat.hutba.app. Domenu zakupite pod Plaćanje, dodate CNAME zapis kod pružaoca domene, a mi se pobrinemo za sigurnosni certifikat.
       - q: Šta se dešava nakon 30 dana?
         a: Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više.
+    blog:
+      title: 'Blog'
+      lead: 'Savjeti za džemate: kako hutba dopire do svih generacija, prevod uživo u praksi i novosti iz Hutbe.'
+      empty: 'Još nema članaka na ovom jeziku.'
+      back: '← Svi članci'
+      cta_text: 'Isprobajte u svom džematu – postavljanje traje deset minuta.'
     footer:
       tagline: Prevod hutbe uživo za džemate širom Evrope.
       imprint: Impressum

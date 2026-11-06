@@ -87,3 +87,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Markdown for blog articles
+gem "kramdown", "~> 2.5"
