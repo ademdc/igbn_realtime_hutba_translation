@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Search engines: per-host robots.txt, sitemap for the marketing site
+  get "robots.txt", to: "seo#robots", format: false
+  get "sitemap.xml", to: "seo#sitemap", defaults: { format: :xml }, format: false, constraints: AppDomain
+
   # Monri payment confirmations (any host)
   post "monri/callback", to: "monri/callbacks#create"
 

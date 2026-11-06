@@ -2,8 +2,10 @@
 tr:
   marketing:
     meta:
-      title: Hutba – cuma hutbesi canlı tercümeyle
-      description: 'İmam konuşur, cemaat telefonundan okur: hutbenin her telefona canlı tercümesi. Uygulama gerekmez, 30 gün ücretsiz.'
+      title: 'Camiler için canlı hutbe tercümesi – Hutba'
+      description: 'Cuma hutbesinin canlı tercümesi: cemaat hutbeyi telefonundan Almanca, İngilizce ve diğer dillerde okur. Uygulama gerekmez, 30 gün ücretsiz.'
+      keywords: 'hutbe tercümesi, cuma hutbesi tercüme, canlı hutbe çevirisi, cami tercüme, hutbe çeviri, cami uygulaması'
+      og_locale: tr_TR
     nav:
       skip: İçeriğe geç
       how: Nasıl çalışır

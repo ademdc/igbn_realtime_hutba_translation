@@ -2,8 +2,10 @@
 fr:
   marketing:
     meta:
-      title: Hutba – le sermon du vendredi traduit en direct
-      description: 'L''imam parle, la communauté lit en même temps : traduction en direct de la khutba sur chaque téléphone. Sans application, gratuit pendant 30 jours.'
+      title: 'Traduction de la khutba en direct pour les mosquées – Hutba'
+      description: 'Traduction en direct du sermon du vendredi : la communauté lit la khutba sur son téléphone en français, allemand et plus. Sans application, 30 jours gratuits.'
+      keywords: 'traduction khutba, traduction du sermon du vendredi, khutba en direct, traduction mosquée, prêche du vendredi traduit, application mosquée'
+      og_locale: fr_FR
     nav:
       skip: Aller au contenu
       how: Fonctionnement

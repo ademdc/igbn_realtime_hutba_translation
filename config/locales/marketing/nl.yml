@@ -2,8 +2,10 @@
 nl:
   marketing:
     meta:
-      title: Hutba – de vrijdagpreek live vertaald
-      description: 'De imam spreekt, de gemeenschap leest mee: live vertaling van de khutba op elke telefoon. Zonder app, 30 dagen gratis.'
+      title: 'Live vertaling van de khutba voor moskeeën – Hutba'
+      description: 'Live vertaling van de vrijdagpreek: de gemeenschap leest de khutba mee op de telefoon, in het Nederlands, Duits en meer. Zonder app, 30 dagen gratis.'
+      keywords: 'khutba vertaling, vrijdagpreek vertalen, live vertaling moskee, khutbah vertaling, preek live vertaald, moskee app'
+      og_locale: nl_NL
     nav:
       skip: Naar de inhoud
       how: Zo werkt het

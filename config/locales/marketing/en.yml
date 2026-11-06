@@ -2,8 +2,10 @@
 en:
   marketing:
     meta:
-      title: Hutba – the Friday sermon, translated live
-      description: 'The imam speaks, the congregation reads along: live translation of the khutbah on every phone. No app needed, free for 30 days.'
+      title: 'Live khutbah translation for mosques – Hutba'
+      description: 'Live translation of the Friday khutbah: your congregation reads the sermon on their phones in English, German and more. No app needed, free for 30 days.'
+      keywords: 'khutbah translation, live khutbah translation, Friday sermon translation, jumuah khutbah translation, mosque translation app, live sermon translation, mosque captions'
+      og_locale: en_GB
     nav:
       skip: Skip to content
       how: How it works

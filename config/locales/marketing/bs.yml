@@ -2,8 +2,10 @@
 bs:
   marketing:
     meta:
-      title: Hutba – džuma-hutba prevedena uživo
-      description: 'Imam govori, džemat čita: prevod hutbe uživo na svakom mobitelu. Bez aplikacije, 30 dana besplatno.'
+      title: 'Prevod hutbe uživo za džemate – Hutba'
+      description: 'Prevod džuma-hutbe uživo: džemat čita hutbu na mobitelu na njemačkom, engleskom i drugim jezicima. Bez aplikacije, 30 dana besplatno.'
+      keywords: 'prevod hutbe, prijevod hutbe, hutba uživo, džuma hutba, prevod hutbe na njemački, džemat, hutba na mobitelu'
+      og_locale: bs_BA
     nav:
       skip: Preskoči na sadržaj
       how: Kako radi

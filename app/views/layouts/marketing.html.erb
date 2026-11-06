@@ -2,14 +2,10 @@
 <html lang="<%= I18n.locale %>">
   <head>
     <meta charset="utf-8">
-    <title><%= content_for(:title).presence || t("marketing.meta.title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<%= t("marketing.meta.description") %>">
     <meta name="color-scheme" content="light">
     <meta name="theme-color" content="#12302d">
-    <% MarketingController::LOCALES.each do |locale| %>
-      <link rel="alternate" hreflang="<%= locale %>" href="<%= url_for(locale: locale, only_path: false) %>">
-    <% end %>
+    <%= render "layouts/seo" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

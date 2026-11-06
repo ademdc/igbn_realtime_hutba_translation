@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<% @pages.each do |page| %>
+  <% @locales.each do |locale| %>
+  <url>
+    <loc><%= AppDomain.marketing_url(send("#{page}_path", locale: locale)) %></loc>
+    <% @locales.each do |alternate| %>
+    <xhtml:link rel="alternate" hreflang="<%= alternate %>" href="<%= AppDomain.marketing_url(send("#{page}_path", locale: alternate)) %>"/>
+    <% end %>
+    <xhtml:link rel="alternate" hreflang="x-default" href="<%= AppDomain.marketing_url(send("#{page}_path", locale: "de")) %>"/>
+    <changefreq><%= page == "marketing" ? "weekly" : "monthly" %></changefreq>
+    <priority><%= page == "marketing" ? "1.0" : "0.5" %></priority>
+  </url>
+  <% end %>
+<% end %>
+</urlset>

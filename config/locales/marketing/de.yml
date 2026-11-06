@@ -2,8 +2,10 @@
 de:
   marketing:
     meta:
-      title: Hutba – die Freitagspredigt live übersetzt
-      description: 'Der Imam spricht, die Gemeinde liest mit: Live-Übersetzung der Hutba auf jedes Handy. Ohne App, 30 Tage kostenlos testen.'
+      title: 'Live-Übersetzung der Hutba für Moscheen – Hutba'
+      description: 'Live-Übersetzung der Hutba für Moscheen: Die Gemeinde liest die Freitagspredigt auf dem Handy mit – auf Deutsch, Englisch und mehr. Ohne App, 30 Tage kostenlos.'
+      keywords: 'Hutba Übersetzung, Freitagspredigt übersetzen, Khutba Übersetzung, Live-Übersetzung Moschee, Predigt live übersetzen, Dschuma Hutba, Imam Übersetzung, Moschee App'
+      og_locale: de_DE
     nav:
       skip: Zum Inhalt springen
       how: So funktioniert's

@@ -14,7 +14,7 @@ class MarketingTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "html[lang=?]", locale
       assert_select "h1", I18n.t("marketing.hero.title", locale: locale)
-      assert_select "link[rel=alternate][hreflang]", MarketingController::LOCALES.size
+      assert_select "link[rel=alternate][hreflang]", MarketingController::LOCALES.size + 1 # plus x-default
       assert_select ".tv-mock"
     end
   end
