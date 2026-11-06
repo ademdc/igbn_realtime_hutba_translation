@@ -51,7 +51,7 @@ bs:
       - title: Ništa se ne snima
         text: Ne snimamo ni zvuk ni tekst. Ono što se kaže u džamiji, ostaje u džamiji.
     pricing:
-      title: Jedna cijena za cijeli džemat
+      title: 'Jednostavne cijene za svaki džemat'
       plan: Džemat
       price: 20 €
       per: mjesečno, godišnje plaćanje (240 €)
@@ -75,6 +75,7 @@ bs:
         - 'Neograničen broj slušalaca'
         - 'QR plakati za printanje'
         note: 'Počinje sam nakon probnog perioda – bez plaćanja, bez otkazivanja.'
+        cta: 'Počnite besplatno'
     faq:
       title: Česta pitanja
       items:

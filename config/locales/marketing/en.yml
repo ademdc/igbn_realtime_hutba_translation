@@ -51,7 +51,7 @@ en:
       - title: Nothing is stored
         text: We record neither audio nor text. What is said in the room stays in the room.
     pricing:
-      title: One price for the whole congregation
+      title: 'Simple pricing for every congregation'
       plan: Congregation
       price: "€20"
       per: per month, billed yearly (€240)
@@ -75,6 +75,7 @@ en:
         - 'Unlimited listeners'
         - 'Printable QR code posters'
         note: 'Starts by itself after the trial – no payment, nothing to cancel.'
+        cta: 'Start for free'
     faq:
       title: Frequently asked questions
       items:

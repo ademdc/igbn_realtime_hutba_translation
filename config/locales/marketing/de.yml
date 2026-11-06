@@ -51,7 +51,7 @@ de:
       - title: Es wird nichts gespeichert
         text: Wir zeichnen weder Ton noch Text auf. Was im Raum gesagt wird, bleibt im Raum.
     pricing:
-      title: Ein Preis für die ganze Gemeinde
+      title: 'Einfache Preise für jede Gemeinde'
       plan: Gemeinde
       price: 20 €
       per: pro Monat, jährliche Zahlung (240 €)
@@ -75,6 +75,7 @@ de:
         - 'Unbegrenzt viele Zuhörer'
         - 'QR-Code-Plakate zum Ausdrucken'
         note: 'Startet nach der Testzeit von selbst – ohne Zahlung, ohne Kündigung.'
+        cta: 'Kostenlos starten'
     faq:
       title: Häufige Fragen
       items:

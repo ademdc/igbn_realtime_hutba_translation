@@ -51,7 +51,7 @@ fr:
       - title: Rien n'est enregistré
         text: Nous n'enregistrons ni le son ni le texte. Ce qui est dit dans la salle reste dans la salle.
     pricing:
-      title: Un seul prix pour toute la communauté
+      title: 'Des tarifs simples pour chaque communauté'
       plan: Communauté
       price: 20 €
       per: par mois, facturé annuellement (240 €)
@@ -75,6 +75,7 @@ fr:
         - 'Auditeurs illimités'
         - 'Affiches QR code à imprimer'
         note: 'Démarre tout seul après l''essai – sans paiement, rien à résilier.'
+        cta: 'Commencer gratuitement'
     faq:
       title: Questions fréquentes
       items:

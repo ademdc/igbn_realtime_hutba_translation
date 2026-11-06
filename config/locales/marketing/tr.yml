@@ -51,7 +51,7 @@ tr:
       - title: Hiçbir şey kaydedilmez
         text: Ne ses ne de metin kaydederiz. Camide söylenen camide kalır.
     pricing:
-      title: Tüm cemaat için tek fiyat
+      title: 'Her cemaat için sade fiyatlar'
       plan: Cemaat
       price: 20 €
       per: aylık, yıllık ödeme (240 €)
@@ -75,6 +75,7 @@ tr:
         - 'Sınırsız dinleyici'
         - 'Yazdırılabilir QR kod afişleri'
         note: 'Deneme süresinden sonra kendiliğinden başlar – ödeme yok, iptal gerekmez.'
+        cta: 'Ücretsiz başlayın'
     faq:
       title: Sık sorulan sorular
       items:

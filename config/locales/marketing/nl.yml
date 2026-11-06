@@ -51,7 +51,7 @@ nl:
       - title: Er wordt niets opgeslagen
         text: We nemen geen geluid en geen tekst op. Wat in de zaal wordt gezegd, blijft in de zaal.
     pricing:
-      title: Eén prijs voor de hele gemeenschap
+      title: 'Eenvoudige prijzen voor elke gemeenschap'
       plan: Gemeenschap
       price: "€ 20"
       per: per maand, jaarlijks betaald (€ 240)
@@ -75,6 +75,7 @@ nl:
         - 'Onbeperkt luisteraars'
         - 'Afdrukbare QR-codeposters'
         note: 'Start vanzelf na de proefperiode – zonder betaling, niets op te zeggen.'
+        cta: 'Gratis beginnen'
     faq:
       title: Veelgestelde vragen
       items:

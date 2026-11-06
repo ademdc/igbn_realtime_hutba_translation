@@ -151,36 +151,40 @@
 </section>
 
 <section class="pricing" id="pricing" aria-labelledby="pricing-title">
-  <div class="wrap pricing__inner">
-    <div class="pricing__head">
-      <h2 class="section-title" id="pricing-title"><%= t("marketing.pricing.title") %></h2>
-      <p class="pricing__plan"><%= t("marketing.pricing.plan") %></p>
-      <p class="pricing__price"><%= t("marketing.pricing.price") %></p>
-      <p class="pricing__per"><%= t("marketing.pricing.per") %></p>
+  <div class="wrap">
+    <h2 class="section-title" id="pricing-title"><%= t("marketing.pricing.title") %></h2>
 
-      <div class="pricing__free">
-        <p class="pricing__free-head">
-          <span class="pricing__free-title"><%= t("marketing.pricing.free.title") %></span>
-          <span class="pricing__free-price"><%= t("marketing.pricing.free.price") %></span>
-          <span class="pricing__free-per"><%= t("marketing.pricing.free.per") %></span>
-        </p>
-        <ul class="pricing__free-list">
+    <div class="plans">
+      <article class="plan" aria-labelledby="plan-free-title">
+        <h3 class="plan__name" id="plan-free-title"><%= t("marketing.pricing.free.title") %></h3>
+        <p class="plan__price"><%= t("marketing.pricing.free.price") %></p>
+        <p class="plan__per"><%= t("marketing.pricing.free.per") %></p>
+        <ul class="plan__includes">
           <% t("marketing.pricing.free.includes").each do |line| %>
             <li><%= line %></li>
           <% end %>
         </ul>
-        <p class="pricing__free-note"><%= t("marketing.pricing.free.note") %></p>
-      </div>
-    </div>
-    <div class="pricing__body">
-      <ul class="pricing__includes">
-        <% t("marketing.pricing.includes").each do |line| %>
-          <li><%= line %></li>
-        <% end %>
-      </ul>
-      <p class="pricing__addon"><%= t("marketing.pricing.addon") %><br><%= t("marketing.pricing.addon_domain") %></p>
-      <%= link_to t("marketing.pricing.cta"), signup_path(locale: I18n.locale), class: "button button--light" %>
-      <p class="pricing__note"><%= t("marketing.pricing.note") %></p>
+        <div class="plan__footer">
+          <%= link_to t("marketing.pricing.free.cta"), signup_path(locale: I18n.locale), class: "button button--outline" %>
+          <p class="plan__note"><%= t("marketing.pricing.free.note") %></p>
+        </div>
+      </article>
+
+      <article class="plan plan--full" aria-labelledby="plan-full-title">
+        <h3 class="plan__name" id="plan-full-title"><%= t("marketing.pricing.plan") %></h3>
+        <p class="plan__price"><%= t("marketing.pricing.price") %></p>
+        <p class="plan__per"><%= t("marketing.pricing.per") %></p>
+        <ul class="plan__includes">
+          <% t("marketing.pricing.includes").each do |line| %>
+            <li><%= line %></li>
+          <% end %>
+        </ul>
+        <p class="plan__addon"><%= t("marketing.pricing.addon") %><br><%= t("marketing.pricing.addon_domain") %></p>
+        <div class="plan__footer">
+          <%= link_to t("marketing.pricing.cta"), signup_path(locale: I18n.locale), class: "button button--accent" %>
+          <p class="plan__note"><%= t("marketing.pricing.note") %></p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
