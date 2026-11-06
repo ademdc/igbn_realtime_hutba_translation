@@ -29,6 +29,16 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "the language switcher overrides the language saved at signup" do
+    users(:demo_owner).update!(locale: "en")
+    get "/dashboard", params: { locale: "bs" }
+    assert_select "html[lang=bs]"
+    assert_equal "bs", users(:demo_owner).reload.locale
+
+    get "/dashboard"
+    assert_select "html[lang=bs]"
+  end
+
   test "owner changes languages within the limit" do
     patch "/dashboard/account", params: { section: "languages", account: { languages: ["", "de", "nl", "fr"] } }
     assert_redirected_to "http://demo.localhost/dashboard#languages"

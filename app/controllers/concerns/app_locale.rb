@@ -10,7 +10,11 @@ module AppLocale
   private
 
   def switch_app_locale(&action)
-    session[:locale] = params[:locale] if MarketingController::LOCALES.include?(params[:locale])
+    if MarketingController::LOCALES.include?(params[:locale])
+      session[:locale] = params[:locale]
+      # Picking a language in the switcher replaces the one saved at signup
+      current_user.update_column(:locale, params[:locale]) if current_user && current_user.locale != params[:locale]
+    end
     locale = current_user&.locale || session[:locale] || browser_locale
     I18n.with_locale(locale, &action)
   end
