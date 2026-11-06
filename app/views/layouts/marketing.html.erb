@@ -58,6 +58,7 @@
           <p class="site-footer__tagline"><%= t("marketing.footer.tagline") %></p>
         </div>
         <nav aria-label="Footer">
+          <%= link_to t("marketing.nav.login"), marketing_login_path(locale: I18n.locale) %>
           <%= link_to t("marketing.nav.blog"), blog_path(locale: I18n.locale) %>
           <%= link_to t("marketing.footer.imprint"), marketing_imprint_path(locale: I18n.locale) %>
           <%= link_to t("marketing.footer.privacy"), marketing_privacy_path(locale: I18n.locale) %>

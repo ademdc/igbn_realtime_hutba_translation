@@ -147,6 +147,10 @@ body.marketing {
 .locale-switch { position: relative; }
 .locale-switch summary {
   list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
   cursor: pointer;
   padding: 0.35rem 0.7rem;
   border: 1px solid var(--mist-strong);
@@ -156,7 +160,10 @@ body.marketing {
   letter-spacing: 0.04em;
 }
 .locale-switch summary::-webkit-details-marker { display: none; }
-.locale-switch summary::after { content: " ▾"; font-size: 0.75em; }
+.locale-switch summary::after { content: "▾"; font-size: 0.75em; }
+
+.site-header__cta,
+.site-header__login { white-space: nowrap; }
 .locale-switch ul {
   position: absolute;
   right: 0;
@@ -824,9 +831,12 @@ body.marketing {
   .demo { min-height: 22rem; }
 }
 
-@media (max-width: 420px) {
-  .site-header__inner { gap: 0.75rem; }
-  .site-header__cta { padding-inline: 0.85rem; font-size: 0.9rem; }
+/* Phones: logo, language and the call to action only; log in moves to the footer */
+@media (max-width: 520px) {
+  .site-header__inner { gap: 0.6rem; min-height: 4rem; }
+  .site-header__login { display: none; }
+  .wordmark { font-size: 1.4rem; }
+  .site-header__cta { padding-inline: 0.9rem; font-size: 0.9rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
