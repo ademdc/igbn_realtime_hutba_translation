@@ -69,6 +69,12 @@ Rails.application.routes.draw do
         post :impersonate
       end
     end
+    resources :payments, only: [] do
+      member do
+        post :confirm
+        post :cancel
+      end
+    end
     post "reset_speakers", to: "dashboard#reset_speakers", as: :reset_speakers
     post "reset_listeners", to: "dashboard#reset_listeners", as: :reset_listeners
     post "reset_all", to: "dashboard#reset_all", as: :reset_all

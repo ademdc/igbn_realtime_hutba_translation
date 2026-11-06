@@ -236,6 +236,18 @@ fr:
       custom_domain_field: Domaine souhaité
       custom_domain_placeholder: hutba.votre-mosquee.fr
       custom_domain_hint: Après le paiement, nous vous envoyons l'enregistrement DNS (CNAME) à ajouter chez votre fournisseur de domaine.
+      pay_card: "Payer par carte"
+      pay_bank: "Payer par virement"
+      kind_addon_short: "Langues supplémentaires"
+      transfer:
+        title: "En attente de votre virement"
+        intro: "Veuillez virer le montant ci-dessous pour : %{item}."
+        beneficiary: "Bénéficiaire"
+        bank: "Banque"
+        reference: "Référence du virement"
+        note: "Merci d'indiquer la référence pour que nous puissions identifier votre paiement. Votre formule est activée dès réception des fonds, généralement sous 1 à 3 jours ouvrés. D'ici là, Hutba continue de fonctionner comme avant."
+        hint: "Vous recevrez nos coordonnées bancaires sur la page suivante et par e-mail. Votre formule est activée dès réception des fonds."
+        requested: "Nous vous avons envoyé nos coordonnées bancaires par e-mail. Votre formule est activée dès réception du virement."
     speaker:
       title: Diffusion
       lead: 'Langue de la khutba : %{source}. La communauté lit en : %{languages}.'
@@ -289,6 +301,9 @@ fr:
       nl: néerlandais
   mailers:
     greeting: Salam %{name},
+    bank_transfer:
+      subject: "Coordonnées bancaires pour %{account} (%{reference})"
+      body: "merci d'avoir choisi Hutba pour %{account}. Veuillez virer le montant ci-dessous sur ce compte :"
     password_reset:
       subject: Nouveau mot de passe pour %{account}
       body: quelqu'un a demandé un nouveau mot de passe pour votre compte %{account}. Utilisez le bouton pour en choisir un.

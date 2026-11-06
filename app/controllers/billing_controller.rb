@@ -1,4 +1,4 @@
-# Yearly plan and add-on languages, paid through Monri's hosted payment page.
+# Yearly plan and add-on languages, paid by card through Monri or by bank transfer.
 class BillingController < ApplicationController
   include AccountScoped
   include Authentication
@@ -32,6 +32,9 @@ class BillingController < ApplicationController
     @payment = build_payment
     return redirect_to billing_path, alert: t("app.billing.nothing_to_pay") unless @payment&.valid?
 
+    return request_bank_transfer if params[:payment_method] == "bank_transfer"
+    return redirect_to billing_path, alert: t("app.billing.not_configured") unless Monri::Gateway.configured?
+
     @payment.save!
     @fields = Monri::Gateway.form_fields(
       @payment,
@@ -59,6 +62,17 @@ class BillingController < ApplicationController
   end
 
   private
+
+  # The mosque gets the bank details and a reference; an admin marks the payment
+  # as paid once the money arrives. A new request replaces an open one.
+  def request_bank_transfer
+    Current.account.payments.awaiting_transfer.find_each(&:decline!)
+    @payment.payment_method = "bank_transfer"
+    @payment.save!
+    AccountMailer.with(payment: @payment, user: current_user).bank_transfer.deliver_later
+    AdminMailer.with(payment: @payment, locale: "en").bank_transfer_requested.deliver_later
+    redirect_to billing_path(anchor: "transfer"), notice: t("app.billing.transfer.requested")
+  end
 
   def billing_params
     params.require(:account).permit(:billing_name, :billing_address, :billing_zip, :billing_city,

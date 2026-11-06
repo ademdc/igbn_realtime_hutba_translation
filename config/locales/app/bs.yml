@@ -236,6 +236,18 @@ bs:
       custom_domain_field: Željena domena
       custom_domain_placeholder: hutba.vasa-dzamija.com
       custom_domain_hint: Nakon uplate poslat ćemo vam DNS zapis (CNAME) za vašeg pružaoca domene.
+      pay_card: "Platite karticom"
+      pay_bank: "Platite uplatom na račun"
+      kind_addon_short: "Dodatni jezici"
+      transfer:
+        title: "Čekamo vašu uplatu"
+        intro: "Molimo uplatite iznos ispod za: %{item}."
+        beneficiary: "Primalac"
+        bank: "Banka"
+        reference: "Poziv na broj"
+        note: "Molimo navedite poziv na broj kako bismo mogli povezati vašu uplatu. Paket se aktivira čim novac stigne, obično u roku od 1–3 radna dana. Do tada Hutba radi kao i dosad."
+        hint: "Podatke za uplatu dobit ćete na sljedećoj stranici i e-mailom. Paket se aktivira čim novac stigne."
+        requested: "Poslali smo vam podatke za uplatu e-mailom. Paket se aktivira čim uplata stigne."
     speaker:
       title: Prenos
       lead: 'Jezik hutbe: %{source}. Džemat čita na: %{languages}.'
@@ -289,6 +301,9 @@ bs:
       nl: holandski
   mailers:
     greeting: Selam %{name},
+    bank_transfer:
+      subject: "Podaci za uplatu za %{account} (%{reference})"
+      body: "hvala što ste odabrali Hutbu za %{account}. Molimo uplatite iznos ispod na ovaj račun:"
     password_reset:
       subject: Nova lozinka za %{account}
       body: neko je zatražio novu lozinku za vaš račun u %{account}. Postavite je preko dugmeta.

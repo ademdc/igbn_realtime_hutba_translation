@@ -236,6 +236,18 @@ nl:
       custom_domain_field: Gewenst domein
       custom_domain_placeholder: hutba.uw-moskee.nl
       custom_domain_hint: Na de betaling sturen we u het DNS-record (CNAME) voor uw domeinprovider.
+      pay_card: "Betalen met kaart"
+      pay_bank: "Betalen per overschrijving"
+      kind_addon_short: "Extra talen"
+      transfer:
+        title: "We wachten op uw overschrijving"
+        intro: "Maak het onderstaande bedrag over voor: %{item}."
+        beneficiary: "Begunstigde"
+        bank: "Bank"
+        reference: "Betalingskenmerk"
+        note: "Vermeld het betalingskenmerk zodat we uw betaling kunnen koppelen. Uw abonnement wordt geactiveerd zodra het geld binnen is, meestal binnen 1–3 werkdagen. Tot dan werkt Hutba zoals voorheen."
+        hint: "U ontvangt onze bankgegevens op de volgende pagina en per e-mail. Uw abonnement wordt geactiveerd zodra het geld binnen is."
+        requested: "We hebben u de bankgegevens gemaild. Uw abonnement wordt geactiveerd zodra de overschrijving binnen is."
     speaker:
       title: Uitzending
       lead: 'Taal van de khutba: %{source}. De gemeenschap leest mee in: %{languages}.'
@@ -289,6 +301,9 @@ nl:
       nl: Nederlands
   mailers:
     greeting: Salam %{name},
+    bank_transfer:
+      subject: "Bankgegevens voor %{account} (%{reference})"
+      body: "bedankt dat u voor Hutba kiest voor %{account}. Maak het onderstaande bedrag over naar deze rekening:"
     password_reset:
       subject: Nieuw wachtwoord voor %{account}
       body: iemand heeft een nieuw wachtwoord aangevraagd voor uw account bij %{account}. Kies het via de knop.

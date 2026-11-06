@@ -5,6 +5,15 @@
 <p class="page-lead"><%= t("app.billing.lead") %></p>
 
 <div class="stack">
+  <% if (transfer = @account.payments.awaiting_transfer.recent.first) %>
+    <section class="panel panel--highlight" id="transfer" aria-labelledby="transfer-title">
+      <h2 class="panel__title" id="transfer-title"><%= t("app.billing.transfer.title") %></h2>
+      <p><%= t("app.billing.transfer.intro", item: transfer.kind == "subscription" ? t("app.billing.item_subscription", from: l(transfer.period_start.to_date), to: l(transfer.period_end.to_date)) : t("app.billing.kind_addon_short")) %></p>
+      <%= render "billing/bank_details", payment: transfer, amount: euros.(transfer.amount_cents) %>
+      <p class="muted"><%= t("app.billing.transfer.note") %></p>
+    </section>
+  <% end %>
+
   <section class="panel" aria-labelledby="current-title">
     <h2 class="panel__title" id="current-title"><%= t("app.billing.current") %></h2>
     <dl class="summary">
@@ -40,10 +49,7 @@
   <section class="panel" aria-labelledby="pay-title">
     <h2 class="panel__title" id="pay-title"><%= @account.paid_until&.future? ? t("app.billing.renew_or_add") : t("app.billing.pay_title") %></h2>
 
-    <% unless Monri::Gateway.configured? %>
-      <p class="flash flash--alert"><%= t("app.billing.not_configured") %></p>
-    <% end %>
-    <%= render "shared/errors", record: @account %>
+      <%= render "shared/errors", record: @account %>
 
     <%= form_with model: @account, url: billing_checkout_path, method: :post, data: { billing: true } do |form| %>
       <fieldset class="plain-fieldset">
@@ -116,8 +122,12 @@
       </fieldset>
 
       <div class="panel__actions">
-        <%= form.submit t("app.billing.submit"), class: "button", disabled: !Monri::Gateway.configured? %>
-        <p class="muted"><%= t("app.billing.secure") %></p>
+        <% if Monri::Gateway.configured? %>
+          <%= button_tag t("app.billing.pay_card"), name: "payment_method", value: "card", class: "button" %>
+        <% end %>
+        <%= button_tag t("app.billing.pay_bank"), name: "payment_method", value: "bank_transfer",
+              class: Monri::Gateway.configured? ? "button button--quiet" : "button" %>
+        <p class="muted"><%= Monri::Gateway.configured? ? t("app.billing.secure") : t("app.billing.transfer.hint") %></p>
       </div>
     <% end %>
   </section>

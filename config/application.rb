@@ -43,6 +43,15 @@ module IgbdTranslationsApp
     config.x.contact_email = ENV.fetch("CONTACT_EMAIL", "hello@hutba.app")
     config.x.mail_from = ENV.fetch("MAIL_FROM", "Hutba <#{config.x.contact_email}>")
 
+    # Bank account shown to mosques that pay by transfer
+    config.x.bank_transfer = {
+      beneficiary: "Everline d.o.o.",
+      iban: "BA391610000288650089",
+      swift: "RZBABA2S",
+      bank: "Raiffeisen Bank",
+      bank_address: "Zmaja od Bosne bb, Sarajevo, Bosnia and Herzegovina"
+    }
+
     # Used to build absolute links to mosque subdomains (emails, QR codes)
     config.x.app_protocol = "https"
     config.x.app_port = nil

@@ -236,6 +236,18 @@ tr:
       custom_domain_field: İstediğiniz alan adı
       custom_domain_placeholder: hutba.camiiniz.com
       custom_domain_hint: Ödemeden sonra alan adı sağlayıcınız için DNS kaydını (CNAME) size göndeririz.
+      pay_card: "Kartla öde"
+      pay_bank: "Havale ile öde"
+      kind_addon_short: "Ek diller"
+      transfer:
+        title: "Havalenizi bekliyoruz"
+        intro: "Lütfen aşağıdaki tutarı şunun için gönderin: %{item}."
+        beneficiary: "Alıcı"
+        bank: "Banka"
+        reference: "Ödeme açıklaması"
+        note: "Ödemenizi eşleştirebilmemiz için lütfen ödeme açıklamasını yazın. Paketiniz para ulaştığında, genellikle 1–3 iş günü içinde etkinleştirilir. O zamana kadar Hutba eskisi gibi çalışmaya devam eder."
+        hint: "Banka bilgilerimizi bir sonraki sayfada ve e-posta ile alacaksınız. Paketiniz para ulaştığında etkinleştirilir."
+        requested: "Banka bilgilerini size e-posta ile gönderdik. Paketiniz havale ulaştığında etkinleştirilir."
     speaker:
       title: Yayın
       lead: 'Hutbe dili: %{source}. Cemaat şu dillerde okur: %{languages}.'
@@ -289,6 +301,9 @@ tr:
       nl: Felemenkçe
   mailers:
     greeting: Selam %{name},
+    bank_transfer:
+      subject: "%{account} için banka bilgileri (%{reference})"
+      body: "%{account} için Hutba'yı seçtiğiniz için teşekkür ederiz. Lütfen aşağıdaki tutarı bu hesaba gönderin:"
     password_reset:
       subject: "%{account} için yeni şifre"
       body: "%{account} hesabınız için yeni bir şifre istendi. Butona tıklayarak belirleyebilirsiniz."

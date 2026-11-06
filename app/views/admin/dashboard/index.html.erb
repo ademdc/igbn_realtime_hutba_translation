@@ -25,6 +25,13 @@
   </section>
 </div>
 
+<% if @awaiting_transfers.any? %>
+  <section class="panel" style="margin-top: 1.5rem;">
+    <h2 class="panel__title">Bank transfers to confirm (<%= @awaiting_transfers.size %>)</h2>
+    <%= render "admin/payments/awaiting", payments: @awaiting_transfers, show_account: true %>
+  </section>
+<% end %>
+
 <div class="section-head">
   <h2>Live now</h2>
   <%= button_to "Reset all live sessions", admin_reset_all_path, method: :post, class: "link-button",

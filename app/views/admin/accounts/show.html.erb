@@ -9,9 +9,9 @@
 
 <div class="kpis">
   <section class="panel kpi">
-    <h2 class="kpi__label">This week</h2>
-    <p class="kpi__value"><%= @week_minutes %> min</p>
-    <p class="kpi__note">of <%= @account.weekly_minutes_limit %> min limit</p>
+    <h2 class="kpi__label"><%= @account.free_plan? ? "This month (free plan)" : "This week" %></h2>
+    <p class="kpi__value"><%= @period_minutes %> min</p>
+    <p class="kpi__note">of <%= @account.minutes_limit %> min limit</p>
   </section>
   <section class="panel kpi">
     <h2 class="kpi__label">Broadcasts</h2>
@@ -29,6 +29,13 @@
     <p class="kpi__note"><%= pluralize(@account.extra_languages, "extra language") %></p>
   </section>
 </div>
+
+<% if @awaiting_transfers.any? %>
+  <section class="panel" style="margin-top: 1.5rem;">
+    <h2 class="panel__title">Bank transfers to confirm</h2>
+    <%= render "admin/payments/awaiting", payments: @awaiting_transfers %>
+  </section>
+<% end %>
 
 <div class="two-col" style="margin-top: 1.5rem;">
   <section class="panel">

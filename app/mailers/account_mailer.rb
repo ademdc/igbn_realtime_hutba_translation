@@ -26,6 +26,14 @@ class AccountMailer < ApplicationMailer
     mail to: @user.email, subject: t("mailers.custom_domain_live.subject", domain: @account.custom_domain)
   end
 
+  # Bank details and reference for a transfer the owner just asked for
+  def bank_transfer
+    @payment = params[:payment]
+    @user = params[:user]
+    @account = @payment.account
+    mail to: @user.email, subject: t("mailers.bank_transfer.subject", account: @account.name, reference: @payment.reference)
+  end
+
   def login_links
     @accounts = params[:users].map(&:account)
     mail to: params[:email], subject: t("mailers.login_links.subject")

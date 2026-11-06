@@ -1,0 +1,22 @@
+<%# Open bank transfers with confirm/cancel buttons; show_account adds the mosque column %>
+<table class="table">
+  <tbody>
+    <% payments.each do |payment| %>
+      <tr>
+        <td>
+          <strong><%= payment.reference %></strong>
+          <% if local_assigns[:show_account] %>
+            · <%= link_to payment.account.name, admin_account_path(payment.account) %>
+          <% end %>
+          <br><span class="muted"><%= payment.description %>, requested <%= time_ago_in_words(payment.created_at) %> ago</span>
+        </td>
+        <td class="num"><%= number_to_currency(payment.amount_cents / 100.0, unit: "€", format: "%u%n") %></td>
+        <td class="num">
+          <%= button_to "Mark as paid", confirm_admin_payment_path(payment), class: "button",
+                form: { onsubmit: "return confirm('Has #{number_to_currency(payment.amount_cents / 100.0, unit: "€", format: "%u%n")} with reference #{payment.reference} arrived?')" } %>
+          <%= button_to "Cancel", cancel_admin_payment_path(payment), class: "link-button" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

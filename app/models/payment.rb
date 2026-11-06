@@ -1,12 +1,14 @@
 class Payment < ApplicationRecord
   KINDS = %w[subscription addon].freeze
   STATUSES = %w[pending approved declined].freeze
+  METHODS = %w[card bank_transfer].freeze
 
   belongs_to :account
   belongs_to :user, optional: true
 
   validates :kind, inclusion: { in: KINDS }
   validates :status, inclusion: { in: STATUSES }
+  validates :payment_method, inclusion: { in: METHODS }
   validates :amount_cents, numericality: { greater_than: 0 }
   validates :extra_languages, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 20 }
 
@@ -14,6 +16,8 @@ class Payment < ApplicationRecord
 
   scope :approved, -> { where(status: "approved") }
   scope :recent, -> { order(created_at: :desc) }
+  # Transfers a mosque has announced but we haven't seen arrive yet
+  scope :awaiting_transfer, -> { where(payment_method: "bank_transfer", status: "pending") }
 
   # One year of service from today or from the end of the current paid period.
   # extra_languages is the total number of add-on languages for that year.
@@ -37,6 +41,12 @@ class Payment < ApplicationRecord
 
   def pending? = status == "pending"
   def approved? = status == "approved"
+  def bank_transfer? = payment_method == "bank_transfer"
+
+  # Payment reference for bank transfers, short enough for every banking app
+  def reference
+    "HUTBA-#{id}"
+  end
 
   def description
     if kind == "subscription"

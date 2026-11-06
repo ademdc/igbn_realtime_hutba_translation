@@ -236,6 +236,18 @@ de:
       custom_domain_field: Gewünschte Domain
       custom_domain_placeholder: hutba.ihre-moschee.de
       custom_domain_hint: Nach der Zahlung senden wir Ihnen den DNS-Eintrag (CNAME) für Ihren Domain-Anbieter.
+      pay_card: "Mit Karte bezahlen"
+      pay_bank: "Per Überweisung bezahlen"
+      kind_addon_short: "Weitere Sprachen"
+      transfer:
+        title: "Wir warten auf Ihre Überweisung"
+        intro: "Bitte überweisen Sie den folgenden Betrag für: %{item}."
+        beneficiary: "Empfänger"
+        bank: "Bank"
+        reference: "Verwendungszweck"
+        note: "Bitte geben Sie den Verwendungszweck an, damit wir Ihre Zahlung zuordnen können. Ihr Tarif wird freigeschaltet, sobald das Geld eingeht – meist innerhalb von 1–3 Werktagen. Bis dahin läuft Hutba wie gewohnt weiter."
+        hint: "Die Bankverbindung erhalten Sie auf der nächsten Seite und per E-Mail. Ihr Tarif wird freigeschaltet, sobald das Geld eingeht."
+        requested: "Wir haben Ihnen die Bankverbindung per E-Mail geschickt. Ihr Tarif wird freigeschaltet, sobald die Überweisung eingeht."
     speaker:
       title: Übertragung
       lead: 'Sprache der Hutba: %{source}. Die Gemeinde liest mit auf: %{languages}.'
@@ -289,6 +301,9 @@ de:
       nl: Niederländisch
   mailers:
     greeting: Salam %{name},
+    bank_transfer:
+      subject: "Bankverbindung für %{account} (%{reference})"
+      body: "vielen Dank, dass Sie sich für Hutba für %{account} entschieden haben. Bitte überweisen Sie den folgenden Betrag auf dieses Konto:"
     password_reset:
       subject: Neues Passwort für %{account}
       body: jemand hat ein neues Passwort für Ihr Konto bei %{account} angefordert. Über den Button legen Sie es fest.
