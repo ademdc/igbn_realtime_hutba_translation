@@ -3,18 +3,8 @@ require "test_helper"
 class MarketingTest < ActionDispatch::IntegrationTest
   setup { host! "localhost" }
 
-  test "apex root redirects to the browser's language" do
+  test "apex root opens the German site whatever the browser language" do
     get "/", headers: { "Accept-Language" => "nl-NL,nl;q=0.9,en;q=0.8" }
-    assert_redirected_to "http://localhost/nl"
-  end
-
-  test "Croatian and Serbian browsers get the Bosnian site" do
-    get "/", headers: { "Accept-Language" => "hr-HR,hr;q=0.9" }
-    assert_redirected_to "http://localhost/bs"
-  end
-
-  test "unknown browser language falls back to German" do
-    get "/", headers: { "Accept-Language" => "ja-JP" }
     assert_redirected_to "http://localhost/de"
   end
 

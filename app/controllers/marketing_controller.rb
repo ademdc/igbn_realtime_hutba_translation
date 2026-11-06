@@ -5,7 +5,8 @@ class MarketingController < ApplicationController
   around_action :switch_locale, except: :locale_redirect
 
   def locale_redirect
-    redirect_to marketing_path(locale: preferred_locale)
+    # The site opens in German whatever the browser language; visitors switch in the header
+    redirect_to marketing_path(locale: "de")
   end
 
   def index
@@ -26,14 +27,5 @@ class MarketingController < ApplicationController
 
   def switch_locale(&action)
     I18n.with_locale(params[:locale], &action)
-  end
-
-  def preferred_locale
-    accepted = request.headers["Accept-Language"].to_s.scan(/([a-z]{2})(?:-[A-Za-z]{2})?(?:;q=([\d.]+))?/)
-      .sort_by { |_, q| -(q || 1).to_f }
-      .map(&:first)
-    # Croatian/Serbian speakers read the Bosnian site best
-    accepted = accepted.map { |code| %w[hr sr].include?(code) ? "bs" : code }
-    (accepted & LOCALES).first || "de"
   end
 end
