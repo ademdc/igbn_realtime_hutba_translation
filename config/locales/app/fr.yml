@@ -157,7 +157,7 @@ fr:
       back: Retour à l'aperçu
     signup:
       title: Inscrire votre mosquée
-      lead: Prêt en quelques minutes. Gratuit pendant 60 jours, ensuite vous décidez.
+      lead: Prêt en quelques minutes. Gratuit pendant 30 jours, ensuite vous décidez.
       facts:
       - Sans carte bancaire
       - Une adresse propre à votre communauté
@@ -274,6 +274,7 @@ fr:
       sq: albanais
       tr: turc
       ar: arabe
+      ur: ourdou
       de: allemand
       en: anglais
       fr: français

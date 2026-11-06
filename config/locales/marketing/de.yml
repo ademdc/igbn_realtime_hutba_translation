@@ -3,7 +3,7 @@ de:
   marketing:
     meta:
       title: Hutba – die Freitagspredigt live übersetzt
-      description: 'Der Imam spricht, die Gemeinde liest mit: Live-Übersetzung der Hutba auf jedes Handy. Ohne App, 60 Tage kostenlos testen.'
+      description: 'Der Imam spricht, die Gemeinde liest mit: Live-Übersetzung der Hutba auf jedes Handy. Ohne App, 30 Tage kostenlos testen.'
     nav:
       skip: Zum Inhalt springen
       how: So funktioniert's
@@ -15,11 +15,16 @@ de:
     hero:
       title: Die Freitagspredigt, für jede Generation verständlich.
       lead: Der Imam spricht wie gewohnt. Ihre Gemeinde liest die Hutba live auf dem Handy mit – auf Deutsch, Englisch, Niederländisch und weiteren Sprachen.
-      cta: 60 Tage kostenlos testen
+      cta: 30 Tage kostenlos testen
       note: Keine Kreditkarte nötig. Einrichtung in 10 Minuten.
     demo:
       label: Live-Vorschau
-      original: Imam, auf Bosnisch
+      originals:
+        bs: Imam, auf Bosnisch
+        ar: Imam, auf Arabisch
+        tr: Imam, auf Türkisch
+        sq: Imam, auf Albanisch
+        ur: Imam, auf Urdu
       read_in: Mitlesen auf
       live: live
     how:
@@ -54,14 +59,14 @@ de:
       - Eigene Adresse, z. B. ihr-dzemat.hutba.app
       - QR-Code-Plakate zum Ausdrucken
       addon: 'Weitere Sprache: +5 € pro Monat'
-      cta: 60 Tage kostenlos testen
+      cta: 30 Tage kostenlos testen
       note: Nach dem Test entscheiden Sie. Keine automatische Verlängerung ohne Zahlung.
       addon_domain: 'Eigene Domain: +5 € pro Monat'
     faq:
       title: Häufige Fragen
       items:
       - q: In welcher Sprache muss der Imam sprechen?
-        a: Bosnisch, Kroatisch, Serbisch, Albanisch, Türkisch, Arabisch, Deutsch, Englisch, Französisch oder Niederländisch. Sie wählen die Sprache bei der Anmeldung und können sie jederzeit ändern.
+        a: Bosnisch, Kroatisch, Serbisch, Albanisch, Türkisch, Arabisch, Urdu, Deutsch, Englisch, Französisch oder Niederländisch. Sie wählen die Sprache bei der Anmeldung und können sie jederzeit ändern.
       - q: Brauchen die Zuhörer eine App?
         a: Nein. Sie scannen den QR-Code und lesen im Browser mit. Das funktioniert auf jedem Smartphone.
       - q: Was brauchen wir in der Moschee?
@@ -72,7 +77,7 @@ de:
         a: Die Übersetzung ist sehr gut verständlich, aber maschinell. Koranverse und feste Begriffe werden meist korrekt erkannt; einzelne Fehler kommen vor.
       - q: Können wir unsere eigene Domain verwenden?
         a: Ja, für 5 € pro Monat. Statt ihr-dzemat.hutba.app öffnen Zuhörer dann z. B. hutba.ihre-moschee.de. Sie buchen die Domain in der Abrechnung, legen bei Ihrem Domain-Anbieter einen CNAME-Eintrag an, und wir kümmern uns um das Sicherheitszertifikat.
-      - q: Was passiert nach den 60 Tagen?
+      - q: Was passiert nach den 30 Tagen?
         a: Sie erhalten rechtzeitig eine Erinnerung. Zahlen Sie, läuft alles weiter. Zahlen Sie nicht, wird die Übertragung pausiert – sonst passiert nichts.
     footer:
       tagline: Live-Übersetzung der Hutba für Moscheegemeinden in Europa.

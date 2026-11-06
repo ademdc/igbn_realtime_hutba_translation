@@ -21,7 +21,7 @@ class SignupTest < ActionDispatch::IntegrationTest
     account = Account.find_by!(subdomain: "dzemat-stuttgart")
     assert_equal "trialing", account.status
     assert_equal %w[de], account.languages
-    assert_in_delta 60.days.from_now, account.trial_ends_at, 1.minute
+    assert_in_delta 30.days.from_now, account.trial_ends_at, 1.minute
 
     owner = account.users.sole
     assert owner.owner?

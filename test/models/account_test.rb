@@ -72,10 +72,10 @@ class AccountTest < ActiveSupport::TestCase
     assert_includes account.errors[:languages].first, "german"
   end
 
-  test "new accounts get a 60 day trial" do
+  test "new accounts get a 30 day trial" do
     account = Account.create!(name: "X", subdomain: "xyz", languages: ["de"])
     assert_equal "trialing", account.status
-    assert_in_delta 60.days.from_now, account.trial_ends_at, 5.seconds
+    assert_in_delta 30.days.from_now, account.trial_ends_at, 5.seconds
   end
 
   test "cannot stream after trial or weekly limit" do

@@ -157,7 +157,7 @@ bs:
       back: Nazad na pregled
     signup:
       title: Prijavite džemat
-      lead: Spremno za nekoliko minuta. 60 dana besplatno, a onda vi odlučujete.
+      lead: Spremno za nekoliko minuta. 30 dana besplatno, a onda vi odlučujete.
       facts:
       - Bez kreditne kartice
       - Vlastita adresa za vaš džemat
@@ -274,6 +274,7 @@ bs:
       sq: albanski
       tr: turski
       ar: arapski
+      ur: urdu
       de: njemački
       en: engleski
       fr: francuski

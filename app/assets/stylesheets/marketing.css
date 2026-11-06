@@ -283,6 +283,12 @@ body.marketing {
   max-width: 40ch;
 }
 
+/* Arabic script has no italics */
+.demo__original:is(:lang(ar), :lang(ur)) {
+  font-style: normal;
+  font-size: 1.05rem;
+}
+
 .demo__reading {
   border-top: 1px solid rgb(221 231 227 / 0.16);
   padding-top: 1.25rem;

@@ -35,6 +35,7 @@ class Language
     "sq" => { name: "Shqip", hints: %w[sq] },
     "tr" => { name: "Türkçe", hints: %w[tr] },
     "ar" => { name: "العربية", hints: %w[ar] },
+    "ur" => { name: "اردو", hints: %w[ur] },
     "de" => { name: "Deutsch", hints: %w[de] },
     "en" => { name: "English", hints: %w[en] },
     "fr" => { name: "Français", hints: %w[fr] },

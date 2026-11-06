@@ -4,16 +4,21 @@
 const WORD_DELAY_MS = 170
 const SENTENCE_PAUSE_MS = 2600
 const HIGHLIGHT_MS = 900
+const RTL_LANGUAGES = ["ar", "ur"]
 
 function startDemo(root) {
   const script = JSON.parse(root.querySelector("[data-demo-script]").textContent)
   const originalEl = root.querySelector("[data-demo-original]")
   const translationEl = root.querySelector("[data-demo-translation]")
   const languageButtons = root.querySelectorAll("[data-demo-language]")
+  const sourceLabelEl = root.querySelector("[data-demo-source-label]")
+  const sources = JSON.parse(root.dataset.sources)
+  const sourceLabels = JSON.parse(root.dataset.sourceLabels)
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
   let language = root.dataset.language
   let sentenceIndex = 0
+  let sourceIndex = 0
   let timer = null
 
   function selectLanguage(code) {
@@ -22,13 +27,18 @@ function startDemo(root) {
       button.setAttribute("aria-pressed", String(button.dataset.demoLanguage === code))
     })
     translationEl.lang = code
+    if (sources[sourceIndex] === code) sourceIndex = (sourceIndex + 1) % sources.length
     playSentence()
   }
 
   function playSentence() {
     clearTimeout(timer)
     const sentence = script[sentenceIndex]
-    originalEl.textContent = sentence.bs
+    const source = sources[sourceIndex]
+    originalEl.textContent = sentence[source]
+    originalEl.lang = source
+    originalEl.dir = RTL_LANGUAGES.includes(source) ? "rtl" : "ltr"
+    sourceLabelEl.textContent = sourceLabels[source]
 
     if (reducedMotion) {
       translationEl.textContent = sentence[language]
@@ -64,6 +74,11 @@ function startDemo(root) {
 
   function nextSentence() {
     sentenceIndex = (sentenceIndex + 1) % script.length
+    // The imam switches language every sentence; skip the one the visitor reads in,
+    // since nobody needs a translation of their own language
+    do {
+      sourceIndex = (sourceIndex + 1) % sources.length
+    } while (sources[sourceIndex] === language)
     playSentence()
   }
 

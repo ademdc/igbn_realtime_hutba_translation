@@ -1,6 +1,6 @@
 <%
-  # Sample khutbah passage shown in the hero. Bosnian original with the
-  # translations listeners would see.
+  # Sample khutbah passage shown in the hero, in the languages an imam might speak
+  # and the translations listeners would see.
   demo_script = [
     {
       "bs" => "Draga braćo i sestre, Allah nas u Kur'anu poziva na milost prema roditeljima.",
@@ -9,7 +9,9 @@
       "fr" => "Chers frères et sœurs, dans le Coran, Allah nous appelle à la miséricorde envers nos parents.",
       "nl" => "Beste broeders en zusters, in de Koran roept Allah ons op tot barmhartigheid jegens onze ouders.",
       "tr" => "Aziz kardeşlerim, Allah Kur'an'da bizi anne babamıza merhametli olmaya çağırıyor.",
-      "sq" => "Të dashur vëllezër dhe motra, Allahu në Kuran na thërret të jemi të mëshirshëm ndaj prindërve."
+      "sq" => "Të dashur vëllezër dhe motra, Allahu në Kuran na thërret të jemi të mëshirshëm ndaj prindërve.",
+      "ar" => "أيها الإخوة والأخوات الكرام، يدعونا الله في القرآن إلى الرحمة بالوالدين.",
+      "ur" => "عزیز بھائیو اور بہنو، اللہ قرآن میں ہمیں والدین کے ساتھ رحم کرنے کی دعوت دیتا ہے۔"
     },
     {
       "bs" => "Oni su nas nosili dok nismo znali hodati.",
@@ -18,7 +20,9 @@
       "fr" => "Ils nous ont portés quand nous ne savions pas encore marcher.",
       "nl" => "Zij droegen ons toen wij nog niet konden lopen.",
       "tr" => "Biz henüz yürüyemezken onlar bizi taşıdılar.",
-      "sq" => "Ata na mbanin në krahë kur nuk dinim ende të ecnim."
+      "sq" => "Ata na mbanin në krahë kur nuk dinim ende të ecnim.",
+      "ar" => "لقد حملونا حين لم نكن نقدر على المشي بعد.",
+      "ur" => "انہوں نے ہمیں اس وقت اٹھایا جب ہم ابھی چل بھی نہیں سکتے تھے۔"
     },
     {
       "bs" => "Danas, kada su oni stari i slabi, red je na nama.",
@@ -27,10 +31,14 @@
       "fr" => "Aujourd'hui, alors qu'ils sont âgés et faibles, c'est à notre tour.",
       "nl" => "Nu zij oud en zwak zijn, is het onze beurt.",
       "tr" => "Bugün, onlar yaşlı ve güçsüzken, sıra bizde.",
-      "sq" => "Sot, kur ata janë të moshuar dhe të dobët, është radha jonë."
+      "sq" => "Sot, kur ata janë të moshuar dhe të dobët, është radha jonë.",
+      "ar" => "واليوم، وقد كبروا وضعفوا، جاء دورنا.",
+      "ur" => "آج، جب وہ بوڑھے اور کمزور ہو گئے ہیں، اب ہماری باری ہے۔"
     }
   ]
   demo_languages = %w[de en fr nl tr sq]
+  # Each sentence of the demo is spoken in the next of these, so visitors see more than Bosnian
+  demo_sources = %w[bs ar tr sq ur]
   poster_languages = %w[de en nl]
 %>
 
@@ -45,13 +53,13 @@
       </div>
     </div>
 
-    <figure class="demo" data-demo data-language="<%= @demo_language %>" aria-label="<%= t("marketing.demo.label") %>">
+    <figure class="demo" data-demo data-language="<%= @demo_language %>" data-sources="<%= demo_sources.to_json %>" data-source-labels="<%= demo_sources.index_with { |code| t("marketing.demo.originals.#{code}") }.to_json %>" aria-label="<%= t("marketing.demo.label") %>">
       <script type="application/json" data-demo-script><%= raw json_escape(demo_script.to_json) %></script>
 
       <div class="demo__source">
         <p class="demo__status">
           <span class="live-badge"><span class="live-dot" aria-hidden="true"></span><%= t("marketing.demo.live") %></span>
-          <span><%= t("marketing.demo.original") %></span>
+          <span data-demo-source-label><%= t("marketing.demo.originals.bs") %></span>
         </p>
         <p class="demo__original" data-demo-original lang="bs"><%= demo_script.first["bs"] %></p>
       </div>

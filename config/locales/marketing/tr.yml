@@ -3,7 +3,7 @@ tr:
   marketing:
     meta:
       title: Hutba – cuma hutbesi canlı tercümeyle
-      description: 'İmam konuşur, cemaat telefonundan okur: hutbenin her telefona canlı tercümesi. Uygulama gerekmez, 60 gün ücretsiz.'
+      description: 'İmam konuşur, cemaat telefonundan okur: hutbenin her telefona canlı tercümesi. Uygulama gerekmez, 30 gün ücretsiz.'
     nav:
       skip: İçeriğe geç
       how: Nasıl çalışır
@@ -15,11 +15,16 @@ tr:
     hero:
       title: Cuma hutbesi, her nesil için anlaşılır.
       lead: İmam her zamanki gibi konuşur. Cemaatiniz hutbeyi telefonundan canlı okur – Almanca, İngilizce, Felemenkçe ve diğer dillerde.
-      cta: 60 gün ücretsiz deneyin
+      cta: 30 gün ücretsiz deneyin
       note: Kredi kartı gerekmez. 10 dakikada kurulum.
     demo:
       label: Canlı önizleme
-      original: İmam, Boşnakça
+      originals:
+        bs: İmam, Boşnakça
+        ar: İmam, Arapça
+        tr: İmam, Türkçe
+        sq: İmam, Arnavutça
+        ur: İmam, Urduca
       read_in: Okuma dili
       live: canlı
     how:
@@ -54,14 +59,14 @@ tr:
       - Size özel adres, ör. camiiniz.hutba.app
       - Yazdırılabilir QR kod afişleri
       addon: 'Ek dil: ayda +5 €'
-      cta: 60 gün ücretsiz deneyin
+      cta: 30 gün ücretsiz deneyin
       note: Deneme süresinden sonra siz karar verirsiniz. Ödeme yapılmadan hiçbir şey uzatılmaz.
       addon_domain: 'Kendi alan adınız: ayda +5 €'
     faq:
       title: Sık sorulan sorular
       items:
       - q: İmam hangi dilde konuşmalı?
-        a: Boşnakça, Hırvatça, Sırpça, Arnavutça, Türkçe, Arapça, Almanca, İngilizce, Fransızca veya Felemenkçe. Dili kayıt olurken seçersiniz ve istediğiniz zaman değiştirebilirsiniz.
+        a: Boşnakça, Hırvatça, Sırpça, Arnavutça, Türkçe, Arapça, Urduca, Almanca, İngilizce, Fransızca veya Felemenkçe. Dili kayıt olurken seçersiniz ve istediğiniz zaman değiştirebilirsiniz.
       - q: Dinleyicilerin uygulamaya ihtiyacı var mı?
         a: Hayır. QR kodu tarar ve tarayıcıda okurlar. Her akıllı telefonda çalışır.
       - q: Camide neye ihtiyacımız var?
@@ -72,7 +77,7 @@ tr:
         a: Tercüme oldukça anlaşılırdır ama makine tercümesidir. Ayetler ve kalıp ifadeler genellikle doğru tanınır; ara sıra hatalar olabilir.
       - q: Kendi alan adımızı kullanabilir miyiz?
         a: Evet, aylık 5 € karşılığında. Dinleyiciler o zaman camiiniz.hutba.app yerine ör. hutba.camiiniz.com adresini açar. Alan adını Ödeme bölümünden alırsınız, sağlayıcınızda bir CNAME kaydı eklersiniz, güvenlik sertifikasıyla biz ilgileniriz.
-      - q: 60 günden sonra ne olur?
+      - q: 30 günden sonra ne olur?
         a: Zamanında bir hatırlatma alırsınız. Öderseniz her şey devam eder. Ödemezseniz yayın durdurulur – başka hiçbir şey olmaz.
     footer:
       tagline: Avrupa'daki cami cemaatleri için canlı hutbe tercümesi.

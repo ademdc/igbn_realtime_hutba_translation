@@ -3,7 +3,7 @@ en:
   marketing:
     meta:
       title: Hutba – the Friday sermon, translated live
-      description: 'The imam speaks, the congregation reads along: live translation of the khutbah on every phone. No app needed, free for 60 days.'
+      description: 'The imam speaks, the congregation reads along: live translation of the khutbah on every phone. No app needed, free for 30 days.'
     nav:
       skip: Skip to content
       how: How it works
@@ -15,11 +15,16 @@ en:
     hero:
       title: The Friday sermon, understood by every generation.
       lead: The imam speaks as always. Your congregation reads the khutbah live on their phones – in English, German, Dutch and more.
-      cta: Try free for 60 days
+      cta: Try free for 30 days
       note: No credit card. Set up in 10 minutes.
     demo:
       label: Live preview
-      original: Imam, in Bosnian
+      originals:
+        bs: Imam, in Bosnian
+        ar: Imam, in Arabic
+        tr: Imam, in Turkish
+        sq: Imam, in Albanian
+        ur: Imam, in Urdu
       read_in: Read in
       live: live
     how:
@@ -54,14 +59,14 @@ en:
       - Your own address, e.g. your-dzemat.hutba.app
       - Printable QR code posters
       addon: 'Extra language: +€5 per month'
-      cta: Try free for 60 days
+      cta: Try free for 30 days
       note: You decide after the trial. Nothing renews without payment.
       addon_domain: 'Own domain: +€5 per month'
     faq:
       title: Frequently asked questions
       items:
       - q: Which language does the imam have to speak?
-        a: Bosnian, Croatian, Serbian, Albanian, Turkish, Arabic, German, English, French or Dutch. You choose the language when you sign up and can change it at any time.
+        a: Bosnian, Croatian, Serbian, Albanian, Turkish, Arabic, Urdu, German, English, French or Dutch. You choose the language when you sign up and can change it at any time.
       - q: Do listeners need an app?
         a: No. They scan the QR code and read along in the browser. It works on any smartphone.
       - q: What do we need in the mosque?
@@ -72,7 +77,7 @@ en:
         a: The translation is very readable, but it is machine translation. Qur'anic verses and fixed terms are usually recognised correctly; occasional mistakes happen.
       - q: Can we use our own domain?
         a: Yes, for €5 per month. Listeners then open e.g. hutba.your-mosque.com instead of your-dzemat.hutba.app. You book the domain under Billing, add a CNAME record at your domain provider, and we take care of the security certificate.
-      - q: What happens after 60 days?
+      - q: What happens after 30 days?
         a: You get a reminder in good time. If you pay, everything continues. If you don't, broadcasting pauses – nothing else happens.
     footer:
       tagline: Live khutbah translation for mosque communities in Europe.

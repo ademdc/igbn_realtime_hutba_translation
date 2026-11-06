@@ -157,7 +157,7 @@ de:
       back: Zurück zur Übersicht
     signup:
       title: Gemeinde anmelden
-      lead: In wenigen Minuten eingerichtet. 60 Tage kostenlos, danach entscheiden Sie.
+      lead: In wenigen Minuten eingerichtet. 30 Tage kostenlos, danach entscheiden Sie.
       facts:
       - Keine Kreditkarte nötig
       - Eigene Adresse für Ihre Gemeinde
@@ -274,6 +274,7 @@ de:
       sq: Albanisch
       tr: Türkisch
       ar: Arabisch
+      ur: Urdu
       de: Deutsch
       en: Englisch
       fr: Französisch

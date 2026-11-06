@@ -3,7 +3,7 @@ bs:
   marketing:
     meta:
       title: Hutba – džuma-hutba prevedena uživo
-      description: 'Imam govori, džemat čita: prevod hutbe uživo na svakom mobitelu. Bez aplikacije, 60 dana besplatno.'
+      description: 'Imam govori, džemat čita: prevod hutbe uživo na svakom mobitelu. Bez aplikacije, 30 dana besplatno.'
     nav:
       skip: Preskoči na sadržaj
       how: Kako radi
@@ -15,11 +15,16 @@ bs:
     hero:
       title: Džuma-hutba, razumljiva svakoj generaciji.
       lead: Imam govori kao i uvijek. Džemat čita hutbu uživo na mobitelu – na njemačkom, engleskom, holandskom i drugim jezicima.
-      cta: 60 dana besplatno
+      cta: 30 dana besplatno
       note: Bez kreditne kartice. Postavljanje za 10 minuta.
     demo:
       label: Pregled uživo
-      original: Imam, na bosanskom
+      originals:
+        bs: Imam, na bosanskom
+        ar: Imam, na arapskom
+        tr: Imam, na turskom
+        sq: Imam, na albanskom
+        ur: Imam, na urdu jeziku
       read_in: Čitaj na
       live: uživo
     how:
@@ -54,14 +59,14 @@ bs:
       - Vlastita adresa, npr. vas-dzemat.hutba.app
       - QR plakati za printanje
       addon: 'Dodatni jezik: +5 € mjesečno'
-      cta: 60 dana besplatno
+      cta: 30 dana besplatno
       note: Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate.
       addon_domain: 'Vlastita domena: +5 € mjesečno'
     faq:
       title: Česta pitanja
       items:
       - q: Na kojem jeziku imam treba govoriti?
-        a: Bosanski, hrvatski, srpski, albanski, turski, arapski, njemački, engleski, francuski ili holandski. Jezik birate pri prijavi i možete ga promijeniti bilo kada.
+        a: Bosanski, hrvatski, srpski, albanski, turski, arapski, urdu, njemački, engleski, francuski ili holandski. Jezik birate pri prijavi i možete ga promijeniti bilo kada.
       - q: Trebaju li slušaoci aplikaciju?
         a: Ne. Skeniraju QR kod i čitaju u pregledniku. Radi na svakom pametnom telefonu.
       - q: Šta nam treba u džamiji?
@@ -72,7 +77,7 @@ bs:
         a: Prevod je vrlo razumljiv, ali je mašinski. Ajeti i ustaljeni izrazi se uglavnom tačno prepoznaju; pojedinačne greške su moguće.
       - q: Možemo li koristiti vlastitu domenu?
         a: Da, za 5 € mjesečno. Slušaoci tada otvaraju npr. hutba.vasa-dzamija.com umjesto vas-dzemat.hutba.app. Domenu zakupite pod Plaćanje, dodate CNAME zapis kod pružaoca domene, a mi se pobrinemo za sigurnosni certifikat.
-      - q: Šta se dešava nakon 60 dana?
+      - q: Šta se dešava nakon 30 dana?
         a: Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više.
     footer:
       tagline: Prevod hutbe uživo za džemate širom Evrope.

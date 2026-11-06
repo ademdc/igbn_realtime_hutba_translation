@@ -157,7 +157,7 @@ en:
       back: Back to overview
     signup:
       title: Register your mosque
-      lead: Ready in a few minutes. Free for 60 days, then you decide.
+      lead: Ready in a few minutes. Free for 30 days, then you decide.
       facts:
       - No credit card needed
       - Your own address for your congregation
@@ -274,6 +274,7 @@ en:
       sq: Albanian
       tr: Turkish
       ar: Arabic
+      ur: Urdu
       de: German
       en: English
       fr: French

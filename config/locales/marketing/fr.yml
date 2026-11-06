@@ -3,7 +3,7 @@ fr:
   marketing:
     meta:
       title: Hutba – le sermon du vendredi traduit en direct
-      description: 'L''imam parle, la communauté lit en même temps : traduction en direct de la khutba sur chaque téléphone. Sans application, gratuit pendant 60 jours.'
+      description: 'L''imam parle, la communauté lit en même temps : traduction en direct de la khutba sur chaque téléphone. Sans application, gratuit pendant 30 jours.'
     nav:
       skip: Aller au contenu
       how: Fonctionnement
@@ -15,11 +15,16 @@ fr:
     hero:
       title: Le sermon du vendredi, compris par chaque génération.
       lead: L'imam parle comme d'habitude. Votre communauté lit la khutba en direct sur son téléphone – en français, allemand, néerlandais et d'autres langues.
-      cta: Essayer gratuitement 60 jours
+      cta: Essayer gratuitement 30 jours
       note: Sans carte bancaire. Prêt en 10 minutes.
     demo:
       label: Aperçu en direct
-      original: Imam, en bosnien
+      originals:
+        bs: Imam, en bosnien
+        ar: Imam, en arabe
+        tr: Imam, en turc
+        sq: Imam, en albanais
+        ur: Imam, en ourdou
       read_in: Lire en
       live: en direct
     how:
@@ -54,14 +59,14 @@ fr:
       - Votre propre adresse, p. ex. votre-mosquee.hutba.app
       - Affiches QR code à imprimer
       addon: 'Langue supplémentaire : +5 € par mois'
-      cta: Essayer gratuitement 60 jours
+      cta: Essayer gratuitement 30 jours
       note: Vous décidez après l'essai. Rien n'est renouvelé sans paiement.
       addon_domain: 'Domaine propre : +5 € par mois'
     faq:
       title: Questions fréquentes
       items:
       - q: Dans quelle langue l'imam doit-il parler ?
-        a: Bosnien, croate, serbe, albanais, turc, arabe, allemand, anglais, français ou néerlandais. Vous choisissez la langue à l'inscription et pouvez la changer à tout moment.
+        a: Bosnien, croate, serbe, albanais, turc, arabe, ourdou, allemand, anglais, français ou néerlandais. Vous choisissez la langue à l'inscription et pouvez la changer à tout moment.
       - q: Les fidèles ont-ils besoin d'une application ?
         a: Non. Ils scannent le QR code et lisent dans le navigateur. Cela fonctionne sur tous les smartphones.
       - q: De quoi avons-nous besoin à la mosquée ?
@@ -72,7 +77,7 @@ fr:
         a: La traduction est très compréhensible, mais automatique. Les versets du Coran et les termes courants sont généralement bien reconnus ; des erreurs ponctuelles sont possibles.
       - q: Pouvons-nous utiliser notre propre domaine ?
         a: Oui, pour 5 € par mois. Les fidèles ouvrent alors p. ex. hutba.votre-mosquee.fr au lieu de votre-mosquee.hutba.app. Vous réservez le domaine dans Facturation, ajoutez un enregistrement CNAME chez votre fournisseur, et nous nous occupons du certificat de sécurité.
-      - q: Que se passe-t-il après 60 jours ?
+      - q: Que se passe-t-il après 30 jours ?
         a: Vous recevez un rappel à temps. Si vous payez, tout continue. Sinon, la diffusion est mise en pause – rien de plus.
     footer:
       tagline: Traduction de la khutba en direct pour les mosquées en Europe.

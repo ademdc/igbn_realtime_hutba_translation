@@ -157,7 +157,7 @@ tr:
       back: Genel bakışa dön
     signup:
       title: Caminizi kaydedin
-      lead: Birkaç dakikada hazır. 60 gün ücretsiz, sonra siz karar verirsiniz.
+      lead: Birkaç dakikada hazır. 30 gün ücretsiz, sonra siz karar verirsiniz.
       facts:
       - Kredi kartı gerekmez
       - Cemaatinize özel adres
@@ -274,6 +274,7 @@ tr:
       sq: Arnavutça
       tr: Türkçe
       ar: Arapça
+      ur: Urduca
       de: Almanca
       en: İngilizce
       fr: Fransızca

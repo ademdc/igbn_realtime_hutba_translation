@@ -1,7 +1,7 @@
 class Account < ApplicationRecord
   RESERVED_SUBDOMAINS = %w[www admin app api mail cable assets static help support status blog].freeze
   STATUSES = %w[trialing active suspended].freeze
-  TRIAL_LENGTH = 60.days
+  TRIAL_LENGTH = 30.days
   INCLUDED_LANGUAGES = 3
   BASE_PRICE_CENTS = 2000            # per month, billed yearly
   EXTRA_LANGUAGE_PRICE_CENTS = 500   # per extra language per month

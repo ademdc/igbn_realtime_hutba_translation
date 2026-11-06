@@ -157,7 +157,7 @@ nl:
       back: Terug naar overzicht
     signup:
       title: Uw moskee aanmelden
-      lead: In een paar minuten klaar. 60 dagen gratis, daarna beslist u.
+      lead: In een paar minuten klaar. 30 dagen gratis, daarna beslist u.
       facts:
       - Geen creditcard nodig
       - Een eigen adres voor uw gemeenschap
@@ -274,6 +274,7 @@ nl:
       sq: Albanees
       tr: Turks
       ar: Arabisch
+      ur: Urdu
       de: Duits
       en: Engels
       fr: Frans
