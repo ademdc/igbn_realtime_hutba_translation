@@ -1,0 +1,107 @@
+# Flyer text per language. "source" is the language the imam speaks in the example;
+# the phone always shows the German translation. url: where the QR code leads.
+tr:
+  dir: ltr
+  url: https://hutba.app/tr
+  headline: Cuma hutbesini her kuşak anlasın.
+  lead: İmam her zamanki gibi konuşur. Cemaatiniz hutbeyi telefonundan canlı olarak okur – Almanca veya başka bir dilde. Uygulama yok, kayıt yok.
+  problem: Almanya'da büyüyen birçok genç hutbeyi ancak yarım anlıyor. Hutba ile hiçbir mesaj kaybolmaz.
+  live: canlı
+  source_label: İmam, Türkçe
+  source_text: Aziz kardeşlerim, Allah Kur'an'da bizi anne babamıza merhametli olmaya çağırıyor.
+  phone_label: Telefonda, Almanca
+  steps:
+    - [İmam yayını başlatır, Minberde bir telefon yeterli.]
+    - [Saniyeler içinde tercüme, "Cümle cümle, en fazla üç dile."]
+    - [Okutun ve takip edin, Girişte bir QR afişi. Her telefonda çalışır.]
+  free_title: Ücretsiz
+  free_text: Ayda 60 dakika, 1 dil
+  full_title: Ayda 20 €
+  full_text: 3 dil, haftada 3 saate kadar (yıllık ödeme)
+  trial: Tüm özellikleri 30 gün ücretsiz deneyin.
+  cta: 10 dakikada kurulum
+  scan: Kaydolmak için okutun
+sq:
+  dir: ltr
+  url: https://hutba.app/de
+  headline: Hutbja e xhumasë, e kuptueshme për çdo brez.
+  lead: Imami flet si gjithmonë. Xhemati juaj e lexon hutben drejtpërdrejt në telefon – në gjermanisht ose në një gjuhë tjetër. Pa aplikacion, pa regjistrim.
+  problem: Shumë të rinj që janë rritur në Gjermani e kuptojnë hutben vetëm përgjysmë. Me Hutba asnjë mesazh nuk humbet.
+  live: drejtpërdrejt
+  source_label: Imami, në shqip
+  source_text: Të dashur vëllezër dhe motra, Allahu në Kuran na thërret të jemi të mëshirshëm ndaj prindërve.
+  phone_label: Në telefon, në gjermanisht
+  steps:
+    - [Imami nis transmetimin, Mjafton një telefon te minberi.]
+    - [Përkthim brenda pak sekondash, "Fjali pas fjalie, deri në tri gjuhë."]
+    - [Skanoni dhe lexoni, Një poster me kod QR te hyrja. Funksionon në çdo telefon.]
+  free_title: Falas
+  free_text: 60 minuta në muaj, 1 gjuhë
+  full_title: 20 € në muaj
+  full_text: 3 gjuhë, deri në 3 orë në javë (pagesë vjetore)
+  trial: Provoni të gjitha funksionet falas për 30 ditë.
+  cta: Gati për 10 minuta
+  scan: Skanoni për t'u regjistruar
+ar:
+  dir: rtl
+  url: https://hutba.app/de
+  headline: خطبة الجمعة مفهومة لكل الأجيال.
+  lead: يتحدث الإمام كعادته، ويقرأ المصلّون الخطبة مباشرة على هواتفهم – بالألمانية أو بلغة أخرى. دون تطبيق ودون تسجيل.
+  problem: كثير من الشباب الذين نشأوا في ألمانيا لا يفهمون الخطبة إلا جزئيًا. مع Hutba لا تضيع أي رسالة.
+  live: مباشر
+  source_label: الإمام، بالعربية
+  source_text: أيها الإخوة والأخوات الكرام، يدعونا الله في القرآن إلى الرحمة بالوالدين.
+  phone_label: على الهاتف، بالألمانية
+  steps:
+    - [الإمام يبدأ البث, يكفي هاتف واحد عند المنبر.]
+    - [ترجمة خلال ثوانٍ, "جملةً بجملة، إلى ثلاث لغات."]
+    - [امسح الرمز وتابع, ملصق برمز QR عند المدخل. يعمل على كل هاتف.]
+  free_title: مجانًا
+  free_text: 60 دقيقة شهريًا، لغة واحدة
+  full_title: 20 € شهريًا
+  full_text: 3 لغات، حتى 3 ساعات أسبوعيًا (دفع سنوي)
+  trial: جرّب جميع الميزات مجانًا لمدة 30 يومًا.
+  cta: جاهز خلال 10 دقائق
+  scan: امسح الرمز للتسجيل
+ur:
+  dir: rtl
+  url: https://hutba.app/de
+  headline: جمعہ کا خطبہ، ہر نسل کی سمجھ میں۔
+  lead: امام صاحب حسبِ معمول خطبہ دیتے ہیں، اور نمازی اپنے فون پر خطبہ براہِ راست پڑھتے ہیں – جرمن یا کسی اور زبان میں۔ نہ کوئی ایپ، نہ رجسٹریشن۔
+  problem: جرمنی میں پلے بڑھے بہت سے نوجوان خطبہ آدھا ہی سمجھ پاتے ہیں۔ Hutba کے ساتھ کوئی پیغام ضائع نہیں ہوتا۔
+  live: براہِ راست
+  source_label: امام، اردو میں
+  source_text: عزیز بھائیو اور بہنو، اللہ قرآن میں ہمیں والدین کے ساتھ رحم کرنے کی دعوت دیتا ہے۔
+  phone_label: فون پر، جرمن میں
+  steps:
+    - [امام نشریات شروع کرتے ہیں, منبر پر ایک فون کافی ہے۔]
+    - [چند سیکنڈ میں ترجمہ, "جملہ بہ جملہ، تین زبانوں تک۔"]
+    - [اسکین کریں اور پڑھیں, داخلی دروازے پر QR کوڈ والا پوسٹر۔ ہر فون پر چلتا ہے۔]
+  free_title: مفت
+  free_text: ماہانہ 60 منٹ، ایک زبان
+  full_title: ماہانہ 20 €
+  full_text: 3 زبانیں، ہفتے میں 3 گھنٹے تک (سالانہ ادائیگی)
+  trial: تمام سہولیات 30 دن مفت آزمائیں۔
+  cta: 10 منٹ میں تیار
+  scan: رجسٹر کرنے کے لیے اسکین کریں
+de:
+  dir: ltr
+  url: https://hutba.app/de
+  headline: Die Freitagspredigt, für jede Generation verständlich.
+  lead: Der Imam spricht wie gewohnt. Ihre Gemeinde liest die Hutba live auf dem Handy mit – auf Deutsch oder in einer anderen Sprache. Ohne App, ohne Anmeldung.
+  problem: Viele junge Menschen, die in Deutschland aufgewachsen sind, verstehen die Hutba nur halb. Mit Hutba geht keine Botschaft verloren.
+  live: live
+  source_label: Imam, auf Bosnisch
+  source_text: Draga braćo i sestre, Allah nas u Kur'anu poziva na milost prema roditeljima.
+  phone_label: Auf dem Handy, auf Deutsch
+  steps:
+    - [Der Imam startet die Übertragung, Ein Handy am Minbar genügt.]
+    - [In Sekunden übersetzt, "Satz für Satz, in bis zu drei Sprachen."]
+    - [Scannen und mitlesen, Ein QR-Plakat am Eingang. Funktioniert auf jedem Handy.]
+  free_title: Kostenlos
+  free_text: 60 Minuten im Monat, 1 Sprache
+  full_title: 20 € im Monat
+  full_text: 3 Sprachen, bis zu 3 Stunden pro Woche (jährliche Zahlung)
+  trial: Alle Funktionen 30 Tage kostenlos testen.
+  cta: In 10 Minuten eingerichtet
+  scan: Scannen und registrieren

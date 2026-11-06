@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="<%= lang %>" dir="<%= c["dir"] %>">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: Bricolage; font-weight: 500 800; src: url("<%= fonts %>/bricolage-latin.woff2"); }
+  @font-face { font-family: Bricolage; font-weight: 500 800; src: url("<%= fonts %>/bricolage-latin-ext.woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: Atkinson; font-weight: 400; src: url("<%= fonts %>/atkinson-400-latin.woff2"); }
+  @font-face { font-family: Atkinson; font-weight: 400; src: url("<%= fonts %>/atkinson-400-latin-ext.woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
+  @font-face { font-family: Atkinson; font-weight: 700; src: url("<%= fonts %>/atkinson-700-latin.woff2"); }
+  @font-face { font-family: Atkinson; font-weight: 700; src: url("<%= fonts %>/atkinson-700-latin-ext.woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
+
+  @page { size: A4; margin: 0; }
+  :root {
+    --plaster: #f4f6f3; --paper: #fff; --ink: #12302d; --ink-soft: #3f5754;
+    --teal: #23716b; --mist: #dde7e3; --mist-strong: #b9cbc5; --saffron: #e8a23a;
+    --body: Atkinson, sans-serif; --display: Bricolage, Atkinson, sans-serif;
+  }
+  /* Arabic script: system Naskh for Arabic, Nastaliq for Urdu; Latin bits keep the brand faces */
+  :root[lang="ar"] { --body: Atkinson, "Geeza Pro", sans-serif; --display: Bricolage, "Geeza Pro", sans-serif; }
+  :root[lang="ur"] { --body: Atkinson, "Noto Nastaliq Urdu", sans-serif; --display: Bricolage, "Noto Nastaliq Urdu", sans-serif; }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 210mm; height: 297mm; }
+  body {
+    font-family: var(--body); color: var(--ink); background: var(--plaster);
+    padding: 16mm 16mm 12mm; display: flex; flex-direction: column; font-size: 11.5pt; line-height: 1.5;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  /* Nastaliq needs tall lines; everything else on the Urdu flyer is a touch smaller to fit */
+  [lang="ur"] body { line-height: 1.8; font-size: 10.5pt; }
+  [lang="ur"] .lead { font-size: 12pt; }
+  [lang="ur"] .demo { margin-top: 6mm; padding: 5mm 8mm; }
+  [lang="ur"] .steps { margin-top: 6mm; }
+  [lang="ur"] .steps p, [lang="ur"] .plan p { font-size: 9.5pt; }
+  [lang="ur"] .qr strong { line-height: 1.7; font-size: 9.5pt; }
+  [lang="ur"] .qr svg { width: 30mm; height: 30mm; }
+  [lang="ur"] .trial { font-size: 11pt; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .mark { font-family: Bricolage; font-weight: 800; font-size: 20pt; letter-spacing: -0.02em; display: flex; align-items: center; gap: 2.5mm; direction: ltr; }
+  .dot { width: 4mm; height: 4mm; border-radius: 50%; background: var(--saffron); }
+  .site { font-family: Atkinson; font-weight: 700; color: var(--ink-soft); direction: ltr; }
+
+  h1 { font-family: var(--display); font-weight: 800; font-size: 34pt; line-height: 1.05; letter-spacing: -0.03em; margin-top: 11mm; max-width: 150mm; }
+  [lang="ar"] h1, [lang="ur"] h1 { letter-spacing: 0; line-height: 1.5; font-size: 30pt; }
+  [lang="ur"] h1 { line-height: 1.7; font-size: 24pt; margin-top: 8mm; }
+  [lang="sq"] h1 { font-size: 31pt; }
+  .lead { font-size: 13.5pt; margin-top: 5mm; max-width: 155mm; color: var(--ink); }
+  .problem { margin-top: 3mm; max-width: 155mm; color: var(--ink-soft); }
+
+  /* The listener's phone, as on the website demo */
+  .demo { margin-top: 8mm; background: var(--ink); color: var(--plaster); border-radius: 5mm; padding: 7mm 8mm; }
+  .status { display: flex; align-items: center; gap: 3mm; font-size: 10pt; color: var(--mist-strong); }
+  .live { display: inline-flex; align-items: center; gap: 1.5mm; padding: 0.4mm 2.5mm; border-radius: 99px; background: rgb(232 162 58 / .18); color: var(--saffron); font-weight: 700; }
+  .live::before { content: ""; width: 2mm; height: 2mm; border-radius: 50%; background: var(--saffron); }
+  .original { margin-top: 2.5mm; color: var(--mist-strong); font-size: 12pt; }
+  [lang="tr"] .original, [lang="sq"] .original, [lang="de"] .original { font-style: italic; }
+  .reading { margin-top: 5mm; padding-top: 5mm; border-top: 1px solid rgb(221 231 227 / .2); }
+  .reading .label { font-size: 10pt; color: var(--mist-strong); }
+  .translation { direction: ltr; text-align: left; font-family: Atkinson; font-weight: 700; font-size: 17pt; line-height: 1.45; margin-top: 1.5mm; }
+  .translation span { text-decoration: underline 0.8mm var(--saffron); text-underline-offset: 1.6mm; }
+
+  .steps { list-style: none; padding: 0; margin-top: 9mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; counter-reset: step; }
+  .steps li { counter-increment: step; border-top: 0.8mm solid var(--ink); padding-top: 3mm; }
+  .steps li::before { content: counter(step); font-family: Bricolage; font-weight: 800; font-size: 16pt; color: var(--teal); display: block; line-height: 1.2; }
+  .steps strong { display: block; font-size: 12pt; line-height: 1.3; }
+  [lang="ur"] .steps strong { line-height: 1.9; }
+  .steps p { color: var(--ink-soft); font-size: 10.5pt; margin-top: 1mm; }
+
+  .bottom { margin-top: auto; padding-top: 7mm; display: grid; grid-template-columns: 1fr 1fr 44mm; gap: 5mm; align-items: stretch; }
+  .plan { background: var(--paper); border-radius: 4mm; padding: 5mm; }
+  .plan--full { background: var(--ink); color: var(--plaster); }
+  .plan h2 { font-family: var(--display); font-weight: 800; font-size: 17pt; line-height: 1.2; }
+  [lang="ur"] .plan h2 { line-height: 1.8; font-size: 15pt; }
+  .plan p { margin-top: 1.5mm; font-size: 10.5pt; color: var(--ink-soft); }
+  .plan--full p { color: var(--mist-strong); }
+  .trial { grid-column: 1 / 3; font-weight: 700; color: var(--teal); font-size: 12pt; }
+  .qr { grid-row: 1 / 3; grid-column: 3; background: var(--paper); border-radius: 4mm; padding: 4mm; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+  .qr svg { width: 34mm; height: 34mm; margin: 0 auto; display: block; }
+  .qr strong { display: block; margin-top: 2mm; font-size: 10.5pt; line-height: 1.3; }
+  .qr span { display: block; font-size: 9.5pt; color: var(--ink-soft); }
+
+  .foot { margin-top: 6mm; display: flex; justify-content: space-between; font-size: 10pt; color: var(--ink-soft); }
+  .foot b { color: var(--ink); direction: ltr; unicode-bidi: isolate; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="mark"><span class="dot"></span>hutba</div>
+    <div class="site">hutba.app</div>
+  </div>
+
+  <h1><%= h c["headline"] %></h1>
+  <p class="lead"><%= h c["lead"] %></p>
+  <p class="problem"><%= h c["problem"] %></p>
+
+  <div class="demo">
+    <p class="status"><span class="live"><%= h c["live"] %></span><span><%= h c["source_label"] %></span></p>
+    <p class="original"><%= h c["source_text"] %></p>
+    <div class="reading">
+      <p class="label"><%= h c["phone_label"] %></p>
+      <p class="translation" lang="de"><%= german.split(" ").map { |w| "<span>#{h w}</span>" }.join(" ") %></p>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <% c["steps"].each do |title, text| %>
+      <li><strong><%= h title %></strong><p><%= h text %></p></li>
+    <% end %>
+  </ol>
+
+  <div class="bottom">
+    <div class="plan"><h2><%= h c["free_title"] %></h2><p><%= h c["free_text"] %></p></div>
+    <div class="plan plan--full"><h2><%= h c["full_title"] %></h2><p><%= h c["full_text"] %></p></div>
+    <div class="qr"><%= qr %><strong><%= h c["scan"] %></strong><span><%= h c["cta"] %></span></div>
+    <p class="trial"><%= h c["trial"] %></p>
+  </div>
+
+  <div class="foot"><b>hutba.app</b><b>hello@hutba.app</b></div>
+</body>
+</html>

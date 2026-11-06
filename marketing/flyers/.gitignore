@@ -1,0 +1,3 @@
+# Intermediate files; the PDFs are kept
+out/*.html
+out/*.png
