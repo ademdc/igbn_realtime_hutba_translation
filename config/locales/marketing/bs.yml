@@ -18,7 +18,7 @@ bs:
     hero:
       title: Džuma-hutba, razumljiva svakoj generaciji.
       lead: Imam govori kao i uvijek. Džemat čita hutbu uživo na mobitelu – na njemačkom, engleskom, holandskom i drugim jezicima.
-      cta: 30 dana besplatno
+      cta: Isprobajte besplatno
       note: Bez kreditne kartice. Postavljanje za 10 minuta.
     demo:
       label: Pregled uživo
@@ -62,7 +62,7 @@ bs:
       - Vlastita adresa, npr. vas-dzemat.hutba.app
       - QR plakati za printanje
       addon: 'Dodatni jezik: +5 € mjesečno'
-      cta: 30 dana besplatno
+      cta: Isprobajte besplatno
       note: 'Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate.'
       addon_domain: 'Vlastita domena: +5 € mjesečno'
       free:
