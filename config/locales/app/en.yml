@@ -61,8 +61,9 @@ en:
         title: Plan
         suspended: Paused
         suspended_note: Please contact us.
-        trial_over: Trial ended
-        trial_over_note: Broadcasting is paused until payment is received.
+        free: "Free plan"
+        free_note: "%{minutes} minutes a month, 1 language."
+        upgrade: "Upgrade"
         trial_days:
           one: 1 trial day left
           few: "%{count} trial days left"
@@ -75,8 +76,10 @@ en:
         subscribe: Choose plan
       usage:
         title: Broadcasting this week
+        title_month: "Broadcasting this month"
         minutes: "%{used} of %{limit} min"
         reached: Weekly limit reached. Available again from %{date}.
+        reached_month: "Monthly limit reached. Available again from %{date}."
         resets: Resets on %{date}.
       week:
         title: This week
@@ -245,6 +248,11 @@ en:
         few: "%{count} minutes left this week"
         many: "%{count} minutes left this week"
         other: "%{count} minutes left this week"
+      minutes_left_month:
+        one: "%{count} minute left this month"
+        few: "%{count} minutes left this month"
+        many: "%{count} minutes left this month"
+        other: "%{count} minutes left this month"
       listeners: Listening now
       hears: What Hutba hears
       help_title: How it works
@@ -258,7 +266,7 @@ en:
         live: You're live. Speak as usual.
         stopped: Broadcast ended.
         rejected: Can't broadcast. Please log in again.
-        weekly_limit: The weekly limit has been reached.
+        limit_reached: "The broadcasting limit has been reached."
         unavailable: Broadcasting is paused for this mosque. Please contact the administrators.
         microphone_error: No access to the microphone.
         no_listeners: Nobody connected yet.
@@ -308,7 +316,7 @@ en:
           many: Your Hutba trial ends in %{count} days
           other: Your Hutba trial ends in %{count} days
           zero: Your Hutba trial ends today
-        body: the free trial for %{account} ends on %{date}. To keep Friday's broadcast running, choose the yearly plan now.
+        body: "the free trial for %{account} ends on %{date}. Choose the yearly plan to keep 3 languages and up to 3 hours a week. Otherwise Hutba continues on the free plan with 80 minutes a month and 1 language."
       renewal:
         subject:
           one: Hutba for %{account} expires tomorrow
@@ -316,7 +324,7 @@ en:
           many: Hutba for %{account} expires in %{count} days
           other: Hutba for %{account} expires in %{count} days
           zero: Hutba for %{account} expires today
-        body: the paid year for %{account} ends on %{date}. Renew now so broadcasting continues without a break.
+        body: "the paid year for %{account} ends on %{date}. Renew now to keep all your languages. Otherwise Hutba continues on the free plan with 80 minutes a month and 1 language."
       action: Pay now
       price: 'Yearly price: %{price}'
     custom_domain_dns:
@@ -354,7 +362,9 @@ en:
         account:
           attributes:
             languages:
-              too_many: Your plan includes %{count} languages. You can add more.
+              too_many:
+                one: "Your plan includes 1 language. You can add more."
+                other: "Your plan includes %{count} languages. You can add more."
   activemodel:
     attributes:
       signup:

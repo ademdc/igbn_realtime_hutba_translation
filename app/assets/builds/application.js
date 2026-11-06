@@ -5139,7 +5139,7 @@
             },
             received: (data) => {
               if (data.error === "streaming_unavailable") {
-                this.blockedMessage = data.weekly_limit_reached ? this.messages.weekly_limit : this.messages.unavailable;
+                this.blockedMessage = data.limit_reached ? this.messages.limit_reached : this.messages.unavailable;
                 return;
               }
               if (data.original) {

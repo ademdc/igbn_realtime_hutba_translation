@@ -149,10 +149,11 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_equal (2000 + 500) * 12, accounts(:demo).payments.sole.amount_cents
   end
 
-  test "expired paid year blocks streaming" do
+  test "expired paid year falls back to the free plan" do
     account = accounts(:demo)
     account.update!(status: "active", paid_until: 1.day.ago)
     assert account.payment_due?
-    assert_not account.can_stream?
+    assert account.free_plan?
+    assert_equal Account::FREE_LANGUAGES, account.language_limit
   end
 end

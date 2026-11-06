@@ -63,7 +63,7 @@ de:
       - QR-Code-Plakate zum Ausdrucken
       addon: 'Weitere Sprache: +5 € pro Monat'
       cta: 30 Tage kostenlos testen
-      note: Nach dem Test entscheiden Sie. Keine automatische Verlängerung ohne Zahlung.
+      note: 'Nach dem Test geht es kostenlos weiter: 80 Minuten im Monat, 1 Sprache. Keine automatische Verlängerung ohne Zahlung.'
       addon_domain: 'Eigene Domain: +5 € pro Monat'
     faq:
       title: Häufige Fragen
@@ -81,7 +81,7 @@ de:
       - q: Können wir unsere eigene Domain verwenden?
         a: Ja, für 5 € pro Monat. Statt ihr-dzemat.hutba.app öffnen Zuhörer dann z. B. hutba.ihre-moschee.de. Sie buchen die Domain in der Abrechnung, legen bei Ihrem Domain-Anbieter einen CNAME-Eintrag an, und wir kümmern uns um das Sicherheitszertifikat.
       - q: Was passiert nach den 30 Tagen?
-        a: Sie erhalten rechtzeitig eine Erinnerung. Zahlen Sie, läuft alles weiter. Zahlen Sie nicht, wird die Übertragung pausiert – sonst passiert nichts.
+        a: 'Sie erhalten rechtzeitig eine Erinnerung. Zahlen Sie, läuft alles weiter. Zahlen Sie nicht, wechselt Ihre Moschee in den kostenlosen Tarif: 80 Minuten Übertragung im Monat in einer Sprache.'
     blog:
       title: 'Blog'
       lead: 'Ratgeber für Moscheegemeinden: wie die Hutba alle Generationen erreicht, Live-Übersetzung in der Praxis und Neuigkeiten von Hutba.'

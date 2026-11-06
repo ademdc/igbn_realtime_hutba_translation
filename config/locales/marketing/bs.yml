@@ -63,7 +63,7 @@ bs:
       - QR plakati za printanje
       addon: 'Dodatni jezik: +5 € mjesečno'
       cta: 30 dana besplatno
-      note: Nakon probnog perioda vi odlučujete. Ništa se ne produžava bez uplate.
+      note: 'Nakon probnog perioda nastavljate besplatno: 80 minuta mjesečno, 1 jezik. Ništa se ne produžava bez uplate.'
       addon_domain: 'Vlastita domena: +5 € mjesečno'
     faq:
       title: Česta pitanja
@@ -81,7 +81,7 @@ bs:
       - q: Možemo li koristiti vlastitu domenu?
         a: Da, za 5 € mjesečno. Slušaoci tada otvaraju npr. hutba.vasa-dzamija.com umjesto vas-dzemat.hutba.app. Domenu zakupite pod Plaćanje, dodate CNAME zapis kod pružaoca domene, a mi se pobrinemo za sigurnosni certifikat.
       - q: Šta se dešava nakon 30 dana?
-        a: Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, prenos se pauzira – ništa više.
+        a: 'Na vrijeme dobijete podsjetnik. Ako platite, sve radi dalje. Ako ne platite, džemat prelazi na besplatni paket: 80 minuta prenosa mjesečno na jednom jeziku.'
     blog:
       title: 'Blog'
       lead: 'Savjeti za džemate: kako hutba dopire do svih generacija, prevod uživo u praksi i novosti iz Hutbe.'

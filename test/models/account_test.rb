@@ -78,16 +78,56 @@ class AccountTest < ActiveSupport::TestCase
     assert_in_delta 30.days.from_now, account.trial_ends_at, 5.seconds
   end
 
-  test "cannot stream after trial or weekly limit" do
+  test "cannot stream past the weekly limit" do
     account = accounts(:demo)
     assert account.can_stream?
 
     account.speaker_sessions.create!(session_id: "a", started_at: 1.hour.ago, ended_at: Time.current, duration_seconds: 180 * 60)
-    assert account.weekly_limit_reached?
+    assert account.minutes_limit_reached?
     assert_not account.can_stream?
+  end
 
-    account.speaker_sessions.delete_all
+  test "after the trial a mosque keeps broadcasting on the free plan" do
+    account = accounts(:demo)
+    account.update!(languages: %w[de nl fr])
     account.update!(trial_ends_at: 1.day.ago)
+
+    assert account.free_plan?
+    assert account.can_stream?
+    assert_equal Account::FREE_MONTHLY_MINUTES, account.minutes_limit
+    assert_equal %w[de], account.active_languages
+    assert account.offers_language?("de")
+    assert_not account.offers_language?("nl")
+    # The chosen languages stay, so paying brings them back
+    assert_equal %w[de nl fr], account.reload.languages
+  end
+
+  test "free plan minutes count per calendar month" do
+    account = accounts(:demo)
+    account.update!(trial_ends_at: 1.day.ago)
+
+    travel_to Time.current.beginning_of_month + 10.days do
+      account.speaker_sessions.create!(session_id: "last-month", started_at: 15.days.ago, ended_at: 15.days.ago, duration_seconds: 80 * 60)
+      assert account.can_stream?
+
+      account.speaker_sessions.create!(session_id: "this-month", started_at: 3.days.ago, ended_at: 3.days.ago, duration_seconds: 80 * 60)
+      assert account.minutes_limit_reached?
+      assert_not account.can_stream?
+      assert_equal (Time.current.beginning_of_month + 1.month).to_date, account.minutes_reset_on
+    end
+  end
+
+  test "an account on the free plan can still be saved with its old languages" do
+    account = accounts(:demo)
+    account.update!(languages: %w[de nl fr])
+    account.update!(trial_ends_at: 1.day.ago)
+    assert account.update(name: "Renamed")
+    assert_not account.update(languages: %w[de nl])
+  end
+
+  test "suspended accounts cannot stream" do
+    account = accounts(:demo)
+    account.update!(status: "suspended")
     assert_not account.can_stream?
   end
 

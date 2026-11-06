@@ -63,7 +63,7 @@ nl:
       - QR-code posters om te printen
       addon: 'Extra taal: + € 5 per maand'
       cta: 30 dagen gratis proberen
-      note: Na de proefperiode beslist u zelf. Niets wordt verlengd zonder betaling.
+      note: 'Na de proefperiode gaat u gratis verder: 80 minuten per maand, 1 taal. Niets wordt verlengd zonder betaling.'
       addon_domain: 'Eigen domein: + € 5 per maand'
     faq:
       title: Veelgestelde vragen
@@ -81,7 +81,7 @@ nl:
       - q: Kunnen we ons eigen domein gebruiken?
         a: Ja, voor € 5 per maand. Luisteraars openen dan bijv. hutba.uw-moskee.nl in plaats van uw-moskee.hutba.app. U boekt het domein onder Betaling, voegt een CNAME-record toe bij uw domeinprovider en wij regelen het beveiligingscertificaat.
       - q: Wat gebeurt er na 30 dagen?
-        a: U krijgt op tijd een herinnering. Betaalt u, dan loopt alles door. Betaalt u niet, dan wordt het uitzenden gepauzeerd – verder niets.
+        a: 'U krijgt op tijd een herinnering. Betaalt u, dan loopt alles door. Betaalt u niet, dan gaat uw moskee over op het gratis abonnement: 80 minuten uitzenden per maand in één taal.'
     blog:
       title: 'Blog'
       lead: 'Tips voor moskeegemeenschappen: de khutba voor elke generatie begrijpelijk maken, live vertaling in de praktijk en nieuws van Hutba.'

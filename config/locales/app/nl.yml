@@ -61,8 +61,9 @@ nl:
         title: Abonnement
         suspended: Gepauzeerd
         suspended_note: Neem contact met ons op.
-        trial_over: Proefperiode voorbij
-        trial_over_note: Uitzenden is gepauzeerd tot de betaling binnen is.
+        free: "Gratis abonnement"
+        free_note: "%{minutes} minuten per maand, 1 taal."
+        upgrade: "Uitbreiden"
         trial_days:
           one: Nog 1 proefdag
           few: Nog %{count} proefdagen
@@ -75,8 +76,10 @@ nl:
         subscribe: Abonnement kiezen
       usage:
         title: Uitzenden deze week
+        title_month: "Uitzenden deze maand"
         minutes: "%{used} van %{limit} min"
         reached: Weeklimiet bereikt. Weer beschikbaar vanaf %{date}.
+        reached_month: "Maandlimiet bereikt. Weer beschikbaar vanaf %{date}."
         resets: Wordt op %{date} gereset.
       week:
         title: Deze week
@@ -245,6 +248,11 @@ nl:
         few: Deze week nog %{count} minuten
         many: Deze week nog %{count} minuten
         other: Deze week nog %{count} minuten
+      minutes_left_month:
+        one: "Deze maand nog %{count} minuut"
+        few: "Deze maand nog %{count} minuten"
+        many: "Deze maand nog %{count} minuten"
+        other: "Deze maand nog %{count} minuten"
       listeners: Luisteraars nu
       hears: Dit hoort Hutba nu
       help_title: Zo werkt het
@@ -258,7 +266,7 @@ nl:
         live: U bent live. Spreek zoals altijd.
         stopped: Uitzending beëindigd.
         rejected: Uitzenden niet mogelijk. Log opnieuw in.
-        weekly_limit: De weeklimiet is bereikt.
+        limit_reached: "De minutenlimiet is bereikt."
         unavailable: Uitzenden is gepauzeerd voor deze moskee. Neem contact op met het bestuur.
         microphone_error: Geen toegang tot de microfoon.
         no_listeners: Nog niemand verbonden.
@@ -308,7 +316,7 @@ nl:
           many: Uw proefperiode bij Hutba eindigt over %{count} dagen
           other: Uw proefperiode bij Hutba eindigt over %{count} dagen
           zero: Uw proefperiode bij Hutba eindigt vandaag
-        body: de gratis proefperiode voor %{account} eindigt op %{date}. Kies nu het jaarabonnement zodat de uitzending op vrijdag doorgaat.
+        body: "de gratis proefperiode voor %{account} eindigt op %{date}. Kies het jaarabonnement om 3 talen en tot 3 uur per week te houden. Anders gaat Hutba verder met het gratis abonnement: 80 minuten per maand, 1 taal."
       renewal:
         subject:
           one: Hutba voor %{account} verloopt morgen
@@ -316,7 +324,7 @@ nl:
           many: Hutba voor %{account} verloopt over %{count} dagen
           other: Hutba voor %{account} verloopt over %{count} dagen
           zero: Hutba voor %{account} verloopt vandaag
-        body: het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu zodat het uitzenden zonder onderbreking doorgaat.
+        body: "het betaalde jaar voor %{account} eindigt op %{date}. Verleng nu om al uw talen te houden. Anders gaat Hutba verder met het gratis abonnement: 80 minuten per maand, 1 taal."
       action: Nu betalen
       price: 'Jaarprijs: %{price}'
     custom_domain_dns:
@@ -354,7 +362,9 @@ nl:
         account:
           attributes:
             languages:
-              too_many: Uw abonnement omvat %{count} talen. U kunt er meer bijnemen.
+              too_many:
+                one: "Uw abonnement omvat 1 taal. U kunt er meer bijnemen."
+                other: "Uw abonnement omvat %{count} talen. U kunt er meer bijnemen."
   activemodel:
     attributes:
       signup:

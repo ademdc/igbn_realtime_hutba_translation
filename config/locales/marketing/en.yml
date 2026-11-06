@@ -63,7 +63,7 @@ en:
       - Printable QR code posters
       addon: 'Extra language: +€5 per month'
       cta: Try free for 30 days
-      note: You decide after the trial. Nothing renews without payment.
+      note: 'After the trial you can keep going for free: 80 minutes a month, 1 language. Nothing renews without payment.'
       addon_domain: 'Own domain: +€5 per month'
     faq:
       title: Frequently asked questions
@@ -81,7 +81,7 @@ en:
       - q: Can we use our own domain?
         a: Yes, for €5 per month. Listeners then open e.g. hutba.your-mosque.com instead of your-dzemat.hutba.app. You book the domain under Billing, add a CNAME record at your domain provider, and we take care of the security certificate.
       - q: What happens after 30 days?
-        a: You get a reminder in good time. If you pay, everything continues. If you don't, broadcasting pauses – nothing else happens.
+        a: 'You get a reminder in good time. If you pay, everything continues. If you don''t, your mosque moves to the free plan: 80 minutes of broadcasting a month in one language.'
     blog:
       title: 'Blog'
       lead: 'Guides for mosque communities: reaching every generation with the khutbah, live translation in practice and news from Hutba.'

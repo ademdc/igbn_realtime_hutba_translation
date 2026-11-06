@@ -15,6 +15,20 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_select "#tv a[href='http://demo.localhost/tv/nl']"
   end
 
+  test "after the trial the dashboard shows the free plan" do
+    accounts(:demo).update!(languages: %w[nl de])
+    accounts(:demo).update!(trial_ends_at: 1.day.ago)
+    get "/dashboard"
+    assert_response :success
+    assert_select "[role=meter][aria-valuemax=?]", Account::FREE_MONTHLY_MINUTES.to_s
+    assert_select "#plan-title + .stat__value", Regexp.union(I18n.available_locales.map { |locale| I18n.t("app.dashboard.plan.free", locale: locale) })
+    assert_select ".qr-item", 1
+
+    host! "demo.localhost"
+    get "/"
+    assert_response :success
+  end
+
   test "owner changes languages within the limit" do
     patch "/dashboard/account", params: { section: "languages", account: { languages: ["", "de", "nl", "fr"] } }
     assert_redirected_to "http://demo.localhost/dashboard#languages"

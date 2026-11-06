@@ -7,11 +7,11 @@ class DashboardPresenter
   end
 
   def minutes_used
-    @minutes_used ||= [account.weekly_minutes_used, account.weekly_minutes_limit].min
+    @minutes_used ||= [account.minutes_used, account.minutes_limit].min
   end
 
   def minutes_limit
-    account.weekly_minutes_limit
+    account.minutes_limit
   end
 
   def usage_percent
@@ -20,11 +20,11 @@ class DashboardPresenter
   end
 
   def limit_reached?
-    account.weekly_limit_reached?
+    account.minutes_limit_reached?
   end
 
   def resets_on
-    Date.current.next_week(:monday)
+    account.minutes_reset_on
   end
 
   def listeners_this_week
@@ -36,6 +36,6 @@ class DashboardPresenter
   end
 
   def languages_used
-    account.languages.size
+    account.active_languages.size
   end
 end

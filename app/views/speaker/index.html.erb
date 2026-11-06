@@ -13,7 +13,7 @@
   <div class="speaker__head">
     <div>
       <h1 class="page-title"><%= t("app.speaker.title") %></h1>
-      <p class="page-lead"><%= t("app.speaker.lead", source: t("app.source_languages.#{account.source_language}"), languages: account.languages.map { |code| Language.info(code)[:name] }.to_sentence(locale: I18n.locale)) %></p>
+      <p class="page-lead"><%= t("app.speaker.lead", source: t("app.source_languages.#{account.source_language}"), languages: account.active_languages.map { |code| Language.info(code)[:name] }.to_sentence(locale: I18n.locale)) %></p>
     </div>
     <% unless current_user %>
       <%= button_to t("app.nav.sign_out"), speaker_logout_path, method: :delete, class: "link-button" %>
@@ -40,11 +40,11 @@
         <p id="status" class="speaker__status" role="status" aria-live="polite"><%= t("app.speaker.idle_hint") %></p>
       <% else %>
         <p class="flash flash--alert">
-          <%= account.weekly_limit_reached? ? t("app.speaker.messages.weekly_limit") : t("app.speaker.messages.unavailable") %>
+          <%= account.minutes_limit_reached? ? t("app.speaker.messages.limit_reached") : t("app.speaker.messages.unavailable") %>
         </p>
       <% end %>
 
-      <p class="speaker__minutes muted"><%= t("app.speaker.minutes_left", count: account.weekly_minutes_left) %></p>
+      <p class="speaker__minutes muted"><%= t(account.free_plan? ? "app.speaker.minutes_left_month" : "app.speaker.minutes_left", count: account.minutes_left) %></p>
     </section>
 
     <section class="panel speaker__listeners" aria-labelledby="listeners-title">

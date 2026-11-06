@@ -61,8 +61,9 @@ bs:
         title: Paket
         suspended: Pauzirano
         suspended_note: Molimo kontaktirajte nas.
-        trial_over: Probni period završen
-        trial_over_note: Prenos je pauziran dok uplata ne stigne.
+        free: "Besplatni paket"
+        free_note: "%{minutes} minuta mjesečno, 1 jezik."
+        upgrade: "Proširite paket"
         trial_days:
           one: Još %{count} probni dan
           few: Još %{count} probna dana
@@ -75,8 +76,10 @@ bs:
         subscribe: Odaberi paket
       usage:
         title: Prenos ove sedmice
+        title_month: "Prenos ovog mjeseca"
         minutes: "%{used} od %{limit} min"
         reached: Sedmični limit dostignut. Ponovo dostupno od %{date}.
+        reached_month: "Mjesečni limit dostignut. Ponovo dostupno od %{date}."
         resets: Resetuje se %{date}.
       week:
         title: Ove sedmice
@@ -245,6 +248,11 @@ bs:
         few: Ove sedmice još %{count} minute
         many: Ove sedmice još %{count} minuta
         other: Ove sedmice još %{count} minuta
+      minutes_left_month:
+        one: "Ovog mjeseca još %{count} minuta"
+        few: "Ovog mjeseca još %{count} minute"
+        many: "Ovog mjeseca još %{count} minuta"
+        other: "Ovog mjeseca još %{count} minuta"
       listeners: Trenutno prati
       hears: Ovo Hutba trenutno čuje
       help_title: Kako radi
@@ -258,7 +266,7 @@ bs:
         live: Uživo ste. Govorite kao i obično.
         stopped: Prenos završen.
         rejected: Prenos nije moguć. Molimo prijavite se ponovo.
-        weekly_limit: Sedmični limit je dostignut.
+        limit_reached: "Limit minuta je dostignut."
         unavailable: Prenos je pauziran za ovaj džemat. Obratite se upravi.
         microphone_error: Nema pristupa mikrofonu.
         no_listeners: Još niko nije povezan.
@@ -308,7 +316,7 @@ bs:
           many: Probni period na Hutbi ističe za %{count} dana
           other: Probni period na Hutbi ističe za %{count} dana
           zero: Probni period na Hutbi ističe danas
-        body: besplatni probni period za %{account} ističe %{date}. Da bi prenos petkom nastavio raditi, odaberite godišnji paket.
+        body: "besplatni probni period za %{account} ističe %{date}. Odaberite godišnji paket da zadržite 3 jezika i do 3 sata sedmično. U suprotnom Hutba nastavlja u besplatnom paketu: 80 minuta mjesečno, 1 jezik."
       renewal:
         subject:
           one: Hutba za %{account} ističe za %{count} dan
@@ -316,7 +324,7 @@ bs:
           many: Hutba za %{account} ističe za %{count} dana
           other: Hutba za %{account} ističe za %{count} dana
           zero: Hutba za %{account} ističe danas
-        body: plaćena godina za %{account} ističe %{date}. Produžite sada da prenos radi bez prekida.
+        body: "plaćena godina za %{account} ističe %{date}. Produžite sada da zadržite sve jezike. U suprotnom Hutba nastavlja u besplatnom paketu: 80 minuta mjesečno, 1 jezik."
       action: Plati sada
       price: 'Godišnja cijena: %{price}'
     custom_domain_dns:
@@ -354,7 +362,11 @@ bs:
         account:
           attributes:
             languages:
-              too_many: Vaš paket uključuje %{count} jezika. Možete dokupiti više.
+              too_many:
+                one: "Vaš paket uključuje 1 jezik. Možete dokupiti više."
+                few: "Vaš paket uključuje %{count} jezika. Možete dokupiti više."
+                many: "Vaš paket uključuje %{count} jezika. Možete dokupiti više."
+                other: "Vaš paket uključuje %{count} jezika. Možete dokupiti više."
   activemodel:
     attributes:
       signup:

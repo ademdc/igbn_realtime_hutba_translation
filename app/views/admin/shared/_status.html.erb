@@ -1,2 +1,2 @@
-<% labels = { "trialing" => "Trial", "trial_expired" => "Trial expired", "active" => "Paying", "suspended" => "Suspended", "payment_due" => "Payment due" } %>
+<% labels = { "trialing" => "Trial", "trial_expired" => "Free (trial ended)", "active" => "Paying", "suspended" => "Suspended", "payment_due" => "Free (payment due)" } %>
 <span class="status status--<%= account.display_status %>"><span><%= labels.fetch(account.display_status) %></span></span>

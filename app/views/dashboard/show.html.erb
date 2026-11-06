@@ -17,15 +17,12 @@
 <div class="overview">
   <section class="panel stat" aria-labelledby="plan-title">
     <h2 class="stat__label" id="plan-title"><%= t("app.dashboard.plan.title") %></h2>
-    <% if @account.payment_due? %>
-      <p class="stat__value"><%= t("app.dashboard.plan.payment_due") %></p>
-      <p class="stat__note"><%= link_to t("app.dashboard.plan.pay_now"), billing_path %></p>
-    <% elsif @account.suspended? %>
+    <% if @account.suspended? %>
       <p class="stat__value"><%= t("app.dashboard.plan.suspended") %></p>
       <p class="stat__note"><%= t("app.dashboard.plan.suspended_note") %></p>
-    <% elsif @account.trial_expired? %>
-      <p class="stat__value"><%= t("app.dashboard.plan.trial_over") %></p>
-      <p class="stat__note"><%= t("app.dashboard.plan.trial_over_note") %> <%= link_to t("app.dashboard.plan.pay_now"), billing_path %></p>
+    <% elsif @account.free_plan? %>
+      <p class="stat__value"><%= t("app.dashboard.plan.free") %></p>
+      <p class="stat__note"><%= t("app.dashboard.plan.free_note", minutes: Account::FREE_MONTHLY_MINUTES) %> <%= link_to t("app.dashboard.plan.upgrade"), billing_path %></p>
     <% elsif @account.status == "trialing" %>
       <p class="stat__value"><%= t("app.dashboard.plan.trial_days", count: @account.trial_days_left) %></p>
       <p class="stat__note"><%= t("app.dashboard.plan.trial_until", date: l(@account.trial_ends_at.to_date, format: :long)) %></p>
@@ -39,7 +36,7 @@
   </section>
 
   <section class="panel stat" aria-labelledby="usage-title">
-    <h2 class="stat__label" id="usage-title"><%= t("app.dashboard.usage.title") %></h2>
+    <h2 class="stat__label" id="usage-title"><%= t(@account.free_plan? ? "app.dashboard.usage.title_month" : "app.dashboard.usage.title") %></h2>
     <p class="stat__value">
       <%= t("app.dashboard.usage.minutes", used: @dashboard.minutes_used, limit: @dashboard.minutes_limit) %>
     </p>
@@ -49,7 +46,7 @@
       <span class="meter__fill<%= " meter__fill--full" if @dashboard.limit_reached? %>" style="width: <%= @dashboard.usage_percent %>%"></span>
     </div>
     <% if @dashboard.limit_reached? %>
-      <p class="stat__note stat__note--alert"><span aria-hidden="true">⚠︎</span> <%= t("app.dashboard.usage.reached", date: l(@dashboard.resets_on, format: :long)) %></p>
+      <p class="stat__note stat__note--alert"><span aria-hidden="true">⚠︎</span> <%= t(@account.free_plan? ? "app.dashboard.usage.reached_month" : "app.dashboard.usage.reached", date: l(@dashboard.resets_on, format: :long)) %></p>
     <% else %>
       <p class="stat__note"><%= t("app.dashboard.usage.resets", date: l(@dashboard.resets_on, format: :long)) %></p>
     <% end %>
@@ -95,7 +92,7 @@
     </div>
     <p class="muted"><%= t("app.dashboard.qr.lead") %></p>
     <ul class="qr-list">
-      <% @account.languages.each do |code| %>
+      <% @account.active_languages.each do |code| %>
         <% url = @account.url("/#{code}") %>
         <li class="qr-item">
           <%= qr_code_svg(url, size: 132, label: t("app.dashboard.qr.alt", language: Language.info(code)[:name])) %>
@@ -120,7 +117,7 @@
     <p class="muted"><%= t("app.dashboard.tv.lead") %></p>
     <ul class="tv-links">
       <li><code><%= @account.host %>/tv</code> <span class="muted"><%= t("app.dashboard.tv.all_languages") %></span></li>
-      <% @account.languages.each do |code| %>
+      <% @account.active_languages.each do |code| %>
         <li>
           <%= link_to "#{@account.host}/tv/#{code}", @account.url("/tv/#{code}"), target: "_blank", rel: "noopener" %>
           <span class="muted"><%= Language.info(code)[:flag] %> <%= Language.info(code)[:name] %></span>

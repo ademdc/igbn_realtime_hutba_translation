@@ -61,8 +61,9 @@ fr:
         title: Formule
         suspended: En pause
         suspended_note: Veuillez nous contacter.
-        trial_over: Essai terminé
-        trial_over_note: La diffusion est en pause jusqu'à réception du paiement.
+        free: "Formule gratuite"
+        free_note: "%{minutes} minutes par mois, 1 langue."
+        upgrade: "Passer à la formule complète"
         trial_days:
           one: Encore 1 jour d'essai
           few: Encore %{count} jours d'essai
@@ -75,8 +76,10 @@ fr:
         subscribe: Choisir la formule
       usage:
         title: Diffusion cette semaine
+        title_month: "Diffusion ce mois-ci"
         minutes: "%{used} sur %{limit} min"
         reached: Limite hebdomadaire atteinte. De nouveau disponible le %{date}.
+        reached_month: "Limite mensuelle atteinte. De nouveau disponible à partir du %{date}."
         resets: Remise à zéro le %{date}.
       week:
         title: Cette semaine
@@ -245,6 +248,11 @@ fr:
         few: Encore %{count} minutes cette semaine
         many: Encore %{count} minutes cette semaine
         other: Encore %{count} minutes cette semaine
+      minutes_left_month:
+        one: "Encore %{count} minute ce mois-ci"
+        few: "Encore %{count} minutes ce mois-ci"
+        many: "Encore %{count} minutes ce mois-ci"
+        other: "Encore %{count} minutes ce mois-ci"
       listeners: Auditeurs en ce moment
       hears: Ce que Hutba entend
       help_title: Comment faire
@@ -258,7 +266,7 @@ fr:
         live: Vous êtes en direct. Parlez normalement.
         stopped: Diffusion terminée.
         rejected: Diffusion impossible. Veuillez vous reconnecter.
-        weekly_limit: La limite hebdomadaire est atteinte.
+        limit_reached: "La limite de minutes est atteinte."
         unavailable: La diffusion est en pause pour cette mosquée. Contactez l'administration.
         microphone_error: Pas d'accès au micro.
         no_listeners: Personne n'est encore connecté.
@@ -308,7 +316,7 @@ fr:
           many: Votre essai Hutba se termine dans %{count} jours
           other: Votre essai Hutba se termine dans %{count} jours
           zero: Votre essai Hutba se termine aujourd'hui
-        body: l'essai gratuit pour %{account} se termine le %{date}. Pour que la diffusion du vendredi continue, choisissez dès maintenant la formule annuelle.
+        body: "l'essai gratuit de %{account} se termine le %{date}. Choisissez la formule annuelle pour garder 3 langues et jusqu'à 3 heures par semaine. Sinon, Hutba continue avec la formule gratuite : 80 minutes par mois, 1 langue."
       renewal:
         subject:
           one: Hutba pour %{account} expire demain
@@ -316,7 +324,7 @@ fr:
           many: Hutba pour %{account} expire dans %{count} jours
           other: Hutba pour %{account} expire dans %{count} jours
           zero: Hutba pour %{account} expire aujourd'hui
-        body: l'année payée pour %{account} se termine le %{date}. Renouvelez maintenant pour que la diffusion continue sans interruption.
+        body: "l'année payée de %{account} se termine le %{date}. Renouvelez maintenant pour garder toutes vos langues. Sinon, Hutba continue avec la formule gratuite : 80 minutes par mois, 1 langue."
       action: Payer maintenant
       price: 'Prix annuel : %{price}'
     custom_domain_dns:
@@ -354,7 +362,9 @@ fr:
         account:
           attributes:
             languages:
-              too_many: Votre formule comprend %{count} langues. Vous pouvez en ajouter.
+              too_many:
+                one: "Votre formule comprend 1 langue. Vous pouvez en ajouter."
+                other: "Votre formule comprend %{count} langues. Vous pouvez en ajouter."
   activemodel:
     attributes:
       signup:

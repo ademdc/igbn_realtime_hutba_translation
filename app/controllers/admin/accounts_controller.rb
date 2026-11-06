@@ -20,7 +20,7 @@ module Admin
     def show
       @users = @account.users.order(:created_at)
       @sessions = @account.speaker_sessions.recent.limit(15)
-      @week_minutes = @account.weekly_minutes_used
+      @week_minutes = @account.minutes_used
       @total_sessions = @account.speaker_sessions.count
       @total_listeners = @account.listener_connections.count
       @listeners_by_language = @account.listener_connections.group(:language).count

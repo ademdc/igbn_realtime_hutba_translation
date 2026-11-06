@@ -61,8 +61,9 @@ tr:
         title: Paket
         suspended: Durduruldu
         suspended_note: Lütfen bizimle iletişime geçin.
-        trial_over: Deneme süresi bitti
-        trial_over_note: Ödeme alınana kadar yayın durduruldu.
+        free: "Ücretsiz paket"
+        free_note: "Ayda %{minutes} dakika, 1 dil."
+        upgrade: "Paketi yükseltin"
         trial_days:
           one: 1 deneme günü kaldı
           few: "%{count} deneme günü kaldı"
@@ -75,8 +76,10 @@ tr:
         subscribe: Paket seç
       usage:
         title: Bu haftaki yayın
+        title_month: "Bu ayki yayın"
         minutes: "%{limit} dakikanın %{used} dakikası"
         reached: Haftalık sınıra ulaşıldı. %{date} tarihinden itibaren tekrar kullanılabilir.
+        reached_month: "Aylık sınıra ulaşıldı. %{date} tarihinden itibaren tekrar kullanılabilir."
         resets: "%{date} tarihinde sıfırlanır."
       week:
         title: Bu hafta
@@ -245,6 +248,11 @@ tr:
         few: Bu hafta %{count} dakika kaldı
         many: Bu hafta %{count} dakika kaldı
         other: Bu hafta %{count} dakika kaldı
+      minutes_left_month:
+        one: "Bu ay %{count} dakika kaldı"
+        few: "Bu ay %{count} dakika kaldı"
+        many: "Bu ay %{count} dakika kaldı"
+        other: "Bu ay %{count} dakika kaldı"
       listeners: Şu an dinleyen
       hears: Hutba'nın duyduğu
       help_title: Nasıl çalışır
@@ -258,7 +266,7 @@ tr:
         live: Canlı yayındasınız. Her zamanki gibi konuşun.
         stopped: Yayın bitti.
         rejected: Yayın yapılamıyor. Lütfen tekrar giriş yapın.
-        weekly_limit: Haftalık sınıra ulaşıldı.
+        limit_reached: "Dakika sınırına ulaşıldı."
         unavailable: Bu cami için yayın durduruldu. Lütfen yönetimle iletişime geçin.
         microphone_error: Mikrofona erişim yok.
         no_listeners: Henüz kimse bağlı değil.
@@ -308,7 +316,7 @@ tr:
           many: Hutba deneme süreniz %{count} gün içinde bitiyor
           other: Hutba deneme süreniz %{count} gün içinde bitiyor
           zero: Hutba deneme süreniz bugün bitiyor
-        body: "%{account} için ücretsiz deneme süresi %{date} tarihinde bitiyor. Cuma yayınının devam etmesi için şimdi yıllık paketi seçin."
+        body: "%{account} için ücretsiz deneme süresi %{date} tarihinde sona eriyor. 3 dili ve haftada 3 saate kadar yayını korumak için yıllık paketi seçin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 80 dakika, 1 dil."
       renewal:
         subject:
           one: "%{account} için Hutba yarın sona eriyor"
@@ -316,7 +324,7 @@ tr:
           many: "%{account} için Hutba %{count} gün içinde sona eriyor"
           other: "%{account} için Hutba %{count} gün içinde sona eriyor"
           zero: "%{account} için Hutba bugün sona eriyor"
-        body: "%{account} için ödenen yıl %{date} tarihinde bitiyor. Yayının kesintisiz devam etmesi için şimdi uzatın."
+        body: "%{account} için ödenmiş yıl %{date} tarihinde sona eriyor. Tüm dillerinizi korumak için şimdi yenileyin. Aksi halde Hutba ücretsiz pakette devam eder: ayda 80 dakika, 1 dil."
       action: Şimdi öde
       price: 'Yıllık fiyat: %{price}'
     custom_domain_dns:
@@ -354,7 +362,9 @@ tr:
         account:
           attributes:
             languages:
-              too_many: Paketiniz %{count} dil içerir. Daha fazla ekleyebilirsiniz.
+              too_many:
+                one: "Paketiniz 1 dil içerir. Daha fazla ekleyebilirsiniz."
+                other: "Paketiniz %{count} dil içerir. Daha fazla ekleyebilirsiniz."
   activemodel:
     attributes:
       signup:

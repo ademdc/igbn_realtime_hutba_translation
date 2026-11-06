@@ -3,6 +3,9 @@ class Account < ApplicationRecord
   STATUSES = %w[trialing active suspended].freeze
   TRIAL_LENGTH = 30.days
   INCLUDED_LANGUAGES = 3
+  # Without a trial or a paid year, a mosque keeps broadcasting on the free plan
+  FREE_MONTHLY_MINUTES = 80
+  FREE_LANGUAGES = 1
   BASE_PRICE_CENTS = 2000            # per month, billed yearly
   EXTRA_LANGUAGE_PRICE_CENTS = 500   # per extra language per month
   CUSTOM_DOMAIN_PRICE_CENTS = 500    # own domain (e.g. hutba.mosque-website.com) per month
@@ -44,7 +47,7 @@ class Account < ApplicationRecord
   validates :speaker_pin, format: { with: /\A\d{4,8}\z/ }, allow_nil: true
   validates :country, inclusion: { in: COUNTRIES }, allow_nil: true
   validate :languages_supported
-  validate :languages_within_limit
+  validate :languages_within_limit, if: :languages_changed?
 
   before_validation :set_trial_end, on: :create
 
@@ -99,12 +102,23 @@ class Account < ApplicationRecord
     AppDomain.url(host, path)
   end
 
+  # Trial over or paid year ended without renewal
+  def free_plan?
+    trial_expired? || payment_due?
+  end
+
   def offers_language?(code)
-    languages.include?(code)
+    active_languages.include?(code)
+  end
+
+  # The languages listeners can pick right now. A mosque that drops to the free plan
+  # keeps its chosen languages, but only the first one is offered.
+  def active_languages
+    languages.first(language_limit)
   end
 
   def language_limit
-    INCLUDED_LANGUAGES + extra_languages
+    free_plan? ? FREE_LANGUAGES : INCLUDED_LANGUAGES + extra_languages
   end
 
   # Listener languages that suit a mosque in this country
@@ -127,8 +141,21 @@ class Account < ApplicationRecord
     [(trial_ends_at.to_date - Date.current).to_i, 0].max
   end
 
-  def weekly_minutes_left
-    [weekly_minutes_limit - weekly_minutes_used, 0].max
+  # Broadcasting minutes: per month on the free plan, per week otherwise
+  def minutes_limit
+    free_plan? ? FREE_MONTHLY_MINUTES : weekly_minutes_limit
+  end
+
+  def minutes_period_start
+    free_plan? ? Time.current.beginning_of_month : Time.current.beginning_of_week
+  end
+
+  def minutes_reset_on
+    free_plan? ? Date.current.next_month.beginning_of_month : Date.current.next_week(:monday)
+  end
+
+  def minutes_left
+    [minutes_limit - minutes_used, 0].max
   end
 
   def suspended?
@@ -145,7 +172,7 @@ class Account < ApplicationRecord
   end
 
   def can_stream?
-    !suspended? && !trial_expired? && !payment_due? && !weekly_limit_reached?
+    !suspended? && !minutes_limit_reached?
   end
 
   def yearly_price_cents
@@ -165,14 +192,14 @@ class Account < ApplicationRecord
     [billing_name, billing_address, billing_zip, billing_city, billing_phone, billing_email, country].all?(&:present?)
   end
 
-  def weekly_minutes_used
-    speaker_sessions.this_week.sum(
+  def minutes_used
+    speaker_sessions.where(started_at: minutes_period_start..).sum(
       Arel.sql("COALESCE(duration_seconds, EXTRACT(EPOCH FROM (NOW() - started_at))::integer)")
     ) / 60
   end
 
-  def weekly_limit_reached?
-    weekly_minutes_used >= weekly_minutes_limit
+  def minutes_limit_reached?
+    minutes_used >= minutes_limit
   end
 
   private

@@ -61,8 +61,9 @@ de:
         title: Tarif
         suspended: Pausiert
         suspended_note: Bitte kontaktieren Sie uns.
-        trial_over: Testzeit beendet
-        trial_over_note: Die Übertragung ist pausiert, bis die Zahlung eingeht.
+        free: "Kostenloser Tarif"
+        free_note: "%{minutes} Minuten im Monat, 1 Sprache."
+        upgrade: "Jetzt erweitern"
         trial_days:
           one: Noch 1 Testtag
           few: Noch %{count} Testtage
@@ -75,8 +76,10 @@ de:
         subscribe: Tarif buchen
       usage:
         title: Übertragung diese Woche
+        title_month: "Übertragung diesen Monat"
         minutes: "%{used} von %{limit} Min."
         reached: Wochenlimit erreicht. Wieder verfügbar ab %{date}.
+        reached_month: "Monatslimit erreicht. Wieder verfügbar ab %{date}."
         resets: Wird am %{date} zurückgesetzt.
       week:
         title: Diese Woche
@@ -245,6 +248,11 @@ de:
         few: Diese Woche noch %{count} Minuten
         many: Diese Woche noch %{count} Minuten
         other: Diese Woche noch %{count} Minuten
+      minutes_left_month:
+        one: "Diesen Monat noch %{count} Minute"
+        few: "Diesen Monat noch %{count} Minuten"
+        many: "Diesen Monat noch %{count} Minuten"
+        other: "Diesen Monat noch %{count} Minuten"
       listeners: Zuhörer gerade
       hears: Das hört Hutba gerade
       help_title: So geht's
@@ -258,7 +266,7 @@ de:
         live: Sie sind live. Sprechen Sie ganz normal.
         stopped: Übertragung beendet.
         rejected: Übertragung nicht möglich. Bitte melden Sie sich erneut an.
-        weekly_limit: Das Wochenlimit ist erreicht.
+        limit_reached: "Das Minutenlimit ist erreicht."
         unavailable: Die Übertragung ist für diese Gemeinde pausiert. Bitte wenden Sie sich an die Verwaltung.
         microphone_error: Kein Zugriff auf das Mikrofon.
         no_listeners: Noch niemand verbunden.
@@ -308,7 +316,7 @@ de:
           many: Ihr Test bei Hutba endet in %{count} Tagen
           other: Ihr Test bei Hutba endet in %{count} Tagen
           zero: Ihr Test bei Hutba endet heute
-        body: die kostenlose Testzeit für %{account} endet am %{date}. Damit die Übertragung am Freitag weiterläuft, buchen Sie jetzt den Jahrestarif.
+        body: "die kostenlose Testzeit für %{account} endet am %{date}. Buchen Sie den Jahrestarif, um 3 Sprachen und bis zu 3 Stunden pro Woche zu behalten. Sonst läuft Hutba im kostenlosen Tarif weiter: 80 Minuten im Monat, 1 Sprache."
       renewal:
         subject:
           one: Hutba für %{account} läuft morgen ab
@@ -316,7 +324,7 @@ de:
           many: Hutba für %{account} läuft in %{count} Tagen ab
           other: Hutba für %{account} läuft in %{count} Tagen ab
           zero: Hutba für %{account} läuft heute ab
-        body: das bezahlte Jahr für %{account} endet am %{date}. Verlängern Sie jetzt, damit die Übertragung ohne Unterbrechung weiterläuft.
+        body: "das bezahlte Jahr für %{account} endet am %{date}. Verlängern Sie jetzt, um alle Sprachen zu behalten. Sonst läuft Hutba im kostenlosen Tarif weiter: 80 Minuten im Monat, 1 Sprache."
       action: Jetzt bezahlen
       price: 'Jahrespreis: %{price}'
     custom_domain_dns:
@@ -354,7 +362,9 @@ de:
         account:
           attributes:
             languages:
-              too_many: Ihr Tarif umfasst %{count} Sprachen. Weitere Sprachen können Sie dazubuchen.
+              too_many:
+                one: "Ihr Tarif umfasst 1 Sprache. Weitere Sprachen können Sie dazubuchen."
+                other: "Ihr Tarif umfasst %{count} Sprachen. Weitere Sprachen können Sie dazubuchen."
   activemodel:
     attributes:
       signup:

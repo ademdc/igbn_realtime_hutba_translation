@@ -58,7 +58,7 @@ class TranslationChannel < ApplicationCable::Channel
       return reject unless connection.speaker?
 
       unless @account.can_stream?
-        transmit({ error: "streaming_unavailable", weekly_limit_reached: @account.weekly_limit_reached? })
+        transmit({ error: "streaming_unavailable", limit_reached: @account.minutes_limit_reached? })
         return reject
       end
 
