@@ -39,3 +39,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Contact lists for outreach stay local
+/marketing/outreach/
