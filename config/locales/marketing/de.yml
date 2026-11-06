@@ -18,7 +18,7 @@ de:
     hero:
       title: Die Freitagspredigt, für jede Generation verständlich.
       lead: Der Imam spricht wie gewohnt. Ihre Gemeinde liest die Hutba live auf dem Handy mit – auf Deutsch, Englisch, Niederländisch und weiteren Sprachen.
-      cta: 30 Tage kostenlos testen
+      cta: Kostenlos testen
       note: Keine Kreditkarte nötig. Einrichtung in 10 Minuten.
     demo:
       label: Live-Vorschau
@@ -62,7 +62,7 @@ de:
       - Eigene Adresse, z. B. ihr-dzemat.hutba.app
       - QR-Code-Plakate zum Ausdrucken
       addon: 'Weitere Sprache: +5 € pro Monat'
-      cta: 30 Tage kostenlos testen
+      cta: Kostenlos testen
       note: 'Nach dem Test entscheiden Sie. Keine automatische Verlängerung ohne Zahlung.'
       addon_domain: 'Eigene Domain: +5 € pro Monat'
       free:

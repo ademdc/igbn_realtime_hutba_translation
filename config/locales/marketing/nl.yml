@@ -18,7 +18,7 @@ nl:
     hero:
       title: De vrijdagpreek, begrijpelijk voor elke generatie.
       lead: De imam spreekt zoals altijd. Uw gemeenschap leest de khutba live mee op de telefoon – in het Nederlands, Duits, Engels en meer.
-      cta: 30 dagen gratis proberen
+      cta: Gratis proberen
       note: Geen creditcard nodig. In 10 minuten ingericht.
     demo:
       label: Live voorbeeld
@@ -62,7 +62,7 @@ nl:
       - Eigen adres, bijv. uw-moskee.hutba.app
       - QR-code posters om te printen
       addon: 'Extra taal: + € 5 per maand'
-      cta: 30 dagen gratis proberen
+      cta: Gratis proberen
       note: 'Na de proefperiode beslist u zelf. Niets wordt verlengd zonder betaling.'
       addon_domain: 'Eigen domein: + € 5 per maand'
       free:

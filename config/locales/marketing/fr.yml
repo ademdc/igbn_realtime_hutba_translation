@@ -18,7 +18,7 @@ fr:
     hero:
       title: Le sermon du vendredi, compris par chaque génération.
       lead: L'imam parle comme d'habitude. Votre communauté lit la khutba en direct sur son téléphone – en français, allemand, néerlandais et d'autres langues.
-      cta: Essayer gratuitement 30 jours
+      cta: Essayer gratuitement
       note: Sans carte bancaire. Prêt en 10 minutes.
     demo:
       label: Aperçu en direct
@@ -62,7 +62,7 @@ fr:
       - Votre propre adresse, p. ex. votre-mosquee.hutba.app
       - Affiches QR code à imprimer
       addon: 'Langue supplémentaire : +5 € par mois'
-      cta: Essayer gratuitement 30 jours
+      cta: Essayer gratuitement
       note: 'Vous décidez après l''essai. Rien n''est renouvelé sans paiement.'
       addon_domain: 'Domaine propre : +5 € par mois'
       free:

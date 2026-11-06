@@ -18,7 +18,7 @@ en:
     hero:
       title: The Friday sermon, understood by every generation.
       lead: The imam speaks as always. Your congregation reads the khutbah live on their phones – in English, German, Dutch and more.
-      cta: Try free for 30 days
+      cta: Try it free
       note: No credit card. Set up in 10 minutes.
     demo:
       label: Live preview
@@ -62,7 +62,7 @@ en:
       - Your own address, e.g. your-dzemat.hutba.app
       - Printable QR code posters
       addon: 'Extra language: +€5 per month'
-      cta: Try free for 30 days
+      cta: Try it free
       note: 'You decide after the trial. Nothing renews without payment.'
       addon_domain: 'Own domain: +€5 per month'
       free:

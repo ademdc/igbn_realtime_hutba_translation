@@ -18,7 +18,7 @@ tr:
     hero:
       title: Cuma hutbesi, her nesil için anlaşılır.
       lead: İmam her zamanki gibi konuşur. Cemaatiniz hutbeyi telefonundan canlı okur – Almanca, İngilizce, Felemenkçe ve diğer dillerde.
-      cta: 30 gün ücretsiz deneyin
+      cta: Ücretsiz deneyin
       note: Kredi kartı gerekmez. 10 dakikada kurulum.
     demo:
       label: Canlı önizleme
@@ -62,7 +62,7 @@ tr:
       - Size özel adres, ör. camiiniz.hutba.app
       - Yazdırılabilir QR kod afişleri
       addon: 'Ek dil: ayda +5 €'
-      cta: 30 gün ücretsiz deneyin
+      cta: Ücretsiz deneyin
       note: 'Deneme süresinden sonra siz karar verirsiniz. Ödeme yapılmadan hiçbir şey uzatılmaz.'
       addon_domain: 'Kendi alan adınız: ayda +5 €'
       free:
