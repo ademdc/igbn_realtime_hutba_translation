@@ -29,7 +29,7 @@ class BankTransferTest < ActionDispatch::IntegrationTest
     assert_includes owner_mail.to, "owner@demo.test"
     assert_includes owner_mail.text_part.body.to_s, "BA39 1610 0002 8865 0089"
     assert_includes owner_mail.text_part.body.to_s, payment.reference
-    assert_equal [Rails.configuration.x.contact_email], admin_mail.to
+    assert_equal ["info@everline.io"], admin_mail.to
 
     follow_redirect!
     assert_select "#transfer code", /#{payment.reference}/

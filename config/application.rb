@@ -42,6 +42,8 @@ module IgbdTranslationsApp
 
     config.x.contact_email = ENV.fetch("CONTACT_EMAIL", "hello@hutba.app")
     config.x.mail_from = ENV.fetch("MAIL_FROM", "Hutba <#{config.x.contact_email}>")
+    # Where notices for the people running Hutba go (e.g. bank transfers to confirm)
+    config.x.admin_email = ENV.fetch("ADMIN_EMAIL", "info@everline.io")
 
     # Bank account shown to mosques that pay by transfer
     config.x.bank_transfer = {
